@@ -9,7 +9,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "External", "External", "{B4
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Application", "Core\Clinic.Application\Clinic.Application.csproj", "{F19A5DE0-5584-454F-A5A9-818E832D71BF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Domain", "Core\Clinic.Domain\Clinic.Domain.csproj", "{4DD42C12-1D63-46B2-888E-522915616162}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Domain", "Core\Clinic.Domain\Clinic.Domain.csproj", "{4DD42C12-1D63-46B2-888E-522915616162}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Common", "Common", "{9B959EAF-9570-4282-A742-E78C83C75C09}"
 EndProject
@@ -17,7 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastru
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Presentation", "Presentation", "{4DFA648A-3B8A-424A-92D0-B6EFD7423028}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Configuration", "External\Common\Clinic.Configuration\Clinic.Configuration.csproj", "{C8F00008-DD4B-455B-8923-A20CEEF9080A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Configuration", "External\Common\Clinic.Configuration\Clinic.Configuration.csproj", "{C8F00008-DD4B-455B-8923-A20CEEF9080A}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "FileObjectStorage", "FileObjectStorage", "{90724F2C-6B97-4622-8DA2-59DDF8DAA1BF}"
 EndProject
@@ -31,17 +31,29 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Cache", "Cache", "{25385D18
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Relational", "Relational", "{857FAA37-3730-41D1-9D3F-F247FC59F31F}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Redis", "External\Infrastructure\Persistence\Cache\Clinic.Redis\Clinic.Redis.csproj", "{30F88CB0-71CD-47FC-B1F1-A54D9E6164C8}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Redis", "External\Infrastructure\Persistence\Cache\Clinic.Redis\Clinic.Redis.csproj", "{30F88CB0-71CD-47FC-B1F1-A54D9E6164C8}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.MySQL", "External\Infrastructure\Persistence\Relational\Clinic.MySQL\Clinic.MySQL.csproj", "{A2C319CE-6CE4-4311-9BD6-C42645720EDE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.MySQL", "External\Infrastructure\Persistence\Relational\Clinic.MySQL\Clinic.MySQL.csproj", "{A2C319CE-6CE4-4311-9BD6-C42645720EDE}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.MailKit", "External\Infrastructure\Notification\Mail\Clinic.MailKit\Clinic.MailKit.csproj", "{3386CDE8-E0FF-4753-8DCA-968CCA245B39}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.MailKit", "External\Infrastructure\Notification\Mail\Clinic.MailKit\Clinic.MailKit.csproj", "{3386CDE8-E0FF-4753-8DCA-968CCA245B39}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Image", "Image", "{582E7EC1-EC2D-4F92-AF5C-20B25E0E4DB1}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.ImageCloudinary", "External\Infrastructure\FileObjectStorage\Image\Clinic.ImageCloudinary\Clinic.ImageCloudinary.csproj", "{5427AFEB-24A1-41F7-9C18-ACA6CDD47438}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.ImageCloudinary", "External\Infrastructure\FileObjectStorage\Image\Clinic.ImageCloudinary\Clinic.ImageCloudinary.csproj", "{5427AFEB-24A1-41F7-9C18-ACA6CDD47438}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.WebAPI", "External\Presentation\Clinic.WebAPI\Clinic.WebAPI.csproj", "{A3797539-1209-408E-A308-91C4F31C9C61}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.WebAPI", "External\Presentation\Clinic.WebAPI\Clinic.WebAPI.csproj", "{A3797539-1209-408E-A308-91C4F31C9C61}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{65F463C5-7E09-446F-BDA5-242ADD13338E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{B4E69310-23A6-4701-A023-5AAED90935C5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Application.UnitTests", "..\test\Clinic.Application.UnitTests\Clinic.Application.UnitTests.csproj", "{0783177D-19F6-46FC-834B-E57EF9942DC3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Domain.UnitTests", "..\test\Clinic.Domain.UnitTests\Clinic.Domain.UnitTests.csproj", "{0C7424C8-37B5-481B-8CBE-21A279EE15A9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Presentation.IntergrationTest", "..\test\Clinic.Presentation.IntergrationTest\Clinic.Presentation.IntergrationTest.csproj", "{924CA363-2EA8-4BC3-9A26-5C69E6B6E901}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Infrastructure.IntegrationTests", "..\test\Clinic.Infrastructure.IntegrationTests\Clinic.Infrastructure.IntegrationTests.csproj", "{199E0A2C-5C1C-491A-A07E-D7F7A23DDB0E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -81,11 +93,29 @@ Global
 		{A3797539-1209-408E-A308-91C4F31C9C61}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A3797539-1209-408E-A308-91C4F31C9C61}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A3797539-1209-408E-A308-91C4F31C9C61}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0783177D-19F6-46FC-834B-E57EF9942DC3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0783177D-19F6-46FC-834B-E57EF9942DC3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0783177D-19F6-46FC-834B-E57EF9942DC3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0783177D-19F6-46FC-834B-E57EF9942DC3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0C7424C8-37B5-481B-8CBE-21A279EE15A9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C7424C8-37B5-481B-8CBE-21A279EE15A9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C7424C8-37B5-481B-8CBE-21A279EE15A9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C7424C8-37B5-481B-8CBE-21A279EE15A9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{924CA363-2EA8-4BC3-9A26-5C69E6B6E901}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{924CA363-2EA8-4BC3-9A26-5C69E6B6E901}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{924CA363-2EA8-4BC3-9A26-5C69E6B6E901}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{924CA363-2EA8-4BC3-9A26-5C69E6B6E901}.Release|Any CPU.Build.0 = Release|Any CPU
+		{199E0A2C-5C1C-491A-A07E-D7F7A23DDB0E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{199E0A2C-5C1C-491A-A07E-D7F7A23DDB0E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{199E0A2C-5C1C-491A-A07E-D7F7A23DDB0E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{199E0A2C-5C1C-491A-A07E-D7F7A23DDB0E}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
+		{E2C150D0-B8F5-4C8D-BFFC-6AC48404CFE5} = {65F463C5-7E09-446F-BDA5-242ADD13338E}
+		{B4518C1C-382D-4A9E-91D3-9BFC796855ED} = {65F463C5-7E09-446F-BDA5-242ADD13338E}
 		{F19A5DE0-5584-454F-A5A9-818E832D71BF} = {E2C150D0-B8F5-4C8D-BFFC-6AC48404CFE5}
 		{4DD42C12-1D63-46B2-888E-522915616162} = {E2C150D0-B8F5-4C8D-BFFC-6AC48404CFE5}
 		{9B959EAF-9570-4282-A742-E78C83C75C09} = {B4518C1C-382D-4A9E-91D3-9BFC796855ED}
@@ -104,6 +134,10 @@ Global
 		{582E7EC1-EC2D-4F92-AF5C-20B25E0E4DB1} = {90724F2C-6B97-4622-8DA2-59DDF8DAA1BF}
 		{5427AFEB-24A1-41F7-9C18-ACA6CDD47438} = {582E7EC1-EC2D-4F92-AF5C-20B25E0E4DB1}
 		{A3797539-1209-408E-A308-91C4F31C9C61} = {4DFA648A-3B8A-424A-92D0-B6EFD7423028}
+		{0783177D-19F6-46FC-834B-E57EF9942DC3} = {B4E69310-23A6-4701-A023-5AAED90935C5}
+		{0C7424C8-37B5-481B-8CBE-21A279EE15A9} = {B4E69310-23A6-4701-A023-5AAED90935C5}
+		{924CA363-2EA8-4BC3-9A26-5C69E6B6E901} = {B4E69310-23A6-4701-A023-5AAED90935C5}
+		{199E0A2C-5C1C-491A-A07E-D7F7A23DDB0E} = {B4E69310-23A6-4701-A023-5AAED90935C5}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57676846-8CE4-4665-BA4C-2AEACCFDCFAE}
