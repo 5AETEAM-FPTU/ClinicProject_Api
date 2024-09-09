@@ -2,14 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
-    <Nullable>enable</Nullable>
-    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>disable</Nullable>
+    <ImplicitUsings>disable</ImplicitUsings>
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="FastEndpoints" Version="5.29.0" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\Infrastructure\FileObjectStorage\Image\Clinic.ImageCloudinary\Clinic.ImageCloudinary.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Notification\Mail\Clinic.MailKit\Clinic.MailKit.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Persistence\Cache\Clinic.Redis\Clinic.Redis.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Persistence\Relational\Clinic.MySQL\Clinic.MySQL.csproj" />
   </ItemGroup>
 
 </Project>
