@@ -32,7 +32,7 @@ internal sealed class HelloWorldEndpoint : Endpoint<HelloWorldRequest, HelloWorl
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = HelloWorldResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
-                    Body = new HelloWorldResponse.Body() { Description = "string" }
+                    Body = new HelloWorldResponse.Body() { Description = "string1" }
                 }
             );
         });

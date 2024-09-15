@@ -7,7 +7,7 @@ namespace Clinic.Domain.Commons.Entities.Base;
 ///     about the person removing the entity temporarily
 ///     and the time is it temporarily removed.
 /// </summary>
-internal abstract class ITemporarilyRemovedEntity
+internal interface ITemporarilyRemovedEntity
 {
     /// <summary>
     ///     When is entity temporarily removed.

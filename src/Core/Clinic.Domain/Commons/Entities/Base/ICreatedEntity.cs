@@ -7,7 +7,7 @@ namespace Clinic.Domain.Commons.Entities.Base;
 ///     about the person creating the entity and the time
 ///     is it created.
 /// </summary>
-internal abstract class ICreatedEntity
+internal interface ICreatedEntity
 {
     /// <summary>
     ///     When is entity created.

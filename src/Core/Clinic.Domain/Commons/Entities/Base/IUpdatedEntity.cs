@@ -7,7 +7,7 @@ namespace Clinic.Domain.Commons.Entities.Base;
 ///     about the person updating the entity and the time
 ///     is it updated.
 /// </summary>
-internal abstract class IUpdatedEntity
+internal interface IUpdatedEntity
 {
     /// <summary>
     ///     When is entity updated.

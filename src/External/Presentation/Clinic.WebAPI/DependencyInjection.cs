@@ -21,6 +21,13 @@ internal static class DependencyInjection
         IConfigurationManager configuration
     )
     {
+        services.ConfigAuthentication(configuration: configuration);
+        services.ConfigAuthorization();
+        services.ConfigLogging();
+        services.ConfigCors();
         services.ConfigCore(configuration: configuration);
+        services.ConfigRateLimiter(configuration: configuration);
+        services.ConfigSwagger(configuration: configuration);
+        services.ConfigResponseCaching();
     }
 }
