@@ -1,22 +1,25 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Auths.Login;
+using Clinic.Application.Features.Auths.ForgotPassword;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Auths.Login.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Auths.ForgotPassword.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Auths.Login;
+namespace Clinic.WebAPI.EndPoints.Auths.ForgotPassword;
 
 /// <summary>
-///     Login endpoint.
+///     ForgotPassword endpoint.
 /// </summary>
-internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
+internal sealed class ForgotPasswordEndpoint
+    : Endpoint<ForgotPasswordRequest, ForgotPasswordHttpResponse>
 {
     public override void Configure()
     {
-        PreProcessor<ValidationPreProcessor<LoginRequest>>();
-        Post(routePatterns: "auth/login");
+        Post(routePatterns: "auth/forgot-password");
+        PreProcessor<ValidationPreProcessor<ForgotPasswordRequest>>();
+        AllowAnonymous();
+        DontThrowIfValidationFails();
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
@@ -24,27 +27,22 @@ internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Login feature";
-            summary.Description = "This endpoint is used for Login purpose.";
-            summary.ExampleRequest = new() { Username = "string", Password = "string", };
-            summary.Response<LoginHttpResponse>(
+            summary.Summary = "Endpoint for sending reset password OTP code.";
+            summary.Description = "This endpoint is used for forgot password purpose.";
+            summary.ExampleRequest = new() { Email = "string", };
+            summary.Response<ForgotPasswordHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
-                    Body = new LoginResponse.Body()
-                    {
-                        AccessToken = "string",
-                        RefreshToken = "string",
-                    }
+                    AppCode = ForgotPasswordResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<LoginHttpResponse> ExecuteAsync(
-        LoginRequest req,
+    public override async Task<ForgotPasswordHttpResponse> ExecuteAsync(
+        ForgotPasswordRequest req,
         CancellationToken ct
     )
     {
@@ -52,7 +50,7 @@ internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
         var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = LoginHttpResponseMapper
+        var httpResponse = ForgotPasswordHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

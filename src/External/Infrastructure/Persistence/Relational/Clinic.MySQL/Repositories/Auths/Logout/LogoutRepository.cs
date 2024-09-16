@@ -6,7 +6,7 @@ using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.Auths.Authorization;
+namespace Clinic.MySQL.Repositories.Auths.Logout;
 
 /// <summary>
 ///     Implement for Logout Repository

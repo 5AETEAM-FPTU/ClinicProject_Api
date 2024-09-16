@@ -7,7 +7,7 @@ namespace Clinic.Domain.Features.Repositories.Auths.Logout;
 /// <summary>
 ///     Interface for Logout Repository
 /// </summary>
-public partial interface ILogoutRepository
+public interface ILogoutRepository
 {
     Task<bool> RemoveRefreshTokenCommandAsync(
         Guid accessTokenId,

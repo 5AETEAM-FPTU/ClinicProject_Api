@@ -15,7 +15,7 @@ internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse
 {
     public override void Configure()
     {
-        Post(routePatterns: "logout");
+        Post(routePatterns: "auth/logout");
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
