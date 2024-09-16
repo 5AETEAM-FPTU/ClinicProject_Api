@@ -1,36 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
-using Clinic.Application.Features.Auths.Logout;
+using Clinic.Application.Features.Auths.ForgotPassword;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Auths.Logout.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Auths.ForgotPassword.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for Logout feature
+///     Mapper for ForgotPassword feature
 /// </summary>
-public class LogoutHttpResponseManager
+public class ForgotPasswordHttpResponseManager
 {
     private readonly Dictionary<
-        LogoutResponseStatusCode,
-        Func<LogoutRequest, LogoutResponse, LogoutHttpResponse>
+        ForgotPasswordResponseStatusCode,
+        Func<ForgotPasswordRequest, ForgotPasswordResponse, ForgotPasswordHttpResponse>
     > _dictionary;
 
-    internal LogoutHttpResponseManager()
+    internal ForgotPasswordHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: LogoutResponseStatusCode.OPERATION_SUCCESS,
+            key: ForgotPasswordResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = response.StatusCode.ToAppCode(),
+                    Body = response.ResponseBody
                 }
         );
 
         _dictionary.Add(
-            key: LogoutResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: ForgotPasswordResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -40,9 +41,11 @@ public class LogoutHttpResponseManager
         );
     }
 
-    internal Func<LogoutRequest, LogoutResponse, LogoutHttpResponse> Resolve(
-        LogoutResponseStatusCode statusCode
-    )
+    internal Func<
+        ForgotPasswordRequest,
+        ForgotPasswordResponse,
+        ForgotPasswordHttpResponse
+    > Resolve(ForgotPasswordResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Commons.Others;
 using Clinic.MySQL.Data.Context;
@@ -42,10 +41,9 @@ public class AuthorizationRepository : IAuthorizationRepository
     )
     {
         return _patients.AnyAsync(
-            predicate: patient =>
-                patient.UserId == userId
-                && patient.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-                && patient.RemovedAt != CommonConstant.MIN_DATE_TIME,
+            predicate: patient => patient.UserId == userId,
+            //&& patient.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            //&& patient.RemovedAt != CommonConstant.MIN_DATE_TIME,
             cancellationToken: cancellationToken
         );
     }

@@ -8,7 +8,7 @@ namespace Clinic.Domain.Features.Repositories.Auths.Login;
 /// <summary>
 ///     Interface for Login Repository
 /// </summary>
-public partial interface ILoginRepository
+public interface ILoginRepository
 {
     Task<bool> IsUserTemporarilyRemovedQueryAsync(Guid userId, CancellationToken cancellationToken);
 
