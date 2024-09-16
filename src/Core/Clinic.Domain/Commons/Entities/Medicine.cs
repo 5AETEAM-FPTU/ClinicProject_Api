@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
@@ -18,6 +19,7 @@ public class Medicine : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporaril
     // Navigation properties.
     public MedicineType MedicineType { get; set; }
     public MedicineGroup MedicineGroup { get; set; }
+    public IEnumerable<MedicineOrderItems>  MedicineOrderItems { get; set; }
 
     // Normal columns.
     public DateTime UpdatedAt { get; set; }
