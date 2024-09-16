@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <PackageReference Include="Microsoft.IdentityModel.JsonWebTokens" Version="8.0.2" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\..\..\Core\Clinic.Application\Clinic.Application.csproj" />
     <ProjectReference Include="..\..\..\Common\Clinic.Configuration\Clinic.Configuration.csproj" />
   </ItemGroup>

@@ -1,6 +1,7 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Features.HelloWorld;
+using Clinic.WebAPI.Commons.Behaviors.Validation;
 using Clinic.WebAPI.EndPoints.HelloWorld.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
@@ -14,8 +15,9 @@ internal sealed class HelloWorldEndpoint : Endpoint<HelloWorldRequest, HelloWorl
 {
     public override void Configure()
     {
+        PreProcessor<ValidationPreProcessor<HelloWorldRequest>>();
         Post(routePatterns: "hello-world");
-        AllowAnonymous();
+        //AllowAnonymous();
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
