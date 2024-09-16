@@ -24,6 +24,17 @@ public class UnitOfWork : IUnitOfWork
     private ILogoutRepository _logoutRepository;
     private IForgotPasswordRepository _forgotPasswordRepository;
 
+    public UnitOfWork(
+        ClinicContext context,
+        RoleManager<Role> roleManager,
+        UserManager<User> userManager
+    )
+    {
+        _context = context;
+        _roleManager = roleManager;
+        _userManager = userManager;
+    }
+
     public ILoginRepository LoginRepository
     {
         get { return _loginRepository ??= new LoginRepository(_context); }

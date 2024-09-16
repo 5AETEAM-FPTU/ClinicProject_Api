@@ -1,5 +1,5 @@
-﻿using Clinic.Domain.Commons.Entities.Base;
-using System;
+﻿using System;
+using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -29,8 +29,6 @@ public class QueueRoom : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity,
 
     public Guid RemovedBy { get; set; }
 
-
     // Navigation properties.
     public Patient Patient { get; set; }
-    public ChatRoom ChatRoom { get; set; }
 }
