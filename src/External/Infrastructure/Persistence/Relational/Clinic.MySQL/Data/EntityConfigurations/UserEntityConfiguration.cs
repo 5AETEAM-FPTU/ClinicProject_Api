@@ -31,6 +31,25 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
             .HasForeignKey(foreignKeyExpression: userToken => userToken.UserId)
             .IsRequired();
 
-        // [Users] - [UserDetails] (1 - 1).
+        // [Users] - [ChatContent] (1 - N).
+        builder
+            .HasMany(navigationExpression: user => user.ChatContents)
+            .WithOne(navigationExpression: chatContent => chatContent.User)
+            .HasForeignKey(foreignKeyExpression: chatContent => chatContent.SenderId)
+            .IsRequired();
+
+        // [Users] - [Doctor] (1 - 1).
+        builder
+            .HasOne(navigationExpression: user => user.Doctor)
+            .WithOne(navigationExpression: doctor => doctor.User)
+            .HasForeignKey<Doctor>(foreignKeyExpression: doctor => doctor.Id)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
+        
+        // [Users] - [Patient] (1 - 1).
+        builder
+            .HasOne(navigationExpression: user => user.Patient)
+            .WithOne(navigationExpression: patient => patient.User)
+            .HasForeignKey<Patient>(foreignKeyExpression: patient => patient.Id)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
     }
 }

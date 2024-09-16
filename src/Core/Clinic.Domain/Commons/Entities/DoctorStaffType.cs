@@ -37,6 +37,6 @@ public class DoctorStaffType : IBaseEntity, ICreatedEntity, ITemporarilyRemovedE
     public Guid RemovedBy { get; set; }
 
     // Navigation properties.
-    public Doctor Doctor { get; set; }
+    public IEnumerable<Doctor> Doctors { get; set; }
     public User User { get; set; }
 }
