@@ -1,10 +1,7 @@
 ﻿using Clinic.Domain.Commons.Entities.Base;
-using Microsoft.AspNetCore.Identity;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -49,7 +46,10 @@ public class Patient : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, I
     public IEnumerable<OnlinePayment> OnlinePayments { get; set; }
     public IEnumerable<Appointment> Appointments { get; set; }
     public IEnumerable<PatientBookedAppointment> PatientBookAppointments { get; set; }
+    public IEnumerable<MedicalReport> MedicalReports { get; set; }
+    public IEnumerable<QueueRoom> QueueRooms { get; set; }
+    public IEnumerable<ChatRoom> ChatRooms { get; set; }   
     public User User { get; set; }
-    // them medical report vao
+    
 }
 

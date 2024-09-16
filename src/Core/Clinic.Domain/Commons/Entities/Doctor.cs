@@ -1,9 +1,6 @@
 ﻿using Clinic.Domain.Commons.Entities.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -54,5 +51,7 @@ public class Doctor : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IU
 
     // Navigation properties.
     public DoctorStaffType DoctorStaffType { get; set; }
-    public IEnumerable<WorkingHour> WorkingHour { get; set; }
+    public User User { get; set; }
+    public IEnumerable<WorkingHour> WorkingHours { get; set; }
+    public IEnumerable<ChatRoom> ChatRooms { get; set; }
 }

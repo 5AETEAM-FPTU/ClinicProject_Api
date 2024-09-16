@@ -51,5 +51,6 @@ public class User : IdentityUser<Guid>, IBaseEntity
     }
     //Navigation properties.
     public Patient Patient { get; set; }
-    public Doctor Doctor { get; set; }  
+    public Doctor Doctor { get; set; }
+    public IEnumerable<ChatContent> ChatContents { get; set; }
 }

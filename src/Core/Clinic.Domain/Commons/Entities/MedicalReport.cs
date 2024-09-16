@@ -13,11 +13,13 @@ public class MedicalReport : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempo
     public Guid Id { get; set; }
 
     // Foreign keys.
-    /* Thiếu patient */
+    public Guid PatientId { get; set; }
 
     // Navigation properties.
     public IEnumerable<ServiceOrderItems> ServiceOrderItems { get; set; }
     public IEnumerable<MedicineOrderItems> MedicineOrderItems { get; set; }
+    public Patient Patient { get; set; }
+    public Appointment Appointment { get; set; }
 
     // Normal columns.
     public DateTime UpdatedAt { get; set; }
