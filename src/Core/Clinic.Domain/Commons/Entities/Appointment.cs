@@ -1,9 +1,6 @@
 ﻿using Clinic.Domain.Commons.Entities.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -54,6 +51,7 @@ public class Appointment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntit
     public OnlinePayment OnlinePayment { get; set; }
     public Patient Patient { get; set; }
     public WorkingHour WorkingHour { get; set; }    
+    public MedicalReport MedicalReport { get; set; }
     public IEnumerable<PatientBookedAppointment> PatientBookedAppointments { get; set; }
     // them medical report
 }

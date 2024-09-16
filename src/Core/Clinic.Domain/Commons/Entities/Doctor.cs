@@ -1,9 +1,6 @@
 ﻿using Clinic.Domain.Commons.Entities.Base;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -21,8 +18,6 @@ public class Doctor : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IU
     public Guid DoctorStaffTypeId { get; set; }
 
     // Normal columns.
-    public string FullName { get; set; }
-
     public string Gender { get; set; }
 
     public DateTime DOB { get; set; }
@@ -35,24 +30,12 @@ public class Doctor : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IU
 
     public string Description { get; set; }
 
-    public string Avatar { get; set; }
-
     public string Achievement { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-
-    public Guid CreatedBy { get; set; }
-
-    public DateTime UpdatedAt { get; set; }
-
-    public Guid UpdatedBy { get; set; }
-
-    public DateTime RemovedAt { get; set; }
-
-    public Guid RemovedBy { get; set; }
 
 
     // Navigation properties.
     public DoctorStaffType DoctorStaffType { get; set; }
-    public IEnumerable<WorkingHour> WorkingHour { get; set; }
+    public User User { get; set; }
+    public IEnumerable<WorkingHour> WorkingHours { get; set; }
+    public IEnumerable<ChatRoom> ChatRooms { get; set; }
 }
