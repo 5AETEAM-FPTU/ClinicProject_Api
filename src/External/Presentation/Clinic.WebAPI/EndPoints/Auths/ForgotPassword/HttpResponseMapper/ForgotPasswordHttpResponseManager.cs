@@ -30,8 +30,48 @@ public class ForgotPasswordHttpResponseManager
         );
 
         _dictionary.Add(
+            key: ForgotPasswordResponseStatusCode.INPUT_VALIDATION_FAIL,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
             key: ForgotPasswordResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status500InternalServerError,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
+            key: ForgotPasswordResponseStatusCode.USER_IS_TEMPORARILY_REMOVED,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status417ExpectationFailed,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: ForgotPasswordResponseStatusCode.USER_WITH_EMAIL_IS_NOT_FOUND,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: ForgotPasswordResponseStatusCode.SENDING_USER_RESET_PASSWORD_MAIL_FAIL,
+            value: (request, response) =>
                 new()
                 {
                     HttpCode = StatusCodes.Status500InternalServerError,

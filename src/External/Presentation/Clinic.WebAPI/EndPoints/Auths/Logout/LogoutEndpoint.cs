@@ -4,6 +4,7 @@ using Clinic.Application.Features.Auths.Logout;
 using Clinic.WebAPI.EndPoints.Auths.Logout.Common;
 using Clinic.WebAPI.EndPoints.Auths.Logout.HttpResponseMapper;
 using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Auths.Logout;
@@ -16,6 +17,7 @@ internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse
     public override void Configure()
     {
         Post(routePatterns: "auth/logout");
+        AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
