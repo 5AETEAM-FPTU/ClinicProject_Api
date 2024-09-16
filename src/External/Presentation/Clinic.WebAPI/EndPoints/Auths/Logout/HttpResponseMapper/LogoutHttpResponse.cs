@@ -1,20 +1,19 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Clinic.Application.Features.HelloWorld;
+using Clinic.Application.Features.Auths.Logout;
 
-namespace Clinic.WebAPI.EndPoints.HelloWorld.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Auths.Logout.HttpResponseMapper;
 
 /// <summary>
-///     HelloWorld http response
+///     Logout http response
 /// </summary>
-internal sealed class HelloWorldHttpResponse
+internal sealed class LogoutHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
-    public string AppCode { get; init; } =
-        HelloWorldResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+    public string AppCode { get; init; } = LogoutResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(
