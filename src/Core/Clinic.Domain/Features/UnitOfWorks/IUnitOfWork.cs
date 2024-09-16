@@ -1,4 +1,5 @@
 ﻿using Clinic.Domain.Features.Repositories.Auths.Login;
+using Clinic.Domain.Features.Repositories.Auths.Logout;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -11,4 +12,9 @@ public interface IUnitOfWork
     ///    Login repository feature.
     /// </summary>
     public ILoginRepository LoginRepository { get; }
+
+    /// <summary>
+    ///    Logout repository feature.
+    /// </summary>
+    public ILogoutRepository LogoutRepository { get; }
 }
