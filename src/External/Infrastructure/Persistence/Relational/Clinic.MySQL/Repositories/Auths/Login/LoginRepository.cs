@@ -4,7 +4,6 @@ using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Commons.Others;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;

@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using Clinic.Application.Features.HelloWorld;
+using Clinic.Application.Features.Auths.Logout;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.HelloWorld.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Auths.Logout.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for HelloWorld feature
+///     Mapper for Logout feature
 /// </summary>
-public class HelloWorldHttpResponseManager
+public class LogoutHttpResponseManager
 {
     private readonly Dictionary<
-        HelloWorldResponseStatusCode,
-        Func<HelloWorldRequest, HelloWorldResponse, HelloWorldHttpResponse>
+        LogoutResponseStatusCode,
+        Func<LogoutRequest, LogoutResponse, LogoutHttpResponse>
     > _dictionary;
 
-    internal HelloWorldHttpResponseManager()
+    internal LogoutHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: HelloWorldResponseStatusCode.OPERATION_SUCCESS,
+            key: LogoutResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -30,7 +30,7 @@ public class HelloWorldHttpResponseManager
         );
 
         _dictionary.Add(
-            key: HelloWorldResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: LogoutResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -40,8 +40,8 @@ public class HelloWorldHttpResponseManager
         );
     }
 
-    internal Func<HelloWorldRequest, HelloWorldResponse, HelloWorldHttpResponse> Resolve(
-        HelloWorldResponseStatusCode statusCode
+    internal Func<LogoutRequest, LogoutResponse, LogoutHttpResponse> Resolve(
+        LogoutResponseStatusCode statusCode
     )
     {
         return _dictionary[statusCode];
