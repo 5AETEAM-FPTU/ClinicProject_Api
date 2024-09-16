@@ -57,7 +57,7 @@ internal sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse
     public async Task<LoginResponse> ExecuteAsync(LoginRequest command, CancellationToken ct)
     {
         // Find user by username.
-        var foundUser = await _userManager.FindByEmailAsync(email: command.Username);
+        var foundUser = await _userManager.FindByNameAsync(userName: command.Username);
 
         // User with username does not exist.
         if (Equals(objA: foundUser, objB: default))
@@ -148,7 +148,7 @@ internal sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse
         // Generate access token.
         var newAccessToken = _accessTokenHandler.GenerateSigningToken(claims: userClaims);
 
-        var userDetail = await _unitOfWork.LoginRepository.GetUserByUserIdQueryAsync(
+        var user = await _unitOfWork.LoginRepository.GetUserByUserIdQueryAsync(
             userId: foundUser.Id,
             cancellationToken: ct
         );
@@ -163,9 +163,8 @@ internal sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse
                 User = new()
                 {
                     Email = foundUser.Email,
-                    //AvatarUrl = userDetail.AvatarUrl,
-                    //FirstName = userDetail.FirstName,
-                    //LastName = userDetail.LastName
+                    AvatarUrl = user.Avatar,
+                    FullName = user.FullName,
                 }
             }
         };

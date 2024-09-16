@@ -81,7 +81,7 @@ public static class ClinicDataSeeding
                     }
 
                     // Init admin.
-                    await userManager.CreateAsync(user: admin, password: "Zxcl123123@");
+                    await userManager.CreateAsync(user: admin, password: "Admin123@");
 
                     await userManager.AddToRoleAsync(user: admin, role: "admin");
 

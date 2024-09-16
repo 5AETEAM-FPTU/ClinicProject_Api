@@ -25,9 +25,7 @@ public sealed class LoginResponse : IFeatureResponse
 
             public string AvatarUrl { get; init; }
 
-            public string FirstName { get; init; }
-
-            public string LastName { get; init; }
+            public string FullName { get; init; }
         }
     }
 }
