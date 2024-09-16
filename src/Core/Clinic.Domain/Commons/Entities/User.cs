@@ -49,4 +49,7 @@ public class User : IdentityUser<Guid>, IBaseEntity
             public const int MaxLength = 11;
         }
     }
+    //Navigation properties.
+    public Patient Patient { get; set; }
+    public Doctor Doctor { get; set; }  
 }
