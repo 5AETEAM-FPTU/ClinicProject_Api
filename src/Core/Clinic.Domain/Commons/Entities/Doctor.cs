@@ -8,7 +8,7 @@ namespace Clinic.Domain.Commons.Entities;
 /// <summary>
 ///     Represent the "Doctors" table.
 /// </summary>
-public class Doctor : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IUpdatedEntity
+public class Doctor : IBaseEntity
 {
     // Primary keys.
     // Foreign keys.
