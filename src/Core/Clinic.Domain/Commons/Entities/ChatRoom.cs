@@ -1,6 +1,6 @@
-﻿using Clinic.Domain.Commons.Entities.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -30,10 +30,8 @@ public class ChatRoom : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, 
 
     public Guid RemovedBy { get; set; }
 
-
     // Navigation properties.
     public IEnumerable<ChatContent> ChatContents { get; set; }
-    public QueueRoom QueueRoom { get; set; }
     public Patient Patient { get; set; }
-    public Doctor Doctor { get; set; }  
+    public Doctor Doctor { get; set; }
 }
