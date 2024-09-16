@@ -18,8 +18,6 @@ public class Doctor : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IU
     public Guid DoctorStaffTypeId { get; set; }
 
     // Normal columns.
-    public string FullName { get; set; }
-
     public string Gender { get; set; }
 
     public DateTime DOB { get; set; }
@@ -32,21 +30,7 @@ public class Doctor : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IU
 
     public string Description { get; set; }
 
-    public string Avatar { get; set; }
-
     public string Achievement { get; set; }
-
-    public DateTime CreatedAt { get; set; }
-
-    public Guid CreatedBy { get; set; }
-
-    public DateTime UpdatedAt { get; set; }
-
-    public Guid UpdatedBy { get; set; }
-
-    public DateTime RemovedAt { get; set; }
-
-    public Guid RemovedBy { get; set; }
 
 
     // Navigation properties.

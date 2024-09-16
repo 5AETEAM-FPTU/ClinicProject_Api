@@ -8,7 +8,7 @@ namespace Clinic.Domain.Commons.Entities;
 /// <summary>
 ///     Represent the "Users" table.
 /// </summary>
-public class User : IdentityUser<Guid>, IBaseEntity
+public class User : IdentityUser<Guid>, IBaseEntity, , ICreatedEntity, ITemporarilyRemovedEntity, IUpdatedEntity
 {
     // Navigation properties.
 
@@ -49,8 +49,26 @@ public class User : IdentityUser<Guid>, IBaseEntity
             public const int MaxLength = 11;
         }
     }
+
+    //Normal column
+    public DateTime CreatedAt { get; set; }
+
+    public Guid CreatedBy { get; set; }
+
+    public DateTime UpdatedAt { get; set; }
+
+    public Guid UpdatedBy { get; set; }
+
+    public DateTime RemovedAt { get; set; }
+
+    public Guid RemovedBy { get; set; }
+
     //Navigation properties.
     public Patient Patient { get; set; }
     public Doctor Doctor { get; set; }
     public IEnumerable<ChatContent> ChatContents { get; set; }
+
+    //Normal properties
+    public string FullName { get; set; }
+    public string Avatar { get; set; }
 }
