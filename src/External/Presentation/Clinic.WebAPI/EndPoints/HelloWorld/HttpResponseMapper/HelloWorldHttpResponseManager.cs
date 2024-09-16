@@ -26,7 +26,6 @@ public class HelloWorldHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = response.StatusCode.ToAppCode(),
-                    Body = response.ResponseBody
                 }
         );
 
