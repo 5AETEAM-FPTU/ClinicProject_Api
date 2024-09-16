@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
@@ -12,6 +13,9 @@ public class MedicineGroup : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempo
     public Guid Id { get; set; }
 
     // Foreign keys.
+
+    // Navigation properties.
+    public IEnumerable<Medicine> Medicines { get; set; }
 
     // Normal columns.
     public DateTime UpdatedAt { get; set; }
