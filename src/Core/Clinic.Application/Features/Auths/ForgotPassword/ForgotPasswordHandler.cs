@@ -3,6 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.Mail;
+using Clinic.Application.Commons.Token.OTP;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
@@ -18,16 +19,19 @@ internal sealed class ForgotPasswordHandler
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<User> _userManager;
     private readonly ISendingMailHandler _sendingMailHandler;
+    private readonly IOTPHandler _otPHandler;
 
     public ForgotPasswordHandler(
         IUnitOfWork unitOfWork,
         UserManager<User> userManager,
-        ISendingMailHandler sendingMailHandler
+        ISendingMailHandler sendingMailHandler,
+        IOTPHandler otPHandler
     )
     {
         _unitOfWork = unitOfWork;
         _userManager = userManager;
         _sendingMailHandler = sendingMailHandler;
+        _otPHandler = otPHandler;
     }
 
     /// <summary>
@@ -62,14 +66,14 @@ internal sealed class ForgotPasswordHandler
         }
 
         // Is user not temporarily removed.
-        var isUserNotTemporarilyRemoved =
+        var isUserTemporarilyRemoved =
             await _unitOfWork.ForgotPasswordRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,
                 cancellationToken: cancellationToken
             );
 
         // Responds if user is temporarily removed.
-        if (!isUserNotTemporarilyRemoved)
+        if (isUserTemporarilyRemoved)
         {
             return new()
             {
@@ -78,9 +82,7 @@ internal sealed class ForgotPasswordHandler
         }
 
         // Generate password reset token.
-        var passwordResetToken = await _userManager.GeneratePasswordResetTokenAsync(
-            user: foundUser
-        );
+        var passwordResetToken = _otPHandler.Generate(length: 5);
 
         // Add password reset token to database.
         var dbResult = await _unitOfWork.ForgotPasswordRepository.AddResetPasswordTokenCommandAsync(
@@ -135,7 +137,7 @@ internal sealed class ForgotPasswordHandler
             Name = "PasswordResetToken",
             UserId = userId,
             Value = passwordResetToken,
-            ExpiredAt = DateTime.UtcNow.AddMinutes(5).ToUniversalTime(),
+            ExpiredAt = DateTime.UtcNow.AddMinutes(1).ToUniversalTime(),
         };
     }
 }

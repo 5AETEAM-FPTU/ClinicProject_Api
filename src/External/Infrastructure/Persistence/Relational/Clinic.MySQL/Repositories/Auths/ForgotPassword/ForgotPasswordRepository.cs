@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.MySQL.Data.Context;
@@ -14,22 +15,36 @@ namespace Clinic.MySQL.Repositories.Auths.ForgotPassword;
 public class ForgotPasswordRepository : IForgotPasswordRepository
 {
     private readonly ClinicContext _context;
+    private DbSet<UserToken> _userTokens;
     private DbSet<User> _users;
     private DbSet<RefreshToken> _refreshTokens;
 
     public ForgotPasswordRepository(ClinicContext context)
     {
         _context = context;
+        _userTokens = _context.Set<UserToken>();
         _users = _context.Set<User>();
         _refreshTokens = _context.Set<RefreshToken>();
     }
 
-    public Task<bool> AddResetPasswordTokenCommandAsync(
+    public async Task<bool> AddResetPasswordTokenCommandAsync(
         UserToken newResetPasswordToken,
         CancellationToken cancellationToken
     )
     {
-        throw new NotImplementedException();
+        try
+        {
+            await _userTokens.AddAsync(
+                entity: newResetPasswordToken,
+                cancellationToken: cancellationToken
+            );
+            await _context.SaveChangesAsync();
+        }
+        catch
+        {
+            return false;
+        }
+        return true;
     }
 
     public Task<bool> IsUserTemporarilyRemovedQueryAsync(
@@ -37,6 +52,12 @@ public class ForgotPasswordRepository : IForgotPasswordRepository
         CancellationToken cancellationToken
     )
     {
-        throw new NotImplementedException();
+        return _users.AnyAsync(
+            predicate: userDetail =>
+                userDetail.Id == userId
+                && userDetail.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && userDetail.RemovedAt != CommonConstant.MIN_DATE_TIME,
+            cancellationToken: cancellationToken
+        );
     }
 }
