@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
-internal sealed class ServiceOrderItemsConfiguration : IEntityTypeConfiguration<ServiceOrderItems>
+internal sealed class ServiceOrderItemsEntityConfiguration : IEntityTypeConfiguration<ServiceOrderItems>
 {
     public void Configure(EntityTypeBuilder<ServiceOrderItems> builder)
     {

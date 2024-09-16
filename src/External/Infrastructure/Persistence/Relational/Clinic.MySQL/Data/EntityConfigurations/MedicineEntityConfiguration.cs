@@ -40,6 +40,25 @@ internal sealed class MedicineEntityConfiguration : IEntityTypeConfiguration<Med
             .Property(propertyExpression: medicine => medicine.Manufacture)
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
             .IsRequired();
+
+        // ExpiredDate
+        builder
+            .Property(propertyExpression: medicine => medicine.ExpiredDate)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
+            .IsRequired();
+
+        // Indication
+        builder
+            .Property(propertyExpression: medicine => medicine.Indication)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
+            .IsRequired();
+
+        // Dose
+        builder
+            .Property(propertyExpression: medicine => medicine.Dose)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
+            .IsRequired();
+
         // CreatedAt, UpdatedAt, RemovedAt
         builder
             .Property(propertyExpression: medicalReport => medicalReport.CreatedAt)
