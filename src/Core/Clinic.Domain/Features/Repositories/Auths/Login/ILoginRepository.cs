@@ -12,10 +12,7 @@ public partial interface ILoginRepository
 {
     Task<bool> IsUserTemporarilyRemovedQueryAsync(Guid userId, CancellationToken cancellationToken);
 
-    //Task<UserDetail> GetUserDetailByUserIdQueryAsync(
-    //    Guid userId,
-    //    CancellationToken cancellationToken
-    //);
+    Task<User> GetUserByUserIdQueryAsync(Guid userId, CancellationToken cancellationToken);
 
     Task<bool> CreateRefreshTokenCommandAsync(
         RefreshToken refreshToken,

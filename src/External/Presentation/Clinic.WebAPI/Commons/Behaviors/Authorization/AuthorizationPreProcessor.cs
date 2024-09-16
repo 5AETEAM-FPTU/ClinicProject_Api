@@ -3,7 +3,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.UnitOfWorks;
+using Clinic.Domain.Commons.Others;
 using Clinic.WebAPI.Commons.AppCodes;
 using Clinic.WebAPI.Commons.Response;
 using FastEndpoints;
@@ -63,14 +63,13 @@ internal sealed class AuthorizationPreProcessor<TRequest>
 
         await using var scope = _serviceScopeFactory.CreateAsyncScope();
 
-        var unitOfWork = scope.Resolve<IUnitOfWork>();
+        var repository = scope.Resolve<IAuthorizationRepository>();
 
         // Does refresh token exist by access token id.
-        var isRefreshTokenFound = true;
-        //await unitOfWork.Repository.IsRefreshTokenFoundByAccessTokenIdQueryAsync(
-        //    accessTokenId: Guid.Parse(input: jtiClaim),
-        //    cancellationToken: ct
-        //);
+        var isRefreshTokenFound = await repository.IsRefreshTokenFoundByAccessTokenIdQueryAsync(
+            accessTokenId: Guid.Parse(input: jtiClaim),
+            cancellationToken: ct
+        );
 
         // Refresh token is not found by access token id.
         if (!isRefreshTokenFound)
@@ -97,11 +96,10 @@ internal sealed class AuthorizationPreProcessor<TRequest>
         }
 
         // Is user temporarily removed.
-        var isUserTemporarilyRemoved = true;
-        //await unitOfWork.Repository.IsUserTemporarilyRemovedQueryAsync(
-        //    userId: foundUser.Id,
-        //    cancellationToken: ct
-        //);
+        var isUserTemporarilyRemoved = await repository.IsUserTemporarilyRemovedQueryAsync(
+            userId: foundUser.Id,
+            cancellationToken: ct
+        );
 
         // User is temporarily removed.
         if (isUserTemporarilyRemoved)

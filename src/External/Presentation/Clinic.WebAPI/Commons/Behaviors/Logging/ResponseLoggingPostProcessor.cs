@@ -26,9 +26,7 @@ public class ResponseLoggingPostProcessor<TRequest, TResponse> : IPostProcessor<
         CancellationToken ct
     )
     {
-        _logger.LogInformation(
-            $"request:{context.Response.GetType().FullName} path: {context.HttpContext.Response.Path}"
-        );
+        _logger.LogInformation($"request:{context.Response.GetType().FullName}");
 
         return Task.CompletedTask;
     }

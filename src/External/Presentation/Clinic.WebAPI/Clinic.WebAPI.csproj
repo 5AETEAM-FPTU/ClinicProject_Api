@@ -19,11 +19,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="EndPoints\Auths\Login\" />
-    <Folder Include="wwwroot\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\BackgroundJob\Clinic.AppBackgroundJob\Clinic.AppBackgroundJob.csproj" />
     <ProjectReference Include="..\..\Infrastructure\FileObjectStorage\Image\Clinic.Firebase\Clinic.Firebase.csproj" />
     <ProjectReference Include="..\..\Infrastructure\IdentityService\Clinic.JsonWebToken\Clinic.JsonWebToken.csproj" />

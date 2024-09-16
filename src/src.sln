@@ -72,11 +72,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.AppBackgroundJob", "
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChatMessage", "ChatMessage", "{091077DF-D7D6-408F-ABB9-C2BE47737C3D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.SignalR", "External\Infrastructure\ChatMessage\Clinic.SignalR\Clinic.SignalR.csproj", "{670D0A76-6F35-4603-A144-2B112363B1CF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.SignalR", "External\Infrastructure\ChatMessage\Clinic.SignalR\Clinic.SignalR.csproj", "{670D0A76-6F35-4603-A144-2B112363B1CF}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{23F5EAA8-4076-4B98-9282-B0215ADE6F51}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.VNPAY", "External\Infrastructure\PaymentService\Clinic.VNPAY\Clinic.VNPAY.csproj", "{9C0AD944-E288-4AD0-9A66-F59B37C2FB95}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.VNPAY", "External\Infrastructure\PaymentService\Clinic.VNPAY\Clinic.VNPAY.csproj", "{9C0AD944-E288-4AD0-9A66-F59B37C2FB95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

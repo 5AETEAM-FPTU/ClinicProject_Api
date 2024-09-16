@@ -1,4 +1,6 @@
-﻿using Clinic.Domain.Features.UnitOfWorks;
+﻿using Clinic.Domain.Commons.Others;
+using Clinic.Domain.Features.UnitOfWorks;
+using Clinic.MySQL.Repositories.Auths.Authorization;
 using Clinic.MySQL.UnitOfWorks;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -17,6 +19,7 @@ internal static class CoreServiceConfig
     /// </param>
     internal static void ConfigCore(this IServiceCollection services)
     {
+        services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
     }
 }
