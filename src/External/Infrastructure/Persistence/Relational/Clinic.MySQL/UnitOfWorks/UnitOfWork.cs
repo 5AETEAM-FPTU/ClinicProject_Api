@@ -1,10 +1,11 @@
-﻿using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.UnitOfWorks;
@@ -15,6 +16,7 @@ using Clinic.MySQL.Repositories.Auths.ForgotPassword;
 using Clinic.MySQL.Repositories.Auths.Login;
 using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
+using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
@@ -36,6 +38,7 @@ public class UnitOfWork : IUnitOfWork
     private IChangingPasswordRepository _changingPasswordRepository;
     private IRefreshAccessTokenRepository _refreshAccessTokenRepository;
     private IGetProfileUserRepository _getProfileUserRepository;
+    private IGetProfileDoctorRepository _getProfileDoctorRepository;
     private IRegisterAsUserRepository _registerAsUserRepository;
     private IConfirmUserRegistrationEmailRepository _confirmUserRegistrationEmailRepository;
 
@@ -79,6 +82,10 @@ public class UnitOfWork : IUnitOfWork
     {
         get { return _getProfileUserRepository ??= new GetProfileUserRepository(_context); }
     }
+
+    public IGetProfileDoctorRepository GetProfileDoctorRepository
+    {
+        get { return _getProfileDoctorRepository ??= new GetProfileDoctorRepository(_context); }
 
     public IRegisterAsUserRepository RegisterAsUserRepository
     {

@@ -1,9 +1,10 @@
-﻿using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
+using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 
@@ -33,6 +34,11 @@ public interface IUnitOfWork
     ///     User repository feature
     /// </summary>
     public IGetProfileUserRepository GetProfileUserRepository { get; }
+
+    /// <summary>
+    ///     Doctor repository feature
+    /// </summary>
+    public IGetProfileDoctorRepository GetProfileDoctorRepository { get; }
 
     /// <summary>
     ///    ChangingPassword repository feature.
