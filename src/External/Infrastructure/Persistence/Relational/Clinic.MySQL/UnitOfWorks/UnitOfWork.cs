@@ -4,6 +4,7 @@ using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
+using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -65,4 +66,6 @@ public class UnitOfWork : IUnitOfWork
     {
         get { return _refreshAccessTokenRepository ??= new RefreshAccessTokenRepository(_context); }
     }
+
+    public IGetProfileUserRepository GetProfileUserRepository => throw new System.NotImplementedException();
 }

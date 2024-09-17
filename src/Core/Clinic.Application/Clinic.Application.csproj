@@ -16,4 +16,8 @@
     <ProjectReference Include="..\Clinic.Domain\Clinic.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Doctors\GetProfileDoctor\" />
+  </ItemGroup>
+
 </Project>
