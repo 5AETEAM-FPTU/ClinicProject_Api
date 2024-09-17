@@ -5,6 +5,7 @@ using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Users;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -32,6 +33,11 @@ public interface IUnitOfWork
     ///     User repository feature
     /// </summary>
     public IGetProfileUserRepository GetProfileUserRepository { get; }
+
+    /// <summary>
+    ///     Doctor repository feature
+    /// </summary>
+    public IGetProfileDoctorRepository GetProfileDoctorRepository { get; }
 
     /// <summary>
     ///    ChangingPassword repository feature.
