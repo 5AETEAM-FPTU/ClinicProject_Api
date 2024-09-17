@@ -1,6 +1,8 @@
 ﻿using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
+using Clinic.Domain.Features.Repositories.Users;
+using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -23,4 +25,9 @@ public interface IUnitOfWork
     ///    Logout repository feature.
     /// </summary>
     public IForgotPasswordRepository ForgotPasswordRepository { get; }
+
+    /// <summary>
+    ///     User repository feature
+    /// </summary>
+    public IGetProfileUserRepository GetProfileUserRepository { get; }
 }
