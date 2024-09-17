@@ -7,6 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EndPoints\Appointment\**" />
+    <Content Remove="EndPoints\Appointment\**" />
+    <EmbeddedResource Remove="EndPoints\Appointment\**" />
+    <None Remove="EndPoints\Appointment\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="FastEndpoints.Swagger" Version="5.29.0" />
     <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.8" />
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.3" />
@@ -26,10 +33,6 @@
     <ProjectReference Include="..\..\Infrastructure\Notification\Mail\Clinic.MailKit\Clinic.MailKit.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Cache\Clinic.Redis\Clinic.Redis.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Relational\Clinic.MySQL\Clinic.MySQL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EndPoints\Appointment\" />
   </ItemGroup>
 
 </Project>

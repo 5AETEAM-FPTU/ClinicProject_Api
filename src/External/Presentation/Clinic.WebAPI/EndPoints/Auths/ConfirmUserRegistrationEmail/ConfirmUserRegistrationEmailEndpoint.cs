@@ -1,23 +1,25 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Auths.Login;
+using Clinic.Application.Features.Auths.ConfirmUserRegistrationEmail;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Auths.Login.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Auths.ConfirmUserRegistrationEmail.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Auths.Login;
+namespace Clinic.WebAPI.EndPoints.Auths.ConfirmUserRegistrationEmail;
 
 /// <summary>
-///     Login endpoint.
+///     ConfirmUserRegistrationEmail endpoint.
 /// </summary>
-internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
+internal sealed class ConfirmUserRegistrationEmailEndpoint
+    : Endpoint<ConfirmUserRegistrationEmailRequest, ConfirmUserRegistrationEmailHttpResponse>
 {
     public override void Configure()
     {
-        Post(routePatterns: "auth/login");
-        PreProcessor<ValidationPreProcessor<LoginRequest>>();
+        Get(routePatterns: "auth/confirm-email");
+        PreProcessor<ValidationPreProcessor<ConfirmUserRegistrationEmailRequest>>();
         AllowAnonymous();
+        DontThrowIfValidationFails();
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
@@ -25,33 +27,26 @@ internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Login feature";
-            summary.Description = "This endpoint is used for Login purpose.";
-            summary.ExampleRequest = new() { Username = "string", Password = "string", };
-            summary.Response<LoginHttpResponse>(
+            summary.Summary = "Endpoint for confirming password by email.";
+            summary.Description = "This endpoint is used for confirming password by email purpose.";
+            summary.ExampleRequest = new()
+            {
+                UserRegistrationEmailConfirmedTokenAsBase64 = "string"
+            };
+            summary.Response<ConfirmUserRegistrationEmailHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
-                    Body = new LoginResponse.Body()
-                    {
-                        AccessToken = "string",
-                        RefreshToken = "string",
-                        User = new()
-                        {
-                            AvatarUrl = "string",
-                            FullName = "string",
-                            Email = "string",
-                        }
-                    }
+                    AppCode =
+                        ConfirmUserRegistrationEmailResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<LoginHttpResponse> ExecuteAsync(
-        LoginRequest req,
+    public override async Task<ConfirmUserRegistrationEmailHttpResponse> ExecuteAsync(
+        ConfirmUserRegistrationEmailRequest req,
         CancellationToken ct
     )
     {
@@ -59,7 +54,7 @@ internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
         var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = LoginHttpResponseMapper
+        var httpResponse = ConfirmUserRegistrationEmailHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
