@@ -16,7 +16,7 @@ internal sealed class ChangingPasswordEndpoint
 {
     public override void Configure()
     {
-        Post(routePatterns: "auth/changing-password");
+        Patch(routePatterns: "auth/changing-password");
         PreProcessor<ValidationPreProcessor<ChangingPasswordRequest>>();
         AllowAnonymous();
         DontThrowIfValidationFails();
