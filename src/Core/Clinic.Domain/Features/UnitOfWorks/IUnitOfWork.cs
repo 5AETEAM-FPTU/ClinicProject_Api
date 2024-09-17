@@ -2,6 +2,7 @@
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
+using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -29,4 +30,9 @@ public interface IUnitOfWork
     ///    ChangingPassword repository feature.
     /// </summary>
     public IChangingPasswordRepository ChangingPasswordRepository { get; }
+
+    /// <summary>
+    ///    RefreshAccessToken repository feature.
+    /// </summary>
+    public IRefreshAccessTokenRepository RefreshAccessTokenRepository { get; }
 }

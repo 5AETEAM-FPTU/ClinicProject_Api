@@ -1,61 +1,66 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Auths.Logout;
+using Clinic.Application.Features.Auths.RefreshAccessToken;
 using Clinic.WebAPI.Commons.Behaviors.Authorization;
-using Clinic.WebAPI.EndPoints.Auths.Logout.Common;
-using Clinic.WebAPI.EndPoints.Auths.Logout.HttpResponseMapper;
+using Clinic.WebAPI.Commons.Behaviors.Validation;
+using Clinic.WebAPI.EndPoints.Auths.RefreshAccessToken.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Auths.Logout;
+namespace Clinic.WebAPI.EndPoints.Auths.RefreshAccessToken;
 
 /// <summary>
-///     Logout endpoint.
+///     RefreshAccessToken endpoint.
 /// </summary>
-internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse>
+internal sealed class RefreshAccessTokenEndpoint
+    : Endpoint<RefreshAccessTokenRequest, RefreshAccessTokenHttpResponse>
 {
     public override void Configure()
     {
-        Delete(routePatterns: "auth/logout");
-        AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
-        PreProcessor<AuthorizationPreProcessor<EmptyRequest>>();
+        Post(routePatterns: "auth/refresh-access-token");
         DontThrowIfValidationFails();
+        AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
+        PreProcessor<AuthorizationPreProcessor<RefreshAccessTokenRequest>>();
+        PreProcessor<ValidationPreProcessor<RefreshAccessTokenRequest>>();
         Description(builder: builder =>
         {
             builder.ClearDefaultProduces(statusCodes: StatusCodes.Status400BadRequest);
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Logout feature";
-            summary.Description = "This endpoint is used for Logout purpose.";
-            summary.ExampleRequest = new() { };
-            summary.Response<LogoutHttpResponse>(
+            summary.Summary = "Endpoint for refreshing access token";
+            summary.Description = "This endpoint is used for refreshing access token purpose.";
+            summary.ExampleRequest = new() { RefreshToken = "string" };
+            summary.Response<RefreshAccessTokenHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LogoutResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = RefreshAccessTokenResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    Body = new RefreshAccessTokenResponse.Body()
+                    {
+                        AccessToken = "string",
+                        RefreshToken = "string",
+                    }
                 }
             );
         });
     }
 
-    public override async Task<LogoutHttpResponse> ExecuteAsync(
-        EmptyRequest req,
+    public override async Task<RefreshAccessTokenHttpResponse> ExecuteAsync(
+        RefreshAccessTokenRequest req,
         CancellationToken ct
     )
     {
         // Get app feature response.
-        var stateBag = ProcessorState<LogoutStateBag>();
-
-        var appResponse = await stateBag.AppRequest.ExecuteAsync(ct: ct);
+        var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = LogoutHttpResponseMapper
+        var httpResponse = RefreshAccessTokenHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
-            .Invoke(arg1: stateBag.AppRequest, arg2: appResponse);
+            .Invoke(arg1: req, arg2: appResponse);
 
         /*
         * Store the real http code of http response into a temporary variable.

@@ -11,13 +11,9 @@ namespace Clinic.WebAPI.Commons.Behaviors.Validation;
 /// <summary>
 ///     Preprocessor for validation request.
 /// </summary>
-internal sealed class ValidationPreProcessor<TRequest> : PreProcessor<TRequest, ValidationStateBag>
+internal sealed class ValidationPreProcessor<TRequest> : IPreProcessor<TRequest>
 {
-    public override async Task PreProcessAsync(
-        IPreProcessorContext<TRequest> context,
-        ValidationStateBag state,
-        CancellationToken ct
-    )
+    public async Task PreProcessAsync(IPreProcessorContext<TRequest> context, CancellationToken ct)
     {
         if (context.HasValidationFailures)
         {
