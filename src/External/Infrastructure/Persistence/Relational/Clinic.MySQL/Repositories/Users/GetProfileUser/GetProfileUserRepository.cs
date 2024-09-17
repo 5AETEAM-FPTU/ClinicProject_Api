@@ -32,6 +32,7 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
             .Where(predicate: user => user.Id == userId)
             .Select(selector: user => new User()
             {
+                UserName = user.UserName,
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 Avatar = user.Avatar,
@@ -48,4 +49,5 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
 
     }
+
 }

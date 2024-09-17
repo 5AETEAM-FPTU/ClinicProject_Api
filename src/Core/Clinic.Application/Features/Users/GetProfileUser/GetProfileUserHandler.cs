@@ -91,6 +91,7 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
                     Username = foundUser.UserName,
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
+                    FullName = foundUser.FullName,
 
                     Gender = foundUser.Patient.Gender,
                     DOB = foundUser.Patient.DOB,
