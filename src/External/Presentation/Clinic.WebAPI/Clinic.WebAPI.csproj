@@ -28,4 +28,8 @@
     <ProjectReference Include="..\..\Infrastructure\Persistence\Relational\Clinic.MySQL\Clinic.MySQL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="EndPoints\Appointment\" />
+  </ItemGroup>
+
 </Project>

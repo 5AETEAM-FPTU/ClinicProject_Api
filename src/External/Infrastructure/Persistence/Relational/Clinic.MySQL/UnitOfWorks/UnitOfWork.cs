@@ -4,6 +4,7 @@ using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
+using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -11,6 +12,7 @@ using Clinic.MySQL.Repositories.Auths.ForgotPassword;
 using Clinic.MySQL.Repositories.Auths.Login;
 using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
+using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -29,6 +31,7 @@ public class UnitOfWork : IUnitOfWork
     private IForgotPasswordRepository _forgotPasswordRepository;
     private IChangingPasswordRepository _changingPasswordRepository;
     private IRefreshAccessTokenRepository _refreshAccessTokenRepository;
+    private IGetProfileUserRepository _getProfileUserRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -64,5 +67,10 @@ public class UnitOfWork : IUnitOfWork
     public IRefreshAccessTokenRepository RefreshAccessTokenRepository
     {
         get { return _refreshAccessTokenRepository ??= new RefreshAccessTokenRepository(_context); }
+    }
+
+    public IGetProfileUserRepository GetProfileUserRepository
+    {
+        get { return _getProfileUserRepository ??= new GetProfileUserRepository(_context); }
     }
 }
