@@ -22,7 +22,7 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
         _users = _context.Set<User>();
     }
 
-    public Task<User> GetProfileUserByUserIdQueryAsync(
+    public Task<User> GetUserByUserIdQueryAsync(
         Guid userId, 
         CancellationToken cancellationToken
     )

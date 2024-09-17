@@ -10,4 +10,5 @@ public enum GetProfileUserResponseStatusCode
     USER_IS_TEMPORARILY_REMOVED,
     INPUT_VALIDATION_FAIL,
     OPERATION_SUCCESS,
+    FORBIDDEN
 }
