@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Constance;
@@ -45,6 +46,18 @@ public class ForgotPasswordRepository : IForgotPasswordRepository
             return false;
         }
         return true;
+    }
+
+    public Task<bool> IsUserTokenExpiratedByUserIdQueryAsync(
+        Guid userId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _userTokens.AnyAsync(
+            predicate: userToken =>
+                userToken.UserId == userId && userToken.ExpiredAt > DateTime.UtcNow,
+            cancellationToken: cancellationToken
+        );
     }
 
     public Task<bool> IsUserTemporarilyRemovedQueryAsync(
