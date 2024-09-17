@@ -15,5 +15,10 @@ public interface IForgotPasswordRepository
         CancellationToken cancellationToken
     );
 
+    Task<bool> IsUserTokenExpiratedByUserIdQueryAsync(
+        Guid userId,
+        CancellationToken cancellationToken
+    );
+
     Task<bool> IsUserTemporarilyRemovedQueryAsync(Guid userId, CancellationToken cancellationToken);
 }

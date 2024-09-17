@@ -1,25 +1,25 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Auths.Logout;
-using Clinic.WebAPI.Commons.Behaviors.Authorization;
-using Clinic.WebAPI.EndPoints.Auths.Logout.Common;
-using Clinic.WebAPI.EndPoints.Auths.Logout.HttpResponseMapper;
+using Clinic.Application.Features.Auths.ChangingPassword;
+using Clinic.WebAPI.Commons.Behaviors.Validation;
+using Clinic.WebAPI.EndPoints.Auths.ChangingPassword.HttpResponseMapper;
 using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Auths.Logout;
+namespace Clinic.WebAPI.EndPoints.Auths.ChangingPassword;
 
 /// <summary>
-///     Logout endpoint.
+///     ChangingPassword endpoint.
 /// </summary>
-internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse>
+internal sealed class ChangingPasswordEndpoint
+    : Endpoint<ChangingPasswordRequest, ChangingPasswordHttpResponse>
 {
     public override void Configure()
     {
-        Delete(routePatterns: "auth/logout");
-        AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
-        PreProcessor<AuthorizationPreProcessor<EmptyRequest>>();
+        Patch(routePatterns: "auth/changing-password");
+        PreProcessor<ValidationPreProcessor<ChangingPasswordRequest>>();
+        AllowAnonymous();
+        DontThrowIfValidationFails();
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
@@ -27,35 +27,37 @@ internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Logout feature";
-            summary.Description = "This endpoint is used for Logout purpose.";
-            summary.ExampleRequest = new() { };
-            summary.Response<LogoutHttpResponse>(
+            summary.Summary = "Endpoint for changing password by inputting otp.";
+            summary.Description = "This endpoint is used for changing password purpose.";
+            summary.ExampleRequest = new()
+            {
+                NewPassword = "string",
+                ResetPasswordToken = "string"
+            };
+            summary.Response<ChangingPasswordHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LogoutResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = ChangingPasswordResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<LogoutHttpResponse> ExecuteAsync(
-        EmptyRequest req,
+    public override async Task<ChangingPasswordHttpResponse> ExecuteAsync(
+        ChangingPasswordRequest req,
         CancellationToken ct
     )
     {
         // Get app feature response.
-        var stateBag = ProcessorState<LogoutStateBag>();
-
-        var appResponse = await stateBag.AppRequest.ExecuteAsync(ct: ct);
+        var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = LogoutHttpResponseMapper
+        var httpResponse = ChangingPasswordHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
-            .Invoke(arg1: stateBag.AppRequest, arg2: appResponse);
+            .Invoke(arg1: req, arg2: appResponse);
 
         /*
         * Store the real http code of http response into a temporary variable.

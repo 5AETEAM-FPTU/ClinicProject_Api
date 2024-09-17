@@ -18,8 +18,7 @@ namespace Clinic.WebAPI.Commons.Behaviors.Authorization;
 /// <summary>
 ///     Pre-processor for <see cref="Request"/>
 /// </summary>
-internal sealed class AuthorizationPreProcessor<TRequest>
-    : PreProcessor<TRequest, AuthorizationStateBag>
+internal sealed class AuthorizationPreProcessor<TRequest> : IPreProcessor<TRequest>
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
     private readonly TokenValidationParameters _tokenValidationParameters;
@@ -33,11 +32,7 @@ internal sealed class AuthorizationPreProcessor<TRequest>
         _tokenValidationParameters = tokenValidationParameters;
     }
 
-    public override async Task PreProcessAsync(
-        IPreProcessorContext<TRequest> context,
-        AuthorizationStateBag state,
-        CancellationToken ct
-    )
+    public async Task PreProcessAsync(IPreProcessorContext<TRequest> context, CancellationToken ct)
     {
         JsonWebTokenHandler jsonWebTokenHandler = new();
 

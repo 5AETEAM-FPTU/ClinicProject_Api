@@ -132,6 +132,12 @@ public static class ClinicDataSeeding
                 Id = AdminId,
                 UserName = "admin",
                 Email = "nvdatdz8b@gmail.com",
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                RemovedAt = CommonConstant.MIN_DATE_TIME,
+                RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                UpdatedAt = CommonConstant.MIN_DATE_TIME,
+                UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             };
 
         return admin;

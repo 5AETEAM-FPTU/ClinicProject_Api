@@ -1,8 +1,10 @@
-﻿using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
+﻿using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
+using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Users;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
+using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -22,7 +24,7 @@ public interface IUnitOfWork
     public ILogoutRepository LogoutRepository { get; }
 
     /// <summary>
-    ///    Logout repository feature.
+    ///    ForgotPassword repository feature.
     /// </summary>
     public IForgotPasswordRepository ForgotPasswordRepository { get; }
 
@@ -30,4 +32,14 @@ public interface IUnitOfWork
     ///     User repository feature
     /// </summary>
     public IGetProfileUserRepository GetProfileUserRepository { get; }
+
+    /// <summary>
+    ///    ChangingPassword repository feature.
+    /// </summary>
+    public IChangingPasswordRepository ChangingPasswordRepository { get; }
+
+    /// <summary>
+    ///    RefreshAccessToken repository feature.
+    /// </summary>
+    public IRefreshAccessTokenRepository RefreshAccessTokenRepository { get; }
 }
