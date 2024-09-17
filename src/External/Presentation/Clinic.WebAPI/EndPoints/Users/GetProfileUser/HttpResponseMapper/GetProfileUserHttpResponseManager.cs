@@ -56,6 +56,16 @@ public class GetProfileUserHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: GetProfileUserResponseStatusCode.FORBIDDEN,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status403Forbidden,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<

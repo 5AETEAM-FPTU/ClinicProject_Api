@@ -1,10 +1,13 @@
 using System;
+using System.Linq;
+using System.Net;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.Abstractions.GetProfileUser;
+using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -42,6 +45,17 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
         CancellationToken cancellationToken
     )
     {
+
+        // Get userId from sub type jwt
+        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
+        if (!role.Equals("user"))
+        {
+            return new GetProfileUserResponse()
+            {
+                StatusCode = GetProfileUserResponseStatusCode.FORBIDDEN
+            };
+        }
+
         // Get userId from sub type jwt
         var userId = Guid.Parse(
             _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
@@ -49,10 +63,10 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
 
         // Found user by userId
         var foundUser =
-            await _unitOfWork.GetProfileUserRepository.GetProfileUserByUserIdQueryAsync(
+            await _unitOfWork.GetProfileUserRepository.GetUserByUserIdQueryAsync(
                 userId: userId,
                 cancellationToken: cancellationToken
-            );
+        );
 
         // Responds if userId is not found
         if (Equals(objA: foundUser, objB: default))
