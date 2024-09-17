@@ -1,9 +1,11 @@
 ﻿using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
+using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ForgotPassword;
 using Clinic.MySQL.Repositories.Auths.Login;
 using Clinic.MySQL.Repositories.Auths.Logout;
@@ -23,6 +25,7 @@ public class UnitOfWork : IUnitOfWork
     private ILoginRepository _loginRepository;
     private ILogoutRepository _logoutRepository;
     private IForgotPasswordRepository _forgotPasswordRepository;
+    private IChangingPasswordRepository _changingPasswordRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -48,5 +51,10 @@ public class UnitOfWork : IUnitOfWork
     public IForgotPasswordRepository ForgotPasswordRepository
     {
         get { return _forgotPasswordRepository ??= new ForgotPasswordRepository(_context); }
+    }
+
+    public IChangingPasswordRepository ChangingPasswordRepository
+    {
+        get { return _changingPasswordRepository ??= new ChangingPasswordRepository(_context); }
     }
 }

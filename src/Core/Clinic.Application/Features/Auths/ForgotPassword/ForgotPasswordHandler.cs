@@ -81,6 +81,17 @@ internal sealed class ForgotPasswordHandler
             };
         }
 
+        var IsUserTokenExpiratedExist =
+            await _unitOfWork.ForgotPasswordRepository.IsUserTokenExpiratedByUserIdQueryAsync(
+                userId: foundUser.Id,
+                cancellationToken: cancellationToken
+            );
+
+        if (IsUserTokenExpiratedExist)
+        {
+            return new() { StatusCode = ForgotPasswordResponseStatusCode.UNEXPIRED_TOKEN_EXISTS };
+        }
+
         // Generate password reset token.
         var passwordResetToken = _otPHandler.Generate(length: 5);
 
@@ -137,7 +148,7 @@ internal sealed class ForgotPasswordHandler
             Name = "PasswordResetToken",
             UserId = userId,
             Value = passwordResetToken,
-            ExpiredAt = DateTime.UtcNow.AddMinutes(1).ToUniversalTime(),
+            ExpiredAt = DateTime.UtcNow.AddMinutes(5).ToUniversalTime(),
         };
     }
 }

@@ -1,4 +1,5 @@
-﻿using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
+﻿using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
+using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 
@@ -20,7 +21,12 @@ public interface IUnitOfWork
     public ILogoutRepository LogoutRepository { get; }
 
     /// <summary>
-    ///    Logout repository feature.
+    ///    ForgotPassword repository feature.
     /// </summary>
     public IForgotPasswordRepository ForgotPasswordRepository { get; }
+
+    /// <summary>
+    ///    ChangingPassword repository feature.
+    /// </summary>
+    public IChangingPasswordRepository ChangingPasswordRepository { get; }
 }
