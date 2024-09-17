@@ -1,0 +1,210 @@
+﻿﻿<!doctypehtml>
+<html lang=en>
+<meta charset=UTF-8>
+<meta content="width=device-width,initial-scale=1" name=viewport>
+<title>Book Store | Confirmed email</title>
+<link href=https://res.cloudinary.com/dy1uuo6ql/image/upload/v1701260416/ou2ribkbu82ritiwiok6.png rel=icon>
+<link href=https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css rel=stylesheet>
+<div class=container><div class=logo-container><div class=logo-img><img alt=fu-logo src=https://res.cloudinary.com/dy1uuo6ql/image/upload/v1701260416/ou2ribkbu82ritiwiok6.png class=object-cover></div><a href=https://www.fu-dever.com target=_blank class=logo-text>FU-DEVER</a></div><div class=content-container><div class=first-content><div class=first-content-img><img alt=verify-success src=https://res.cloudinary.com/dy1uuo6ql/image/upload/v1701261577/evqkmqrtnbovvu0kt28u.png></div><h1>You have successfully verified your email before!</h1></div><div class=second-content><div><a href=https://dever-web-dashboard.vercel.app/auth/sign-in target=_blank><button id=loginButton>Login page</button></a></div><div class=contact><p>Contact us:<div class=contact-info><a href=https://www.facebook.com/FPTUDever target=_blank class=info-item><i class="fa-brands fa-facebook"></i> Facebook </a><a href=https://www.fu-dever.com/ target=_blank class=info-item><i class="fa-earth-europe fa-solid"></i> Website</a></div></div></div></div><div><p style=font-size:10px;font-weight:300>FU-DEVER Develop team | 2023</div></div>
+<style>
+    @import url(https://fonts.googleapis.com/css2?family=Inter:wght@100;200;300;400;500;600;700;800;900&display=swap);
+
+    * {
+        padding: 0;
+        margin: 0;
+        box-sizing: border-box
+    }
+
+    body {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        user-select: none;
+        font-family: Inter,sans-serif
+    }
+
+    .container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        width: 100%;
+        gap: 20px;
+        padding: 80px 40px
+    }
+
+    .logo-container {
+        display: flex;
+        flex-direction: row;
+        gap: 10px;
+        align-items: center
+    }
+
+    .logo-img {
+        width: 72px;
+        height: 72px;
+        overflow: hidden
+    }
+
+        .logo-img > img {
+            width: 72px;
+            height: 72px;
+            object-fit: cover
+        }
+
+    .logo-text {
+        font-size: 42px;
+        font-weight: 700;
+        color: #0065a9;
+        text-decoration: none
+    }
+
+    .content-container {
+        width: 85%;
+        height: fit-content;
+        background: #f1f5f9;
+        border-radius: 12px;
+        display: flex;
+        flex-direction: row
+    }
+
+    .first-content {
+        width: 50%;
+        height: 400px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        justify-content: center;
+        border-right: 2px solid #fff
+    }
+
+    .first-content-img {
+        width: 120px;
+        height: 120px
+    }
+
+        .first-content-img > img {
+            width: 120px;
+            height: 120px;
+            object-fit: cover
+        }
+
+    .first-content > h1 {
+        font-size: 24px;
+        text-align: center;
+        font-weight: 600;
+        color: #0065a9
+    }
+
+    .second-content {
+        width: 50%;
+        height: 400px;
+        padding: 40px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+        justify-content: center
+    }
+
+        .second-content > h3 {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600
+        }
+
+    #loginButton {
+        padding: 14px 30px;
+        border-radius: 8px;
+        outline: 0;
+        border: none;
+        cursor: pointer;
+        font-size: 18px;
+        font-weight: 600;
+        background: #0098ff;
+        color: #fff
+    }
+
+        #loginButton:hover {
+            background: #0065a9;
+            transition: .3s
+        }
+
+    .contact {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        align-items: center
+    }
+
+    .contact-info {
+        display: flex;
+        flex-direction: row;
+        gap: 10px
+    }
+
+    .info-item {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        gap: 8px;
+        font-weight: 600;
+        padding: 10px 20px;
+        background: #e2e8f0;
+        border-radius: 8px;
+        cursor: pointer;
+        text-decoration: none;
+        color: #0065a9
+    }
+
+        .info-item:hover {
+            transform: scale(1.05);
+            transition: .3s
+        }
+
+        .info-item i {
+            font-size: 24px;
+            color: #0065a9
+        }
+
+    @media only screen and (max-width:600px) {
+        .container {
+            padding: 20px
+        }
+
+        .logo-text {
+            font-size: 32px
+        }
+
+        .logo-img {
+            width: 52px;
+            height: 52px
+        }
+
+            .logo-img img {
+                width: 52px;
+                height: 52px
+            }
+
+        .content-container {
+            width: 98%;
+            flex-direction: column
+        }
+
+        .first-content {
+            padding: 40px;
+            height: fit-content;
+            width: 100%;
+            border: none
+        }
+
+        .second-content {
+            padding: 40px;
+            height: fit-content;
+            width: 100%
+        }
+    }
+</style>
