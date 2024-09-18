@@ -1,5 +1,5 @@
-﻿using Clinic.Domain.Commons.Entities.Base;
-using System;
+﻿using System;
+using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -31,10 +31,10 @@ public class ChatContent : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntit
 
     public Guid RemovedBy { get; set; }
 
-
     // Navigation properties.
     public ChatRoom ChatRoom { get; set; }
-    public AssetContent AssetContent { get; set; }  
-    public User User { get; set; }
 
+    public AssetContent AssetContent { get; set; }
+
+    public User User { get; set; }
 }

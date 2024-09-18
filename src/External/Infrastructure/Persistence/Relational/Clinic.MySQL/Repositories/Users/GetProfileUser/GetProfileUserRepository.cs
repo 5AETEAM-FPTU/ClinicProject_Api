@@ -1,13 +1,13 @@
-﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
-using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Users.GetProfileUser;
 
@@ -22,10 +22,7 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
         _users = _context.Set<User>();
     }
 
-    public Task<User> GetProfileUserByUserIdQueryAsync(
-        Guid userId, 
-        CancellationToken cancellationToken
-    )
+    public Task<User> GetUserByUserIdQueryAsync(Guid userId, CancellationToken cancellationToken)
     {
         return _users
             .AsNoTracking()
@@ -41,13 +38,10 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
                 {
                     Gender = user.Patient.Gender,
                     DOB = user.Patient.DOB,
-                    Adress = user.Patient.Adress,
+                    Address = user.Patient.Address,
                     Description = user.Patient.Description
                 }
-
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
-
     }
-
 }

@@ -1,11 +1,15 @@
-﻿using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
+using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
+using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
+using Clinic.Domain.Features.Repositories.Auths.LoginByAdmin;
+using Clinic.Domain.Features.Repositories.Auths.LoginWithGoogle;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
-using Clinic.Domain.Features.Repositories.Users;
-using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
+using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
+using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -48,4 +52,29 @@ public interface IUnitOfWork
     ///    RefreshAccessToken repository feature.
     /// </summary>
     public IRefreshAccessTokenRepository RefreshAccessTokenRepository { get; }
+
+    /// <summary>
+    ///    RegisterAsUser repository feature.
+    /// </summary>
+    public IRegisterAsUserRepository RegisterAsUserRepository { get; }
+
+    /// <summary>
+    ///    ConfirmUserRegistrationEmail repository feature.
+    /// </summary>
+    public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository { get; }
+
+    /// <summary>
+    ///    ResendUserRegistrationConfirmedEmail repository feature.
+    /// </summary>
+    public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository { get; }
+
+    /// <summary>
+    ///    LoginByAdminRepository repository feature.
+    /// </summary>
+    public ILoginByAdminRepository LoginByAdminRepository { get; }
+
+    /// <summary>
+    ///    LoginWithGoogleRepository repository feature.
+    /// </summary>
+    public ILoginWithGoogleRepository LoginWithGoogleRepository { get; }
 }

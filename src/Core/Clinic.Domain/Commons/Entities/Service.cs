@@ -14,10 +14,20 @@ public class Service : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarily
 
     // Foreign keys.
 
-    // Navigation properties.
+    // Navigation collection.
     public IEnumerable<ServiceOrderItems> ServiceOrderItems { get; set; }
 
-    // Normal columns.
+    // Normal properties.
+    public string Code { get; set; }
+
+    public string Name { get; set; }
+
+    public string Descripiton { get; set; }
+
+    public decimal Price { get; set; }
+
+    public string Group { get; set; }
+
     public DateTime UpdatedAt { get; set; }
 
     public Guid UpdatedBy { get; set; }
@@ -29,11 +39,4 @@ public class Service : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarily
     public DateTime RemovedAt { get; set; }
 
     public Guid RemovedBy { get; set; }
-
-    //Normal Attribute
-    public string Code { get; set; }
-    public string Name { get; set; }
-    public string Descripiton { get; set; }
-    public decimal Price { get; set; }
-    public string Group { get; set; }
 }

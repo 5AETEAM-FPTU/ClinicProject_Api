@@ -17,7 +17,7 @@ internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse
 {
     public override void Configure()
     {
-        Delete(routePatterns: "auth/logout");
+        Post(routePatterns: "auth/logout");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<AuthorizationPreProcessor<EmptyRequest>>();
         DontThrowIfValidationFails();

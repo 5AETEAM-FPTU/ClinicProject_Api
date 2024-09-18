@@ -72,8 +72,8 @@ public class LoginRepository : ILoginRepository
         return _users.AnyAsync(
             predicate: user =>
                 user.Id == userId
-                && user.RemovedBy == CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-                && user.RemovedAt == CommonConstant.MIN_DATE_TIME,
+                && user.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && user.RemovedAt != CommonConstant.MIN_DATE_TIME,
             cancellationToken: cancellationToken
         );
     }

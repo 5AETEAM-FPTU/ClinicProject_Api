@@ -10,7 +10,7 @@ namespace Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 
 public interface IGetProfileUserRepository
 {
-    Task<User> GetProfileUserByUserIdQueryAsync(
+    Task<User> GetUserByUserIdQueryAsync(
         Guid userId,
         CancellationToken cancellationToken
     );

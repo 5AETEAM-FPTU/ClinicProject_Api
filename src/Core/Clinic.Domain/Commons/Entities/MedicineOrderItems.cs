@@ -12,19 +12,20 @@ public class MedicineOrderItems : IBaseEntity
 
     // Foreign keys.
     public Guid MedicalReportId { get; set; }
+
     public Guid MedicineId { get; set; }
+
+    // Normal Properties.
+    public decimal PriceAtOrder { get; set; }
+
+    public int Quantity { get; set; }
+
+    public Guid TimeUsing { get; set; }
+
+    public bool IsPayment { get; set; }
 
     // Navigation properties.
     public MedicalReport MedicalReport { get; set; }
+
     public Medicine Medicine { get; set; }
-
-    // Normal columns.
-
-
-    //Normal Attribute
-    public decimal PriceAtOrder { get; set; }
-    public int Quantity { get; set; }
-    public Guid TimeUsing { get; set; }
-    public bool IsPayment { get; set; }
-
 }

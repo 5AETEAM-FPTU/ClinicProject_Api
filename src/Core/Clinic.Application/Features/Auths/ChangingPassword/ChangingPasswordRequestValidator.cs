@@ -17,6 +17,12 @@ public sealed class ChangingPasswordRequestValidator
             .MaximumLength(maximumLength: User.MetaData.Password.MaxLength)
             .MinimumLength(minimumLength: User.MetaData.Password.MinLength);
 
+        RuleFor(expression: request => request.Email)
+            .NotEmpty()
+            .EmailAddress()
+            .MaximumLength(maximumLength: User.MetaData.Email.MaxLength)
+            .MinimumLength(minimumLength: User.MetaData.Email.MinLength);
+
         RuleFor(expression: request => request.ResetPasswordToken).NotEmpty();
     }
 }
