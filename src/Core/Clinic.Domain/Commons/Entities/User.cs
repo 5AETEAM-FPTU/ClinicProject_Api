@@ -16,9 +16,10 @@ public class User
         IUpdatedEntity
 {
     // Navigation properties.
-
     public string FullName { get; set; }
+
     public string Avatar { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public Guid CreatedBy { get; set; }

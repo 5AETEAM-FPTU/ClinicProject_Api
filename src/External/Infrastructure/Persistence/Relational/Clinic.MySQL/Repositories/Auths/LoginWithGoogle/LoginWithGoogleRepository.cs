@@ -5,6 +5,7 @@ using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Auths.LoginWithGoogle;
 using Clinic.MySQL.Data.Context;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Auths.LoginWithGoogle;
@@ -17,12 +18,14 @@ public class LoginWithGoogleRepository : ILoginWithGoogleRepository
     private readonly ClinicContext _context;
     private DbSet<User> _users;
     private DbSet<RefreshToken> _refreshTokens;
+    private readonly UserManager<User> _userManager;
 
-    public LoginWithGoogleRepository(ClinicContext context)
+    public LoginWithGoogleRepository(ClinicContext context, UserManager<User> userManager)
     {
         _context = context;
         _users = _context.Set<User>();
         _refreshTokens = _context.Set<RefreshToken>();
+        _userManager = userManager;
     }
 
     public async Task<bool> CreateRefreshTokenCommandAsync(
@@ -53,7 +56,12 @@ public class LoginWithGoogleRepository : ILoginWithGoogleRepository
     {
         try
         {
-            await _users.AddAsync(entity: user, cancellationToken: cancellationToken);
+            await _userManager.CreateAsync(user: user, password: "Admin123@");
+            await _userManager.AddToRoleAsync(user: user, role: "user");
+            var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(
+                user: user
+            );
+            await _userManager.ConfirmEmailAsync(user: user, token: emailConfirmationToken);
             await _context.SaveChangesAsync();
         }
         catch
