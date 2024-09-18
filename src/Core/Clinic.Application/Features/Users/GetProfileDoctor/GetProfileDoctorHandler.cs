@@ -1,19 +1,19 @@
-﻿using Clinic.Application.Commons.Abstractions.GetProfileUser;
+﻿using System;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Security.Claims;
 
 namespace Clinic.Application.Features.Users.GetProfileDoctor;
 
 /// <summary>
 ///     GetProfileDoctor Handler
 /// </summary>
-public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, GetProfileDoctorResponse>
+public class GetProfileDoctorHandler
+    : IFeatureHandler<GetProfileDoctorRequest, GetProfileDoctorResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
@@ -92,8 +92,7 @@ public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, 
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-
-                    Gender = foundUser.Doctor.Gender
+                    Gender = foundUser.Doctor.Gender,
                     DOB = foundUser.Doctor.DOB,
                     Address = foundUser.Doctor.Address,
                     Description = foundUser.Doctor.Description,

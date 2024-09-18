@@ -1,9 +1,5 @@
-﻿using Clinic.Domain.Commons.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -18,7 +14,7 @@ public class OnlinePayment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEnt
     // Foreign keys.
     public Guid PatientId { get; set; }
 
-    // Normal columns.
+    // Normal properties.
     public string TransactionID { get; set; }
 
     public int Amount { get; set; }
@@ -35,9 +31,7 @@ public class OnlinePayment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEnt
 
     public Guid RemovedBy { get; set; }
 
-
     // Navigation properties.
     public Patient Patient { get; set; }
     public Appointment Appointment { get; set; }
 }
-
