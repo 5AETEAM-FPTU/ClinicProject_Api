@@ -27,7 +27,7 @@ using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
-using Clinic.MySQL.Repositories.Doctors.UpdateProfileDoctor;
+using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
