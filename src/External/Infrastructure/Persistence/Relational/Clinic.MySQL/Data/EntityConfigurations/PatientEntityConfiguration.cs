@@ -38,7 +38,7 @@ internal sealed class PatientEntityConfiguration : IEntityTypeConfiguration<Pati
         // Address
         builder
             .Property(propertyExpression: patient => patient.Address)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(225))
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(225));
 
         // Table relationships configurations.
         // [Patients] - [MedicalReports] (1 - n).
