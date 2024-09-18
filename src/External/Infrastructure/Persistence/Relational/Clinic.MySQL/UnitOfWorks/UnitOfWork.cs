@@ -28,6 +28,9 @@ using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
+using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
+using Clinic.MySQL.Repositories.Users.UpdateDoctorAchievementRepository;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -49,10 +52,13 @@ public class UnitOfWork : IUnitOfWork
     private IGetProfileDoctorRepository _getProfileDoctorRepository;
     private IRegisterAsUserRepository _registerAsUserRepository;
     private IConfirmUserRegistrationEmailRepository _confirmUserRegistrationEmailRepository;
+    private IUpdatePrivateDoctorInfoRepository _updatePrivateDoctorInfoRepository;
+    private IUpdateDoctorDescriptionRepository _updateDoctorDescriptionRepository;
     private IResendUserRegistrationConfirmedEmailRepository _resendUserRegistrationConfirmedEmailRepository;
     private ILoginByAdminRepository _loginByAdminRepository;
     private ILoginWithGoogleRepository _loginWithGoogleRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
+    private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -114,6 +120,24 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IUpdatePrivateDoctorInfoRepository UpdatePrivateDoctorInfoRepository
+    {
+        get
+        {
+            return _updatePrivateDoctorInfoRepository ??=
+                new UpdatePrivateDoctorInfoRepository(_context);
+        }
+    }
+
+    public IUpdateDoctorDescriptionRepository UpdateDoctorDescriptionRepository
+    {
+        get
+        {
+            return _updateDoctorDescriptionRepository ??=
+                new UpdateDoctorDescriptionRepository(_context);
+        }
+    }
+    
     public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository
     {
         get
@@ -147,6 +171,14 @@ public class UnitOfWork : IUnitOfWork
                 _context,
                 _userManager
             );
+        }
+    }
+
+    public IUpdateDoctorAchievementRepository UpdateDoctorAchievementRepository
+    {
+        get
+        {
+            return _updateDoctorAchievementRepository ??= new UpdateDoctorAchievementRepository(_context);
         }
     }
 }
