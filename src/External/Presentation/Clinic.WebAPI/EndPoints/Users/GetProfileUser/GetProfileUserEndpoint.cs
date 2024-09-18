@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions.GetProfileUser;
 using Clinic.Application.Features.Auths.Login;
-using Clinic.WebAPI.EndPoints.Auths.Login.HttpResponseMapper;
 using Clinic.WebAPI.EndPoints.Users.GetProfileUser.Common;
 using Clinic.WebAPI.EndPoints.Users.GetProfileUser.HttpResponseMapper;
 using FastEndpoints;

@@ -14,4 +14,5 @@ public interface IGetProfileDoctorRepository
         Guid userId,
         CancellationToken cancellationToken
     );
+
 }

@@ -41,7 +41,7 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
                 {
                     Gender = user.Patient.Gender,
                     DOB = user.Patient.DOB,
-                    Adress = user.Patient.Adress,
+                    Address = user.Patient.Address,
                     Description = user.Patient.Description
                 }
 

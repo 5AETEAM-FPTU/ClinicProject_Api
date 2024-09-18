@@ -39,7 +39,7 @@ internal sealed class PatientEntityConfiguration : IEntityTypeConfiguration<Pati
 
         // DOB
         builder
-            .Property(propertyExpression: patient => patient.Adress)
+            .Property(propertyExpression: patient => patient.Address)
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(225))
             .IsRequired();
 

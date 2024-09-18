@@ -93,7 +93,7 @@ public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, 
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
 
-                    Gender = foundUser.Doctor.Gender
+                    Gender = foundUser.Doctor.Gender,
                     DOB = foundUser.Doctor.DOB,
                     Address = foundUser.Doctor.Address,
                     Description = foundUser.Doctor.Description,

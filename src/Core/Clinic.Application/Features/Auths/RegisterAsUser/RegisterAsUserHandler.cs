@@ -240,7 +240,7 @@ internal sealed class RegisterAsUserHandler
         {
             Id = Guid.NewGuid(),
             UserId = newUser.Id,
-            Adress = "default",
+            Address = "default",
             Gender = "default",
             DOB = CommonConstant.MIN_DATE_TIME,
             Description = "default",

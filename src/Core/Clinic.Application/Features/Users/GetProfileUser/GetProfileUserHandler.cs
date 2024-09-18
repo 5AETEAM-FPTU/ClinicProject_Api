@@ -79,12 +79,12 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
 
         // Is user not temporarily removed.
         //var isUserNotTemporarilyRemoved =
-        //    await _unitOfWork.AuthFeature.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
+        //    await _unitOfWork.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
         //        userId: userId,
         //        cancellationToken: cancellationToken
         //    );
 
-        // Responds if current user is temporarily removed.
+        //Responds if current user is temporarily removed.
         //if (!isUserNotTemporarilyRemoved)
         //{
         //    return new()
@@ -109,7 +109,7 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
 
                     Gender = foundUser.Patient.Gender,
                     DOB = foundUser.Patient.DOB,
-                    Address = foundUser.Patient.Adress,
+                    Address = foundUser.Patient.Address,
                     Description = foundUser.Patient.Description
 
                 }

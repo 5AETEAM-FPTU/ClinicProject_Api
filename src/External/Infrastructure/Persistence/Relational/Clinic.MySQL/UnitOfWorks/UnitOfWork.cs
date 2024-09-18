@@ -20,6 +20,8 @@ using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
+using Clinic.MySQL.Repositories.Doctors.UpdateProfileDoctor;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -41,6 +43,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetProfileDoctorRepository _getProfileDoctorRepository;
     private IRegisterAsUserRepository _registerAsUserRepository;
     private IConfirmUserRegistrationEmailRepository _confirmUserRegistrationEmailRepository;
+    private IUpdatePrivateDoctorInfoRepository _updatePrivateDoctorInfoRepository;
+    private IUpdateDoctorDescriptionRepository _updateDoctorDescriptionRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -86,6 +90,7 @@ public class UnitOfWork : IUnitOfWork
     public IGetProfileDoctorRepository GetProfileDoctorRepository
     {
         get { return _getProfileDoctorRepository ??= new GetProfileDoctorRepository(_context); }
+    }
 
     public IRegisterAsUserRepository RegisterAsUserRepository
     {
@@ -98,6 +103,24 @@ public class UnitOfWork : IUnitOfWork
         {
             return _confirmUserRegistrationEmailRepository ??=
                 new ConfirmUserRegistrationEmailRepository(_context);
+        }
+    }
+
+    public IUpdatePrivateDoctorInfoRepository UpdatePrivateDoctorInfoRepository
+    {
+        get
+        {
+            return _updatePrivateDoctorInfoRepository ??=
+                new UpdatePrivateDoctorInfoRepository(_context);
+        }
+    }
+
+    public IUpdateDoctorDescriptionRepository UpdateDoctorDescriptionRepository
+    {
+        get
+        {
+            return _updateDoctorDescriptionRepository ??=
+                new UpdateDoctorDescriptionRepository(_context);
         }
     }
 }
