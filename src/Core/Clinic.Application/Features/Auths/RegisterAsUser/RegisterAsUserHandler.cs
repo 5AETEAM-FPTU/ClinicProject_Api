@@ -163,7 +163,7 @@ internal sealed class RegisterAsUserHandler
         CancellationToken cancellationToken
     )
     {
-        const string RegistrationConfirmEmailRoutePatuh = "/auth/confirm-email?token=";
+        const string RegistrationConfirmEmailRoutePatuh = "vertify-email?token=";
 
         // Init main account creation confirmed email token.
         var accountCreationConfirmEmailToken_1 =
@@ -245,5 +245,6 @@ internal sealed class RegisterAsUserHandler
             DOB = CommonConstant.MIN_DATE_TIME,
             Description = "default",
         };
+        newUser.Patient = new() { Id = Guid.NewGuid(), UserId = newUser.Id, };
     }
 }

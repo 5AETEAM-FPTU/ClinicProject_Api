@@ -18,7 +18,6 @@ public sealed class LoginRequestValidator : FeatureRequestValidator<LoginRequest
 
         RuleFor(expression: request => request.Password)
             .NotEmpty()
-            .Matches(expression: @"^(?=.*\d)(?=.*[A-Z]).+$")
             .MaximumLength(maximumLength: User.MetaData.Password.MaxLength)
             .MinimumLength(minimumLength: User.MetaData.Password.MinLength);
     }

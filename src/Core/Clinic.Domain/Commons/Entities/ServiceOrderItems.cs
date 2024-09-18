@@ -14,14 +14,10 @@ public class ServiceOrderItems : IBaseEntity
     public Guid MedicalReportId { get; set; }
     public Guid ServiceId { get; set; }
 
+    // Normal properties.
+    public decimal PriceAtOrder { get; set; }
+
     // Navigation properties.
     public MedicalReport MedicalReport { get; set; }
     public Service Service { get; set; }
-
-    // Normal columns.
-
-
-    //Normal Attribute
-    public decimal PriceAtOrder { get; set; }
-
 }

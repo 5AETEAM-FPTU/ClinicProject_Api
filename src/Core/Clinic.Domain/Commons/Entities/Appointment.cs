@@ -1,6 +1,6 @@
-﻿using Clinic.Domain.Commons.Entities.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
 
@@ -48,11 +48,15 @@ public class Appointment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntit
 
     // Navigation properties.
     public AppointmentStatus AppointmentStatus { get; set; }
-    public OnlinePayment OnlinePayment { get; set; }
-    public Patient Patient { get; set; }
-    public WorkingHour WorkingHour { get; set; }    
-    public MedicalReport MedicalReport { get; set; }
-    public IEnumerable<PatientBookedAppointment> PatientBookedAppointments { get; set; }
-    // them medical report
-}
 
+    public OnlinePayment OnlinePayment { get; set; }
+
+    public Patient Patient { get; set; }
+
+    public WorkingHour WorkingHour { get; set; }
+
+    public MedicalReport MedicalReport { get; set; }
+
+    // Navigation Collections.
+    public IEnumerable<PatientBookedAppointment> PatientBookedAppointments { get; set; }
+}

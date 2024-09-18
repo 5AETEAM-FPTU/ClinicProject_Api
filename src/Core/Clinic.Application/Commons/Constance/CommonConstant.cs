@@ -11,5 +11,5 @@ public static class CommonConstant
         input: "aa403b53-5ae7-4e50-8b02-92dce06ed1a9"
     );
 
-    public static readonly DateTime MIN_DATE_TIME = DateTime.MinValue.ToUniversalTime();
+    public static readonly DateTime MIN_DATE_TIME = DateTime.MinValue;
 }

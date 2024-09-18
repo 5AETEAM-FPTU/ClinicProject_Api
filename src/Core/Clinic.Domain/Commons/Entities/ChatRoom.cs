@@ -31,7 +31,10 @@ public class ChatRoom : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, 
     public Guid RemovedBy { get; set; }
 
     // Navigation properties.
-    public IEnumerable<ChatContent> ChatContents { get; set; }
     public Patient Patient { get; set; }
+
     public Doctor Doctor { get; set; }
+
+    // Navigation Collections.
+    public IEnumerable<ChatContent> ChatContents { get; set; }
 }

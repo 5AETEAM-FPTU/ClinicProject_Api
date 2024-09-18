@@ -1,9 +1,8 @@
-﻿using Clinic.Domain.Commons.Entities.Base;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
-
 
 /// <summary>
 ///     Represent the "Doctors" table.
@@ -32,10 +31,13 @@ public class Doctor : IBaseEntity
 
     public string Achievement { get; set; }
 
-
     // Navigation properties.
     public DoctorStaffType DoctorStaffType { get; set; }
+
     public User User { get; set; }
+
+    // Navigation Collections.
     public IEnumerable<WorkingHour> WorkingHours { get; set; }
+
     public IEnumerable<ChatRoom> ChatRooms { get; set; }
 }

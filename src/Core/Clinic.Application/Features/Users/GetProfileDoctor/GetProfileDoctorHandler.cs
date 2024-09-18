@@ -1,19 +1,19 @@
-﻿using Clinic.Application.Commons.Abstractions.GetProfileUser;
+using System;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-using System.Security.Claims;
 
 namespace Clinic.Application.Features.Users.GetProfileDoctor;
 
 /// <summary>
 ///     GetProfileDoctor Handler
 /// </summary>
-public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, GetProfileDoctorResponse>
+public class GetProfileDoctorHandler
+    : IFeatureHandler<GetProfileDoctorRequest, GetProfileDoctorResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
@@ -47,12 +47,18 @@ public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, 
             _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
         );
 
+        // Check role doctor from role type jwt
+        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
+        if (!Equals(objA: role, objB: "doctor"))
+        {
+            return new() { StatusCode = GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_A_DOCTOR };
+        }
+
         // Found user by userId
-        var foundUser =
-            await _unitOfWork.GetProfileDoctorRepository.GetProfileDoctorByDoctorIdQueryAsync(
-                userId: userId,
-                cancellationToken: cancellationToken
-            );
+        var foundUser = await _unitOfWork.GetProfileDoctorRepository.GetDoctorByDoctorIdQueryAsync(
+            userId: userId,
+            cancellationToken: cancellationToken
+        );
 
         // Responds if userId is not found
         if (Equals(objA: foundUser, objB: default))
@@ -64,20 +70,20 @@ public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, 
         }
 
         // Is user not temporarily removed.
-        //var isUserNotTemporarilyRemoved =
-        //    await _unitOfWork.AuthFeature.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
-        //        userId: userId,
-        //        cancellationToken: cancellationToken
-        //    );
+        var isUserTemporarilyRemoved =
+            await _unitOfWork.GetProfileDoctorRepository.IsUserTemporarilyRemovedQueryAsync(
+                userId: userId,
+                cancellationToken: cancellationToken
+            );
 
         // Responds if current user is temporarily removed.
-        //if (!isUserNotTemporarilyRemoved)
-        //{
-        //    return new()
-        //    {
-        //        StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
-        //    };
-        //}
+        if (isUserTemporarilyRemoved)
+        {
+            return new()
+            {
+                StatusCode = GetProfileDoctorResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+            };
+        }
 
         // Response successfully.
         return new GetProfileDoctorResponse()
@@ -87,12 +93,11 @@ public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, 
             {
                 User = new()
                 {
-                    // common attribute user
+                    // Common attribute user
                     Username = foundUser.UserName,
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-
                     Gender = foundUser.Doctor.Gender,
                     DOB = foundUser.Doctor.DOB,
                     Address = foundUser.Doctor.Address,

@@ -28,7 +28,7 @@ internal sealed class RegisterAsUserEndpoint
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for register patient acoount";
+            summary.Summary = "Endpoint for register patient account";
             summary.Description = "This endpoint is used for registering patient account purpose.";
             summary.ExampleRequest = new()
             {

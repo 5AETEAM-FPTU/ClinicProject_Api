@@ -3,10 +3,13 @@ using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
+using Clinic.Domain.Features.Repositories.Auths.LoginByAdmin;
+using Clinic.Domain.Features.Repositories.Auths.LoginWithGoogle;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
-using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
+using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
@@ -14,10 +17,13 @@ using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.MySQL.Repositories.Auths.ForgotPassword;
 using Clinic.MySQL.Repositories.Auths.Login;
+using Clinic.MySQL.Repositories.Auths.LoginByAdmin;
+using Clinic.MySQL.Repositories.Auths.LoginWithGoogle;
 using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
-using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
+using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
@@ -45,6 +51,9 @@ public class UnitOfWork : IUnitOfWork
     private IConfirmUserRegistrationEmailRepository _confirmUserRegistrationEmailRepository;
     private IUpdatePrivateDoctorInfoRepository _updatePrivateDoctorInfoRepository;
     private IUpdateDoctorDescriptionRepository _updateDoctorDescriptionRepository;
+    private IResendUserRegistrationConfirmedEmailRepository _resendUserRegistrationConfirmedEmailRepository;
+    private ILoginByAdminRepository _loginByAdminRepository;
+    private ILoginWithGoogleRepository _loginWithGoogleRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -122,5 +131,24 @@ public class UnitOfWork : IUnitOfWork
             return _updateDoctorDescriptionRepository ??=
                 new UpdateDoctorDescriptionRepository(_context);
         }
+    }
+    
+    public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository
+    {
+        get
+        {
+            return _resendUserRegistrationConfirmedEmailRepository ??=
+                new ResendUserRegistrationConfirmedEmailRepository(_context);
+        }
+    }
+
+    public ILoginByAdminRepository LoginByAdminRepository
+    {
+        get { return _loginByAdminRepository ??= new LoginByAdminRepository(_context); }
+    }
+
+    public ILoginWithGoogleRepository LoginWithGoogleRepository
+    {
+        get { return _loginWithGoogleRepository ??= new LoginWithGoogleRepository(_context); }
     }
 }

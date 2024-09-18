@@ -61,11 +61,20 @@ internal sealed class ChangingPasswordHandler
             );
 
         // Respond if reset password token is not found by its value.
-        if (Equals(objA: foundUserToken.Value, objB: default))
+        if (Equals(objA: foundUserToken, objB: default))
         {
             return new()
             {
                 StatusCode = ChangingPasswordResponseStatusCode.RESET_PASSWORD_TOKEN_IS_NOT_FOUND
+            };
+        }
+
+        // Respond if email is not match with otp code.
+        if (!Equals(objA: foundUserToken.User.NormalizedEmail, objB: request.Email.ToUpper()))
+        {
+            return new()
+            {
+                StatusCode = ChangingPasswordResponseStatusCode.EMAIL_IS_NOT_MATCH_WITH_OTP
             };
         }
 

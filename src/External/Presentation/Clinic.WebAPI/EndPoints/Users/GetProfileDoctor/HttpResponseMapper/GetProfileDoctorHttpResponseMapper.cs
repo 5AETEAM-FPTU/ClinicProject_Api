@@ -1,6 +1,4 @@
-﻿using Clinic.WebAPI.EndPoints.Users.GetProfileUser.HttpResponseMapper;
-
-namespace Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.HttpResponseMapper;
+﻿namespace Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.HttpResponseMapper;
 
 internal static class GetProfileDoctorHttpResponseMapper
 {
@@ -11,4 +9,3 @@ internal static class GetProfileDoctorHttpResponseMapper
         return _GetProfileDoctorHttpResponseManager ??= new();
     }
 }
-

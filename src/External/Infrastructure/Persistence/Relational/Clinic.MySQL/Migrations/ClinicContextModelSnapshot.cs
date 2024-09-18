@@ -352,8 +352,6 @@ namespace Clinic.MySQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("UserId");
-
                     b.ToTable("DoctorStaffTypes", null, t =>
                         {
                             t.HasComment("Contain doctor staff types records.");
@@ -641,15 +639,13 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("Id")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Adress")
-                        .IsRequired()
+                    b.Property<string>("Address")
                         .HasColumnType("VARCHAR(225)");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("DATETIME");
 
                     b.Property<string>("Description")
-                        .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<string>("Gender")
@@ -1270,17 +1266,6 @@ namespace Clinic.MySQL.Migrations
                         .IsRequired();
 
                     b.Navigation("DoctorStaffType");
-
-                    b.Navigation("User");
-                });
-
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.DoctorStaffType", b =>
-                {
-                    b.HasOne("Clinic.Domain.Commons.Entities.User", "User")
-                        .WithMany()
-                        .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
 
                     b.Navigation("User");
                 });

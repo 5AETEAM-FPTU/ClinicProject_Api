@@ -1,13 +1,12 @@
-﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
-using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
-using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Commons.Constance;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 
@@ -22,7 +21,7 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
         _users = _context.Set<User>();
     }
 
-    public Task<User> GetProfileDoctorByDoctorIdQueryAsync(
+    public Task<User> GetDoctorByDoctorIdQueryAsync(
         Guid userId,
         CancellationToken cancellationToken
     )
@@ -46,10 +45,20 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
                     Specialty = user.Doctor.Specialty,
                     Address = user.Doctor.Address,
                     Achievement = user.Doctor.Achievement
-                }   
+                }
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
+    public Task<bool> IsUserTemporarilyRemovedQueryAsync(
+        Guid userId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _users.AnyAsync(
+            predicate: entity =>
+                entity.Id == userId && entity.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            cancellationToken: cancellationToken
+        );
+    }
 }
-
