@@ -11,6 +11,8 @@ using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedE
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
+using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -70,17 +72,36 @@ public interface IUnitOfWork
     public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository { get; }
 
     /// <summary>
+    ///    UpdatePrivateDoctorInfoRepository repository feature.
+    /// </summary>
+    public IUpdatePrivateDoctorInfoRepository UpdatePrivateDoctorInfoRepository { get; }
+
+    /// <summary>
+    ///    IUpdateDoctorDescriptionRepository repository feature.
+    /// </summary>
+    public IUpdateDoctorDescriptionRepository UpdateDoctorDescriptionRepository { get; }
+
     ///    ResendUserRegistrationConfirmedEmail repository feature.
     /// </summary>
     public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository { get; }
 
     /// <summary>
-    ///    LoginByAdminRepository repository feature.
+    ///    LoginByAdmin repository feature.
     /// </summary>
     public ILoginByAdminRepository LoginByAdminRepository { get; }
 
     /// <summary>
-    ///    LoginWithGoogleRepository repository feature.
+    ///    LoginWithGoogle repository feature.
     /// </summary>
     public ILoginWithGoogleRepository LoginWithGoogleRepository { get; }
+
+    /// <summary>
+    ///    UpdatePasswordUser repository feature.
+    /// </summary>
+    public IUpdatePasswordUserRepository UpdatePasswordUserRepository { get; }
+
+    /// <sumary>
+    ///    UpdateDoctorAchievementRepository repository feature.
+    /// </summary>
+    public IUpdateDoctorAchievementRepository UpdateDoctorAchievementRepository { get; }
 }

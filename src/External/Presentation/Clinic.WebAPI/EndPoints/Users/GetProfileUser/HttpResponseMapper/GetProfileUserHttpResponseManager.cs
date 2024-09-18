@@ -1,7 +1,7 @@
-﻿using Clinic.Application.Commons.Abstractions.GetProfileUser;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
+using Clinic.Application.Commons.Abstractions.GetProfileUser;
 
 namespace Clinic.WebAPI.EndPoints.Users.GetProfileUser.HttpResponseMapper;
 

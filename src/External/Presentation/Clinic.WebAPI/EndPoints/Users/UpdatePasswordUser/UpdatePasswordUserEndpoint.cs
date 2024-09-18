@@ -1,24 +1,27 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Commons.Abstractions.GetProfileUser;
-using Clinic.Application.Features.Auths.Login;
-using Clinic.WebAPI.EndPoints.Users.GetProfileUser.Common;
-using Clinic.WebAPI.EndPoints.Users.GetProfileUser.HttpResponseMapper;
+using Clinic.Application.Features.Users.UpdatePasswordUser;
+using Clinic.WebAPI.Commons.Behaviors.Authorization;
+using Clinic.WebAPI.Commons.Behaviors.Validation;
+using Clinic.WebAPI.EndPoints.Users.UpdatePasswordUser.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Users.GetProfileUser;
+namespace Clinic.WebAPI.EndPoints.Users.UpdatePasswordUser;
 
 /// <summary>
-///     Login endpoint.
+///     UpdatePasswordUser endpoint.
 /// </summary>
-internal sealed class GetProfileUserEndpoint : Endpoint<EmptyRequest, GetProfileUserHttpResponse>
+internal sealed class UpdatePasswordUserEndpoint
+    : Endpoint<UpdatePasswordUserRequest, UpdatePasswordUserHttpResponse>
 {
     public override void Configure()
     {
-        Get(routePatterns: "user/profile");
+        Patch(routePatterns: "auth/update-password");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
+        PreProcessor<ValidationPreProcessor<UpdatePasswordUserRequest>>();
+        PreProcessor<AuthorizationPreProcessor<UpdatePasswordUserRequest>>();
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
@@ -26,34 +29,34 @@ internal sealed class GetProfileUserEndpoint : Endpoint<EmptyRequest, GetProfile
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for User feature";
-            summary.Description = "This endpoint is used for display profile user.";
-            summary.Response<GetProfileUserHttpResponse>(
+            summary.Summary = "Endpoint for updating password.";
+            summary.Description =
+                "This endpoint is used for updating password with oldpassword purpose.";
+            summary.ExampleRequest = new() { NewPassword = "string", CurrentPassword = "string", };
+            summary.Response<UpdatePasswordUserHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode = UpdatePasswordUserResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<GetProfileUserHttpResponse> ExecuteAsync(
-        EmptyRequest req,
+    public override async Task<UpdatePasswordUserHttpResponse> ExecuteAsync(
+        UpdatePasswordUserRequest req,
         CancellationToken ct
     )
     {
         // Get app feature response.
-        var stateBag = ProcessorState<GetProfileUserStateBag>();
-
-        var appResponse = await stateBag.AppRequest.ExecuteAsync(ct: ct);
+        var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = GetProfileUserHttpResponseMapper
+        var httpResponse = UpdatePasswordUserHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
-            .Invoke(arg1: stateBag.AppRequest, arg2: appResponse);
+            .Invoke(arg1: req, arg2: appResponse);
 
         /*
         * Store the real http code of http response into a temporary variable.
