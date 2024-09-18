@@ -8,6 +8,7 @@ using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 
@@ -42,6 +43,11 @@ public interface IUnitOfWork
     ///     Doctor repository feature
     /// </summary>
     public IGetProfileDoctorRepository GetProfileDoctorRepository { get; }
+
+    /// <summary>
+    ///     Enums repository feature
+    /// </summary>
+    public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository { get; }
 
     /// <summary>
     ///    ChangingPassword repository feature.
