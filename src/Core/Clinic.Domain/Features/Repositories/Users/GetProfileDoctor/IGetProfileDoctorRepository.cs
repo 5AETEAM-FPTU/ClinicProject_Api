@@ -7,6 +7,11 @@ namespace Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 
 public interface IGetProfileDoctorRepository
 {
+    Task<User> GetProfileDoctorByDoctorIdQueryAsync(
+        Guid userId,
+        CancellationToken cancellationToken
+    );
+
     Task<User> GetDoctorByDoctorIdQueryAsync(Guid userId, CancellationToken cancellationToken);
 
     Task<bool> IsUserTemporarilyRemovedQueryAsync(Guid userId, CancellationToken cancellationToken);

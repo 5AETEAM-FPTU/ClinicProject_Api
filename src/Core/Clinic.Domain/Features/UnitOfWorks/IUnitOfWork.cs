@@ -10,6 +10,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
+using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -64,6 +65,15 @@ public interface IUnitOfWork
     public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository { get; }
 
     /// <summary>
+    ///    UpdatePrivateDoctorInfoRepository repository feature.
+    /// </summary>
+    public IUpdatePrivateDoctorInfoRepository UpdatePrivateDoctorInfoRepository { get; }
+
+    /// <summary>
+    ///    IUpdateDoctorDescriptionRepository repository feature.
+    /// </summary>
+    public IUpdateDoctorDescriptionRepository UpdateDoctorDescriptionRepository { get; }
+
     ///    ResendUserRegistrationConfirmedEmail repository feature.
     /// </summary>
     public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository { get; }

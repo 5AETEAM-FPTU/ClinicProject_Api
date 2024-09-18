@@ -236,6 +236,15 @@ internal sealed class RegisterAsUserHandler
     /// </param>
     private void InitFillingUser(User newUser)
     {
+        newUser.Patient = new()
+        {
+            Id = Guid.NewGuid(),
+            UserId = newUser.Id,
+            Address = "default",
+            Gender = "default",
+            DOB = CommonConstant.MIN_DATE_TIME,
+            Description = "default",
+        };
         newUser.Patient = new() { Id = Guid.NewGuid(), UserId = newUser.Id, };
     }
 }
