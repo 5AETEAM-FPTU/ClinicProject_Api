@@ -1,11 +1,9 @@
 ﻿using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
-using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -22,7 +20,7 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
         _users = _context.Set<User>();
     }
 
-    public Task<User> GetProfileDoctorByDoctorIdQueryAsync(
+    public Task<User> GetDoctorByDoctorIdQueryAsync(
         Guid userId,
         CancellationToken cancellationToken
     )
@@ -46,7 +44,7 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
                     Specialty = user.Doctor.Specialty,
                     Address = user.Doctor.Address,
                     Achievement = user.Doctor.Achievement
-                }   
+                }
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }

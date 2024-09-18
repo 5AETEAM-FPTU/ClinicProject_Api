@@ -1,5 +1,4 @@
-﻿using Clinic.Application.Commons.Abstractions.GetProfileUser;
-using Clinic.Application.Commons.Abstractions;
+﻿using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -49,7 +48,7 @@ public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, 
 
         // Found user by userId
         var foundUser =
-            await _unitOfWork.GetProfileDoctorRepository.GetProfileDoctorByDoctorIdQueryAsync(
+            await _unitOfWork.GetProfileDoctorRepository.GetDoctorByDoctorIdQueryAsync(
                 userId: userId,
                 cancellationToken: cancellationToken
             );
@@ -93,7 +92,7 @@ public class GetProfileDoctorHandler : IFeatureHandler<GetProfileDoctorRequest, 
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
 
-                    Gender = foundUser.Doctor.Gender
+                    Gender = foundUser.Doctor.Gender,
                     DOB = foundUser.Doctor.DOB,
                     Address = foundUser.Doctor.Address,
                     Description = foundUser.Doctor.Description,
