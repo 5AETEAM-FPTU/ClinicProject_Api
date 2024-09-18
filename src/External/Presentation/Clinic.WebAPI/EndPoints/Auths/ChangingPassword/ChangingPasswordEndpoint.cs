@@ -32,7 +32,8 @@ internal sealed class ChangingPasswordEndpoint
             summary.ExampleRequest = new()
             {
                 NewPassword = "string",
-                ResetPasswordToken = "string"
+                ResetPasswordToken = "string",
+                Email = "string"
             };
             summary.Response<ChangingPasswordHttpResponse>(
                 description: "Represent successful operation response.",

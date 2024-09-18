@@ -78,6 +78,26 @@ public class ChangingPasswordHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: ChangingPasswordResponseStatusCode.EMAIL_IS_NOT_MATCH_WITH_OTP,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: ChangingPasswordResponseStatusCode.OTP_CODE_IS_EXPIRED,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<

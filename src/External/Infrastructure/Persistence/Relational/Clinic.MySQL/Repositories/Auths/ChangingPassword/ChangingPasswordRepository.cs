@@ -38,7 +38,8 @@ public class ChangingPasswordRepository : IChangingPasswordRepository
             {
                 UserId = userToken.UserId,
                 ExpiredAt = userToken.ExpiredAt,
-                Value = userToken.Value
+                Value = userToken.Value,
+                User = new() { NormalizedEmail = userToken.User.NormalizedEmail }
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }

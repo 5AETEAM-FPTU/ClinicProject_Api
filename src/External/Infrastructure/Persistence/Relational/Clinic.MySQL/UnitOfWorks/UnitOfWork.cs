@@ -6,6 +6,7 @@ using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
+using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.UnitOfWorks;
@@ -17,6 +18,7 @@ using Clinic.MySQL.Repositories.Auths.Login;
 using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
+using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
@@ -41,6 +43,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetProfileDoctorRepository _getProfileDoctorRepository;
     private IRegisterAsUserRepository _registerAsUserRepository;
     private IConfirmUserRegistrationEmailRepository _confirmUserRegistrationEmailRepository;
+    private IResendUserRegistrationConfirmedEmailRepository _resendUserRegistrationConfirmedEmailRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -99,6 +102,15 @@ public class UnitOfWork : IUnitOfWork
         {
             return _confirmUserRegistrationEmailRepository ??=
                 new ConfirmUserRegistrationEmailRepository(_context);
+        }
+    }
+
+    public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository
+    {
+        get
+        {
+            return _resendUserRegistrationConfirmedEmailRepository ??=
+                new ResendUserRegistrationConfirmedEmailRepository(_context);
         }
     }
 }
