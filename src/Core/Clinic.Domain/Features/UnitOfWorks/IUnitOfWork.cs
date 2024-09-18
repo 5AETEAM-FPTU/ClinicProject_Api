@@ -2,6 +2,7 @@ using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
+using Clinic.Domain.Features.Repositories.Auths.LoginByAdmin;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
@@ -65,4 +66,9 @@ public interface IUnitOfWork
     ///    ResendUserRegistrationConfirmedEmail repository feature.
     /// </summary>
     public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository { get; }
+
+    /// <summary>
+    ///    LoginByAdminRepository repository feature.
+    /// </summary>
+    public ILoginByAdminRepository LoginByAdminRepository { get; }
 }

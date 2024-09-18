@@ -3,6 +3,7 @@ using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
+using Clinic.Domain.Features.Repositories.Auths.LoginByAdmin;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
@@ -15,6 +16,7 @@ using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.MySQL.Repositories.Auths.ForgotPassword;
 using Clinic.MySQL.Repositories.Auths.Login;
+using Clinic.MySQL.Repositories.Auths.LoginByAdmin;
 using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
@@ -44,6 +46,7 @@ public class UnitOfWork : IUnitOfWork
     private IRegisterAsUserRepository _registerAsUserRepository;
     private IConfirmUserRegistrationEmailRepository _confirmUserRegistrationEmailRepository;
     private IResendUserRegistrationConfirmedEmailRepository _resendUserRegistrationConfirmedEmailRepository;
+    private ILoginByAdminRepository _loginByAdminRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -112,5 +115,10 @@ public class UnitOfWork : IUnitOfWork
             return _resendUserRegistrationConfirmedEmailRepository ??=
                 new ResendUserRegistrationConfirmedEmailRepository(_context);
         }
+    }
+
+    public ILoginByAdminRepository LoginByAdminRepository
+    {
+        get { return _loginByAdminRepository ??= new LoginByAdminRepository(_context); }
     }
 }
