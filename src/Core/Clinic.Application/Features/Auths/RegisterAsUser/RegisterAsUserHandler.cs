@@ -163,7 +163,7 @@ internal sealed class RegisterAsUserHandler
         CancellationToken cancellationToken
     )
     {
-        const string RegistrationConfirmEmailRoutePatuh = "auth/confirm-email?token=";
+        const string RegistrationConfirmEmailRoutePatuh = "auth/vertify-email?token=";
 
         // Init main account creation confirmed email token.
         var accountCreationConfirmEmailToken_1 =

@@ -1,55 +1,52 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Auths.RegisterAsUser;
-using Clinic.WebAPI.Commons.Behaviors.Authorization;
+using Clinic.Application.Features.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Auths.RegisterAsUser.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Auths.ResendUserRegistrationConfirmedEmail.HttpResponseMapper;
 using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Auths.RegisterAsUser;
+namespace Clinic.WebAPI.EndPoints.Auths.ResendUserRegistrationConfirmedEmail;
 
 /// <summary>
-///     RegisterAsUser endpoint.
+///     ResendUserRegistrationConfirmedEmail endpoint.
 /// </summary>
-internal sealed class RegisterAsUserEndpoint
-    : Endpoint<RegisterAsUserRequest, RegisterAsUserHttpResponse>
+internal sealed class ResendUserRegistrationConfirmedEmailEndpoint
+    : Endpoint<
+        ResendUserRegistrationConfirmedEmailRequest,
+        ResendUserRegistrationConfirmedEmailHttpResponse
+    >
 {
     public override void Configure()
     {
-        Post(routePatterns: "auth/register-user");
+        Post(routePatterns: "auth/resend-email-confirmation");
         DontThrowIfValidationFails();
         AllowAnonymous();
-        PreProcessor<ValidationPreProcessor<RegisterAsUserRequest>>();
+        PreProcessor<ValidationPreProcessor<ResendUserRegistrationConfirmedEmailRequest>>();
         Description(builder: builder =>
         {
             builder.ClearDefaultProduces(statusCodes: StatusCodes.Status400BadRequest);
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for register patient account";
-            summary.Description = "This endpoint is used for registering patient account purpose.";
-            summary.ExampleRequest = new()
-            {
-                Email = "string",
-                FullName = "string",
-                Password = "string",
-                PhoneNumber = "string",
-            };
-            summary.Response<RegisterAsUserHttpResponse>(
+            summary.Summary = "Endpoint for resend user registration confirmed email.";
+            summary.Description =
+                "This endpoint is used for resend user registration confirmed email purpose.";
+            summary.ExampleRequest = new() { Email = "string", };
+            summary.Response<ResendUserRegistrationConfirmedEmailHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = RegisterAsUserResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode =
+                        ResendUserRegistrationConfirmedEmailResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<RegisterAsUserHttpResponse> ExecuteAsync(
-        RegisterAsUserRequest req,
+    public override async Task<ResendUserRegistrationConfirmedEmailHttpResponse> ExecuteAsync(
+        ResendUserRegistrationConfirmedEmailRequest req,
         CancellationToken ct
     )
     {
@@ -57,7 +54,7 @@ internal sealed class RegisterAsUserEndpoint
         var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = RegisterAsUserHttpResponseMapper
+        var httpResponse = ResendUserRegistrationConfirmedEmailHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

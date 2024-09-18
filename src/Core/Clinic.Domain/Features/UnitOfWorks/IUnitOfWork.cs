@@ -4,8 +4,9 @@ using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
-using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
+using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
@@ -59,4 +60,9 @@ public interface IUnitOfWork
     ///    ConfirmUserRegistrationEmail repository feature.
     /// </summary>
     public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository { get; }
+
+    /// <summary>
+    ///    ResendUserRegistrationConfirmedEmail repository feature.
+    /// </summary>
+    public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository { get; }
 }
