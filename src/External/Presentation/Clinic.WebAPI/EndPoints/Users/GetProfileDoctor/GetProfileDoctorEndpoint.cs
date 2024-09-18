@@ -1,25 +1,25 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using Clinic.Application.Features.Auths.Logout;
-using Clinic.WebAPI.Commons.Behaviors.Authorization;
-using Clinic.WebAPI.EndPoints.Auths.Logout.Common;
-using Clinic.WebAPI.EndPoints.Auths.Logout.HttpResponseMapper;
+﻿using Clinic.WebAPI.EndPoints.Users.GetProfileUser.Common;
+using Clinic.WebAPI.EndPoints.Users.GetProfileUser.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using System.Threading.Tasks;
+using System.Threading;
+using Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.HttpResponseMapper;
 using Microsoft.AspNetCore.Http;
+using Clinic.Application.Features.Auths.Login;
+using Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.Common;
 
-namespace Clinic.WebAPI.EndPoints.Auths.Logout;
+namespace Clinic.WebAPI.EndPoints.Users.GetProfileDoctor;
 
 /// <summary>
-///     Logout endpoint.
+///     Login endpoint.
 /// </summary>
-internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse>
+internal sealed class GetProfileDoctorEndpoint : Endpoint<EmptyRequest, GetProfileDoctorHttpResponse>
 {
     public override void Configure()
     {
-        Post(routePatterns: "auth/logout");
+        Get(routePatterns: "doctor/profile");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
-        PreProcessor<AuthorizationPreProcessor<EmptyRequest>>();
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
@@ -27,32 +27,31 @@ internal sealed class LogoutEndpoint : Endpoint<EmptyRequest, LogoutHttpResponse
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Logout feature";
-            summary.Description = "This endpoint is used for Logout purpose.";
-            summary.ExampleRequest = new() { };
-            summary.Response<LogoutHttpResponse>(
+            summary.Summary = "Endpoint for User feature";
+            summary.Description = "This endpoint is used for display profile user.";
+            summary.Response<GetProfileDoctorHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LogoutResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
                 }
             );
         });
     }
 
-    public override async Task<LogoutHttpResponse> ExecuteAsync(
+    public override async Task<GetProfileDoctorHttpResponse> ExecuteAsync(
         EmptyRequest req,
         CancellationToken ct
     )
     {
         // Get app feature response.
-        var stateBag = ProcessorState<LogoutStateBag>();
+        var stateBag = ProcessorState<GetProfileDoctorStateBag>();
 
         var appResponse = await stateBag.AppRequest.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = LogoutHttpResponseMapper
+        var httpResponse = GetProfileDoctorHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: stateBag.AppRequest, arg2: appResponse);

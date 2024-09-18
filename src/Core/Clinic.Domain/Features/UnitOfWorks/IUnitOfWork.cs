@@ -1,10 +1,12 @@
-﻿using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
+using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
+using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
 using Clinic.Domain.Features.Repositories.Auths.Login;
 using Clinic.Domain.Features.Repositories.Auths.Logout;
-using Clinic.Domain.Features.Repositories.Users;
-using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
+using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
+using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -34,6 +36,11 @@ public interface IUnitOfWork
     public IGetProfileUserRepository GetProfileUserRepository { get; }
 
     /// <summary>
+    ///     Doctor repository feature
+    /// </summary>
+    public IGetProfileDoctorRepository GetProfileDoctorRepository { get; }
+
+    /// <summary>
     ///    ChangingPassword repository feature.
     /// </summary>
     public IChangingPasswordRepository ChangingPasswordRepository { get; }
@@ -42,4 +49,14 @@ public interface IUnitOfWork
     ///    RefreshAccessToken repository feature.
     /// </summary>
     public IRefreshAccessTokenRepository RefreshAccessTokenRepository { get; }
+
+    /// <summary>
+    ///    RegisterAsUser repository feature.
+    /// </summary>
+    public IRegisterAsUserRepository RegisterAsUserRepository { get; }
+
+    /// <summary>
+    ///    ConfirmUserRegistrationEmail repository feature.
+    /// </summary>
+    public IConfirmUserRegistrationEmailRepository ConfirmUserRegistrationEmailRepository { get; }
 }

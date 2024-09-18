@@ -154,7 +154,7 @@ public static class ClinicDataSeeding
 
         newRoleNames.Add(key: doctorRole, value: "doctor");
         newRoleNames.Add(key: staffRole, value: "staff");
-        newRoleNames.Add(key: patienRole, value: "patient");
+        newRoleNames.Add(key: patienRole, value: "user");
         newRoleNames.Add(key: adminRole, value: "admin");
 
         List<Role> newRoles = [];

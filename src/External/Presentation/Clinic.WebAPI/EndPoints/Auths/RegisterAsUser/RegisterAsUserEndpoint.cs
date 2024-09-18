@@ -1,57 +1,55 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Auths.Login;
+using Clinic.Application.Features.Auths.RegisterAsUser;
+using Clinic.WebAPI.Commons.Behaviors.Authorization;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Auths.Login.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Auths.RegisterAsUser.HttpResponseMapper;
 using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Auths.Login;
+namespace Clinic.WebAPI.EndPoints.Auths.RegisterAsUser;
 
 /// <summary>
-///     Login endpoint.
+///     RegisterAsUser endpoint.
 /// </summary>
-internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
+internal sealed class RegisterAsUserEndpoint
+    : Endpoint<RegisterAsUserRequest, RegisterAsUserHttpResponse>
 {
     public override void Configure()
     {
-        Post(routePatterns: "auth/login");
-        PreProcessor<ValidationPreProcessor<LoginRequest>>();
-        AllowAnonymous();
+        Post(routePatterns: "auth/register-user");
         DontThrowIfValidationFails();
+        AllowAnonymous();
+        PreProcessor<ValidationPreProcessor<RegisterAsUserRequest>>();
         Description(builder: builder =>
         {
             builder.ClearDefaultProduces(statusCodes: StatusCodes.Status400BadRequest);
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Login feature";
-            summary.Description = "This endpoint is used for Login purpose.";
-            summary.ExampleRequest = new() { Username = "string", Password = "string", };
-            summary.Response<LoginHttpResponse>(
+            summary.Summary = "Endpoint for register patient acoount";
+            summary.Description = "This endpoint is used for registering patient account purpose.";
+            summary.ExampleRequest = new()
+            {
+                Email = "string",
+                FullName = "string",
+                Password = "string",
+                PhoneNumber = "string",
+            };
+            summary.Response<RegisterAsUserHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
-                    Body = new LoginResponse.Body()
-                    {
-                        AccessToken = "string",
-                        RefreshToken = "string",
-                        User = new()
-                        {
-                            AvatarUrl = "string",
-                            FullName = "string",
-                            Email = "string",
-                        }
-                    }
+                    AppCode = RegisterAsUserResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<LoginHttpResponse> ExecuteAsync(
-        LoginRequest req,
+    public override async Task<RegisterAsUserHttpResponse> ExecuteAsync(
+        RegisterAsUserRequest req,
         CancellationToken ct
     )
     {
@@ -59,7 +57,7 @@ internal sealed class LoginEndpoint : Endpoint<LoginRequest, LoginHttpResponse>
         var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
-        var httpResponse = LoginHttpResponseMapper
+        var httpResponse = RegisterAsUserHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
