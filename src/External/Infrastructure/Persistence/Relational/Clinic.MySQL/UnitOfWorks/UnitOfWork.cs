@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
+using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -25,6 +26,7 @@ using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
+using Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
@@ -55,6 +57,7 @@ public class UnitOfWork : IUnitOfWork
     private IResendUserRegistrationConfirmedEmailRepository _resendUserRegistrationConfirmedEmailRepository;
     private ILoginByAdminRepository _loginByAdminRepository;
     private ILoginWithGoogleRepository _loginWithGoogleRepository;
+    private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
 
     public UnitOfWork(
@@ -151,7 +154,24 @@ public class UnitOfWork : IUnitOfWork
 
     public ILoginWithGoogleRepository LoginWithGoogleRepository
     {
-        get { return _loginWithGoogleRepository ??= new LoginWithGoogleRepository(_context); }
+        get
+        {
+            return _loginWithGoogleRepository ??= new LoginWithGoogleRepository(
+                _context,
+                _userManager
+            );
+        }
+    }
+
+    public IUpdatePasswordUserRepository UpdatePasswordUserRepository
+    {
+        get
+        {
+            return _updatePasswordUserRepository ??= new UpdatePasswordUserRepository(
+                _context,
+                _userManager
+            );
+        }
     }
 
     public IUpdateDoctorAchievementRepository UpdateDoctorAchievementRepository
