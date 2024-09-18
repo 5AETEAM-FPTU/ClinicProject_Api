@@ -16,9 +16,6 @@ public class DoctorStaffType
     // Primary keys.
     public Guid Id { get; set; }
 
-    // Foreign keys
-    public Guid UserId { get; set; }
-
     // Normal columns.
     public string TypeName { get; set; }
 
