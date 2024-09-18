@@ -15,13 +15,13 @@ public class MedicalReport : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempo
     // Foreign keys.
     public Guid PatientId { get; set; }
 
-    // Navigation properties.
-    public IEnumerable<ServiceOrderItems> ServiceOrderItems { get; set; }
-    public IEnumerable<MedicineOrderItems> MedicineOrderItems { get; set; }
-    public Patient Patient { get; set; }
-    public Appointment Appointment { get; set; }
-
     // Normal columns.
+    public string Code { get; set; }
+
+    public string Name { get; set; }
+
+    public decimal TotalPrice { get; set; }
+
     public DateTime UpdatedAt { get; set; }
 
     public Guid UpdatedBy { get; set; }
@@ -34,9 +34,13 @@ public class MedicalReport : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempo
 
     public Guid RemovedBy { get; set; }
 
-    //Normal Attribute
-    public string Code { get; set; }
-    public string Name { get; set; }
-    public decimal TotalPrice { get; set; }
+    // Navigation properties.
+    public IEnumerable<ServiceOrderItems> ServiceOrderItems { get; set; }
 
+    public IEnumerable<MedicineOrderItems> MedicineOrderItems { get; set; }
+
+    // Navigation Collections.
+    public Patient Patient { get; set; }
+
+    public Appointment Appointment { get; set; }
 }

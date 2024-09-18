@@ -1,17 +1,16 @@
-﻿using Clinic.Domain.Commons.Entities.Base;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
+using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
-
 
 /// <summary>
 ///     Represent the "AppointmentStatus" table.
 /// </summary>
-public class AppointmentStatus : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IUpdatedEntity
+public class AppointmentStatus
+    : IBaseEntity,
+        ICreatedEntity,
+        ITemporarilyRemovedEntity,
+        IUpdatedEntity
 {
     // Primary keys.
     public Guid Id { get; set; }
@@ -36,4 +35,3 @@ public class AppointmentStatus : IBaseEntity, ICreatedEntity, ITemporarilyRemove
     // Navigation properties.
     public Appointment Appointment { get; set; }
 }
-

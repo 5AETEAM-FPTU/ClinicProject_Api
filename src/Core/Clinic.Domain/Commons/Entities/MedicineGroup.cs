@@ -12,12 +12,11 @@ public class MedicineGroup : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempo
     // Primary keys.
     public Guid Id { get; set; }
 
-    // Foreign keys.
+    // Normal properties.
+    public string Name { get; set; }
 
-    // Navigation properties.
-    public IEnumerable<Medicine> Medicines { get; set; }
+    public string Constaint { get; set; }
 
-    // Normal columns.
     public DateTime UpdatedAt { get; set; }
 
     public Guid UpdatedBy { get; set; }
@@ -30,7 +29,6 @@ public class MedicineGroup : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITempo
 
     public Guid RemovedBy { get; set; }
 
-    //Normal Attribute
-    public string Name { get; set; }
-    public string Constaint { get; set; }
+    // Navigation Collections.
+    public IEnumerable<Medicine> Medicines { get; set; }
 }

@@ -3,6 +3,7 @@ using System;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -10,9 +11,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Clinic.MySQL.Migrations
 {
     [DbContext(typeof(ClinicContext))]
-    partial class ClinicContextModelSnapshot : ModelSnapshot
+    [Migration("20240918050816_Migration-1")]
+    partial class Migration1
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -351,6 +354,8 @@ namespace Clinic.MySQL.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("UserId");
 
                     b.ToTable("DoctorStaffTypes", null, t =>
                         {
@@ -1266,6 +1271,17 @@ namespace Clinic.MySQL.Migrations
                         .IsRequired();
 
                     b.Navigation("DoctorStaffType");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.DoctorStaffType", b =>
+                {
+                    b.HasOne("Clinic.Domain.Commons.Entities.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
                     b.Navigation("User");
                 });
