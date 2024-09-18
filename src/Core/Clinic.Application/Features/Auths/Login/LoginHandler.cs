@@ -90,7 +90,7 @@ internal sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse
             return new() { StatusCode = LoginResponseStatusCode.USER_PASSWORD_IS_NOT_CORRECT };
         }
 
-        // Is user not temporarily removed.
+        // Is user temporarily removed.
         var isUserTemporarilyRemoved =
             await _unitOfWork.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: foundUser.Id,

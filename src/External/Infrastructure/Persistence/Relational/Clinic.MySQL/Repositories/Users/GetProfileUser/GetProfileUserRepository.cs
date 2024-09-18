@@ -1,9 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Data.Context;
@@ -43,5 +42,17 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
                 }
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+    }
+
+    public Task<bool> IsUserTemporarilyRemovedQueryAsync(
+        Guid userId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _users.AnyAsync(
+            predicate: entity =>
+                entity.Id == userId && entity.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            cancellationToken: cancellationToken
+        );
     }
 }

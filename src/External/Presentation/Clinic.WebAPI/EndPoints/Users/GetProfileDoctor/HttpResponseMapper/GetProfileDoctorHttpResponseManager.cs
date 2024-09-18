@@ -1,9 +1,8 @@
-﻿using Clinic.Application.Commons.Abstractions.GetProfileUser;
-using Clinic.WebAPI.EndPoints.Users.GetProfileUser.HttpResponseMapper;
+﻿using System;
 using System.Collections.Generic;
-using System;
-using Microsoft.AspNetCore.Http;
+using Clinic.Application.Commons.Abstractions.GetProfileUser;
 using Clinic.Application.Features.Users.GetProfileDoctor;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.HttpResponseMapper;
 
@@ -55,6 +54,16 @@ public class GetProfileDoctorHttpResponseManager
                 new()
                 {
                     HttpCode = StatusCodes.Status417ExpectationFailed,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_A_DOCTOR,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status403Forbidden,
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );

@@ -1,12 +1,9 @@
 using System;
-using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.Abstractions.GetProfileUser;
-using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -76,20 +73,20 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
         }
 
         // Is user not temporarily removed.
-        //var isUserNotTemporarilyRemoved =
-        //    await _unitOfWork.AuthFeature.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
-        //        userId: userId,
-        //        cancellationToken: cancellationToken
-        //    );
+        var isUserTemporarilyRemoved =
+            await _unitOfWork.GetProfileUserRepository.IsUserTemporarilyRemovedQueryAsync(
+                userId: userId,
+                cancellationToken: cancellationToken
+            );
 
         // Responds if current user is temporarily removed.
-        //if (!isUserNotTemporarilyRemoved)
-        //{
-        //    return new()
-        //    {
-        //        StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
-        //    };
-        //}
+        if (isUserTemporarilyRemoved)
+        {
+            return new()
+            {
+                StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+            };
+        }
 
         // Response successfully.
         return new GetProfileUserResponse()
@@ -99,12 +96,11 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
             {
                 User = new()
                 {
-                    // common attribute user
+                    // Common attribute user
                     Username = foundUser.UserName,
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-
                     Gender = foundUser.Patient.Gender,
                     DOB = foundUser.Patient.DOB,
                     Address = foundUser.Patient.Address,

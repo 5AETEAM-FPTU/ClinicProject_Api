@@ -1,5 +1,3 @@
-
-using Clinic.Application.Commons.Abstractions;
 using System;
 using System.Security.Claims;
 using System.Threading;
@@ -49,12 +47,18 @@ public class GetProfileDoctorHandler
             _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
         );
 
+        // Check role doctor from role type jwt
+        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
+        if (!Equals(objA: role, objB: "doctor"))
+        {
+            return new() { StatusCode = GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_A_DOCTOR };
+        }
+
         // Found user by userId
-        var foundUser =
-            await _unitOfWork.GetProfileDoctorRepository.GetDoctorByDoctorIdQueryAsync(
-                userId: userId,
-                cancellationToken: cancellationToken
-            );
+        var foundUser = await _unitOfWork.GetProfileDoctorRepository.GetDoctorByDoctorIdQueryAsync(
+            userId: userId,
+            cancellationToken: cancellationToken
+        );
 
         // Responds if userId is not found
         if (Equals(objA: foundUser, objB: default))
@@ -66,20 +70,20 @@ public class GetProfileDoctorHandler
         }
 
         // Is user not temporarily removed.
-        //var isUserNotTemporarilyRemoved =
-        //    await _unitOfWork.AuthFeature.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
-        //        userId: userId,
-        //        cancellationToken: cancellationToken
-        //    );
+        var isUserTemporarilyRemoved =
+            await _unitOfWork.GetProfileDoctorRepository.IsUserTemporarilyRemovedQueryAsync(
+                userId: userId,
+                cancellationToken: cancellationToken
+            );
 
         // Responds if current user is temporarily removed.
-        //if (!isUserNotTemporarilyRemoved)
-        //{
-        //    return new()
-        //    {
-        //        StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
-        //    };
-        //}
+        if (isUserTemporarilyRemoved)
+        {
+            return new()
+            {
+                StatusCode = GetProfileDoctorResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+            };
+        }
 
         // Response successfully.
         return new GetProfileDoctorResponse()
@@ -89,7 +93,7 @@ public class GetProfileDoctorHandler
             {
                 User = new()
                 {
-                    // common attribute user
+                    // Common attribute user
                     Username = foundUser.UserName,
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
