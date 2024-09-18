@@ -7,16 +7,18 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Repositories\Doctors\**" />
+    <EmbeddedResource Remove="Repositories\Doctors\**" />
+    <None Remove="Repositories\Doctors\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\..\..\..\..\Core\Clinic.Application\Clinic.Application.csproj" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Dapper" Version="2.1.28" />
     <PackageReference Include="MySql.EntityFrameworkCore" Version="8.0.5" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Repositories\Doctors\" />
   </ItemGroup>
 
 </Project>

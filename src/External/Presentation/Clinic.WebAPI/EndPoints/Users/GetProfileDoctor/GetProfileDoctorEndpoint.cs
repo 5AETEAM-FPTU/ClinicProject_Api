@@ -1,20 +1,19 @@
-﻿using Clinic.WebAPI.EndPoints.Users.GetProfileUser.Common;
-using Clinic.WebAPI.EndPoints.Users.GetProfileUser.HttpResponseMapper;
-using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
-using Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.HttpResponseMapper;
-using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Auths.Login;
 using Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.Common;
+using Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Users.GetProfileDoctor;
 
 /// <summary>
 ///     Login endpoint.
 /// </summary>
-internal sealed class GetProfileDoctorEndpoint : Endpoint<EmptyRequest, GetProfileDoctorHttpResponse>
+internal sealed class GetProfileDoctorEndpoint
+    : Endpoint<EmptyRequest, GetProfileDoctorHttpResponse>
 {
     public override void Configure()
     {
