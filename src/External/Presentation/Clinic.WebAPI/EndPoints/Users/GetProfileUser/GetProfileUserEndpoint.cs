@@ -18,7 +18,7 @@ internal sealed class GetProfileUserEndpoint : Endpoint<EmptyRequest, GetProfile
 {
     public override void Configure()
     {
-        Post(routePatterns: "user/profile");
+        Get(routePatterns: "user/profile");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder: builder =>
