@@ -1,4 +1,6 @@
-﻿using System;
+
+using Clinic.Application.Commons.Abstractions;
+using System;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -49,7 +51,7 @@ public class GetProfileDoctorHandler
 
         // Found user by userId
         var foundUser =
-            await _unitOfWork.GetProfileDoctorRepository.GetProfileDoctorByDoctorIdQueryAsync(
+            await _unitOfWork.GetProfileDoctorRepository.GetDoctorByDoctorIdQueryAsync(
                 userId: userId,
                 cancellationToken: cancellationToken
             );
