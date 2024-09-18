@@ -28,6 +28,7 @@ using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
+using Clinic.MySQL.Repositories.Users.UpdateDoctorAchievementRepository;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -54,6 +55,7 @@ public class UnitOfWork : IUnitOfWork
     private IResendUserRegistrationConfirmedEmailRepository _resendUserRegistrationConfirmedEmailRepository;
     private ILoginByAdminRepository _loginByAdminRepository;
     private ILoginWithGoogleRepository _loginWithGoogleRepository;
+    private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -150,5 +152,13 @@ public class UnitOfWork : IUnitOfWork
     public ILoginWithGoogleRepository LoginWithGoogleRepository
     {
         get { return _loginWithGoogleRepository ??= new LoginWithGoogleRepository(_context); }
+    }
+
+    public IUpdateDoctorAchievementRepository UpdateDoctorAchievementRepository
+    {
+        get
+        {
+            return _updateDoctorAchievementRepository ??= new UpdateDoctorAchievementRepository(_context);
+        }
     }
 }

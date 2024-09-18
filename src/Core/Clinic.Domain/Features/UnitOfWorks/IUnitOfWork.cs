@@ -87,4 +87,9 @@ public interface IUnitOfWork
     ///    LoginWithGoogleRepository repository feature.
     /// </summary>
     public ILoginWithGoogleRepository LoginWithGoogleRepository { get; }
+
+    /// <summary>
+    ///    UpdateDoctorAchievementRepository repository feature.
+    /// </summary>
+    public IUpdateDoctorAchievementRepository UpdateDoctorAchievementRepository { get; }
 }

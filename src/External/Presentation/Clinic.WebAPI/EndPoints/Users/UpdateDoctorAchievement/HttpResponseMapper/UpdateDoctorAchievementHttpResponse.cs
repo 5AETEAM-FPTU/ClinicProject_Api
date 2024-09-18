@@ -2,15 +2,16 @@
 using System;
 using System.Text.Json.Serialization;
 using Clinic.Application.Features.Users.UpdateDoctorDescription;
+using Clinic.Application.Features.Users.UpdateDoctorAchievement;
 
-namespace Clinic.WebAPI.EndPoints.Users.UpdateDoctorDescription.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Users.UpdateDoctorAchievement.HttpResponseMapper;
 
-public class UpdateDoctorDescriptionHttpResponse
+public class UpdateDoctorAchievementHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
-    public string AppCode { get; init; } = UpdateDoctorDescriptionByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+    public string AppCode { get; init; } = UpdateDoctorAchievementByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(
