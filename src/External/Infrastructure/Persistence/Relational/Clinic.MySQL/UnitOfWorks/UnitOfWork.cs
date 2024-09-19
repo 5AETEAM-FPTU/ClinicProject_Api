@@ -10,6 +10,7 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
+using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
 using Clinic.Domain.Features.UnitOfWorks;
@@ -26,6 +27,7 @@ using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
+using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
 using Microsoft.AspNetCore.Identity;
@@ -65,6 +67,7 @@ public class UnitOfWork : IUnitOfWork
     private ILoginByAdminRepository _loginByAdminRepository;
     private ILoginWithGoogleRepository _loginWithGoogleRepository;
     private IGetAllDoctorStaffTypeRepository _getAllDoctorStaffTypeRepository;
+    private IGetAllDoctorsRepository _getAllDoctorRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
     private IUpdateUserAvatarRepository _updateUserAvatarRepository;
@@ -113,7 +116,13 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository
     {
         get { return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(_context); }
+    }  
+    
+    public IGetAllDoctorsRepository GetAllDoctorRepository
+    {
+        get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
     }
+
     public IGetProfileDoctorRepository GetProfileDoctorRepository
     {
         get { return _getProfileDoctorRepository ??= new GetProfileDoctorRepository(_context); }

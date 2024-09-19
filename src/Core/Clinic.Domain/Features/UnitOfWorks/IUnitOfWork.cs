@@ -13,6 +13,7 @@ using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
+using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
@@ -53,6 +54,12 @@ public interface IUnitOfWork
     ///     Enums repository feature
     /// </summary>
     public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository { get; }
+
+    /// <summary>
+    ///    ChangingPassword repository feature.
+    /// </summary>
+  
+    public IGetAllDoctorsRepository GetAllDoctorRepository { get; }
 
     /// <summary>
     ///    ChangingPassword repository feature.
