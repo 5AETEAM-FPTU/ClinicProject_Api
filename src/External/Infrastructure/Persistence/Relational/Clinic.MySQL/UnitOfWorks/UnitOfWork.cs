@@ -12,7 +12,6 @@ using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedE
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
-using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 using Clinic.Domain.Features.UnitOfWorks;
@@ -27,11 +26,25 @@ using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
+using Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
+using Microsoft.AspNetCore.Identity;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
+using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
+using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
+using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
+using Clinic.MySQL.Repositories.Doctor.UpdatePrivateDoctorInfoRepository;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.MySQL.Repositories.Users.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
 using Microsoft.AspNetCore.Identity;
@@ -64,7 +77,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorStaffTypeRepository _getAllDoctorStaffTypeRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
-    private IGetAllDoctorsRepository _getAllDoctorRepository;
+    private IUpdateUserAvatarRepository _updateUserAvatarRepository;
+    private IUpdateUserPrivateInfoRepository _updateUserPrivateInfoRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -204,6 +218,22 @@ public class UnitOfWork : IUnitOfWork
             return _updateDoctorAchievementRepository ??= new UpdateDoctorAchievementRepository(
                 _context
             );
+        }
+    }
+
+    public IUpdateUserAvatarRepository UpdateUserAvatarRepository
+    {
+        get
+        {
+            return _updateUserAvatarRepository ??= new UpdateUserAvatarRepository(_context);
+        }
+    }
+
+    public IUpdateUserPrivateInfoRepository UpdateUserPrivateInfoRepository
+    {
+        get
+        {
+            return _updateUserPrivateInfoRepository ??= new UpdateUserPrivateInfoRepository(_context);
         }
     }
 }
