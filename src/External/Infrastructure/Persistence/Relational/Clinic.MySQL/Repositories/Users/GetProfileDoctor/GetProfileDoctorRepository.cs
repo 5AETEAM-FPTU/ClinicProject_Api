@@ -21,6 +21,7 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
         _users = _context.Set<User>();
     }
 
+
     public Task<User> GetDoctorByDoctorIdQueryAsync(
         Guid userId,
         CancellationToken cancellationToken
@@ -49,6 +50,7 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
+
 
     public Task<bool> IsUserTemporarilyRemovedQueryAsync(
         Guid userId,

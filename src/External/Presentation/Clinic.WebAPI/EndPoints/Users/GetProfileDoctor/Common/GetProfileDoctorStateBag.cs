@@ -1,5 +1,4 @@
-﻿using Clinic.Application.Commons.Abstractions.GetProfileUser;
-using Clinic.Application.Features.Users.GetProfileDoctor;
+﻿using Clinic.Application.Features.Users.GetProfileDoctor;
 
 namespace Clinic.WebAPI.EndPoints.Users.GetProfileDoctor.Common;
 
