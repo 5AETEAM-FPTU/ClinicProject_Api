@@ -14,6 +14,7 @@ using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
+using Newtonsoft.Json;
 
 namespace Clinic.Application.Features.Auths.LoginWithGoogle;
 
@@ -163,6 +164,7 @@ internal sealed class LoginWithGoogleHandler
             ResponseBody = new()
             {
                 AccessToken = newAccessToken,
+                RefreshToken = newRefreshToken.RefreshTokenValue,
                 User = new()
                 {
                     Email = googleUser.Email,
@@ -182,7 +184,9 @@ internal sealed class LoginWithGoogleHandler
                 $"https://oauth2.googleapis.com/tokeninfo?id_token={idToken}"
             );
 
-            return JsonSerializer.Deserialize<GoogleUser>(response);
+            var googleUser = JsonConvert.DeserializeObject<GoogleUser>(response);
+
+            return googleUser;
         }
         catch
         {
