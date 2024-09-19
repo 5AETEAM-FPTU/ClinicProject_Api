@@ -1,16 +1,16 @@
-﻿using System.Collections.Generic;
+﻿using Clinic.Application.Commons.Abstractions.GetProfileUser;
+using System.Collections.Generic;
 using System;
 using System.Text.Json.Serialization;
-using Clinic.Application.Features.Users.UpdateUserAvatar;
 
-namespace Clinic.WebAPI.EndPoints.Users.UpdateUserAvatar.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Doctors.GetProfileDoctor.HttpResponseMapper;
 
-public class UpdateUserAvatarHttpResponse
+public class GetProfileDoctorHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
-    public string AppCode { get; init; } = UpdateUserAvatarResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+    public string AppCode { get; init; } = GetProfileUserResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(

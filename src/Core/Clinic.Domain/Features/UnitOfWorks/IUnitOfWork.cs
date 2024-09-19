@@ -8,11 +8,14 @@ using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
+using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
-using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
-using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
