@@ -41,17 +41,13 @@ using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
-using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
-using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdatePrivateDoctorInfoRepository;
-using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
-using Clinic.MySQL.Repositories.Users.GetAllDoctor;
-using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
-using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Users.GetAllUser;
+using Clinic.MySQL.Repositories.Users.GetAllUser;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -86,6 +82,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorsRepository _getAllDoctorRepository;
     private IUpdateUserDescriptionRepository _updateUserDescriptionRepository;
     private IAddDoctorRepository _addDoctorRepository;
+    private IGetAllUsersRepository _getAllUsersRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -254,5 +251,10 @@ public class UnitOfWork : IUnitOfWork
     public IAddDoctorRepository AddDoctorRepository
     {
         get { return _addDoctorRepository ??= new AddDoctorRepository(_context, _userManager); }
+    }
+
+    public IGetAllUsersRepository GetAllUsersRepository
+    {
+        get { return _getAllUsersRepository ??= new GetAllUsersRepository(_context); }
     }
 }

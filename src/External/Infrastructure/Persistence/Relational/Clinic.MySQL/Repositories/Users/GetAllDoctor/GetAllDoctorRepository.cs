@@ -2,6 +2,7 @@
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
@@ -27,6 +28,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
         return await _doctors
             .AsNoTracking()
             .Where(predicate: doctor =>
+                //doctor.UserRoles.Any(userRole => userRole.RoleId.Equals(Guid.Parse("c39aa1ac-8ded-46be-870c-115b200b09fc"))) &&
                 doctor.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
                 && doctor.RemovedBy == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
         )

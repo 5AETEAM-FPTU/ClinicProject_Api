@@ -16,6 +16,7 @@ using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
@@ -134,8 +135,14 @@ public interface IUnitOfWork
     /// </summary>
     public IUpdateUserDescriptionRepository UpdateUserDescriptionRepository { get; }
 
+    /// <sumary>
     ///    AddDoctor repository feature.
     /// </summary>
     public IAddDoctorRepository AddDoctorRepository { get; }
+
+    /// <sumary>
+    ///    GetAllDoctors Repository feature.
+    /// </summary>
+    public IGetAllUsersRepository GetAllUsersRepository { get; }
 
 }
