@@ -9,6 +9,7 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -92,6 +93,7 @@ public interface IUnitOfWork
     /// </summary>
     public IUpdateDoctorDescriptionRepository UpdateDoctorDescriptionRepository { get; }
 
+    /// <summary>
     ///    ResendUserRegistrationConfirmedEmail repository feature.
     /// </summary>
     public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository { get; }
@@ -125,4 +127,9 @@ public interface IUnitOfWork
     ///    UpdateUserPrivateInfoRepository repository feature.
     /// </summary>
     public IUpdateUserPrivateInfoRepository UpdateUserPrivateInfoRepository { get; }
+
+    /// <sumary>
+    ///    AddDoctor repository feature.
+    /// </summary>
+    public IAddDoctorRepository AddDoctorRepository { get; }
 }
