@@ -59,17 +59,17 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
             {
                 Users = new PaginationResponse<GetAllUserResponse.Body.User>()
                 {
-                    Contents = users.Select(user => new GetAllUserResponse.Body.User()
+                    Contents = users.Select(patient => new GetAllUserResponse.Body.User()
                     {
-                        Id = user.Id,
-                        Username = user.UserName,
-                        PhoneNumber = user.PhoneNumber,
-                        AvatarUrl = user.Avatar,
-                        FullName = user.FullName,
-                        Gender = user.Patient.Gender,
-                        DOB = user.Patient.DOB,
-                        Address = user.Patient.Address,
-                        Description = user.Patient.Description,
+                        Id = patient.Id,
+                        Username = patient.User.UserName,
+                        PhoneNumber = patient.User.PhoneNumber,
+                        AvatarUrl = patient.User.Avatar,
+                        FullName = patient.User.FullName,
+                        Gender = patient.Gender,
+                        DOB = patient.DOB,
+                        Address = patient.Address,
+                        Description = patient.Description,
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
