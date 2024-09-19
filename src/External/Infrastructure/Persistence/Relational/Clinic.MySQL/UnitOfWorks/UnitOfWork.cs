@@ -10,6 +10,7 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
+using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.UnitOfWorks;
@@ -26,6 +27,7 @@ using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
+using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
 
@@ -53,6 +55,7 @@ public class UnitOfWork : IUnitOfWork
     private ILoginByAdminRepository _loginByAdminRepository;
     private ILoginWithGoogleRepository _loginWithGoogleRepository;
     private IGetAllDoctorStaffTypeRepository _getAllDoctorStaffTypeRepository;
+    private IGetAllDoctorsRepository _getAllDoctorRepository;
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -97,6 +100,11 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository
     {
         get { return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(_context); }
+    }
+  
+    public IGetAllDoctorsRepository GetAllDoctorRepository
+    {
+        get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
     }
     public IGetProfileDoctorRepository GetProfileDoctorRepository
     {
