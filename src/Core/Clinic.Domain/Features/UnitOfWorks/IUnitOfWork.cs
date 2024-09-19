@@ -17,6 +17,7 @@ using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -119,4 +120,9 @@ public interface IUnitOfWork
     ///    UpdateUserAvatarRepository repository feature.
     /// </summary>
     public IUpdateUserAvatarRepository UpdateUserAvatarRepository { get; }
+
+    /// <sumary>
+    ///    UpdateUserPrivateInfoRepository repository feature.
+    /// </summary>
+    public IUpdateUserPrivateInfoRepository UpdateUserPrivateInfoRepository { get; }
 }
