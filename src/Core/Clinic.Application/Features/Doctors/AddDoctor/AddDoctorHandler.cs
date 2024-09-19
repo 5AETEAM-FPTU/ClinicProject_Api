@@ -67,7 +67,7 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
         var user = await _userManager.FindByEmailAsync(request.Email);
 
         // Respond if user is not found.
-        if (Equals(objA: user, objB: default))
+        if (!Equals(objA: user, objB: default))
         {
             return new AddDoctorResponse()
             {
@@ -98,7 +98,7 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
         var dbResult = await _unitOfWork.AddDoctorRepository.CreateDoctorCommandAsync(
             doctor: doctor,
             roleName: "doctor",
-            userPassword: "123456",
+            userPassword: "Admin123@",
             cancellationToken: cancellationToken
         );
 
@@ -142,7 +142,8 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
                 Description = "default",
                 Specialty = request.Specialty,
                 Position = request.Position,
-                DoctorStaffTypeId = Guid.Parse(request.DoctorStaffId)
+                DoctorStaffTypeId = Guid.Parse(request.DoctorStaffId),
+                Achievement = "default"
             }
         };
     }

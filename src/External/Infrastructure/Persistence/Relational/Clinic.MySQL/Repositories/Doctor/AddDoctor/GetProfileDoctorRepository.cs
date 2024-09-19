@@ -67,11 +67,12 @@ internal class AddDoctorRepository : IAddDoctorRepository
                     await _context.SaveChangesAsync(cancellationToken: cancellationToken);
 
                     await transaction.CommitAsync(cancellationToken: cancellationToken);
-
                     dbTransactionResult = true;
                 }
-                catch
+                catch (Exception e)
                 {
+                    Console.Write(e);
+
                     await transaction.RollbackAsync(cancellationToken: cancellationToken);
                 }
             });
