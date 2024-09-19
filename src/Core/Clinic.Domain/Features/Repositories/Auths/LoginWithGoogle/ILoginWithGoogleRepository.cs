@@ -16,7 +16,11 @@ public interface ILoginWithGoogleRepository
 
     Task<bool> IsUserFoundByEmailQueryAsync(string gmail, CancellationToken cancellationToken);
 
-    Task<bool> CreateUserCommandAsync(User user, CancellationToken cancellationToken);
+    Task<bool> CreateUserCommandAsync(
+        User user,
+        string defaultPassword,
+        CancellationToken cancellationToken
+    );
 
     Task<bool> CreateRefreshTokenCommandAsync(
         RefreshToken refreshToken,

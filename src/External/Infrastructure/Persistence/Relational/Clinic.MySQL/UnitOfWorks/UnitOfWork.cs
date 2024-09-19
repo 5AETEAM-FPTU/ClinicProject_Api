@@ -64,6 +64,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorStaffTypeRepository _getAllDoctorStaffTypeRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
+    private IGetAllDoctorsRepository _getAllDoctorRepository;
+
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -107,9 +109,14 @@ public class UnitOfWork : IUnitOfWork
 
     public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository
     {
-        get { return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(_context); }
-    }  
-    
+        get
+        {
+            return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(
+                _context
+            );
+        }
+    }
+
     public IGetAllDoctorsRepository GetAllDoctorRepository
     {
         get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net.Http;
 using System.Security.Claims;
-using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
@@ -14,6 +13,7 @@ using Clinic.Application.Commons.Token.RefreshToken;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Newtonsoft.Json;
 
@@ -31,6 +31,7 @@ internal sealed class LoginWithGoogleHandler
     private readonly IRefreshTokenHandler _refreshTokenHandler;
     private readonly IAccessTokenHandler _accessTokenHandler;
     private readonly IDefaultUserAvatarAsUrlHandler _defaultUserAvatarAsUrlHandler;
+    private readonly IConfiguration _configuration;
 
     public LoginWithGoogleHandler(
         IUnitOfWork unitOfWork,
@@ -38,7 +39,8 @@ internal sealed class LoginWithGoogleHandler
         SignInManager<User> signInManager,
         IRefreshTokenHandler refreshTokenHandler,
         IAccessTokenHandler accessTokenHandler,
-        IDefaultUserAvatarAsUrlHandler defaultUserAvatarAsUrlHandler
+        IDefaultUserAvatarAsUrlHandler defaultUserAvatarAsUrlHandler,
+        IConfiguration configuration
     )
     {
         _unitOfWork = unitOfWork;
@@ -47,6 +49,7 @@ internal sealed class LoginWithGoogleHandler
         _refreshTokenHandler = refreshTokenHandler;
         _accessTokenHandler = accessTokenHandler;
         _defaultUserAvatarAsUrlHandler = defaultUserAvatarAsUrlHandler;
+        _configuration = configuration;
     }
 
     /// <summary>
@@ -82,6 +85,7 @@ internal sealed class LoginWithGoogleHandler
             // Create user command.
             var dbResult = await _unitOfWork.LoginWithGoogleRepository.CreateUserCommandAsync(
                 user: newUser,
+                defaultPassword: _configuration["DefaultPassword"],
                 cancellationToken: ct
             );
 

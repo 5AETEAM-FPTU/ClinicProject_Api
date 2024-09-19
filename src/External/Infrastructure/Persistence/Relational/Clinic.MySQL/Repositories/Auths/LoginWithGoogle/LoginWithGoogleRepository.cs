@@ -52,11 +52,15 @@ public class LoginWithGoogleRepository : ILoginWithGoogleRepository
         return true;
     }
 
-    public async Task<bool> CreateUserCommandAsync(User user, CancellationToken cancellationToken)
+    public async Task<bool> CreateUserCommandAsync(
+        User user,
+        string defaultPassword,
+        CancellationToken cancellationToken
+    )
     {
         try
         {
-            await _userManager.CreateAsync(user: user, password: "Admin123@");
+            await _userManager.CreateAsync(user: user, password: defaultPassword);
             await _userManager.AddToRoleAsync(user: user, role: "user");
             var emailConfirmationToken = await _userManager.GenerateEmailConfirmationTokenAsync(
                 user: user
