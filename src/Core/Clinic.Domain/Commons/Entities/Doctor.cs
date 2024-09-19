@@ -19,7 +19,7 @@ public class Doctor : IBaseEntity
     // Normal columns.
     public string Gender { get; set; }
 
-    public DateTime DOB { get; set; }
+    public DateTime? DOB { get; set; }
 
     public string Position { get; set; }
 

@@ -1,27 +1,23 @@
 ﻿using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.Abstractions.GetProfileUser;
 using Clinic.Application.Commons.Pagination;
 using Clinic.Domain.Features.UnitOfWorks;
-using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace Clinic.Application.Features.Users.GetAllDoctor;
+namespace Clinic.Application.Features.Users.GetAllUser;
 
 /// <summary>
 ///     GetAllDoctor Handler
 /// </summary>
-public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDoctorResponse>
+public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IHttpContextAccessor _contextAccessor;
-    public GetAllDoctorHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
+
+    public GetAllUserHandler(IUnitOfWork unitOfWork)
     {
         _unitOfWork = unitOfWork;
-        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -37,56 +33,43 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
     /// </param>
     /// <returns>
     ///     A task containing the response.
-    public async Task<GetAllDoctorResponse> ExecuteAsync(
-        GetAllDoctorRequest request,
+    public async Task<GetAllUserResponse> ExecuteAsync(
+        GetAllUserRequest request,
         CancellationToken cancellationToken
     )
     {
-        // Get userId from sub type jwt
-        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-        if (!role.Equals("admin"))
-        {
-            return new GetAllDoctorResponse()
-            {
-                StatusCode = GetAllDoctorResponseStatusCode.ROLE_IS_NOT_ADMIN
-            };
-        }
-
         // Get all users.
         var users =
-            await _unitOfWork.GetAllDoctorRepository.FindAllDoctorsQueryAsync(
+            await _unitOfWork.GetAllUsersRepository.FindUserByIdQueryAsync(
                 pageIndex: request.PageIndex,
                 pageSize: request.PageSize,
                 cancellationToken: cancellationToken
             );
 
         // Count all the users.
-        var countUser = await _unitOfWork.GetAllDoctorRepository.CountAllDoctorsQueryAsync(
+        var countUser = await _unitOfWork.GetAllUsersRepository.CountAllUserQueryAsync(
             cancellationToken: cancellationToken
         );
 
         // Response successfully.
-        return new GetAllDoctorResponse()
+        return new GetAllUserResponse()
         {
-            StatusCode = GetAllDoctorResponseStatusCode.OPERATION_SUCCESS,
+            StatusCode = GetAllUserResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-                Users = new PaginationResponse<GetAllDoctorResponse.Body.User>()
+                Users = new PaginationResponse<GetAllUserResponse.Body.User>()
                 {
-                    Contents = users.Select(user => new GetAllDoctorResponse.Body.User()
+                    Contents = users.Select(user => new GetAllUserResponse.Body.User()
                     {
                         Id = user.Id,
                         Username = user.UserName,
                         PhoneNumber = user.PhoneNumber,
                         AvatarUrl = user.Avatar,
                         FullName = user.FullName,
-                        Gender = user.Doctor.Gender,
-                        DOB = user.Doctor.DOB,
-                        Address = user.Doctor.Address,
-                        Description = user.Doctor.Description,
-                        Achievement = user.Doctor.Achievement,
-                        Specialty = user.Doctor.Specialty,
-                        Position = user.Doctor.Position
+                        Gender = user.Patient.Gender,
+                        DOB = user.Patient.DOB,
+                        Address = user.Patient.Address,
+                        Description = user.Patient.Description,
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,

@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
 using System;
-using Clinic.Application.Features.Users.GetAllDoctor;
 using Microsoft.AspNetCore.Http;
+using Clinic.Application.Features.Users.GetAllUser;
 
-namespace Clinic.WebAPI.EndPoints.Users.GetAllDoctor.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Users.GetAllUser.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for GetAllDoctors feature
 /// </summary>
-public class GetAllDoctorHttpResponseManager
+public class GetAllUserHttpResponseManager
 {
     private readonly Dictionary<
-        GetAllDoctorResponseStatusCode,
-        Func<GetAllDoctorRequest, GetAllDoctorResponse, GetAllDoctorHttpResponse>
+        GetAllUserResponseStatusCode,
+        Func<GetAllUserRequest, GetAllUserResponse, GetAllUserHttpResponse>
     > _dictionary;
 
-    internal GetAllDoctorHttpResponseManager()
+    internal GetAllUserHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: GetAllDoctorResponseStatusCode.OPERATION_SUCCESS,
+            key: GetAllUserResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -31,7 +31,7 @@ public class GetAllDoctorHttpResponseManager
         );
 
         _dictionary.Add(
-            key: GetAllDoctorResponseStatusCode.ROLE_IS_NOT_ADMIN,
+            key: GetAllUserResponseStatusCode.ROLE_IS_NOT_ADMIN,
             value: (_, response) =>
                 new()
                 {
@@ -43,8 +43,8 @@ public class GetAllDoctorHttpResponseManager
 
     }
 
-    internal Func<GetAllDoctorRequest, GetAllDoctorResponse, GetAllDoctorHttpResponse> Resolve(
-        GetAllDoctorResponseStatusCode statusCode
+    internal Func<GetAllUserRequest, GetAllUserResponse, GetAllUserHttpResponse> Resolve(
+        GetAllUserResponseStatusCode statusCode
     )
     {
         return _dictionary[statusCode];

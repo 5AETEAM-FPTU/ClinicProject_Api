@@ -29,7 +29,7 @@ public class GetAllDoctorResponse : IFeatureResponse
 
             public string Gender { get; init; }
 
-            public DateTime DOB { get; init; }
+            public DateTime? DOB { get; init; }
 
             public string Address { get; init; }
 

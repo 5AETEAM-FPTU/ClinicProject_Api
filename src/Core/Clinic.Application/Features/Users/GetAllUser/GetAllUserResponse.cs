@@ -1,23 +1,24 @@
 ﻿using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Pagination;
 using System;
-
-namespace Clinic.Application.Features.Doctors.GetProfileDoctor;
+namespace Clinic.Application.Features.Users.GetAllUser;
 
 /// <summary>
-///     GetProfileDoctor Response
+///     GetAllDoctors Response
 /// </summary>
-public class GetProfileDoctorResponse : IFeatureResponse
+public class GetAllUserResponse : IFeatureResponse
 {
-    public GetProfileDoctorResponseStatusCode StatusCode { get; init; }
+    public GetAllUserResponseStatusCode StatusCode { get; init; }
 
     public Body ResponseBody { get; init; }
 
     public sealed class Body
     {
-        public UserDetail User { get; init; }
+        public PaginationResponse<User> Users { get; init; }
 
-        public sealed class UserDetail
+        public sealed class User
         {
+            public Guid Id { get; init; }
             public string Username { get; init; }
 
             public string PhoneNumber { get; init; }
@@ -34,12 +35,7 @@ public class GetProfileDoctorResponse : IFeatureResponse
 
             public string Description { get; init; }
 
-            public string Achievement { get; init; }
-
-            public string Specialty { get; init; }
-            public string Position { get; init; }
-
-
         }
     }
 }
+
