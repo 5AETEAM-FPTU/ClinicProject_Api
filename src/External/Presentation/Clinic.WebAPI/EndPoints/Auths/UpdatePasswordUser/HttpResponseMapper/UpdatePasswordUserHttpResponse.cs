@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
-using Clinic.Application.Features.Users.UpdatePasswordUser;
+using Clinic.Application.Features.Auths.UpdatePasswordUser;
 
-namespace Clinic.WebAPI.EndPoints.Users.UpdatePasswordUser.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Auths.UpdatePasswordUser.HttpResponseMapper;
 
 /// <summary>
 ///     UpdatePasswordUser http response

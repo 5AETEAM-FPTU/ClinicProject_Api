@@ -9,10 +9,11 @@ using Clinic.Domain.Features.Repositories.Auths.Logout;
 using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
-using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -25,14 +26,13 @@ using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
+using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
-using Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
-using Microsoft.AspNetCore.Identity;
-using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
-using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Users.UpdateDoctorAchievementRepository;
+using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
+using Microsoft.AspNetCore.Identity;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -106,7 +106,12 @@ public class UnitOfWork : IUnitOfWork
 
     public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository
     {
-        get { return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(_context); }
+        get
+        {
+            return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(
+                _context
+            );
+        }
     }
     public IGetProfileDoctorRepository GetProfileDoctorRepository
     {
@@ -131,8 +136,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _updatePrivateDoctorInfoRepository ??=
-                new UpdatePrivateDoctorInfoRepository(_context);
+            return _updatePrivateDoctorInfoRepository ??= new UpdatePrivateDoctorInfoRepository(
+                _context
+            );
         }
     }
 
@@ -140,11 +146,12 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _updateDoctorDescriptionRepository ??=
-                new UpdateDoctorDescriptionRepository(_context);
+            return _updateDoctorDescriptionRepository ??= new UpdateDoctorDescriptionRepository(
+                _context
+            );
         }
     }
-    
+
     public IResendUserRegistrationConfirmedEmailRepository ResendUserRegistrationConfirmedEmailRepository
     {
         get
@@ -185,7 +192,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _updateDoctorAchievementRepository ??= new UpdateDoctorAchievementRepository(_context);
+            return _updateDoctorAchievementRepository ??= new UpdateDoctorAchievementRepository(
+                _context
+            );
         }
     }
 }

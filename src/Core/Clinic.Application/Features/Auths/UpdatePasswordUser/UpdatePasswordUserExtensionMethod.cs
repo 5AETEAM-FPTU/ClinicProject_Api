@@ -1,4 +1,4 @@
-namespace Clinic.Application.Features.Users.UpdatePasswordUser;
+namespace Clinic.Application.Features.Auths.UpdatePasswordUser;
 
 /// <summary>
 ///     Extension Method for UpdatePasswordUser features.

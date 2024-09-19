@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Clinic.Application.Features.Users.UpdatePasswordUser;
+using Clinic.Application.Features.Auths.UpdatePasswordUser;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Users.UpdatePasswordUser.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Auths.UpdatePasswordUser.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for UpdatePasswordUser feature

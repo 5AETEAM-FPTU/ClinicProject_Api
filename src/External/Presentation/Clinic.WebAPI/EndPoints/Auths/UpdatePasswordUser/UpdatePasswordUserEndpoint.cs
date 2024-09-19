@@ -1,14 +1,14 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Users.UpdatePasswordUser;
+using Clinic.Application.Features.Auths.UpdatePasswordUser;
 using Clinic.WebAPI.Commons.Behaviors.Authorization;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Users.UpdatePasswordUser.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Auths.UpdatePasswordUser.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Users.UpdatePasswordUser;
+namespace Clinic.WebAPI.EndPoints.Auths.UpdatePasswordUser;
 
 /// <summary>
 ///     UpdatePasswordUser endpoint.

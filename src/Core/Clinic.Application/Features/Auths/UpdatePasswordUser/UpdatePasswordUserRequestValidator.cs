@@ -2,7 +2,7 @@
 using Clinic.Domain.Commons.Entities;
 using FluentValidation;
 
-namespace Clinic.Application.Features.Users.UpdatePasswordUser;
+namespace Clinic.Application.Features.Auths.UpdatePasswordUser;
 
 /// <summary>
 ///     UpdatePasswordUser request validator.

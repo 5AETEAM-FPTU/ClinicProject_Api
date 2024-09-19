@@ -1,6 +1,6 @@
 using Clinic.Application.Commons.Abstractions;
 
-namespace Clinic.Application.Features.Users.UpdatePasswordUser;
+namespace Clinic.Application.Features.Auths.UpdatePasswordUser;
 
 /// <summary>
 ///     UpdatePasswordUser Request

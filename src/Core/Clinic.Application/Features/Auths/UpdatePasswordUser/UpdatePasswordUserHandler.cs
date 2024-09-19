@@ -9,7 +9,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace Clinic.Application.Features.Users.UpdatePasswordUser;
+namespace Clinic.Application.Features.Auths.UpdatePasswordUser;
 
 /// <summary>
 ///     UpdatePasswordUser Handler

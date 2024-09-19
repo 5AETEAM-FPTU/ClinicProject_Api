@@ -3,12 +3,12 @@ using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Data.Context;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
+namespace Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 
 internal class UpdatePasswordUserRepository : IUpdatePasswordUserRepository
 {

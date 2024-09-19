@@ -7,6 +7,7 @@ using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Constance;
 using Clinic.Application.Commons.FIleObjectStorage;
 using Clinic.Application.Commons.Token.AccessToken;
 using Clinic.Application.Commons.Token.RefreshToken;
@@ -204,7 +205,15 @@ internal sealed class LoginWithGoogleHandler
             UserName = user.Email,
             Email = user.Email,
             Avatar = _defaultUserAvatarAsUrlHandler.Get(),
-            Patient = new() { Id = Guid.NewGuid(), UserId = Id, }
+            Patient = new()
+            {
+                Id = Guid.NewGuid(),
+                UserId = Id,
+                Address = "default",
+                Gender = "default",
+                DOB = CommonConstant.MIN_DATE_TIME,
+                Description = "default",
+            }
         };
     }
 

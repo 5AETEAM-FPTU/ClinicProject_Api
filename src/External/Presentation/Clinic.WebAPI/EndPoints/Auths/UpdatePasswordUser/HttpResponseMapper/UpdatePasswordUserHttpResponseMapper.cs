@@ -1,4 +1,4 @@
-﻿namespace Clinic.WebAPI.EndPoints.Users.UpdatePasswordUser.HttpResponseMapper;
+﻿namespace Clinic.WebAPI.EndPoints.Auths.UpdatePasswordUser.HttpResponseMapper;
 
 /// <summary>
 ///     UpdatePasswordUser extension method
