@@ -35,6 +35,7 @@ using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Users.UpdateDoctorAchievementRepository;
+using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -65,6 +66,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorsRepository _getAllDoctorRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
+    private IUpdateUserAvatarRepository _updateUserAvatarRepository;
+
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -194,6 +197,14 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _updateDoctorAchievementRepository ??= new UpdateDoctorAchievementRepository(_context);
+        }
+    }
+
+    public IUpdateUserAvatarRepository UpdateUserAvatarRepository
+    {
+        get
+        {
+            return _updateUserAvatarRepository ??= new UpdateUserAvatarRepository(_context);
         }
     }
 }

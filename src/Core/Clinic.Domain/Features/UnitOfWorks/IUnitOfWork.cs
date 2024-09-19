@@ -111,4 +111,9 @@ public interface IUnitOfWork
     ///    UpdateDoctorAchievementRepository repository feature.
     /// </summary>
     public IUpdateDoctorAchievementRepository UpdateDoctorAchievementRepository { get; }
+
+    /// <sumary>
+    ///    UpdateUserAvatarRepository repository feature.
+    /// </summary>
+    public IUpdateUserAvatarRepository UpdateUserAvatarRepository { get; }
 }
