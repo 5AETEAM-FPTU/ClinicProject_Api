@@ -33,6 +33,12 @@ using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
+using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
+using Clinic.MySQL.Repositories.Users.GetAllDoctor;
+using Clinic.MySQL.Repositories.Users.GetProfileUser;
+using Microsoft.AspNetCore.Identity;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
@@ -43,6 +49,8 @@ using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
+using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Microsoft.AspNetCore.Identity;
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -76,6 +84,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateUserAvatarRepository _updateUserAvatarRepository;
     private IUpdateUserPrivateInfoRepository _updateUserPrivateInfoRepository;
     private IGetAllDoctorsRepository _getAllDoctorRepository;
+    private IUpdateUserDescriptionRepository _updateUserDescriptionRepository;
     private IAddDoctorRepository _addDoctorRepository;
 
     public UnitOfWork(
@@ -233,6 +242,15 @@ public class UnitOfWork : IUnitOfWork
             );
         }
     }
+
+    public IUpdateUserDescriptionRepository UpdateUserDescriptionRepository
+    {
+        get
+        {
+            return _updateUserDescriptionRepository ??= new UpdateUserDescriptionRepository(_context);
+        }
+    }
+
     public IAddDoctorRepository AddDoctorRepository
     {
         get { return _addDoctorRepository ??= new AddDoctorRepository(_context, _userManager); }
