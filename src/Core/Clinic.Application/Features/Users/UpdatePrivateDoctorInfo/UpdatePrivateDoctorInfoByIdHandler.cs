@@ -1,21 +1,13 @@
 ﻿using System;
-using System.Linq;
-using System.Net;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.Abstractions.GetProfileUser;
 using Clinic.Application.Commons.Abstractions.UpdatePrivateDoctorInfoById;
-using Clinic.Application.Features.Auths.Login;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.JsonPatch.Exceptions;
 using Microsoft.IdentityModel.JsonWebTokens;
-using static Clinic.Application.Commons.Abstractions.UpdatePrivateDoctorInfoById.UpdatePrivateDoctorInfoByIdRequest;
 namespace Clinic.Application.Features.Users.UpdatePrivateDoctorInfoById;
 
 /// <summary>

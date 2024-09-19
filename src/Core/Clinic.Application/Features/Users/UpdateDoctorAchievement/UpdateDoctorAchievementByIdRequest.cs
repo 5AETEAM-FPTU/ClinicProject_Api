@@ -1,6 +1,4 @@
-
 using Clinic.Application.Commons.Abstractions;
-using System;
 
 namespace Clinic.Application.Features.Users.UpdateDoctorAchievement;
 

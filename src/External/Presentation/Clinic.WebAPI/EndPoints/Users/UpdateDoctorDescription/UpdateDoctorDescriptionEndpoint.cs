@@ -23,7 +23,7 @@ public class UpdateDoctorDescriptionEndpoint : Endpoint<UpdateDoctorDescriptionB
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to update Doctor information";
+            summary.Summary = "Endpoint to update Doctor description";
             summary.Description = "This endpoint allows users to update doctor description.";
             summary.Response<UpdateDoctorDescriptionHttpResponse>(
                 description: "Represent successful operation response.",

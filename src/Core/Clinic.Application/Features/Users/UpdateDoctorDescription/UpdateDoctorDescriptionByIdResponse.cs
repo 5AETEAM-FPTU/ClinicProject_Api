@@ -1,6 +1,4 @@
-
 using Clinic.Application.Features.Users.UpdateDoctorDescription;
-using System;
 
 namespace Clinic.Application.Commons.Abstractions.UpdateDoctorDescription;
 

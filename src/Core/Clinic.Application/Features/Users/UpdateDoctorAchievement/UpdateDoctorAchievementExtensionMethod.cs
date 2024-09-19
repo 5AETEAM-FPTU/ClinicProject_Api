@@ -1,5 +1,3 @@
-using Clinic.Application.Features.Users.UpdateDoctorDescription;
-
 namespace Clinic.Application.Features.Users.UpdateDoctorAchievement;
 
 /// <summary>

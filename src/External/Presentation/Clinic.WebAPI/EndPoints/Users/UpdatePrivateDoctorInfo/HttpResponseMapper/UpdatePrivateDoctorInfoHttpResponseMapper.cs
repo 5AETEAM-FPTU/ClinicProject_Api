@@ -1,7 +1,4 @@
-﻿using Clinic.WebAPI.EndPoints.Auths.Login.HttpResponseMapper;
-using Clinic.WebAPI.EndPoints.Users.UpdatePrivateDoctorInfo.HttpResponseMapper;
-
-namespace Clinic.WebAPI.EndPoints.Users.UpdatePrivateDoctorInfo.HttpResponseMapper;
+﻿namespace Clinic.WebAPI.EndPoints.Users.UpdatePrivateDoctorInfo.HttpResponseMapper;
 
 internal static class UpdatePrivateDoctorInfoHttpResponseMapper
 {
