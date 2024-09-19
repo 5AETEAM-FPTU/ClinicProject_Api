@@ -12,9 +12,7 @@ using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedE
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
-using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
-using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -29,11 +27,9 @@ using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
-using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
-using Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
 using Microsoft.AspNetCore.Identity;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
@@ -46,9 +42,8 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Doctor.UpdatePrivateDoctorInfoRepository;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.MySQL.Repositories.Users.UpdateDoctorAchievementRepository;
-using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
-using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
+using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -80,6 +75,8 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
     private IUpdateUserAvatarRepository _updateUserAvatarRepository;
     private IUpdateUserPrivateInfoRepository _updateUserPrivateInfoRepository;
+    private IGetAllDoctorsRepository _getAllDoctorRepository;
+    private IUpdateUserDescriptionRepository _updateUserDescriptionRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -132,11 +129,6 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public IGetAllDoctorsRepository GetAllDoctorRepository
-    {
-        get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
-    }
-  
     public IGetAllDoctorsRepository GetAllDoctorRepository
     {
         get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
@@ -242,4 +234,13 @@ public class UnitOfWork : IUnitOfWork
             return _updateUserPrivateInfoRepository ??= new UpdateUserPrivateInfoRepository(_context);
         }
     }
+
+    public IUpdateUserDescriptionRepository UpdateUserDescriptionRepository
+    {
+        get
+        {
+            return _updateUserDescriptionRepository ??= new UpdateUserDescriptionRepository(_context);
+        }
+    }
+
 }
