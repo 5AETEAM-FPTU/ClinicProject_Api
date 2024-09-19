@@ -1,8 +1,11 @@
 ﻿using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.Pagination;
+using Clinic.Application.Features.Users.GetAllDoctor;
 using Clinic.Domain.Features.UnitOfWorks;
+using Microsoft.AspNetCore.Http;
 using System;
 using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -14,10 +17,13 @@ namespace Clinic.Application.Features.Users.GetAllUser;
 public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public GetAllUserHandler(IUnitOfWork unitOfWork)
+    public GetAllUserHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
     {
         _unitOfWork = unitOfWork;
+        _contextAccessor = contextAccessor;
+
     }
 
     /// <summary>
@@ -38,6 +44,16 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
         CancellationToken cancellationToken
     )
     {
+        // Check role "Only admin can access"
+        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
+        if (!role.Equals("admin"))
+        {
+            return new GetAllUserResponse()
+            {
+                StatusCode = GetAllUserResponseStatusCode.ROLE_IS_NOT_ADMIN
+            };
+        }
+
         // Get all users.
         var users =
             await _unitOfWork.GetAllUsersRepository.FindUserByIdQueryAsync(
