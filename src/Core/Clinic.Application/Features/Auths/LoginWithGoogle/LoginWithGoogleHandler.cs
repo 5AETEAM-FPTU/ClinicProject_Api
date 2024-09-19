@@ -217,7 +217,13 @@ internal sealed class LoginWithGoogleHandler
                 Gender = "default",
                 DOB = CommonConstant.MIN_DATE_TIME,
                 Description = "default",
-            }
+            },
+            CreatedAt = DateTime.UtcNow,
+            CreatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            UpdatedAt = DateTime.UtcNow,
+            UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            RemovedAt = CommonConstant.MIN_DATE_TIME,
+            RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
         };
     }
 

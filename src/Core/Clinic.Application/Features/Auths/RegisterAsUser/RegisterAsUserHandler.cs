@@ -90,6 +90,12 @@ internal sealed class RegisterAsUserHandler
                 UserName = request.Email,
                 Email = request.Email,
                 Avatar = _defaultUserAvatarAsUrlHandler.Get(),
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                UpdatedAt = CommonConstant.MIN_DATE_TIME,
+                UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                RemovedAt = CommonConstant.MIN_DATE_TIME,
+                RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             };
 
         // Validation password.
