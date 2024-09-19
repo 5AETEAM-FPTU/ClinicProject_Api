@@ -27,7 +27,7 @@ internal sealed class GetAllUserEndPoint
         Summary(endpointSummary: summary =>
         {
             summary.Summary = "Endpoint for Admin feature";
-            summary.Description = "This endpoint is used for display all Users.";
+            summary.Description = "This endpoint is used for display all Patients.";
             summary.Response<GetAllUserHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

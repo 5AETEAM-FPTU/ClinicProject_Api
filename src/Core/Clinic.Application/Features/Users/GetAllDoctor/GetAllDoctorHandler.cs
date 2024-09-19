@@ -42,7 +42,7 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
         CancellationToken cancellationToken
     )
     {
-        // Get userId from sub type jwt
+        // Check role "Only admin can access"
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
         if (!role.Equals("admin"))
         {
