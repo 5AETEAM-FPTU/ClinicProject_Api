@@ -73,6 +73,20 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
         }
 
         // Is user not temporarily removed.
+        //var isUserNotTemporarilyRemoved =
+        //    await _unitOfWork.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
+        //        userId: userId,
+        //        cancellationToken: cancellationToken
+        //    );
+
+        //Responds if current user is temporarily removed.
+        //if (!isUserNotTemporarilyRemoved)
+        //{
+        //    return new()
+        //    {
+        //        StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+        //    };
+        //}
         var isUserTemporarilyRemoved =
             await _unitOfWork.GetProfileUserRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: userId,
