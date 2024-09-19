@@ -10,6 +10,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
+using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
@@ -50,6 +51,12 @@ public interface IUnitOfWork
     ///     Enums repository feature
     /// </summary>
     public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository { get; }
+
+    /// <summary>
+    ///    ChangingPassword repository feature.
+    /// </summary>
+  
+    public IGetAllDoctorsRepository GetAllDoctorRepository { get; }
 
     /// <summary>
     ///    ChangingPassword repository feature.
