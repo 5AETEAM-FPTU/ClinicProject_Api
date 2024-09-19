@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdatePasswordUser;
 using Clinic.Domain.Features.UnitOfWorks;
@@ -121,6 +122,11 @@ public class UnitOfWork : IUnitOfWork
         get { return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(_context); }
     }  
     
+    public IGetAllDoctorsRepository GetAllDoctorRepository
+    {
+        get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
+    }
+  
     public IGetAllDoctorsRepository GetAllDoctorRepository
     {
         get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
