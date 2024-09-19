@@ -2,7 +2,6 @@
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 

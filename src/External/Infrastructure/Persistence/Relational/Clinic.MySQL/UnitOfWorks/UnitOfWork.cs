@@ -26,15 +26,23 @@ using Clinic.MySQL.Repositories.Auths.Logout;
 using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
-using Clinic.MySQL.Repositories.Doctors.GetProfileDoctor;
+using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.UpdatePasswordUser;
 using Microsoft.AspNetCore.Identity;
-using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
-using Clinic.MySQL.Repositories.Users.UpdateDoctorDescription;
-using Clinic.MySQL.Repositories.Users.UpdateDoctorAchievementRepository;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
+using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
+using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
+using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
+using Clinic.MySQL.Repositories.Doctor.UpdatePrivateDoctorInfoRepository;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -65,6 +73,9 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorsRepository _getAllDoctorRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
+    private IUpdateUserAvatarRepository _updateUserAvatarRepository;
+    private IUpdateUserPrivateInfoRepository _updateUserPrivateInfoRepository;
+
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -109,12 +120,18 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository
     {
         get { return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(_context); }
+    }  
+    
+    public IGetAllDoctorsRepository GetAllDoctorRepository
+    {
+        get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
     }
   
     public IGetAllDoctorsRepository GetAllDoctorRepository
     {
         get { return _getAllDoctorRepository ??= new GetAllDoctorRepository(_context); }
     }
+
     public IGetProfileDoctorRepository GetProfileDoctorRepository
     {
         get { return _getProfileDoctorRepository ??= new GetProfileDoctorRepository(_context); }
@@ -193,6 +210,22 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _updateDoctorAchievementRepository ??= new UpdateDoctorAchievementRepository(_context);
+        }
+    }
+
+    public IUpdateUserAvatarRepository UpdateUserAvatarRepository
+    {
+        get
+        {
+            return _updateUserAvatarRepository ??= new UpdateUserAvatarRepository(_context);
+        }
+    }
+
+    public IUpdateUserPrivateInfoRepository UpdateUserPrivateInfoRepository
+    {
+        get
+        {
+            return _updateUserPrivateInfoRepository ??= new UpdateUserPrivateInfoRepository(_context);
         }
     }
 }
