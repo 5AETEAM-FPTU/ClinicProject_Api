@@ -1,24 +1,24 @@
 ﻿using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
-using Clinic.Application.Features.Users.UpdateUserAvatar;
+using Clinic.Application.Features.Doctors.UpdateDoctorDescription;
 
 
-namespace Clinic.WebAPI.EndPoints.Users.UpdateUserAvatar.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Doctors.UpdateDoctorDescription.HttpResponseMapper;
 
-public class UpdateUserAvatarHttpResponseManager
+public class UpdateDoctorDescriptionHttpResponseManager
 {
     private readonly Dictionary<
-        UpdateUserAvatarResponseStatusCode,
-        Func<UpdateUserAvatarRequest, UpdateUserAvatarResponse, UpdateUserAvatarHttpResponse>
+        UpdateDoctorDescriptionByIdResponseStatusCode,
+        Func<UpdateDoctorDescriptionByIdRequest, UpdateDoctorDescriptionByIdResponse, UpdateDoctorDescriptionHttpResponse>
     > _dictionary;
 
-    internal UpdateUserAvatarHttpResponseManager()
+    internal UpdateDoctorDescriptionHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: UpdateUserAvatarResponseStatusCode.OPERATION_SUCCESS,
+            key: UpdateDoctorDescriptionByIdResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -28,7 +28,7 @@ public class UpdateUserAvatarHttpResponseManager
         );
 
         _dictionary.Add(
-            key: UpdateUserAvatarResponseStatusCode.USER_IS_NOT_FOUND,
+            key: UpdateDoctorDescriptionByIdResponseStatusCode.USER_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -38,7 +38,7 @@ public class UpdateUserAvatarHttpResponseManager
         );
 
         _dictionary.Add(
-            key: UpdateUserAvatarResponseStatusCode.USER_IS_TEMPORARILY_REMOVED,
+            key: UpdateDoctorDescriptionByIdResponseStatusCode.USER_IS_TEMPORARILY_REMOVED,
             value: (request, response) =>
                 new()
                 {
@@ -48,7 +48,7 @@ public class UpdateUserAvatarHttpResponseManager
         );
 
         _dictionary.Add(
-            key: UpdateUserAvatarResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: UpdateDoctorDescriptionByIdResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -57,23 +57,13 @@ public class UpdateUserAvatarHttpResponseManager
                 }
         );
 
-        _dictionary.Add(
-            key: UpdateUserAvatarResponseStatusCode.UPLOAD_IMAGE_FAIL,
-            value: (_, response) =>
-                new()
-                {
-                    HttpCode = StatusCodes.Status400BadRequest, //tùy vào nghiệp vụ
-                    AppCode = response.StatusCode.ToAppCode()
-                }
-        );
-
     }
 
     internal Func<
-        UpdateUserAvatarRequest,
-        UpdateUserAvatarResponse,
-        UpdateUserAvatarHttpResponse
-    > Resolve(UpdateUserAvatarResponseStatusCode statusCode)
+        UpdateDoctorDescriptionByIdRequest,
+        UpdateDoctorDescriptionByIdResponse,
+        UpdateDoctorDescriptionHttpResponse
+    > Resolve(UpdateDoctorDescriptionByIdResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

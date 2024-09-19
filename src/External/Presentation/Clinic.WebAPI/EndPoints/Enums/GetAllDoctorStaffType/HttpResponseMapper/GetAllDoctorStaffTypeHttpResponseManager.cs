@@ -1,5 +1,4 @@
-﻿using Clinic.Application.Features.Users.GetProfileDoctor;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System;
 using Clinic.Application.Features.Enums.GetAllDoctorStaffType;
 using Microsoft.AspNetCore.Http;

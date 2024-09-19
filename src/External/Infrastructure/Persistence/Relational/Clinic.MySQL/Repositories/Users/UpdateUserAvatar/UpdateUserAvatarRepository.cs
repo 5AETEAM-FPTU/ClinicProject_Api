@@ -1,5 +1,5 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.UpdateProfileDoctor;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;

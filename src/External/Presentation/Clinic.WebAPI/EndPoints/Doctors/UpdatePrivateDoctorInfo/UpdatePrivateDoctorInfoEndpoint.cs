@@ -3,16 +3,18 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Threading;
-using Clinic.WebAPI.EndPoints.Users.UpdateUserAvatar.HttpResponseMapper;
-using Clinic.Application.Features.Users.UpdateUserAvatar;
+using Clinic.WebAPI.Commons.Behaviors.Validation;
+using Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
+using Clinic.WebAPI.EndPoints.Doctors.UpdatePrivateDoctorInfo.HttpResponseMapper;
 
-namespace Clinic.WebAPI.EndPoints.Users.UpdateUserAvatar;
+namespace Clinic.WebAPI.EndPoints.Doctors.UpdatePrivateDoctorInfo;
 
-public class UpdateUserAvatarEndpoint : Endpoint<UpdateUserAvatarRequest, UpdateUserAvatarHttpResponse>
+public class UpdatePrivateDoctorInfoEndpoint : Endpoint<UpdatePrivateDoctorInfoByIdRequest, UpdatePrivateDoctorInfoHttpResponse>
 {
     public override void Configure()
     {
-        Patch("user/avatar");
+        Patch("doctor/private-info");
+        PreProcessor<ValidationPreProcessor<UpdatePrivateDoctorInfoByIdRequest>>();
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -21,27 +23,27 @@ public class UpdateUserAvatarEndpoint : Endpoint<UpdateUserAvatarRequest, Update
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to update User avatar";
-            summary.Description = "This endpoint allows users to update user avatar.";
-            summary.Response<UpdateUserAvatarHttpResponse>(
+            summary.Summary = "Endpoint to update Doctor private information";
+            summary.Description = "This endpoint allows users to update doctor private information.";
+            summary.Response<UpdatePrivateDoctorInfoHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = UpdateUserAvatarResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<UpdateUserAvatarHttpResponse> ExecuteAsync
-        (UpdateUserAvatarRequest req, 
+    public override async Task<UpdatePrivateDoctorInfoHttpResponse> ExecuteAsync
+        (UpdatePrivateDoctorInfoByIdRequest req,
         CancellationToken ct)
     {
 
         var appResponse = await req.ExecuteAsync(ct: ct); // Assuming the actual update logic is in AppRequest.
 
-        var httpResponse = UpdateUserAvatarHttpResponseMapper
+        var httpResponse = UpdatePrivateDoctorInfoHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
