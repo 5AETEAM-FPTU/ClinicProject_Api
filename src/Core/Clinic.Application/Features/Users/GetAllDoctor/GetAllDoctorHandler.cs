@@ -73,20 +73,20 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
             {
                 Users = new PaginationResponse<GetAllDoctorResponse.Body.User>()
                 {
-                    Contents = users.Select(user => new GetAllDoctorResponse.Body.User()
+                    Contents = users.Select(doctor => new GetAllDoctorResponse.Body.User()
                     {
-                        Id = user.Id,
-                        Username = user.UserName,
-                        PhoneNumber = user.PhoneNumber,
-                        AvatarUrl = user.Avatar,
-                        FullName = user.FullName,
-                        Gender = user.Doctor.Gender,
-                        DOB = user.Doctor.DOB,
-                        Address = user.Doctor.Address,
-                        Description = user.Doctor.Description,
-                        Achievement = user.Doctor.Achievement,
-                        Specialty = user.Doctor.Specialty,
-                        Position = user.Doctor.Position
+                        Id = doctor.Id,
+                        Username = doctor.User.UserName,
+                        PhoneNumber = doctor.User.PhoneNumber,
+                        AvatarUrl = doctor.User.Avatar,
+                        FullName = doctor.User.FullName,
+                        Gender = doctor.Gender,
+                        DOB = doctor.DOB,
+                        Address = doctor.Address,
+                        Description = doctor.Description,
+                        Achievement = doctor.Achievement,
+                        Specialty = doctor.Specialty,
+                        Position = doctor.Position
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,

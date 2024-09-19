@@ -13,7 +13,7 @@ namespace Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 /// </summary>
 public interface IGetAllDoctorsRepository
 {
-    Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
+    Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorsQueryAsync(
         int pageIndex,
         int pageSize,
         CancellationToken cancellationToken
