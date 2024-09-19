@@ -40,6 +40,8 @@ using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Doctor.UpdatePrivateDoctorInfoRepository;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -71,6 +73,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
     private IUpdateUserAvatarRepository _updateUserAvatarRepository;
+    private IUpdateUserPrivateInfoRepository _updateUserPrivateInfoRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -209,6 +212,14 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _updateUserAvatarRepository ??= new UpdateUserAvatarRepository(_context);
+        }
+    }
+
+    public IUpdateUserPrivateInfoRepository UpdateUserPrivateInfoRepository
+    {
+        get
+        {
+            return _updateUserPrivateInfoRepository ??= new UpdateUserPrivateInfoRepository(_context);
         }
     }
 }

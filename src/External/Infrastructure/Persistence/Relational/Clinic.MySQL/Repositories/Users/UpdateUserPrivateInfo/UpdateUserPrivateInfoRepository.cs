@@ -1,20 +1,19 @@
-﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
+﻿using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
 using System.Threading.Tasks;
+using System.Threading;
+using System;
+using Clinic.Domain.Commons.Entities;
 
-namespace Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
+namespace Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 
-internal class UpdateUserAvatarRepository : IUpdateUserAvatarRepository
+internal class UpdateUserPrivateInfoRepository : IUpdateUserPrivateInfoRepository
 {
-
     private readonly ClinicContext _context;
     private DbSet<User> _users;
 
-    public UpdateUserAvatarRepository(ClinicContext context)
+    public UpdateUserPrivateInfoRepository(ClinicContext context)
     {
         _context = context;
         _users = _context.Set<User>();
@@ -23,11 +22,11 @@ internal class UpdateUserAvatarRepository : IUpdateUserAvatarRepository
     public async Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken)
     {
         return await _context.Users
-            //.Include(u => u.Doctor) // Include the related Doctor entity
+            .Include(u => u.Patient) // Include the related Patient entity
             .FirstOrDefaultAsync(u => u.Id == userId, cancellationToken);
     }
 
-    public async Task<bool> UpdateUserAvatarByIdCommandAsync(User user, CancellationToken cancellationToken)
+    public async Task<bool> UpdateUserPrivateInfoByIdCommandAsync(User user, CancellationToken cancellationToken)
     {
         _context.Users.Update(user);
         return await _context.SaveChangesAsync(cancellationToken) > 0;
