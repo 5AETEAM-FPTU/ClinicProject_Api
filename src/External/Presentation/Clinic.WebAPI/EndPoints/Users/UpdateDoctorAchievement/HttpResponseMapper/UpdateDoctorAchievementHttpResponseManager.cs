@@ -3,7 +3,6 @@ using System;
 using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Users.UpdatePrivateDoctorInfoById;
 using Clinic.Application.Features.Users.UpdateDoctorDescription;
-using Clinic.Application.Commons.Abstractions.UpdateDoctorDescription;
 using Clinic.Application.Features.Users.UpdateDoctorAchievement;
 
 

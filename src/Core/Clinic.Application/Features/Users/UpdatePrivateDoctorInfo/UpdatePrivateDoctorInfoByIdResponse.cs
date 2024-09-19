@@ -1,6 +1,4 @@
-
 using Clinic.Application.Features.Users.UpdatePrivateDoctorInfoById;
-using System;
 
 namespace Clinic.Application.Commons.Abstractions.UpdatePrivateDoctorInfoById;
 

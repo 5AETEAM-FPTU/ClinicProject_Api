@@ -1,6 +1,3 @@
-using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Features.Users.UpdatePrivateDoctorInfoById;
-using Microsoft.AspNetCore.JsonPatch;
 using System;
 
 namespace Clinic.Application.Commons.Abstractions.UpdatePrivateDoctorInfoById;

@@ -2,9 +2,7 @@
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
-
 using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.Abstractions.UpdateDoctorDescription;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;

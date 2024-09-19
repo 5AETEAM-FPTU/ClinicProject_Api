@@ -1,6 +1,3 @@
-
-using System;
-
 namespace Clinic.Application.Commons.Abstractions.UpdateDoctorDescription;
 
 /// <summary>

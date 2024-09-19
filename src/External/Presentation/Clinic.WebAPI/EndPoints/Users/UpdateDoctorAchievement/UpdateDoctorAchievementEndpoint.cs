@@ -22,8 +22,8 @@ public class UpdateDoctorAchievementEndpoint : Endpoint<UpdateDoctorAchievementB
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to update Doctor information";
-            summary.Description = "This endpoint allows users to update doctor description.";
+            summary.Summary = "Endpoint to update Doctor achievement";
+            summary.Description = "This endpoint allows users to update doctor achievement.";
             summary.Response<UpdateDoctorDescriptionHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

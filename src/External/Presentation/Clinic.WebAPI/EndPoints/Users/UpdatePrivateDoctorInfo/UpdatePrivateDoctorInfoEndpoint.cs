@@ -14,7 +14,7 @@ public class UpdatePrivateDoctorInfoEndpoint : Endpoint<UpdatePrivateDoctorInfoB
 {
     public override void Configure()
     {
-        Patch("doctor/update");
+        Patch("doctor/private-info");
         PreProcessor<ValidationPreProcessor<UpdatePrivateDoctorInfoByIdRequest>>();
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
@@ -24,7 +24,7 @@ public class UpdatePrivateDoctorInfoEndpoint : Endpoint<UpdatePrivateDoctorInfoB
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to update Doctor information";
+            summary.Summary = "Endpoint to update Doctor private information";
             summary.Description = "This endpoint allows users to update doctor private information.";
             summary.Response<UpdatePrivateDoctorInfoHttpResponse>(
                 description: "Represent successful operation response.",
