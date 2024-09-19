@@ -50,7 +50,7 @@ public class UpdateUserAvatarHandler : IFeatureHandler<UpdateUserAvatarRequest, 
 
         // Found user by userId
         var foundUser =
-            await _unitOfWork.UpdateDoctorAvatarRepository.GetUserByIdAsync(
+            await _unitOfWork.UpdateUserAvatarRepository.GetUserByIdAsync(
                     userId,
                     cancellationToken
                 );
@@ -91,7 +91,7 @@ public class UpdateUserAvatarHandler : IFeatureHandler<UpdateUserAvatarRequest, 
 
 
         // Save the updated user back to the repository
-        return await _unitOfWork.UpdateDoctorAvatarRepository.UpdateUserAvatarByIdCommandAsync(user, cancellationToken);
+        return await _unitOfWork.UpdateUserAvatarRepository.UpdateUserAvatarByIdCommandAsync(user, cancellationToken);
     }
 }
 

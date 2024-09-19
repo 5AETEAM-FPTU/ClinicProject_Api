@@ -63,7 +63,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorStaffTypeRepository _getAllDoctorStaffTypeRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
-    private IUpdateUserAvatarRepository _updateDoctorAvatarRepository;
+    private IUpdateUserAvatarRepository _updateUserAvatarRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -191,11 +191,11 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public IUpdateUserAvatarRepository UpdateDoctorAvatarRepository
+    public IUpdateUserAvatarRepository UpdateUserAvatarRepository
     {
         get
         {
-            return _updateDoctorAvatarRepository ??= new UpdateUserAvatarRepository(_context);
+            return _updateUserAvatarRepository ??= new UpdateUserAvatarRepository(_context);
         }
     }
 }

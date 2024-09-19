@@ -106,7 +106,7 @@ public interface IUnitOfWork
     public IUpdateDoctorAchievementRepository UpdateDoctorAchievementRepository { get; }
 
     /// <sumary>
-    ///    UpdateDoctorAvatarRepository repository feature.
+    ///    UpdateUserAvatarRepository repository feature.
     /// </summary>
-    public IUpdateUserAvatarRepository UpdateDoctorAvatarRepository { get; }
+    public IUpdateUserAvatarRepository UpdateUserAvatarRepository { get; }
 }
