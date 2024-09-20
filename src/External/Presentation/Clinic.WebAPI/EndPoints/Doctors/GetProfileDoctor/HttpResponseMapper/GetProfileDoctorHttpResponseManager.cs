@@ -59,7 +59,7 @@ public class GetProfileDoctorHttpResponseManager
         );
 
         _dictionary.Add(
-            key: GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_A_DOCTOR,
+            key: GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_DOCTOR_OR_STAFF,
             value: (request, response) =>
                 new()
                 {

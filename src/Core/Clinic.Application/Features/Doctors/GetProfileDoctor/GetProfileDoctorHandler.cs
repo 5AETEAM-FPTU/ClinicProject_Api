@@ -49,9 +49,9 @@ public class GetProfileDoctorHandler
 
         // Check role doctor from role type jwt
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-        if (!Equals(objA: role, objB: "doctor"))
+        if (!role.Equals("doctor") && !role.Equals("staff"))
         {
-            return new() { StatusCode = GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_A_DOCTOR };
+            return new() { StatusCode = GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_DOCTOR_OR_STAFF };
         }
 
         // Found user by userId
