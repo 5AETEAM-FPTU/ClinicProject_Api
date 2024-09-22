@@ -1,6 +1,4 @@
-﻿using System;
-using System.Linq;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;

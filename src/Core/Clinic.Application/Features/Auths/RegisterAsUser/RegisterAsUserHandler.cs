@@ -251,6 +251,5 @@ internal sealed class RegisterAsUserHandler
             DOB = CommonConstant.MIN_DATE_TIME,
             Description = "default",
         };
-        newUser.Patient = new() { Id = Guid.NewGuid(), UserId = newUser.Id, };
     }
 }
