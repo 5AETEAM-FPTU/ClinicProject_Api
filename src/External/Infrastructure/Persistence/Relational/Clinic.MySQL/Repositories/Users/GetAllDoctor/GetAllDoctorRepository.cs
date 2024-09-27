@@ -13,12 +13,12 @@ namespace Clinic.MySQL.Repositories.Users.GetAllDoctor;
 internal class GetAllDoctorRepository : IGetAllDoctorsRepository
 {
     private readonly ClinicContext _context;
-    private DbSet<Domain.Commons.Entities.Doctor> _doctors;
+    private DbSet<User> _doctors;
 
     public GetAllDoctorRepository(ClinicContext context)
     {
         _context = context;
-        _doctors = _context.Set<Domain.Commons.Entities.Doctor>();
+        _doctors = _context.Set<User>();
     }
 
     public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
@@ -42,13 +42,6 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
             )
             .Select(selector: doctor => new User()
             {
-                Gender = doctor.Gender,
-                DOB = doctor.DOB,
-                Description = doctor.Description,
-                Position = doctor.Position,
-                Specialty = doctor.Specialty,
-                Address = doctor.Address,
-                Achievement = doctor.Achievement,
                 Id = doctor.Id,
                 UserName = doctor.UserName,
                 FullName = doctor.FullName,
@@ -73,7 +66,5 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
-
     }
-
 }

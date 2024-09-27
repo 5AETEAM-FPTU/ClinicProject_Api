@@ -12,12 +12,12 @@ namespace Clinic.MySQL.Repositories.Users.GetAllUser;
 internal class GetAllUsersRepository : IGetAllUsersRepository
 {
     private readonly ClinicContext _context;
-    private DbSet<Domain.Commons.Entities.Patient> _patient;
+    private DbSet<User> _patient;
 
     public GetAllUsersRepository(ClinicContext context)
     {
         _context = context;
-        _patient = _context.Set<Domain.Commons.Entities.Patient>();
+        _patient = _context.Set<User>();
     }
 
     public Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken)

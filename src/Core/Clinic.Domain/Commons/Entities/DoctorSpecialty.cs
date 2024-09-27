@@ -11,7 +11,6 @@ public class DoctorSpecialty : IBaseEntity
 {
     // Primary keys.
     // Foreign keys.
-
     public Guid DoctorId { get; set; }
 
     public Guid SpecialtyID { get; set; }
