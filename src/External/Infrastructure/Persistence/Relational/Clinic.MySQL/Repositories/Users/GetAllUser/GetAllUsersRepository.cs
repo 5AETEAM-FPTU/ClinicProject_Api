@@ -12,17 +12,17 @@ namespace Clinic.MySQL.Repositories.Users.GetAllUser;
 internal class GetAllUsersRepository : IGetAllUsersRepository
 {
     private readonly ClinicContext _context;
-    private DbSet<User> _users;
+    private DbSet<Domain.Commons.Entities.Patient> _patient;
 
     public GetAllUsersRepository(ClinicContext context)
     {
         _context = context;
-        _users = _context.Set<User>();
+        _patient = _context.Set<Domain.Commons.Entities.Patient>();
     }
 
     public Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken)
     {
-        return _users.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+        return _patient.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<User>> FindUserByIdQueryAsync(
@@ -31,7 +31,7 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
         CancellationToken cancellationToken
     )
     {
-        return await _users
+        return await _patient
             .AsNoTracking()
             .Where(predicate: user =>
                 user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME

@@ -13,12 +13,17 @@ namespace Clinic.MySQL.Repositories.Users.GetAllDoctor;
 internal class GetAllDoctorRepository : IGetAllDoctorsRepository
 {
     private readonly ClinicContext _context;
-    private DbSet<User> _doctors;
+    private DbSet<Domain.Commons.Entities.Doctor> _doctors;
 
     public GetAllDoctorRepository(ClinicContext context)
     {
         _context = context;
-        _doctors = _context.Set<User>();
+        _doctors = _context.Set<Domain.Commons.Entities.Doctor>();
+    }
+
+    public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
+    {
+        return _doctors.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
@@ -37,6 +42,13 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
             )
             .Select(selector: doctor => new User()
             {
+                Gender = doctor.Gender,
+                DOB = doctor.DOB,
+                Description = doctor.Description,
+                Position = doctor.Position,
+                Specialty = doctor.Specialty,
+                Address = doctor.Address,
+                Achievement = doctor.Achievement,
                 Id = doctor.Id,
                 UserName = doctor.UserName,
                 FullName = doctor.FullName,
@@ -61,10 +73,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
+
     }
 
-    public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
-    {
-        return _doctors.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
-    }
 }

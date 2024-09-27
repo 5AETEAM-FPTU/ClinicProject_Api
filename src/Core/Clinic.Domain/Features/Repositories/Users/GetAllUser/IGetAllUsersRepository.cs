@@ -10,7 +10,7 @@ namespace Clinic.Domain.Features.Repositories.Users.GetAllUser;
 
 public interface IGetAllUsersRepository
 {
-    Task<IEnumerable<User>> FindUserByIdQueryAsync(
+    Task<IEnumerable<Domain.Commons.Entities.Patient>> FindUserByIdQueryAsync(
         int pageIndex,
         int pageSize,
         CancellationToken cancellationToken
