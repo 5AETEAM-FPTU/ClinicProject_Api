@@ -66,7 +66,7 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
                         PhoneNumber = user.PhoneNumber,
                         AvatarUrl = user.Avatar,
                         FullName = user.FullName,
-                        Gender = user.Patient.Gender,
+                        //Gender = user.Patient.Gender,
                         DOB = user.Patient.DOB,
                         Address = user.Patient.Address,
                         Description = user.Patient.Description,

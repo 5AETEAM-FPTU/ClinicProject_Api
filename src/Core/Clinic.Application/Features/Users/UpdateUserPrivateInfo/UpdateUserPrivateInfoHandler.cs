@@ -93,7 +93,7 @@ public class UpdateUserPrivateInfoHandler : IFeatureHandler<UpdateUserPrivateInf
         // If the user has a related Patient, update the Patient entity
         if (user.Patient != null)
         {
-            user.Patient.Gender = request.Gender ?? user.Patient.Gender;
+            //user.Patient.Gender = request.Gender ?? user.Patient.Gender;
             user.Patient.DOB = request.DOB != default ? request.DOB : user.Patient.DOB;
             user.Patient.Address = request.Address ?? user.Patient.Address;
         }

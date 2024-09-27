@@ -42,14 +42,14 @@ internal sealed class UserEntityConfiguration : IEntityTypeConfiguration<User>
         builder
             .HasOne(navigationExpression: user => user.Doctor)
             .WithOne(navigationExpression: doctor => doctor.User)
-            .HasForeignKey<Doctor>(foreignKeyExpression: doctor => doctor.Id)
+            .HasForeignKey<Doctor>(foreignKeyExpression: doctor => doctor.UserId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
-        
+
         // [Users] - [Patient] (1 - 1).
         builder
             .HasOne(navigationExpression: user => user.Patient)
             .WithOne(navigationExpression: patient => patient.User)
-            .HasForeignKey<Patient>(foreignKeyExpression: patient => patient.Id)
+            .HasForeignKey<Patient>(foreignKeyExpression: patient => patient.UserId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
     }
 }

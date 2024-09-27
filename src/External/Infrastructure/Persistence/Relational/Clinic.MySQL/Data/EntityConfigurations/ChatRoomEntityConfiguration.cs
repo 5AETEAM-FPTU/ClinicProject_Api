@@ -1,7 +1,7 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using Clinic.MySQL.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -16,8 +16,15 @@ internal sealed class ChatRoomEntityConfiguration : IEntityTypeConfiguration<Cha
             name: $"{nameof(ChatRoom)}s",
             buildAction: table => table.HasComment(comment: "Contain chat room records.")
         );
+
         // Primary key configuration.
         builder.HasKey(keyExpression: entity => entity.Id);
+
+        // LastMessage property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.LastMessage)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(256))
+            .IsRequired();
 
         // CreatedAt property configuration.
         builder
@@ -37,20 +44,13 @@ internal sealed class ChatRoomEntityConfiguration : IEntityTypeConfiguration<Cha
         // UpdatedBy property configuration.
         builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
 
-        // RemovedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.RemovedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // RemovedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
         // Table relationships configurations.
         // [ChatRoom] - [ChatContent] (1 - N).
         builder
             .HasMany(navigationExpression: chatRoom => chatRoom.ChatContents)
             .WithOne(navigationExpression: chatContent => chatContent.ChatRoom)
             .HasForeignKey(foreignKeyExpression: chatContent => chatContent.ChatRoomId)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction)
             .IsRequired();
     }
 }

@@ -135,14 +135,8 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             Doctor = new()
             {
-                Id = Id,
-                Address = request.Address,
-                Gender = request.Gender,
                 DOB = request.DOB,
                 Description = "default",
-                Specialty = request.Specialty,
-                Position = request.Position,
-                DoctorStaffTypeId = Guid.Parse(request.DoctorStaffId),
                 Achievement = "default"
             }
         };

@@ -1,58 +1,41 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Clinic.MySQL.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
 /// <summary>
 ///     Represents configuration of "AssetContent" table.
 /// </summary>
-internal sealed class AssetContentEntityConfiguration : IEntityTypeConfiguration<AssetContent>
+internal sealed class AssetContentEntityConfiguration : IEntityTypeConfiguration<Asset>
 {
-    public void Configure(EntityTypeBuilder<AssetContent> builder)
+    public void Configure(EntityTypeBuilder<Asset> builder)
     {
         builder.ToTable(
-            name: $"{nameof(AssetContent)}s",
+            name: $"{nameof(Asset)}s",
             buildAction: table => table.HasComment(comment: "Contain asset content records.")
         );
         // Primary key configuration.
         builder.HasKey(keyExpression: entity => entity.Id);
 
-        // Asset property configuration.
+        // FileName property configuration.
         builder
-            .Property(propertyExpression: entity => entity.Asset)
+            .Property(propertyExpression: entity => entity.FileName)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
+            .IsRequired();
+
+        // FilePath property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.FilePath)
             .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
             .IsRequired();
 
         // Type property configuration.
         builder
             .Property(propertyExpression: entity => entity.Type)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(40))
             .IsRequired();
-
-        // CreatedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.CreatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // CreatedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.CreatedBy).IsRequired();
-
-        // UpdatedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.UpdatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // UpdatedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
 
         // RemovedAt property configuration.
         builder
@@ -62,6 +45,5 @@ internal sealed class AssetContentEntityConfiguration : IEntityTypeConfiguration
 
         // RemovedBy property configuration.
         builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
-
     }
 }

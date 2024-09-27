@@ -1,11 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using Clinic.Application.Commons.Constance;
-using Clinic.Domain.Commons.Entities;
-using Clinic.MySQL.Common;
+﻿using Clinic.Domain.Commons.Entities;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using CommonConstant = Clinic.MySQL.Common.CommonConstant;
@@ -22,7 +15,7 @@ internal sealed class PatientEntityConfiguration : IEntityTypeConfiguration<Pati
         );
 
         // Primary key configuration.
-        builder.HasKey(keyExpression: patient => patient.Id);
+        builder.HasKey(keyExpression: patient => patient.UserId);
 
         /* Properties configuration */
         // Description
@@ -41,13 +34,6 @@ internal sealed class PatientEntityConfiguration : IEntityTypeConfiguration<Pati
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(225));
 
         // Table relationships configurations.
-        // [Patients] - [MedicalReports] (1 - n).
-        builder
-            .HasMany(navigationExpression: patient => patient.MedicalReports)
-            .WithOne(navigationExpression: medicalReport => medicalReport.Patient)
-            .HasForeignKey(foreignKeyExpression: medicalReport => medicalReport.PatientId)
-            .IsRequired();
-
         // [Patients] - [Appointments] (1 - n).
         builder
             .HasMany(navigationExpression: patient => patient.Appointments)
@@ -55,32 +41,23 @@ internal sealed class PatientEntityConfiguration : IEntityTypeConfiguration<Pati
             .HasForeignKey(foreignKeyExpression: appointment => appointment.PatientId)
             .IsRequired();
 
-        // [Patients] - [OnlinePayments] (1 - n).
+        // [Patients] - [QueueRoom] (1 - 1).
         builder
-            .HasMany(navigationExpression: patient => patient.OnlinePayments)
-            .WithOne(navigationExpression: onlinePayment => onlinePayment.Patient)
-            .HasForeignKey(foreignKeyExpression: onlinePayment => onlinePayment.PatientId)
-            .IsRequired();
-
-        // [Patients] - [PatientBookedAppointment] (1 - n).
-        builder
-            .HasMany(navigationExpression: patient => patient.PatientBookAppointments)
-            .WithOne(navigationExpression: patientBookAppointment => patientBookAppointment.Patient)
-            .HasForeignKey(foreignKeyExpression: patientBookAppointment =>
-                patientBookAppointment.PatientId
-            )
-            .IsRequired();
-
-        // [Patients] - [QueueRoom] (1 - n).
-        builder
-            .HasMany(navigationExpression: patient => patient.QueueRooms)
+            .HasOne(navigationExpression: patient => patient.QueueRooms)
             .WithOne(navigationExpression: queueRoom => queueRoom.Patient)
-            .HasForeignKey(foreignKeyExpression: queueRoom => queueRoom.PatientId)
+            .HasForeignKey<QueueRoom>(foreignKeyExpression: queueRoom => queueRoom.PatientId)
             .IsRequired();
 
         // [Patients] - [ChatRoom] (1 - n).
         builder
             .HasMany(navigationExpression: patient => patient.ChatRooms)
+            .WithOne(navigationExpression: chatRoom => chatRoom.Patient)
+            .HasForeignKey(foreignKeyExpression: chatRoom => chatRoom.PatientId)
+            .IsRequired();
+
+        // [Patients] - [RetreatmentNotifications] (1 - n).
+        builder
+            .HasMany(navigationExpression: patient => patient.RetreatmentNotifications)
             .WithOne(navigationExpression: chatRoom => chatRoom.Patient)
             .HasForeignKey(foreignKeyExpression: chatRoom => chatRoom.PatientId)
             .IsRequired();

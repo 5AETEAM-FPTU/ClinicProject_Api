@@ -2,11 +2,6 @@
 using Clinic.MySQL.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -15,9 +10,9 @@ internal sealed class MedicineEntityConfiguration : IEntityTypeConfiguration<Med
     public void Configure(EntityTypeBuilder<Medicine> builder)
     {
         builder.ToTable(
-                name: $"{nameof(Medicine)}s",
-                buildAction: table => table.HasComment(comment: "Contain medicine's infomation.")
-            );
+            name: $"{nameof(Medicine)}s",
+            buildAction: table => table.HasComment(comment: "Contain medicine's infomation.")
+        );
 
         // Primary key configuration.
         builder.HasKey(keyExpression: medicine => medicine.Id);
@@ -41,38 +36,32 @@ internal sealed class MedicineEntityConfiguration : IEntityTypeConfiguration<Med
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
             .IsRequired();
 
-        // ExpiredDate
+        // CreatedAt property configuration.
         builder
-            .Property(propertyExpression: medicine => medicine.ExpiredDate)
+            .Property(propertyExpression: entity => entity.CreatedAt)
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
 
-        // Indication
-        builder
-            .Property(propertyExpression: medicine => medicine.Indication)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
-            .IsRequired();
+        // CreatedBy property configuration.
+        builder.Property(propertyExpression: entity => entity.CreatedBy).IsRequired();
 
-        // Dose
+        // UpdatedAt property configuration.
         builder
-            .Property(propertyExpression: medicine => medicine.Dose)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
-            .IsRequired();
-
-        // CreatedAt, UpdatedAt, RemovedAt
-        builder
-            .Property(propertyExpression: medicalReport => medicalReport.CreatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-        builder
-            .Property(propertyExpression: medicalReport => medicalReport.UpdatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-        builder
-            .Property(propertyExpression: medicalReport => medicalReport.RemovedAt)
+            .Property(propertyExpression: entity => entity.UpdatedAt)
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
 
+        // UpdatedBy property configuration.
+        builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
+
+        // RemovedAt property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.RemovedAt)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
+            .IsRequired();
+
+        // RemovedBy property configuration.
+        builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
 
         // Table relationships configurations.
         // [Medicines] - [MedicineOrderItems] (1 - n).
@@ -81,6 +70,5 @@ internal sealed class MedicineEntityConfiguration : IEntityTypeConfiguration<Med
             .WithOne(navigationExpression: medicineOrderItem => medicineOrderItem.Medicine)
             .HasForeignKey(foreignKeyExpression: medicineOrderItem => medicineOrderItem.MedicineId)
             .IsRequired();
-
     }
 }

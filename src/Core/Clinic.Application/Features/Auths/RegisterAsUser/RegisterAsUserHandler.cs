@@ -244,13 +244,10 @@ internal sealed class RegisterAsUserHandler
     {
         newUser.Patient = new()
         {
-            Id = Guid.NewGuid(),
-            UserId = newUser.Id,
+            UserId = Guid.NewGuid(),
             Address = "default",
-            Gender = "default",
             DOB = CommonConstant.MIN_DATE_TIME,
             Description = "default",
         };
-        newUser.Patient = new() { Id = Guid.NewGuid(), UserId = newUser.Id, };
     }
 }

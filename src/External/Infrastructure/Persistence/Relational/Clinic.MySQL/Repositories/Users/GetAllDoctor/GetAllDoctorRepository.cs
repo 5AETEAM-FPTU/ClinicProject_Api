@@ -1,12 +1,12 @@
-﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
-using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Users.GetAllDoctor;
 
@@ -21,17 +21,20 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
         _doctors = _context.Set<User>();
     }
 
-    public async Task<
-        IEnumerable<User>
-    > FindAllDoctorsQueryAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
+    public async Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
+        int pageIndex,
+        int pageSize,
+        CancellationToken cancellationToken
+    )
     {
         return await _doctors
             .AsNoTracking()
             .Where(predicate: doctor =>
                 //doctor.UserRoles.Any(userRole => userRole.RoleId.Equals(Guid.Parse("c39aa1ac-8ded-46be-870c-115b200b09fc"))) &&
                 doctor.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
-                && doctor.RemovedBy == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-        )
+                && doctor.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .Select(selector: doctor => new User()
             {
                 Id = doctor.Id,
@@ -39,14 +42,18 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                 FullName = doctor.FullName,
                 PhoneNumber = doctor.PhoneNumber,
                 Avatar = doctor.Avatar,
-
+                Gender = new() { Name = doctor.Gender.Name, Constant = doctor.Gender.Constant },
                 Doctor = new()
                 {
-                    Gender = doctor.Doctor.Gender,
                     DOB = doctor.Doctor.DOB,
                     Description = doctor.Doctor.Description,
                     Position = doctor.Doctor.Position,
-                    Specialty = doctor.Doctor.Specialty,
+                    DoctorSpecialties = doctor
+                        .Doctor.DoctorSpecialties.Select(doctorSpecialty => new DoctorSpecialty()
+                        {
+                            Specialty = new Specialty { Name = doctorSpecialty.Specialty.Name }
+                        })
+                        .ToList(),
                     Address = doctor.Doctor.Address,
                     Achievement = doctor.Doctor.Achievement
                 }

@@ -2,11 +2,6 @@
 using Clinic.MySQL.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -15,60 +10,96 @@ internal sealed class MedicalReportEntityConfiguration : IEntityTypeConfiguratio
     public void Configure(EntityTypeBuilder<MedicalReport> builder)
     {
         builder.ToTable(
-                name: $"{nameof(MedicalReport)}s",
-                buildAction: table => table.HasComment(comment: "Contain medical report records.")
-            );
+            name: $"{nameof(MedicalReport)}s",
+            buildAction: table => table.HasComment(comment: "Contain medical report records.")
+        );
 
         // Primary key configuration.
         builder.HasKey(keyExpression: medicalReport => medicalReport.Id);
 
-        /* Properties configuration */
-        // Code
-        builder
-            .Property(propertyExpression: medicalReport => medicalReport.Code)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(50))
-            .IsRequired();
-
-        // Name
+        // Name property configuration.
         builder
             .Property(propertyExpression: medicalReport => medicalReport.Name)
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
             .IsRequired();
 
-        // CreatedAt, UpdatedAt, RemovedAt
+        // MedicalHistory property configuration.
         builder
-            .Property(propertyExpression: medicalReport => medicalReport.CreatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
+            .Property(propertyExpression: medicalReport => medicalReport.MedicalHistory)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(256))
             .IsRequired();
+
+        // TotalPrice property configuration.
         builder
-            .Property(propertyExpression: medicalReport => medicalReport.UpdatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
+            .Property(propertyExpression: medicalReport => medicalReport.TotalPrice)
+            .HasDefaultValue(0)
             .IsRequired();
+
+        // GeneralCondition property configuration.
         builder
-            .Property(propertyExpression: medicalReport => medicalReport.RemovedAt)
+            .Property(propertyExpression: medicalReport => medicalReport.GeneralCondition)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(256))
+            .IsRequired();
+
+        // Weight property configuration.
+        builder
+            .Property(propertyExpression: medicalReport => medicalReport.Weight)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(50))
+            .IsRequired();
+
+        // Height property configuration.
+        builder
+            .Property(propertyExpression: medicalReport => medicalReport.Height)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(50))
+            .IsRequired();
+
+        // Pulse property configuration.
+        builder
+            .Property(propertyExpression: medicalReport => medicalReport.Pulse)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(50))
+            .IsRequired();
+
+        // Temperature property configuration.
+        builder
+            .Property(propertyExpression: medicalReport => medicalReport.Temperature)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(50))
+            .IsRequired();
+
+        // BloodPresser property configuration.
+        builder
+            .Property(propertyExpression: medicalReport => medicalReport.BloodPresser)
+            .IsRequired();
+
+        // Diagnosis property configuration.
+        builder
+            .Property(propertyExpression: medicalReport => medicalReport.Diagnosis)
+            .IsRequired();
+
+        // CreatedAt property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.CreatedAt)
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
 
-        // Table relationships configurations.
-        // [MedicalReport] - [ServiceOrderItems] (1 - N).
+        // CreatedBy property configuration.
+        builder.Property(propertyExpression: entity => entity.CreatedBy).IsRequired();
+
+        // UpdatedAt property configuration.
         builder
-            .HasMany(navigationExpression: medicalReport => medicalReport.ServiceOrderItems)
-            .WithOne(navigationExpression: serviceOrderItem => serviceOrderItem.MedicalReport)
-            .HasForeignKey(foreignKeyExpression: serviceOrderItem => serviceOrderItem.MedicalReportId)
+            .Property(propertyExpression: entity => entity.UpdatedAt)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
 
-        // [MedicalReport] - [MedicineOrderItems] (1 - N).
+        // UpdatedBy property configuration.
+        builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
+
+        // RemovedAt property configuration.
         builder
-            .HasMany(navigationExpression: medicalReport => medicalReport.MedicineOrderItems)
-            .WithOne(navigationExpression: medicineOrderItem => medicineOrderItem.MedicalReport)
-            .HasForeignKey(foreignKeyExpression: medicineOrderItem => medicineOrderItem.MedicalReportId)
+            .Property(propertyExpression: entity => entity.RemovedAt)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
 
-        // [MedicalReport] - [Appointment] (1 - 1).
-        builder
-            .HasOne(navigationExpression: medicalReport => medicalReport.Appointment)
-            .WithOne(navigationExpression: appointment => appointment.MedicalReport)
-            .HasForeignKey<Appointment>(appointment => appointment.MedicalReportId)
-            .IsRequired();
+        // RemovedBy property configuration.
+        builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
     }
 }

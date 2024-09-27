@@ -5,17 +5,12 @@ using Clinic.Domain.Commons.Entities.Base;
 namespace Clinic.Domain.Commons.Entities;
 
 /// <summary>
-///     Represent the "Roles" table.
+///     Represent the "Services" table.
 /// </summary>
 public class Service : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarilyRemovedEntity
 {
     // Primary keys.
     public Guid Id { get; set; }
-
-    // Foreign keys.
-
-    // Navigation collection.
-    public IEnumerable<ServiceOrderItems> ServiceOrderItems { get; set; }
 
     // Normal properties.
     public string Code { get; set; }
@@ -39,4 +34,7 @@ public class Service : IBaseEntity, ICreatedEntity, IUpdatedEntity, ITemporarily
     public DateTime RemovedAt { get; set; }
 
     public Guid RemovedBy { get; set; }
+
+    // Navigation collections.
+    public IEnumerable<ServiceOrderItem> ServiceOrderItems { get; set; }
 }

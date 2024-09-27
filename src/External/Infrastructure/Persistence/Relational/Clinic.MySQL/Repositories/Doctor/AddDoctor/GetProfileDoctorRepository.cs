@@ -12,13 +12,11 @@ namespace Clinic.MySQL.Repositories.Doctor.AddDoctor;
 internal class AddDoctorRepository : IAddDoctorRepository
 {
     private readonly ClinicContext _context;
-    private DbSet<DoctorStaffType> _staffTypes;
     private UserManager<User> _userManager;
 
     public AddDoctorRepository(ClinicContext context, UserManager<User> userManager)
     {
         _context = context;
-        _staffTypes = _context.Set<DoctorStaffType>();
         _userManager = userManager;
     }
 
@@ -84,9 +82,6 @@ internal class AddDoctorRepository : IAddDoctorRepository
         CancellationToken cancellationToken
     )
     {
-        return _staffTypes.AnyAsync(
-            predicate: entity => entity.Id == doctorStaffId,
-            cancellationToken: cancellationToken
-        );
+        return Task.FromResult( false );
     }
 }

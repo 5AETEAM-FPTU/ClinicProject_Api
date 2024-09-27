@@ -1,17 +1,16 @@
-﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.GetAllUser;
-using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Users.GetAllUser;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Users.GetAllUser;
 
 internal class GetAllUsersRepository : IGetAllUsersRepository
 {
-
     private readonly ClinicContext _context;
     private DbSet<User> _users;
 
@@ -26,14 +25,19 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
         return _users.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 
-    public  async Task<IEnumerable<User>> FindUserByIdQueryAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
+    public async Task<IEnumerable<User>> FindUserByIdQueryAsync(
+        int pageIndex,
+        int pageSize,
+        CancellationToken cancellationToken
+    )
     {
         return await _users
             .AsNoTracking()
             .Where(predicate: user =>
                 user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
-                && user.RemovedBy == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-        )
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .Select(selector: user => new User()
             {
                 Id = user.Id,
@@ -41,10 +45,9 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 Avatar = user.Avatar,
-
+                Gender = new() { Name = user.Gender.Name, Constant = user.Gender.Constant },
                 Patient = new()
                 {
-                    Gender = user.Patient.Gender,
                     DOB = user.Patient.DOB,
                     Description = user.Patient.Description,
                     Address = user.Patient.Address,
@@ -54,5 +57,4 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
-
 }
