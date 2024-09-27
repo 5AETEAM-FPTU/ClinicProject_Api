@@ -1,8 +1,7 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using Clinic.MySQL.Common;
-
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -18,13 +17,7 @@ internal sealed class DoctorEntityConfiguration : IEntityTypeConfiguration<Docto
             buildAction: table => table.HasComment(comment: "Contain doctor records.")
         );
         // Primary key configuration.
-        builder.HasKey(keyExpression: entity => entity.Id);
-
-        // Gender property configuration
-        builder
-            .Property(propertyExpression: entity => entity.Gender)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(10))
-            .IsRequired();
+        builder.HasKey(keyExpression: entity => entity.UserId);
 
         // DOB property configuration.
         builder
@@ -32,22 +25,10 @@ internal sealed class DoctorEntityConfiguration : IEntityTypeConfiguration<Docto
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
 
-        // Position property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.Position)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
-            .IsRequired();
-
-        // Specialty property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.Specialty)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(225))
-            .IsRequired();
-
         // Address property configuration.
         builder
             .Property(propertyExpression: entity => entity.Address)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(225))
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(255))
             .IsRequired();
 
         // Description property configuration.
@@ -62,19 +43,35 @@ internal sealed class DoctorEntityConfiguration : IEntityTypeConfiguration<Docto
             .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
             .IsRequired();
 
-        // Table relationships configurations.
-        // [Doctor] - [WorkingHour] (1 - N).
+        // IsOnDuty property configuration.
         builder
-            .HasMany(navigationExpression: doctor => doctor.WorkingHours)
-            .WithOne(navigationExpression: workingHour => workingHour.Doctor)
-            .HasForeignKey(foreignKeyExpression: workingHour => workingHour.DoctorId)
+            .Property(propertyExpression: entity => entity.IsOnDuty)
+            .HasDefaultValue(false)
+            .IsRequired();
+
+        // Table relationships configurations.
+        // [Doctor] - [Schedule] (1 - N).
+        builder
+            .HasMany(navigationExpression: doctor => doctor.Schedules)
+            .WithOne(navigationExpression: schedule => schedule.Doctor)
+            .HasForeignKey(foreignKeyExpression: schedule => schedule.DoctorId)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction)
             .IsRequired();
 
         // [Doctor] - [ChatRoom] (1 - N).
         builder
             .HasMany(navigationExpression: doctor => doctor.ChatRooms)
-            .WithOne(navigationExpression: chatRoom => chatRoom.Doctor)
-            .HasForeignKey(foreignKeyExpression: chatRoom => chatRoom.DoctorId)
+            .WithOne(navigationExpression: doctorSpecialties => doctorSpecialties.Doctor)
+            .HasForeignKey(foreignKeyExpression: doctorSpecialties => doctorSpecialties.DoctorId)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction)
+            .IsRequired();
+
+        // [Doctor] - [DoctorSpecialty] (1 - N).
+        builder
+            .HasMany(navigationExpression: doctor => doctor.DoctorSpecialties)
+            .WithOne(navigationExpression: doctorSpecialties => doctorSpecialties.Doctor)
+            .HasForeignKey(foreignKeyExpression: doctorSpecialties => doctorSpecialties.DoctorId)
+            .OnDelete(deleteBehavior: DeleteBehavior.NoAction)
             .IsRequired();
     }
 }

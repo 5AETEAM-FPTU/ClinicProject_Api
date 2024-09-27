@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
@@ -11,19 +10,6 @@ public class Appointment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntit
 {
     // Primary keys.
     public Guid Id { get; set; }
-
-    // Foreign keys.
-    public Guid PatientId { get; set; }
-
-    public Guid StatusId { get; set; }
-
-    public Guid MedicalReportId { get; set; }
-
-    public Guid OnlinePaymentId { get; set; }
-
-    public Guid DoctorId { get; set; }
-
-    public Guid WorkingHourId { get; set; }
 
     // Normal columns.
     public bool ReExamination { get; set; }
@@ -46,6 +32,15 @@ public class Appointment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntit
 
     public Guid RemovedBy { get; set; }
 
+    // Foreign keys.
+    public Guid PatientId { get; set; }
+
+    public Guid StatusId { get; set; }
+
+    public Guid OnlinePaymentId { get; set; }
+
+    public Guid ScheduleId { get; set; }
+
     // Navigation properties.
     public AppointmentStatus AppointmentStatus { get; set; }
 
@@ -53,10 +48,9 @@ public class Appointment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntit
 
     public Patient Patient { get; set; }
 
-    public WorkingHour WorkingHour { get; set; }
+    public Schedule Schedule { get; set; }
 
     public MedicalReport MedicalReport { get; set; }
 
-    // Navigation Collections.
-    public IEnumerable<PatientBookedAppointment> PatientBookedAppointments { get; set; }
+    public Feedback Feedback { get; set; }
 }

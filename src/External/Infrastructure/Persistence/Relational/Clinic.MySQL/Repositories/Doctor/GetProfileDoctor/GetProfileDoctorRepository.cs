@@ -21,7 +21,6 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
         _users = _context.Set<User>();
     }
 
-
     public Task<User> GetDoctorByDoctorIdQueryAsync(
         Guid userId,
         CancellationToken cancellationToken
@@ -36,21 +35,28 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 Avatar = user.Avatar,
-
+                Gender = new() { Name = user.Gender.Name, Constant = user.Gender.Constant },
                 Doctor = new()
                 {
-                    Gender = user.Doctor.Gender,
                     DOB = user.Doctor.DOB,
                     Description = user.Doctor.Description,
                     Position = user.Doctor.Position,
-                    Specialty = user.Doctor.Specialty,
+                    DoctorSpecialties = user
+                        .Doctor.DoctorSpecialties.Select(doctorSpecialty => new DoctorSpecialty()
+                        {
+                            Specialty = new()
+                            {
+                                Constant = doctorSpecialty.Specialty.Constant,
+                                Name = doctorSpecialty.Specialty.Name
+                            }
+                        })
+                        .ToList(),
                     Address = user.Doctor.Address,
                     Achievement = user.Doctor.Achievement
                 }
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
-
 
     public Task<bool> IsUserTemporarilyRemovedQueryAsync(
         Guid userId,

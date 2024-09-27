@@ -1,17 +1,16 @@
-﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.GetAllUser;
-using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Users.GetAllUser;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Users.GetAllUser;
 
 internal class GetAllUsersRepository : IGetAllUsersRepository
 {
-
     private readonly ClinicContext _context;
     private DbSet<Domain.Commons.Entities.Patient> _patient;
 
@@ -26,34 +25,36 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
         return _patient.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 
-    public  async Task<IEnumerable<Domain.Commons.Entities.Patient>> FindUserByIdQueryAsync(int pageIndex, int pageSize, CancellationToken cancellationToken)
+    public async Task<IEnumerable<User>> FindUserByIdQueryAsync(
+        int pageIndex,
+        int pageSize,
+        CancellationToken cancellationToken
+    )
     {
         return await _patient
             .AsNoTracking()
-            .Where(predicate: patient =>
-                patient.User.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
-                && patient.User.RemovedBy == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-        )
-            .Select(selector: patient => new Patient()
+            .Where(predicate: user =>
+                user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
+            .Select(selector: user => new User()
             {
-
-                Gender = patient.Gender,
-                DOB = patient.DOB,
-                Description = patient.Description,
-                Address = patient.Address,
-                Id = patient.Id,
-                User = new()
+                Id = user.Id,
+                UserName = user.UserName,
+                FullName = user.FullName,
+                PhoneNumber = user.PhoneNumber,
+                Avatar = user.Avatar,
+                Gender = new() { Name = user.Gender.Name, Constant = user.Gender.Constant },
+                Patient = new()
                 {
-                    //Id = patient.User.Id,
-                    UserName = patient.User.UserName,
-                    FullName = patient.User.FullName,
-                    PhoneNumber = patient.User.PhoneNumber,
-                    Avatar = patient.User.Avatar
+                    DOB = user.Patient.DOB,
+                    Description = user.Patient.Description,
+                    Address = user.Patient.Address,
                 }
             })
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
-
 }

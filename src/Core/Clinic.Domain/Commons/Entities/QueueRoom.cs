@@ -6,16 +6,15 @@ namespace Clinic.Domain.Commons.Entities;
 /// <summary>
 ///     Represent the "QueueRoom" table.
 /// </summary>
-public class QueueRoom : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IUpdatedEntity
+public class QueueRoom : IBaseEntity, ICreatedEntity, IUpdatedEntity
 {
     // Primary keys.
     public Guid Id { get; set; }
 
-    // Foreign keys.
-    public Guid PatientId { get; set; }
-
     // Normal columns.
     public string Message { get; set; }
+
+    public bool IsSuported { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -25,9 +24,8 @@ public class QueueRoom : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity,
 
     public Guid UpdatedBy { get; set; }
 
-    public DateTime RemovedAt { get; set; }
-
-    public Guid RemovedBy { get; set; }
+    // Foreign keys.
+    public Guid PatientId { get; set; }
 
     // Navigation properties.
     public Patient Patient { get; set; }

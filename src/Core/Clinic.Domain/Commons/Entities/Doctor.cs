@@ -11,19 +11,10 @@ public class Doctor : IBaseEntity
 {
     // Primary keys.
     // Foreign keys.
-    public Guid Id { get; set; }
-
-    // Foreign keys.
-    public Guid DoctorStaffTypeId { get; set; }
+    public Guid UserId { get; set; }
 
     // Normal columns.
-    public string Gender { get; set; }
-
-    public DateTime? DOB { get; set; }
-
-    public string Position { get; set; }
-
-    public string Specialty { get; set; }
+    public DateTime DOB { get; set; }
 
     public string Address { get; set; }
 
@@ -31,13 +22,19 @@ public class Doctor : IBaseEntity
 
     public string Achievement { get; set; }
 
-    // Navigation properties.
-    public DoctorStaffType DoctorStaffType { get; set; }
+    public bool IsOnDuty { get; set; }
+
+    // Foreign keys.
+    public Guid PositionId { get; set; }
 
     public User User { get; set; }
 
+    public IEnumerable<DoctorSpecialty> DoctorSpecialties { get; set; }
+
+    public Position Position { get; set; }
+
     // Navigation Collections.
-    public IEnumerable<WorkingHour> WorkingHours { get; set; }
+    public IEnumerable<Schedule> Schedules { get; set; }
 
     public IEnumerable<ChatRoom> ChatRooms { get; set; }
 }

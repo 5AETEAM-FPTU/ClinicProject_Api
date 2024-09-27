@@ -11,33 +11,24 @@ public class Patient : IBaseEntity
 {
     // Primary keys.
     // Foreign keys.
-    public Guid Id { get; set; }
-
-    // Foreign keys
     public Guid UserId { get; set; }
 
     // Normal properties.
-    public string Gender { get; set; }
+    public DateTime DOB { get; set; }
 
-    public DateTime? DOB { get; set; }
-
-    public string Address { get; set; }  
+    public string Address { get; set; }
 
     public string Description { get; set; }
 
-    // Navigation collections.
-    public IEnumerable<OnlinePayment> OnlinePayments { get; set; }
+    // Navigation properties.
+    public User User { get; set; }
 
+    // Navigation collections.
     public IEnumerable<Appointment> Appointments { get; set; }
 
-    public IEnumerable<PatientBookedAppointment> PatientBookAppointments { get; set; }
-
-    public IEnumerable<MedicalReport> MedicalReports { get; set; }
-
-    public IEnumerable<QueueRoom> QueueRooms { get; set; }
+    public QueueRoom QueueRooms { get; set; }
 
     public IEnumerable<ChatRoom> ChatRooms { get; set; }
 
-    // Navigation properties.
-    public User User { get; set; }
+    public IEnumerable<RetreatmentNotification> RetreatmentNotifications { get; set; }
 }

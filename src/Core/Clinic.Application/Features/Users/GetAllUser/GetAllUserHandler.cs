@@ -77,15 +77,16 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
                 {
                     Contents = users.Select(patient => new GetAllUserResponse.Body.User()
                     {
-                        Id = patient.Id,
-                        Username = patient.User.UserName,
-                        PhoneNumber = patient.User.PhoneNumber,
-                        AvatarUrl = patient.User.Avatar,
-                        FullName = patient.User.FullName,
-                        Gender = patient.Gender,
-                        DOB = patient.DOB,
-                        Address = patient.Address,
-                        Description = patient.Description,
+                        Id = user.Id,
+                        Username = user.UserName,
+                        PhoneNumber = user.PhoneNumber,
+                        AvatarUrl = user.Avatar,
+                        FullName = user.FullName,
+                        //Gender = user.Patient.Gender,
+                        DOB = user.Patient.DOB,
+                        Address = user.Patient.Address,
+                        Description = user.Patient.Description,
+
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,

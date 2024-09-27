@@ -15,7 +15,6 @@ using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
-using Clinic.Domain.Features.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
@@ -33,7 +32,6 @@ using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
-using Clinic.MySQL.Repositories.Enums.GetAllDoctorStaffType;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Microsoft.AspNetCore.Identity;
@@ -74,7 +72,6 @@ public class UnitOfWork : IUnitOfWork
     private IResendUserRegistrationConfirmedEmailRepository _resendUserRegistrationConfirmedEmailRepository;
     private ILoginByAdminRepository _loginByAdminRepository;
     private ILoginWithGoogleRepository _loginWithGoogleRepository;
-    private IGetAllDoctorStaffTypeRepository _getAllDoctorStaffTypeRepository;
     private IUpdatePasswordUserRepository _updatePasswordUserRepository;
     private IUpdateDoctorAchievementRepository _updateDoctorAchievementRepository;
     private IUpdateUserAvatarRepository _updateUserAvatarRepository;
@@ -125,15 +122,7 @@ public class UnitOfWork : IUnitOfWork
         get { return _getProfileUserRepository ??= new GetProfileUserRepository(_context); }
     }
 
-    public IGetAllDoctorStaffTypeRepository GetAllDoctorStaffTypeRepository
-    {
-        get
-        {
-            return _getAllDoctorStaffTypeRepository ??= new GetAllDoctorStaffTypeRepository(
-                _context
-            );
-        }
-    }
+ 
 
     public IGetAllDoctorsRepository GetAllDoctorRepository
     {

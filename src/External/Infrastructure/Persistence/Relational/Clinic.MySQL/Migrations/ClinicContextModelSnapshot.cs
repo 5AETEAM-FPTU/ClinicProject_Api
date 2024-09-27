@@ -32,20 +32,16 @@ namespace Clinic.MySQL.Migrations
                         .HasColumnType("char(36)");
 
                     b.Property<bool>("DepositPayment")
-                        .HasColumnType("tinyint(1)");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
 
                     b.Property<string>("Description")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("char(36)");
-
                     b.Property<DateTime>("ExaminationDate")
                         .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("MedicalReportId")
-                        .HasColumnType("char(36)");
 
                     b.Property<Guid>("OnlinePaymentId")
                         .HasColumnType("char(36)");
@@ -62,6 +58,9 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("RemovedBy")
                         .HasColumnType("char(36)");
 
+                    b.Property<Guid>("ScheduleId")
+                        .HasColumnType("char(36)");
+
                     b.Property<Guid>("StatusId")
                         .HasColumnType("char(36)");
 
@@ -71,24 +70,17 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("UpdatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("WorkingHourId")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
-
-                    b.HasIndex("MedicalReportId")
-                        .IsUnique();
 
                     b.HasIndex("OnlinePaymentId")
                         .IsUnique();
 
                     b.HasIndex("PatientId");
 
-                    b.HasIndex("StatusId")
+                    b.HasIndex("ScheduleId")
                         .IsUnique();
 
-                    b.HasIndex("WorkingHourId")
-                        .IsUnique();
+                    b.HasIndex("StatusId");
 
                     b.ToTable("Appointments", null, t =>
                         {
@@ -106,54 +98,34 @@ namespace Clinic.MySQL.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
-                        .HasColumnType("char(36)");
-
                     b.Property<string>("StatusName")
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("AppointmentStatuss", null, t =>
+                    b.ToTable("AppointmentStatuses", null, t =>
                         {
                             t.HasComment("Contain appointment status records.");
                         });
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.AssetContent", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Asset", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Asset")
-                        .IsRequired()
-                        .HasColumnType("TEXT");
-
                     b.Property<Guid>("ChatContentId")
                         .HasColumnType("char(36)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
+                    b.Property<string>("FileName")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("FilePath")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
                     b.Property<DateTime>("RemovedAt")
                         .HasColumnType("DATETIME");
@@ -163,20 +135,13 @@ namespace Clinic.MySQL.Migrations
 
                     b.Property<string>("Type")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("char(36)");
+                        .HasColumnType("VARCHAR(40)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("ChatContentId")
-                        .IsUnique();
+                    b.HasIndex("ChatContentId");
 
-                    b.ToTable("AssetContents", null, t =>
+                    b.ToTable("Assets", null, t =>
                         {
                             t.HasComment("Contain asset content records.");
                         });
@@ -196,6 +161,11 @@ namespace Clinic.MySQL.Migrations
 
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsRead")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
 
                     b.Property<DateTime>("RemovedAt")
                         .HasColumnType("DATETIME");
@@ -243,13 +213,11 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("DoctorId")
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("LastMessage")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(256)");
+
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -272,7 +240,7 @@ namespace Clinic.MySQL.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Doctor", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Achievement")
@@ -281,7 +249,7 @@ namespace Clinic.MySQL.Migrations
 
                     b.Property<string>("Address")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(225)");
+                        .HasColumnType("VARCHAR(255)");
 
                     b.Property<DateTime>("DOB")
                         .HasColumnType("DATETIME");
@@ -290,24 +258,17 @@ namespace Clinic.MySQL.Migrations
                         .IsRequired()
                         .HasColumnType("TEXT");
 
-                    b.Property<Guid>("DoctorStaffTypeId")
+                    b.Property<bool>("IsOnDuty")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
+
+                    b.Property<Guid>("PositionId")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Gender")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(10)");
+                    b.HasKey("UserId");
 
-                    b.Property<string>("Position")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
-
-                    b.Property<string>("Specialty")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(225)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorStaffTypeId");
+                    b.HasIndex("PositionId");
 
                     b.ToTable("Doctors", null, t =>
                         {
@@ -315,7 +276,63 @@ namespace Clinic.MySQL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.DoctorStaffType", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.DoctorSpecialty", b =>
+                {
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("SpecialtyID")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("DoctorId", "SpecialtyID");
+
+                    b.HasIndex("SpecialtyID");
+
+                    b.ToTable("DoctorSpecialties", null, t =>
+                        {
+                            t.HasComment("Contain Doctor Specialty record");
+                        });
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Feedback", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Comment")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(255)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("Vote")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
+
+                    b.ToTable("Feedbacks", null, t =>
+                        {
+                            t.HasComment("Contain Feedback records.");
+                        });
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Gender", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -325,33 +342,15 @@ namespace Clinic.MySQL.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
 
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<string>("TypeName")
+                    b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
 
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("char(36)");
-
                     b.HasKey("Id");
 
-                    b.ToTable("DoctorStaffTypes", null, t =>
+                    b.ToTable("Genders", null, t =>
                         {
-                            t.HasComment("Contain doctor staff types records.");
+                            t.HasComment("Contain Gender records.");
                         });
                 });
 
@@ -361,9 +360,12 @@ namespace Clinic.MySQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Code")
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("BloodPresser")
                         .IsRequired()
-                        .HasColumnType("VARCHAR(50)");
+                        .HasColumnType("longtext");
 
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("DATETIME");
@@ -371,12 +373,35 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("Diagnosis")
+                        .IsRequired()
+                        .HasColumnType("longtext");
+
+                    b.Property<string>("GeneralCondition")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(256)");
+
+                    b.Property<string>("Height")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(50)");
+
+                    b.Property<string>("MedicalHistory")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(256)");
+
+                    b.Property<Guid>("MedicineOrderId")
+                        .HasColumnType("char(36)");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
 
-                    b.Property<Guid>("PatientId")
+                    b.Property<Guid>("PatientInformationId")
                         .HasColumnType("char(36)");
+
+                    b.Property<string>("Pulse")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(50)");
 
                     b.Property<DateTime>("RemovedAt")
                         .HasColumnType("DATETIME");
@@ -384,8 +409,17 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("RemovedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<decimal>("TotalPrice")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<Guid>("ServiceOrderId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Temperature")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(50)");
+
+                    b.Property<int>("TotalPrice")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("DATETIME");
@@ -393,9 +427,23 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("UpdatedBy")
                         .HasColumnType("char(36)");
 
+                    b.Property<string>("Weight")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(50)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId");
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
+
+                    b.HasIndex("MedicineOrderId")
+                        .IsUnique();
+
+                    b.HasIndex("PatientInformationId")
+                        .IsUnique();
+
+                    b.HasIndex("ServiceOrderId")
+                        .IsUnique();
 
                     b.ToTable("MedicalReports", null, t =>
                         {
@@ -415,20 +463,6 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Dose")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
-
-                    b.Property<DateTime>("ExpiredDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<decimal>("ImmigrationCost")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<string>("Indication")
-                        .IsRequired()
-                        .HasColumnType("VARCHAR(100)");
-
                     b.Property<string>("Ingredient")
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
@@ -447,17 +481,11 @@ namespace Clinic.MySQL.Migrations
                         .IsRequired()
                         .HasColumnType("VARCHAR(100)");
 
-                    b.Property<int>("Quantity")
-                        .HasColumnType("int");
-
                     b.Property<DateTime>("RemovedAt")
                         .HasColumnType("DATETIME");
 
                     b.Property<Guid>("RemovedBy")
                         .HasColumnType("char(36)");
-
-                    b.Property<decimal>("SellingCost")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<DateTime>("UpdatedAt")
                         .HasColumnType("DATETIME");
@@ -483,31 +511,13 @@ namespace Clinic.MySQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Constaint")
+                    b.Property<string>("Constant")
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -517,29 +527,43 @@ namespace Clinic.MySQL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineOrderItems", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<int>("TotalItem")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MedicineOrder");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineOrderItem", b =>
                 {
                     b.Property<Guid>("MedicineId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("MedicalReportId")
+                    b.Property<Guid>("MedicalOrderId")
                         .HasColumnType("char(36)");
 
-                    b.Property<bool>("IsPayment")
-                        .HasColumnType("tinyint(1)");
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasColumnType("TEXT");
 
-                    b.Property<decimal>("PriceAtOrder")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<Guid?>("MedicineOrderId")
+                        .HasColumnType("char(36)");
 
                     b.Property<int>("Quantity")
-                        .HasColumnType("int");
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasDefaultValue(0);
 
-                    b.Property<Guid>("TimeUsing")
-                        .HasColumnType("char(36)");
+                    b.HasKey("MedicineId", "MedicalOrderId");
 
-                    b.HasKey("MedicineId", "MedicalReportId");
-
-                    b.HasIndex("MedicalReportId");
+                    b.HasIndex("MedicineOrderId");
 
                     b.ToTable("MedicineOrderItems", null, t =>
                         {
@@ -553,31 +577,13 @@ namespace Clinic.MySQL.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<string>("Constaint")
+                    b.Property<string>("Constant")
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
 
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("VARCHAR(36)");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("char(36)");
 
                     b.HasKey("Id");
 
@@ -602,14 +608,9 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("PaymentMethod")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(100)");
 
                     b.Property<string>("TransactionID")
                         .IsRequired()
@@ -623,8 +624,6 @@ namespace Clinic.MySQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId");
-
                     b.ToTable("OnlinePayments", null, t =>
                         {
                             t.HasComment("Contain online payment records.");
@@ -633,7 +632,7 @@ namespace Clinic.MySQL.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Patient", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<Guid>("UserId")
                         .HasColumnType("char(36)");
 
                     b.Property<string>("Address")
@@ -645,13 +644,7 @@ namespace Clinic.MySQL.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("TEXT");
 
-                    b.Property<string>("Gender")
-                        .HasColumnType("longtext");
-
-                    b.Property<Guid>("UserId")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
+                    b.HasKey("UserId");
 
                     b.ToTable("Patients", null, t =>
                         {
@@ -659,21 +652,58 @@ namespace Clinic.MySQL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.PatientBookedAppointment", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.PatientInformation", b =>
                 {
-                    b.Property<Guid>("PatientId")
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("AppointmentId")
-                        .HasColumnType("char(36)");
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(255)");
 
-                    b.HasKey("PatientId", "AppointmentId");
+                    b.Property<DateTime>("DOB")
+                        .HasColumnType("DATETIME");
 
-                    b.HasIndex("AppointmentId");
+                    b.Property<string>("FullName")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(255)");
 
-                    b.ToTable("PatientBookedAppointment", null, t =>
+                    b.Property<string>("Gender")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(255)");
+
+                    b.Property<string>("PhoneNumber")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(12)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("PatientInformations", null, t =>
                         {
-                            t.HasComment("Contain Patient Book Appointment records");
+                            t.HasComment("Contain PatientInformation records.");
+                        });
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Position", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Constant")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(36)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(36)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Positions", null, t =>
+                        {
+                            t.HasComment("Contain doctor status records.");
                         });
                 });
 
@@ -689,17 +719,16 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("IsSuported")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
+
                     b.Property<string>("Message")
                         .IsRequired()
                         .HasColumnType("TEXT");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
                         .HasColumnType("char(36)");
 
                     b.Property<DateTime>("UpdatedAt")
@@ -710,7 +739,8 @@ namespace Clinic.MySQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId");
+                    b.HasIndex("PatientId")
+                        .IsUnique();
 
                     b.ToTable("QueueRooms", null, t =>
                         {
@@ -744,6 +774,55 @@ namespace Clinic.MySQL.Migrations
                     b.ToTable("RefreshTokens", null, t =>
                         {
                             t.HasComment("Contain refresh token records.");
+                        });
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.RetreatmentNotification", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("ExaminationDate")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<Guid>("PatientId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("RetreatmentTypeId")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("PatientId");
+
+                    b.HasIndex("RetreatmentTypeId");
+
+                    b.ToTable("RetreatmentNotifications", null, t =>
+                        {
+                            t.HasComment("Contain RetreatmentNotification status records.");
+                        });
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.RetreatmentType", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Constant")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(36)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(36)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("RetreatmentTypes", null, t =>
+                        {
+                            t.HasComment("Contain RetreatmentType status records.");
                         });
                 });
 
@@ -808,6 +887,49 @@ namespace Clinic.MySQL.Migrations
                         });
                 });
 
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Schedule", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<Guid>("DoctorId")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("EndDate")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<DateTime>("RemovedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<Guid>("RemovedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("StartDate")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("DoctorId");
+
+                    b.ToTable("Schedules", null, t =>
+                        {
+                            t.HasComment("Contain Schedule records.");
+                        });
+                });
+
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Service", b =>
                 {
                     b.Property<Guid>("Id")
@@ -859,24 +981,81 @@ namespace Clinic.MySQL.Migrations
                         });
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.ServiceOrderItems", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.ServiceOrder", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<bool>("IsAllUpdated")
+                        .HasColumnType("tinyint(1)");
+
+                    b.Property<int>("Quantity")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TotalPrice")
+                        .HasColumnType("int");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("ServiceOrder");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.ServiceOrderItem", b =>
                 {
                     b.Property<Guid>("ServiceId")
                         .HasColumnType("char(36)");
 
-                    b.Property<Guid>("MedicalReportId")
+                    b.Property<Guid>("ServiceOrderId")
                         .HasColumnType("char(36)");
 
-                    b.Property<decimal>("PriceAtOrder")
-                        .HasColumnType("decimal(18,2)");
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("DATETIME");
 
-                    b.HasKey("ServiceId", "MedicalReportId");
+                    b.Property<Guid>("CreatedBy")
+                        .HasColumnType("char(36)");
 
-                    b.HasIndex("MedicalReportId");
+                    b.Property<DateTime>("RemovedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<Guid>("RemovedBy")
+                        .HasColumnType("char(36)");
+
+                    b.Property<DateTime>("UpdatedAt")
+                        .HasColumnType("DATETIME");
+
+                    b.Property<Guid>("UpdatedBy")
+                        .HasColumnType("char(36)");
+
+                    b.HasKey("ServiceId", "ServiceOrderId");
+
+                    b.HasIndex("ServiceOrderId");
 
                     b.ToTable("ServiceOrderItems", null, t =>
                         {
                             t.HasComment("Contain Service Orders record");
+                        });
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Specialty", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("char(36)");
+
+                    b.Property<string>("Constant")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(36)");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("VARCHAR(36)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Specialtys", null, t =>
+                        {
+                            t.HasComment("Contain doctorSpecialties status records.");
                         });
                 });
 
@@ -911,6 +1090,9 @@ namespace Clinic.MySQL.Migrations
 
                     b.Property<string>("FullName")
                         .HasColumnType("longtext");
+
+                    b.Property<Guid>("GenderId")
+                        .HasColumnType("char(36)");
 
                     b.Property<bool>("LockoutEnabled")
                         .HasColumnType("tinyint(1)");
@@ -959,6 +1141,8 @@ namespace Clinic.MySQL.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("GenderId");
+
                     b.HasIndex("NormalizedEmail")
                         .HasDatabaseName("EmailIndex");
 
@@ -969,49 +1153,6 @@ namespace Clinic.MySQL.Migrations
                     b.ToTable("Users", null, t =>
                         {
                             t.HasComment("Contain user records.");
-                        });
-                });
-
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.WorkingHour", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("CreatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<Guid>("DoctorId")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("EndDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<DateTime>("RemovedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("RemovedBy")
-                        .HasColumnType("char(36)");
-
-                    b.Property<DateTime>("StartDate")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<DateTime>("UpdatedAt")
-                        .HasColumnType("DATETIME");
-
-                    b.Property<Guid>("UpdatedBy")
-                        .HasColumnType("char(36)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("DoctorId");
-
-                    b.ToTable("WorkingHours", null, t =>
-                        {
-                            t.HasComment("Contain working hour records.");
                         });
                 });
 
@@ -1158,12 +1299,6 @@ namespace Clinic.MySQL.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Appointment", b =>
                 {
-                    b.HasOne("Clinic.Domain.Commons.Entities.MedicalReport", "MedicalReport")
-                        .WithOne("Appointment")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.Appointment", "MedicalReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Clinic.Domain.Commons.Entities.OnlinePayment", "OnlinePayment")
                         .WithOne("Appointment")
                         .HasForeignKey("Clinic.Domain.Commons.Entities.Appointment", "OnlinePaymentId")
@@ -1176,34 +1311,32 @@ namespace Clinic.MySQL.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Clinic.Domain.Commons.Entities.AppointmentStatus", "AppointmentStatus")
+                    b.HasOne("Clinic.Domain.Commons.Entities.Schedule", "Schedule")
                         .WithOne("Appointment")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.Appointment", "StatusId")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.Appointment", "ScheduleId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.HasOne("Clinic.Domain.Commons.Entities.WorkingHour", "WorkingHour")
-                        .WithOne("Appointment")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.Appointment", "WorkingHourId")
+                    b.HasOne("Clinic.Domain.Commons.Entities.AppointmentStatus", "AppointmentStatus")
+                        .WithMany("Appointment")
+                        .HasForeignKey("StatusId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("AppointmentStatus");
 
-                    b.Navigation("MedicalReport");
-
                     b.Navigation("OnlinePayment");
 
                     b.Navigation("Patient");
 
-                    b.Navigation("WorkingHour");
+                    b.Navigation("Schedule");
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.AssetContent", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Asset", b =>
                 {
                     b.HasOne("Clinic.Domain.Commons.Entities.ChatContent", "ChatContent")
-                        .WithOne("AssetContent")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.AssetContent", "ChatContentId")
+                        .WithMany("Assets")
+                        .HasForeignKey("ChatContentId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
@@ -1215,7 +1348,7 @@ namespace Clinic.MySQL.Migrations
                     b.HasOne("Clinic.Domain.Commons.Entities.ChatRoom", "ChatRoom")
                         .WithMany("ChatContents")
                         .HasForeignKey("ChatRoomId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Domain.Commons.Entities.User", "User")
@@ -1234,7 +1367,7 @@ namespace Clinic.MySQL.Migrations
                     b.HasOne("Clinic.Domain.Commons.Entities.Doctor", "Doctor")
                         .WithMany("ChatRooms")
                         .HasForeignKey("DoctorId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
@@ -1250,32 +1383,86 @@ namespace Clinic.MySQL.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Doctor", b =>
                 {
-                    b.HasOne("Clinic.Domain.Commons.Entities.DoctorStaffType", "DoctorStaffType")
+                    b.HasOne("Clinic.Domain.Commons.Entities.Position", "Position")
                         .WithMany("Doctors")
-                        .HasForeignKey("DoctorStaffTypeId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                        .HasForeignKey("PositionId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.HasOne("Clinic.Domain.Commons.Entities.User", "User")
                         .WithOne("Doctor")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.Doctor", "Id")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.Doctor", "UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
-                    b.Navigation("DoctorStaffType");
+                    b.Navigation("Position");
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicalReport", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.DoctorSpecialty", b =>
                 {
-                    b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
-                        .WithMany("MedicalReports")
-                        .HasForeignKey("PatientId")
+                    b.HasOne("Clinic.Domain.Commons.Entities.Doctor", "Doctor")
+                        .WithMany("DoctorSpecialties")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.HasOne("Clinic.Domain.Commons.Entities.Specialty", "Specialty")
+                        .WithMany("DoctorSpecialties")
+                        .HasForeignKey("SpecialtyID")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Doctor");
+
+                    b.Navigation("Specialty");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Feedback", b =>
+                {
+                    b.HasOne("Clinic.Domain.Commons.Entities.Appointment", "Appointment")
+                        .WithOne("Feedback")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.Feedback", "AppointmentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Patient");
+                    b.Navigation("Appointment");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicalReport", b =>
+                {
+                    b.HasOne("Clinic.Domain.Commons.Entities.Appointment", "Appointment")
+                        .WithOne("MedicalReport")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.MedicalReport", "AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clinic.Domain.Commons.Entities.MedicineOrder", "MedicineOrder")
+                        .WithOne("MedicalReport")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.MedicalReport", "MedicineOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clinic.Domain.Commons.Entities.PatientInformation", "PatientInformation")
+                        .WithOne("MedicalReport")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.MedicalReport", "PatientInformationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clinic.Domain.Commons.Entities.ServiceOrder", "ServiceOrder")
+                        .WithOne("MedicalReport")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.MedicalReport", "ServiceOrderId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+
+                    b.Navigation("MedicineOrder");
+
+                    b.Navigation("PatientInformation");
+
+                    b.Navigation("ServiceOrder");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Medicine", b =>
@@ -1297,71 +1484,39 @@ namespace Clinic.MySQL.Migrations
                     b.Navigation("MedicineType");
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineOrderItems", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineOrderItem", b =>
                 {
-                    b.HasOne("Clinic.Domain.Commons.Entities.MedicalReport", "MedicalReport")
-                        .WithMany("MedicineOrderItems")
-                        .HasForeignKey("MedicalReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.HasOne("Clinic.Domain.Commons.Entities.Medicine", "Medicine")
                         .WithMany("MedicineOrderItems")
                         .HasForeignKey("MedicineId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MedicalReport");
+                    b.HasOne("Clinic.Domain.Commons.Entities.MedicineOrder", "MedicineOrder")
+                        .WithMany("MedicineOrderItems")
+                        .HasForeignKey("MedicineOrderId");
 
                     b.Navigation("Medicine");
-                });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.OnlinePayment", b =>
-                {
-                    b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
-                        .WithMany("OnlinePayments")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Patient");
+                    b.Navigation("MedicineOrder");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Patient", b =>
                 {
                     b.HasOne("Clinic.Domain.Commons.Entities.User", "User")
                         .WithOne("Patient")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.Patient", "Id")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.Patient", "UserId")
                         .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.PatientBookedAppointment", b =>
-                {
-                    b.HasOne("Clinic.Domain.Commons.Entities.Appointment", "Appointment")
-                        .WithMany("PatientBookedAppointments")
-                        .HasForeignKey("AppointmentId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
-                        .WithMany("PatientBookAppointments")
-                        .HasForeignKey("PatientId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Appointment");
-
-                    b.Navigation("Patient");
-                });
-
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.QueueRoom", b =>
                 {
                     b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
-                        .WithMany("QueueRooms")
-                        .HasForeignKey("PatientId")
+                        .WithOne("QueueRooms")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.QueueRoom", "PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
@@ -1379,6 +1534,25 @@ namespace Clinic.MySQL.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.RetreatmentNotification", b =>
+                {
+                    b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
+                        .WithMany("RetreatmentNotifications")
+                        .HasForeignKey("PatientId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Clinic.Domain.Commons.Entities.RetreatmentType", "RetreatmentType")
+                        .WithMany("RetreatmentNotifications")
+                        .HasForeignKey("RetreatmentTypeId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Patient");
+
+                    b.Navigation("RetreatmentType");
+                });
+
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.RoleDetail", b =>
                 {
                     b.HasOne("Clinic.Domain.Commons.Entities.Role", "Role")
@@ -1390,34 +1564,45 @@ namespace Clinic.MySQL.Migrations
                     b.Navigation("Role");
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.ServiceOrderItems", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Schedule", b =>
                 {
-                    b.HasOne("Clinic.Domain.Commons.Entities.MedicalReport", "MedicalReport")
-                        .WithMany("ServiceOrderItems")
-                        .HasForeignKey("MedicalReportId")
-                        .OnDelete(DeleteBehavior.Cascade)
+                    b.HasOne("Clinic.Domain.Commons.Entities.Doctor", "Doctor")
+                        .WithMany("Schedules")
+                        .HasForeignKey("DoctorId")
+                        .OnDelete(DeleteBehavior.NoAction)
                         .IsRequired();
 
+                    b.Navigation("Doctor");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.ServiceOrderItem", b =>
+                {
                     b.HasOne("Clinic.Domain.Commons.Entities.Service", "Service")
                         .WithMany("ServiceOrderItems")
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("MedicalReport");
-
-                    b.Navigation("Service");
-                });
-
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.WorkingHour", b =>
-                {
-                    b.HasOne("Clinic.Domain.Commons.Entities.Doctor", "Doctor")
-                        .WithMany("WorkingHours")
-                        .HasForeignKey("DoctorId")
+                    b.HasOne("Clinic.Domain.Commons.Entities.ServiceOrder", "ServiceOrder")
+                        .WithMany("ServiceOrderItems")
+                        .HasForeignKey("ServiceOrderId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Doctor");
+                    b.Navigation("Service");
+
+                    b.Navigation("ServiceOrder");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.User", b =>
+                {
+                    b.HasOne("Clinic.Domain.Commons.Entities.Gender", "Gender")
+                        .WithMany("Users")
+                        .HasForeignKey("GenderId")
+                        .OnDelete(DeleteBehavior.NoAction)
+                        .IsRequired();
+
+                    b.Navigation("Gender");
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRoleClaim<System.Guid>", b =>
@@ -1479,7 +1664,9 @@ namespace Clinic.MySQL.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Appointment", b =>
                 {
-                    b.Navigation("PatientBookedAppointments");
+                    b.Navigation("Feedback");
+
+                    b.Navigation("MedicalReport");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.AppointmentStatus", b =>
@@ -1489,7 +1676,7 @@ namespace Clinic.MySQL.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.ChatContent", b =>
                 {
-                    b.Navigation("AssetContent");
+                    b.Navigation("Assets");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.ChatRoom", b =>
@@ -1501,21 +1688,14 @@ namespace Clinic.MySQL.Migrations
                 {
                     b.Navigation("ChatRooms");
 
-                    b.Navigation("WorkingHours");
+                    b.Navigation("DoctorSpecialties");
+
+                    b.Navigation("Schedules");
                 });
 
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.DoctorStaffType", b =>
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Gender", b =>
                 {
-                    b.Navigation("Doctors");
-                });
-
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicalReport", b =>
-                {
-                    b.Navigation("Appointment");
-
-                    b.Navigation("MedicineOrderItems");
-
-                    b.Navigation("ServiceOrderItems");
+                    b.Navigation("Users");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Medicine", b =>
@@ -1526,6 +1706,13 @@ namespace Clinic.MySQL.Migrations
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineGroup", b =>
                 {
                     b.Navigation("Medicines");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineOrder", b =>
+                {
+                    b.Navigation("MedicalReport");
+
+                    b.Navigation("MedicineOrderItems");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineType", b =>
@@ -1544,13 +1731,24 @@ namespace Clinic.MySQL.Migrations
 
                     b.Navigation("ChatRooms");
 
-                    b.Navigation("MedicalReports");
-
-                    b.Navigation("OnlinePayments");
-
-                    b.Navigation("PatientBookAppointments");
-
                     b.Navigation("QueueRooms");
+
+                    b.Navigation("RetreatmentNotifications");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.PatientInformation", b =>
+                {
+                    b.Navigation("MedicalReport");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Position", b =>
+                {
+                    b.Navigation("Doctors");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.RetreatmentType", b =>
+                {
+                    b.Navigation("RetreatmentNotifications");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Role", b =>
@@ -1560,9 +1758,26 @@ namespace Clinic.MySQL.Migrations
                     b.Navigation("UserRoles");
                 });
 
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Schedule", b =>
+                {
+                    b.Navigation("Appointment");
+                });
+
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Service", b =>
                 {
                     b.Navigation("ServiceOrderItems");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.ServiceOrder", b =>
+                {
+                    b.Navigation("MedicalReport");
+
+                    b.Navigation("ServiceOrderItems");
+                });
+
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.Specialty", b =>
+                {
+                    b.Navigation("DoctorSpecialties");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.User", b =>
@@ -1576,11 +1791,6 @@ namespace Clinic.MySQL.Migrations
                     b.Navigation("UserRoles");
 
                     b.Navigation("UserTokens");
-                });
-
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.WorkingHour", b =>
-                {
-                    b.Navigation("Appointment");
                 });
 #pragma warning restore 612, 618
         }

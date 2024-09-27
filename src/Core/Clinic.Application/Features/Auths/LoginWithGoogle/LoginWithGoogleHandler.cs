@@ -211,10 +211,8 @@ internal sealed class LoginWithGoogleHandler
             Avatar = _defaultUserAvatarAsUrlHandler.Get(),
             Patient = new()
             {
-                Id = Guid.NewGuid(),
                 UserId = Id,
                 Address = "default",
-                Gender = "default",
                 DOB = CommonConstant.MIN_DATE_TIME,
                 Description = "default",
             },

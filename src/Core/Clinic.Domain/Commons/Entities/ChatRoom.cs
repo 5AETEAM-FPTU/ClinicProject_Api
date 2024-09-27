@@ -7,17 +7,14 @@ namespace Clinic.Domain.Commons.Entities;
 /// <summary>
 ///     Represent the "ChatRoom" table.
 /// </summary>
-public class ChatRoom : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IUpdatedEntity
+public class ChatRoom : IBaseEntity, ICreatedEntity, IUpdatedEntity
 {
     // Primary keys.
     public Guid Id { get; set; }
 
-    // Foreign keys.
-    public Guid PatientId { get; set; }
-
-    public Guid DoctorId { get; set; }
-
     // Normal columns.
+    public string LastMessage { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public Guid CreatedBy { get; set; }
@@ -26,9 +23,10 @@ public class ChatRoom : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, 
 
     public Guid UpdatedBy { get; set; }
 
-    public DateTime RemovedAt { get; set; }
+    // Foreign keys.
+    public Guid PatientId { get; set; }
 
-    public Guid RemovedBy { get; set; }
+    public Guid DoctorId { get; set; }
 
     // Navigation properties.
     public Patient Patient { get; set; }

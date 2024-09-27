@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace Clinic.MySQL.Common;
 
@@ -20,8 +21,8 @@ internal static class CommonConstant
             /// </summary>
             internal static class VarcharGenerator
             {
-                private static readonly Dictionary<int, string> _storage = [];
-                private const string varcharDataTypeName = "VARCHAR";
+                public static readonly Dictionary<int, string> _storage = [];
+                public const string varcharDataTypeName = "VARCHAR";
 
                 /// <summary>
                 ///     Generate Varchar datatype with given length.

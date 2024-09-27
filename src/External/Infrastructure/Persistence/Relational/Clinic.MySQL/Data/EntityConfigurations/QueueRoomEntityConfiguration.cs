@@ -1,12 +1,7 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Clinic.MySQL.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -30,6 +25,12 @@ internal sealed class QueueRoomEntityConfiguration : IEntityTypeConfiguration<Qu
             .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
             .IsRequired();
 
+        // IsSuported property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.IsSuported)
+            .HasDefaultValue(false)
+            .IsRequired();
+
         // CreatedBy property configuration.
         builder.Property(propertyExpression: entity => entity.CreatedBy).IsRequired();
 
@@ -41,14 +42,5 @@ internal sealed class QueueRoomEntityConfiguration : IEntityTypeConfiguration<Qu
 
         // UpdatedBy property configuration.
         builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
-
-        // RemovedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.RemovedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // RemovedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
     }
 }

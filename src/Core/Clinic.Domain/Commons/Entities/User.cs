@@ -32,7 +32,12 @@ public class User
 
     public Guid RemovedBy { get; set; }
 
+    // Foreign key.
+    public Guid GenderId { get; set; }
+
     // Navigation properties.
+    public Gender Gender { get; set; }
+
     public Patient Patient { get; set; }
 
     public Doctor Doctor { get; set; }
@@ -47,6 +52,13 @@ public class User
     // Additional information of this table.
     public static class MetaData
     {
+        public static class FullName
+        {
+            public const int MinLength = 5;
+
+            public const int MaxLength = 100;
+        }
+
         public static class Email
         {
             public const int MaxLength = 256;

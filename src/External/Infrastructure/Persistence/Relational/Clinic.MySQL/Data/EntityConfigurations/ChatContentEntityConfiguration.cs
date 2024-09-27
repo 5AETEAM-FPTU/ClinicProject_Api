@@ -1,12 +1,7 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Clinic.MySQL.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -28,6 +23,12 @@ internal sealed class ChatContentEntityConfiguration : IEntityTypeConfiguration<
         builder
             .Property(propertyExpression: entity => entity.TextContent)
             .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
+            .IsRequired();
+
+        // IsRead property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.IsRead)
+            .HasDefaultValue(false)
             .IsRequired();
 
         // CreatedAt property configuration.
@@ -56,12 +57,13 @@ internal sealed class ChatContentEntityConfiguration : IEntityTypeConfiguration<
 
         // RemovedBy property configuration.
         builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
+
         // Table relationships configurations.
-        // [ChatContent] - [AssetContent] (1 - 1).
+        // [ChatContent] - [Asset] (1 - n).
         builder
-            .HasOne(navigationExpression: chatContent => chatContent.AssetContent)
+            .HasMany(navigationExpression: chatContent => chatContent.Assets)
             .WithOne(navigationExpression: assetContent => assetContent.ChatContent)
-            .HasForeignKey<AssetContent>(foreignKeyExpression: assetContent => assetContent.ChatContentId)
+            .HasForeignKey(foreignKeyExpression: assetContent => assetContent.ChatContentId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
     }
 }

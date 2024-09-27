@@ -2,11 +2,6 @@
 using Clinic.MySQL.Common;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -15,9 +10,9 @@ internal sealed class ServiceEntityConfiguration : IEntityTypeConfiguration<Serv
     public void Configure(EntityTypeBuilder<Service> builder)
     {
         builder.ToTable(
-                name: $"{nameof(Service)}s",
-                buildAction: table => table.HasComment(comment: "Contain service.")
-            );
+            name: $"{nameof(Service)}s",
+            buildAction: table => table.HasComment(comment: "Contain service.")
+        );
 
         // Primary key configuration.
         builder.HasKey(keyExpression: service => service.Id);
@@ -47,19 +42,32 @@ internal sealed class ServiceEntityConfiguration : IEntityTypeConfiguration<Serv
             .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
             .IsRequired();
 
-        // CreatedAt, UpdatedAt, RemovedAt
+        // CreatedAt property configuration.
         builder
             .Property(propertyExpression: service => service.CreatedAt)
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
+
+        // CreatedBy property configuration.
+        builder.Property(propertyExpression: service => service.CreatedBy).IsRequired();
+
+        // UpdatedAt property configuration.
         builder
             .Property(propertyExpression: service => service.UpdatedAt)
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
+
+        // UpdatedBy property configuration.
+        builder.Property(propertyExpression: service => service.UpdatedBy).IsRequired();
+
+        // RemovedAt property configuration.
         builder
             .Property(propertyExpression: service => service.RemovedAt)
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
             .IsRequired();
+
+        // RemovedBy property configuration.
+        builder.Property(propertyExpression: service => service.RemovedBy).IsRequired();
 
         // Table relationships configurations.
         // [Services] - [ServiceOrderItems] (1 - N).

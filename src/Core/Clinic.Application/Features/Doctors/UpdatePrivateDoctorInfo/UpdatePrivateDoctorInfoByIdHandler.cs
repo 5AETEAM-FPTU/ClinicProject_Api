@@ -95,11 +95,8 @@ public class UpdatePrivateDoctorInfoByIdHandler : IFeatureHandler<UpdatePrivateD
         // If the user has a related doctor, update the doctor entity
         if (user.Doctor != null)
         {
-            user.Doctor.Gender = request.Gender ?? user.Doctor.Gender;
             user.Doctor.DOB = request.DOB != default ? request.DOB : user.Doctor.DOB;
             user.Doctor.Address = request.Address ?? user.Doctor.Address;
-            user.Doctor.Position = request.Position ?? user.Doctor.Position;
-            user.Doctor.Specialty = request.Specialty ?? user.Doctor.Specialty;
         }
 
 
