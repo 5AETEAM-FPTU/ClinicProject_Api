@@ -1,12 +1,12 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.Pagination;
-using Clinic.Domain.Features.UnitOfWorks;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Pagination;
+using Clinic.Domain.Features.UnitOfWorks;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.Application.Features.Users.GetAllDoctor;
 
@@ -17,6 +17,7 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
+
     public GetAllDoctorHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
     {
         _unitOfWork = unitOfWork;
@@ -52,12 +53,11 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
         }
 
         // Get all users.
-        var users =
-            await _unitOfWork.GetAllDoctorRepository.FindAllDoctorsQueryAsync(
-                pageIndex: request.PageIndex,
-                pageSize: request.PageSize,
-                cancellationToken: cancellationToken
-            );
+        var users = await _unitOfWork.GetAllDoctorRepository.FindAllDoctorsQueryAsync(
+            pageIndex: request.PageIndex,
+            pageSize: request.PageSize,
+            cancellationToken: cancellationToken
+        );
 
         // Count all the users.
         var countUser = await _unitOfWork.GetAllDoctorRepository.CountAllDoctorsQueryAsync(
@@ -72,7 +72,7 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
             {
                 Users = new PaginationResponse<GetAllDoctorResponse.Body.User>()
                 {
-                    Contents = users.Select(doctor => new GetAllDoctorResponse.Body.User()
+                    Contents = users.Select(user => new GetAllDoctorResponse.Body.User()
                     {
                         Id = user.Id,
                         Username = user.UserName,

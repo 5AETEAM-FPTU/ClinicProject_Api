@@ -1,13 +1,13 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.Pagination;
-using Clinic.Application.Features.Users.GetAllDoctor;
-using Clinic.Domain.Features.UnitOfWorks;
-using Microsoft.AspNetCore.Http;
-using System;
+﻿using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Pagination;
+using Clinic.Application.Features.Users.GetAllDoctor;
+using Clinic.Domain.Features.UnitOfWorks;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.Application.Features.Users.GetAllUser;
 
@@ -23,7 +23,6 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
     {
         _unitOfWork = unitOfWork;
         _contextAccessor = contextAccessor;
-
     }
 
     /// <summary>
@@ -55,12 +54,11 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
         }
 
         // Get all users.
-        var users =
-            await _unitOfWork.GetAllUsersRepository.FindUserByIdQueryAsync(
-                pageIndex: request.PageIndex,
-                pageSize: request.PageSize,
-                cancellationToken: cancellationToken
-            );
+        var users = await _unitOfWork.GetAllUsersRepository.FindUserByIdQueryAsync(
+            pageIndex: request.PageIndex,
+            pageSize: request.PageSize,
+            cancellationToken: cancellationToken
+        );
 
         // Count all the users.
         var countUser = await _unitOfWork.GetAllUsersRepository.CountAllUserQueryAsync(
@@ -75,7 +73,7 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
             {
                 Users = new PaginationResponse<GetAllUserResponse.Body.User>()
                 {
-                    Contents = users.Select(patient => new GetAllUserResponse.Body.User()
+                    Contents = users.Select(user => new GetAllUserResponse.Body.User()
                     {
                         Id = user.Id,
                         Username = user.UserName,
@@ -86,7 +84,6 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
                         DOB = user.Patient.DOB,
                         Address = user.Patient.Address,
                         Description = user.Patient.Description,
-
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
