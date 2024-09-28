@@ -14,6 +14,11 @@ using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
+using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
+using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
+using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
+using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -139,5 +144,30 @@ public interface IUnitOfWork
     ///    GetAllDoctors Repository feature.
     /// </summary>
     public IGetAllUsersRepository GetAllUsersRepository { get; }
+
+    /// <sumary>
+    ///    GetAllAppointmentStatus Repository feature.
+    /// </summary>
+    public IGetAllAppointmentStatusRepository GetAllAppointmentStatusRepository { get; }
+
+    /// <sumary>
+    ///    GetAllGender Repository feature.
+    /// </summary>
+    public IGetAllGenderRepository GetAllGenderRepository { get; }
+
+    /// <sumary>
+    ///    GetAllSpecialty Repository feature.
+    /// </summary>
+    public IGetAllSpecialtyRepository GetAllSpecialtyRepository { get; }
+    
+    /// <sumary>
+    ///    GetAllPositionRepository feature.
+    /// </summary>
+    public IGetAllPositionRepository GetAllPositionRepository { get; }
+
+    /// <sumary>
+    ///    GetAllRetreatmentTypeRepository feature.
+    /// </summary>
+    public IGetAllRetreatmentTypeRepository GetAllRetreatmentTypeRepository { get; }
 
 }

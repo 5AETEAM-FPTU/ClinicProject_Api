@@ -65,8 +65,25 @@ public class UpdateUserPrivateInfoHandler : IFeatureHandler<UpdateUserPrivateInf
             };
         }
 
+        // Found gender by genderId
+        var foundGender = await _unitOfWork.UpdateUserPrivateInfoRepository.IsGenderIdExistAsync(
+                                    request.GenderId,
+                                    cancellationToken
+                                );
+
+        // Responds if genderId is not found
+        if (!foundGender)
+        {
+            return new UpdateUserPrivateInfoResponse()
+            {
+                StatusCode = UpdateUserPrivateInfoResponseStatusCode.GENDER_ID_IS_NOT_FOUND
+            };
+        }
+
+        // Update profile success or not
         var isSucced = await UpdateUserProfileAsync(foundUser, request, cancellationToken);
 
+        // Responds if update user profile failed
         if (!isSucced)
         {
             return new UpdateUserPrivateInfoResponse()
@@ -89,6 +106,7 @@ public class UpdateUserPrivateInfoHandler : IFeatureHandler<UpdateUserPrivateInf
         // Update the user entity with the values from the DTO
         user.FullName = request.FullName ?? user.FullName;
         user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
+        user.Gender = await _unitOfWork.UpdateUserPrivateInfoRepository.GetGenderByIdAsync(request.GenderId, cancellationToken);
 
         // If the user has a related Patient, update the Patient entity
         if (user.Patient != null)

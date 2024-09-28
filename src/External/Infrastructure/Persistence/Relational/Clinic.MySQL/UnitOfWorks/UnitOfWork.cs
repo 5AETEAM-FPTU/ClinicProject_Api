@@ -46,6 +46,16 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
+using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
+using Clinic.MySQL.Repositories.Enums.GetAllAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
+using Clinic.MySQL.Repositories.Enums.GetAllGender;
+using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
+using Clinic.MySQL.Repositories.Enums.GetAllPosition;
+using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
+using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -80,7 +90,11 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateUserDescriptionRepository _updateUserDescriptionRepository;
     private IAddDoctorRepository _addDoctorRepository;
     private IGetAllUsersRepository _getAllUsersRepository;
-
+    private IGetAllAppointmentStatusRepository _getAllAppointmentStatusRepository;
+    private IGetAllGenderRepository _getAllGenderRepository;
+    private IGetAllSpecialtyRepository _getAllSpecialtyRepository;
+    private IGetAllPositionRepository _getAllPositionRepository;
+    private IGetAllRetreatmentTypeRepository _getAllRetreatmentTypeRepository;
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -245,5 +259,30 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllUsersRepository GetAllUsersRepository
     {
         get { return _getAllUsersRepository ??= new GetAllUsersRepository(_context); }
+    }
+
+    public IGetAllAppointmentStatusRepository GetAllAppointmentStatusRepository
+    {
+        get { return _getAllAppointmentStatusRepository ??= new GetAllAppointmentStatusRepository(_context); }
+    }
+
+    public IGetAllGenderRepository GetAllGenderRepository
+    {
+        get { return _getAllGenderRepository ??= new GetAllGenderRepository(_context); }
+    }
+
+    public IGetAllSpecialtyRepository GetAllSpecialtyRepository
+    {
+        get { return _getAllSpecialtyRepository ??= new GetAllSpecialtyRepository(_context); }
+    }
+
+    public IGetAllPositionRepository GetAllPositionRepository
+    {
+        get { return _getAllPositionRepository ??= new GetAllPositionRepository(_context); }
+    }
+
+    public IGetAllRetreatmentTypeRepository GetAllRetreatmentTypeRepository
+    {
+        get { return _getAllRetreatmentTypeRepository ??= new GetAllRetreatmentTypeRepository(_context); }
     }
 }
