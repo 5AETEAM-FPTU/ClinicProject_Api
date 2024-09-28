@@ -13,4 +13,7 @@ public interface IUpdateUserPrivateInfoRepository
 
     public Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
 
+    public Task<Gender> GetGenderByIdAsync(Guid genderId, CancellationToken cancellationToken);
+
+    public Task<bool> IsGenderIdExistAsync(Guid genderId, CancellationToken cancellationToken);
 }

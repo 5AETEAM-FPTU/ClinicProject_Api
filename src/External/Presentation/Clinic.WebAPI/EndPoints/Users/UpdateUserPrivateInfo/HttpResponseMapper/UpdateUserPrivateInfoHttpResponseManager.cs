@@ -58,6 +58,16 @@ public class UpdateUserPrivateInfoHttpResponseManager
                 }
         );
 
+        _dictionary.Add(
+            key: UpdateUserPrivateInfoResponseStatusCode.GENDER_ID_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
     }
 
     internal Func<

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities.Base;
 
 namespace Clinic.Domain.Commons.Entities;
