@@ -1,8 +1,7 @@
-﻿using System.Collections.Generic;
-using System;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
 using Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
-
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Doctors.UpdatePrivateDoctorInfo.HttpResponseMapper;
 
@@ -10,7 +9,11 @@ public class UpdatePrivateDoctorInfoHttpResponseManager
 {
     private readonly Dictionary<
         UpdatePrivateDoctorInfoByIdResponseStatusCode,
-        Func<UpdatePrivateDoctorInfoByIdRequest, UpdatePrivateDoctorInfoByIdResponse, UpdatePrivateDoctorInfoHttpResponse>
+        Func<
+            UpdatePrivateDoctorInfoByIdRequest,
+            UpdatePrivateDoctorInfoByIdResponse,
+            UpdatePrivateDoctorInfoHttpResponse
+        >
     > _dictionary;
 
     internal UpdatePrivateDoctorInfoHttpResponseManager()
@@ -57,6 +60,35 @@ public class UpdatePrivateDoctorInfoHttpResponseManager
                 }
         );
 
+        _dictionary.Add(
+            key: UpdatePrivateDoctorInfoByIdResponseStatusCode.POSITION_ID_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
+            key: UpdatePrivateDoctorInfoByIdResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
+            key: UpdatePrivateDoctorInfoByIdResponseStatusCode.GENDER_ID_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
     }
 
     internal Func<

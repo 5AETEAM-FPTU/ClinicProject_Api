@@ -18,13 +18,13 @@ public class AddDoctorRequest : IFeatureRequest<AddDoctorResponse>
 
     public string PhoneNumber { get; init; }
 
-    public string Gender { get; init; }
+    public Guid GenderId { get; init; }
 
     public DateTime DOB { get; init; }
 
     public string Address { get; init; }
 
-    public string Specialty { get; init; }
+    public Guid SpecialtyId { get; init; }
 
-    public string Position { get; init; }
+    public Guid PositionId { get; init; }
 }

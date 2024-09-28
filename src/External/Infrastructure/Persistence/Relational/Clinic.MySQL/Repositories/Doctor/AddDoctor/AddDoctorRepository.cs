@@ -13,11 +13,17 @@ internal class AddDoctorRepository : IAddDoctorRepository
 {
     private readonly ClinicContext _context;
     private UserManager<User> _userManager;
+    private DbSet<Gender> _gender;
+    private DbSet<Position> _positions;
+    private DbSet<Specialty> _specialties;
 
     public AddDoctorRepository(ClinicContext context, UserManager<User> userManager)
     {
         _context = context;
         _userManager = userManager;
+        _gender = _context.Set<Gender>();
+        _positions = _context.Set<Position>();
+        _specialties = _context.Set<Specialty>();
     }
 
     public async Task<bool> CreateDoctorCommandAsync(
@@ -77,11 +83,36 @@ internal class AddDoctorRepository : IAddDoctorRepository
         return dbTransactionResult;
     }
 
-    public Task<bool> IsDoctorStaffTypeFoundByIdQueryAsync(
-        Guid doctorStaffId,
+    public Task<bool> IsGenderFoundByIdQueryAsync(
+        Guid genderId,
         CancellationToken cancellationToken
     )
     {
-        return Task.FromResult( false );
+        return _gender.AnyAsync(
+            predicate: entity => entity.Id == genderId,
+            cancellationToken: cancellationToken
+        );
+    }
+
+    public Task<bool> IsPositionFoundByIdQueryAsync(
+        Guid positionId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _positions.AnyAsync(
+            predicate: entity => entity.Id == positionId,
+            cancellationToken: cancellationToken
+        );
+    }
+
+    public Task<bool> IsSpecialtyFoundByIdQueryAsync(
+        Guid specialtyId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _specialties.AnyAsync(
+            predicate: entity => entity.Id == specialtyId,
+            cancellationToken: cancellationToken
+        );
     }
 }
