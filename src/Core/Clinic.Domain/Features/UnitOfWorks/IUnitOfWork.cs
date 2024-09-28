@@ -14,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
+using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -139,5 +140,10 @@ public interface IUnitOfWork
     ///    GetAllDoctors Repository feature.
     /// </summary>
     public IGetAllUsersRepository GetAllUsersRepository { get; }
+
+     /// <sumary>
+    ///    GetAllAppointmentStatus Repository feature.
+    /// </summary>
+    public IGetAllAppointmentStatusRepository GetAllAppointmentStatusRepository { get; }
 
 }
