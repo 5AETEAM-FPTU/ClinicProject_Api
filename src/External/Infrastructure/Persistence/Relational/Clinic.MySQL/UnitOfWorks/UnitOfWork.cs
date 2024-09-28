@@ -48,6 +48,8 @@ using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
 using Clinic.MySQL.Repositories.Enums.GetAllAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
+using Clinic.MySQL.Repositories.Enums.GetAllGender;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -83,7 +85,7 @@ public class UnitOfWork : IUnitOfWork
     private IAddDoctorRepository _addDoctorRepository;
     private IGetAllUsersRepository _getAllUsersRepository;
     private IGetAllAppointmentStatusRepository _getAllAppointmentStatusRepository;
-
+    private IGetAllGenderRepository _getAllGenderRepository;
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -253,5 +255,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllAppointmentStatusRepository GetAllAppointmentStatusRepository
     {
         get { return _getAllAppointmentStatusRepository ??= new GetAllAppointmentStatusRepository(_context); }
+    }
+
+    public IGetAllGenderRepository GetAllGenderRepository
+    {
+        get { return _getAllGenderRepository ??= new GetAllGenderRepository(_context); }
     }
 }
