@@ -1,4 +1,6 @@
 using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -87,7 +89,7 @@ public class GetProfileDoctorHandler
 
         // Response successfully.
         return new GetProfileDoctorResponse()
-        {
+        {           
             StatusCode = GetProfileDoctorResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
@@ -98,13 +100,16 @@ public class GetProfileDoctorHandler
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-                    //Gender = foundUser.Doctor.Gender,
+                    Gender = foundUser.Gender.Name,
                     DOB = foundUser.Doctor.DOB,
                     Address = foundUser.Doctor.Address,
                     Description = foundUser.Doctor.Description,
                     Achievement = foundUser.Doctor.Achievement,
-                    //Specialty = foundUser.Doctor.Specialty,
-                    //Position = foundUser.Doctor.Position
+                    
+                    Specialties = foundUser.Doctor?.DoctorSpecialties?
+                                           .Select(doctorSpecialty => doctorSpecialty.Specialty.Name)
+                                           .ToList() ?? new List<string>(),
+                    Position = foundUser.Doctor.Position.Name
                 }
             }
         };

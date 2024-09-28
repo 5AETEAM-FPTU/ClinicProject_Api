@@ -1,5 +1,7 @@
 ﻿using Clinic.Application.Commons.Abstractions;
+using Clinic.Domain.Commons.Entities;
 using System;
+using System.Collections.Generic;
 
 namespace Clinic.Application.Features.Doctors.GetProfileDoctor;
 
@@ -36,7 +38,7 @@ public class GetProfileDoctorResponse : IFeatureResponse
 
             public string Achievement { get; init; }
 
-            public string Specialty { get; init; }
+            public List<string> Specialties { get; init; }
             public string Position { get; init; }
 
 

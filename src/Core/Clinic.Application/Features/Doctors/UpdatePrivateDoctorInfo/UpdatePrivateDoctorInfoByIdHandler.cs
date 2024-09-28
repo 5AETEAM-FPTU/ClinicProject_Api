@@ -18,7 +18,6 @@ public class UpdatePrivateDoctorInfoByIdHandler
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
-
     public UpdatePrivateDoctorInfoByIdHandler(
         IUnitOfWork unitOfWork,
         IHttpContextAccessor contextAccessor
@@ -46,53 +45,6 @@ public class UpdatePrivateDoctorInfoByIdHandler
         CancellationToken cancellationToken
     )
     {
-        // Is genderId found
-        var isGenderFound =
-            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsGenderFoundByIdQueryAsync(
-                genderId: request.GenderId,
-                cancellationToken: cancellationToken
-            );
-
-        // Respond if genderId is not found
-        if (!isGenderFound)
-        {
-            return new()
-            {
-                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.GENDER_ID_IS_NOT_FOUND
-            };
-        }
-
-        // Is positionId found
-        var positionIdFound =
-            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsPositionFoundByIdQueryAsync(
-                positionId: request.PositionId,
-                cancellationToken: cancellationToken
-            );
-
-        // Respond if genderId is not found
-        if (!positionIdFound)
-        {
-            return new()
-            {
-                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.POSITION_ID_IS_NOT_FOUND
-            };
-        }
-
-        // Is specialtyId found
-        var isSpecialtFound =
-            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsSpecialtyFoundByIdQueryAsync(
-                specialtyId: request.SpecialtyId,
-                cancellationToken: cancellationToken
-            );
-
-        // Respond if genderId is not found
-        if (!isSpecialtFound)
-        {
-            return new()
-            {
-                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND
-            };
-        }
 
         // Get userId from sub type jwt
         var userId = Guid.Parse(
@@ -113,6 +65,70 @@ public class UpdatePrivateDoctorInfoByIdHandler
                 StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.USER_IS_NOT_FOUND
             };
         }
+
+        // Is genderId found
+        if (request.GenderId.HasValue)
+        {
+            var isGenderFound =
+                await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsGenderFoundByIdQueryAsync(
+                    genderId: request.GenderId,
+                    cancellationToken: cancellationToken
+                );
+
+            // Respond if genderId is not found
+            if (!isGenderFound)
+            {
+                return new()
+                {
+                    StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.GENDER_ID_IS_NOT_FOUND
+                };
+            }
+        }
+
+        // Is positionId found
+        if (request.PositionId.HasValue)
+        {
+            var positionIdFound =
+            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsPositionFoundByIdQueryAsync(
+                positionId: request.PositionId,
+                cancellationToken: cancellationToken
+            );
+
+            // Respond if genderId is not found
+            if (!positionIdFound)
+            {
+                return new()
+                {
+                    StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.POSITION_ID_IS_NOT_FOUND
+                };
+            }
+        }
+
+        // Is specialtyId found
+        //if (request.SpecialtyIds != null && request.SpecialtyIds.Count > 0)
+        //{
+        //    var isSpecialtFound = true;
+        //    foreach (var specialty in request.SpecialtyIds)
+        //    {
+        //        isSpecialtFound =
+        //        await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsSpecialtyFoundByIdQueryAsync(
+        //            specialtyId: specialty,
+        //            cancellationToken: cancellationToken
+        //        );
+
+        //        // Respond if genderId is not found
+        //        if (!isSpecialtFound)
+        //        {
+        //            return new()
+        //            {
+        //                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND
+        //            };
+        //        }
+
+        //    }
+        
+        //}
+
 
         var isSucced = await UpdateUserProfileAsync(foundUser, request, cancellationToken);
 
@@ -140,12 +156,15 @@ public class UpdatePrivateDoctorInfoByIdHandler
         // Update the user entity with the values from the DTO
         user.FullName = request.FullName ?? user.FullName;
         user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
+        user.Gender = await _unitOfWork.UpdatePrivateDoctorInfoRepository.GetGenderByIdAsync(request.GenderId, cancellationToken) ?? user.Gender;
 
         // If the user has a related doctor, update the doctor entity
         if (user.Doctor != null)
         {
             user.Doctor.DOB = request.DOB != default ? request.DOB : user.Doctor.DOB;
             user.Doctor.Address = request.Address ?? user.Doctor.Address;
+            user.Doctor.Position = await _unitOfWork.UpdatePrivateDoctorInfoRepository.GetPositionByIdAsync(request.PositionId, cancellationToken);
+            // update specialties
         }
 
         // Save the updated user back to the repository
