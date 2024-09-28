@@ -66,18 +66,21 @@ public class UpdateUserPrivateInfoHandler : IFeatureHandler<UpdateUserPrivateInf
         }
 
         // Found gender by genderId
-        var foundGender = await _unitOfWork.UpdateUserPrivateInfoRepository.IsGenderIdExistAsync(
-                                    request.GenderId,
-                                    cancellationToken
-                                );
-
-        // Responds if genderId is not found
-        if (!foundGender)
+        if (request.GenderId.HasValue)
         {
-            return new UpdateUserPrivateInfoResponse()
+            var foundGender = await _unitOfWork.UpdateUserPrivateInfoRepository.IsGenderIdExistAsync(
+                                        request.GenderId,
+                                        cancellationToken
+                                    );
+
+            // Responds if genderId is not found
+            if (!foundGender)
             {
-                StatusCode = UpdateUserPrivateInfoResponseStatusCode.GENDER_ID_IS_NOT_FOUND
-            };
+                return new UpdateUserPrivateInfoResponse()
+                {
+                    StatusCode = UpdateUserPrivateInfoResponseStatusCode.GENDER_ID_IS_NOT_FOUND
+                };
+            }
         }
 
         // Update profile success or not
@@ -106,7 +109,7 @@ public class UpdateUserPrivateInfoHandler : IFeatureHandler<UpdateUserPrivateInf
         // Update the user entity with the values from the DTO
         user.FullName = request.FullName ?? user.FullName;
         user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
-        user.Gender = await _unitOfWork.UpdateUserPrivateInfoRepository.GetGenderByIdAsync(request.GenderId, cancellationToken);
+        user.Gender = await _unitOfWork.UpdateUserPrivateInfoRepository.GetGenderByIdAsync(request.GenderId, cancellationToken) ?? user.Gender;
 
         // If the user has a related Patient, update the Patient entity
         if (user.Patient != null)

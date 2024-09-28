@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
@@ -12,7 +14,7 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
 {
     private readonly ClinicContext _context;
     private DbSet<User> _users;
-    private DbSet<Gender> _gender;
+    private DbSet<Gender> _genders;
     private DbSet<Position> _positions;
     private DbSet<Specialty> _specialties;
 
@@ -20,7 +22,7 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
     {
         _context = context;
         _users = _context.Set<User>();
-        _gender = _context.Set<Gender>();
+        _genders = _context.Set<Gender>();
         _positions = _context.Set<Position>();
         _specialties = _context.Set<Specialty>();
     }
@@ -43,18 +45,18 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
     }
 
     public Task<bool> IsGenderFoundByIdQueryAsync(
-        Guid genderId,
+        Guid? genderId,
         CancellationToken cancellationToken
     )
     {
-        return _gender.AnyAsync(
+        return _genders.AnyAsync(
             predicate: entity => entity.Id == genderId,
             cancellationToken: cancellationToken
         );
     }
 
     public Task<bool> IsPositionFoundByIdQueryAsync(
-        Guid positionId,
+        Guid? positionId,
         CancellationToken cancellationToken
     )
     {
@@ -74,4 +76,23 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
             cancellationToken: cancellationToken
         );
     }
+
+    public async Task<Gender> GetGenderByIdAsync(Guid? genderId, CancellationToken cancellationToken)
+    {
+        return await _genders.Where(gender => gender.Id == genderId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<Position> GetPositionByIdAsync(Guid? positionId, CancellationToken cancellationToken)
+    {
+        return await _positions.Where(position => position.Id == positionId)
+            .FirstOrDefaultAsync(cancellationToken);    
+    }
+
+    public async Task<Specialty> GetSpecialtyByIdAsync(Guid specialtyId, CancellationToken cancellationToken)
+    {
+        return await _specialties.Where(specialty => specialty.Id == specialtyId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
 }
