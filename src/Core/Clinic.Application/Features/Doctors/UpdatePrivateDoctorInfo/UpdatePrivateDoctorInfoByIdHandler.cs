@@ -7,17 +7,22 @@ using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
+
 namespace Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
 
 /// <summary>
 ///     GetProfileUser Handler
 /// </summary>
-public class UpdatePrivateDoctorInfoByIdHandler : IFeatureHandler<UpdatePrivateDoctorInfoByIdRequest, UpdatePrivateDoctorInfoByIdResponse>
+public class UpdatePrivateDoctorInfoByIdHandler
+    : IFeatureHandler<UpdatePrivateDoctorInfoByIdRequest, UpdatePrivateDoctorInfoByIdResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public UpdatePrivateDoctorInfoByIdHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
+    public UpdatePrivateDoctorInfoByIdHandler(
+        IUnitOfWork unitOfWork,
+        IHttpContextAccessor contextAccessor
+    )
     {
         _unitOfWork = unitOfWork;
         _contextAccessor = contextAccessor;
@@ -41,7 +46,53 @@ public class UpdatePrivateDoctorInfoByIdHandler : IFeatureHandler<UpdatePrivateD
         CancellationToken cancellationToken
     )
     {
+        // Is genderId found
+        var isGenderFound =
+            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsGenderFoundByIdQueryAsync(
+                genderId: request.GenderId,
+                cancellationToken: cancellationToken
+            );
 
+        // Respond if genderId is not found
+        if (!isGenderFound)
+        {
+            return new()
+            {
+                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.GENDER_ID_IS_NOT_FOUND
+            };
+        }
+
+        // Is positionId found
+        var positionIdFound =
+            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsPositionFoundByIdQueryAsync(
+                positionId: request.PositionId,
+                cancellationToken: cancellationToken
+            );
+
+        // Respond if genderId is not found
+        if (!positionIdFound)
+        {
+            return new()
+            {
+                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.POSITION_ID_IS_NOT_FOUND
+            };
+        }
+
+        // Is specialtyId found
+        var isSpecialtFound =
+            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsSpecialtyFoundByIdQueryAsync(
+                specialtyId: request.SpecialtyId,
+                cancellationToken: cancellationToken
+            );
+
+        // Respond if genderId is not found
+        if (!isSpecialtFound)
+        {
+            return new()
+            {
+                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND
+            };
+        }
 
         // Get userId from sub type jwt
         var userId = Guid.Parse(
@@ -49,11 +100,10 @@ public class UpdatePrivateDoctorInfoByIdHandler : IFeatureHandler<UpdatePrivateD
         );
 
         // Found user by userId
-        var foundUser =
-            await _unitOfWork.UpdatePrivateDoctorInfoRepository.GetDoctorByIdAsync(
-                    userId,
-                    cancellationToken
-                );
+        var foundUser = await _unitOfWork.UpdatePrivateDoctorInfoRepository.GetDoctorByIdAsync(
+            userId,
+            cancellationToken
+        );
 
         // Responds if userId is not found
         if (Equals(objA: foundUser, objB: default))
@@ -79,15 +129,14 @@ public class UpdatePrivateDoctorInfoByIdHandler : IFeatureHandler<UpdatePrivateD
         {
             StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.OPERATION_SUCCESS,
         };
-
     }
 
-    public async Task<bool> UpdateUserProfileAsync(User user, UpdatePrivateDoctorInfoByIdRequest request, CancellationToken cancellationToken)
+    public async Task<bool> UpdateUserProfileAsync(
+        User user,
+        UpdatePrivateDoctorInfoByIdRequest request,
+        CancellationToken cancellationToken
+    )
     {
-        // Fetch the user from the repository
-
-
-
         // Update the user entity with the values from the DTO
         user.FullName = request.FullName ?? user.FullName;
         user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
@@ -99,9 +148,10 @@ public class UpdatePrivateDoctorInfoByIdHandler : IFeatureHandler<UpdatePrivateD
             user.Doctor.Address = request.Address ?? user.Doctor.Address;
         }
 
-
         // Save the updated user back to the repository
-        return await _unitOfWork.UpdatePrivateDoctorInfoRepository.UpdatePrivateDoctorInfoByIdCommandAsync(user, cancellationToken);
+        return await _unitOfWork.UpdatePrivateDoctorInfoRepository.UpdatePrivateDoctorInfoByIdCommandAsync(
+            user,
+            cancellationToken
+        );
     }
 }
-

@@ -10,7 +10,6 @@ using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
-using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Clinic.Application.Features.Auths.AddDoctor;
 
@@ -63,6 +62,42 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
             return new() { StatusCode = AddDoctorResponseStatusCode.FORBIDEN_ACCESS };
         }
 
+        // Is genderId found
+        var isGenderFound = await _unitOfWork.AddDoctorRepository.IsGenderFoundByIdQueryAsync(
+            genderId: request.GenderId,
+            cancellationToken: cancellationToken
+        );
+
+        // Respond if genderId is not found
+        if (!isGenderFound)
+        {
+            return new() { StatusCode = AddDoctorResponseStatusCode.GENDER_ID_IS_NOT_FOUND };
+        }
+
+        // Is positionId found
+        var positionIdFound = await _unitOfWork.AddDoctorRepository.IsPositionFoundByIdQueryAsync(
+            positionId: request.PositionId,
+            cancellationToken: cancellationToken
+        );
+
+        // Respond if genderId is not found
+        if (!positionIdFound)
+        {
+            return new() { StatusCode = AddDoctorResponseStatusCode.POSITION_ID_IS_NOT_FOUND };
+        }
+
+        // Is specialtyId found
+        var isSpecialtFound = await _unitOfWork.AddDoctorRepository.IsSpecialtyFoundByIdQueryAsync(
+            specialtyId: request.SpecialtyId,
+            cancellationToken: cancellationToken
+        );
+
+        // Respond if genderId is not found
+        if (!isSpecialtFound)
+        {
+            return new() { StatusCode = AddDoctorResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND };
+        }
+
         // Find user by email.
         var user = await _userManager.FindByEmailAsync(request.Email);
 
@@ -72,22 +107,6 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
             return new AddDoctorResponse()
             {
                 StatusCode = AddDoctorResponseStatusCode.EMAIL_DOCTOR_EXITS
-            };
-        }
-
-        // Is doctor staff type id found.
-        var isDoctorStaffTypeFound =
-            await _unitOfWork.AddDoctorRepository.IsDoctorStaffTypeFoundByIdQueryAsync(
-                doctorStaffId: Guid.Parse(request.DoctorStaffId),
-                cancellationToken: cancellationToken
-            );
-
-        // Response if doctor staff type id is not found.
-        if (!isDoctorStaffTypeFound)
-        {
-            return new()
-            {
-                StatusCode = AddDoctorResponseStatusCode.DOCTOR_STAFF_TYPE_GUID_IS_NOT_EXIST
             };
         }
 
