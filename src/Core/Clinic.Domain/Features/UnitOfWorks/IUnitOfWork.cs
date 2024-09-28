@@ -19,6 +19,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -57,7 +58,6 @@ public interface IUnitOfWork
     ///     Doctor repository feature
     /// </summary>
     public IGetProfileDoctorRepository GetProfileDoctorRepository { get; }
-
 
     /// <summary>
     ///    ChangingPassword repository feature.
@@ -159,7 +159,7 @@ public interface IUnitOfWork
     ///    GetAllSpecialty Repository feature.
     /// </summary>
     public IGetAllSpecialtyRepository GetAllSpecialtyRepository { get; }
-    
+
     /// <sumary>
     ///    GetAllPositionRepository feature.
     /// </summary>
@@ -170,4 +170,8 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAllRetreatmentTypeRepository GetAllRetreatmentTypeRepository { get; }
 
+    /// <sumary>
+    ///    CreateSchedulesRepository feature.
+    /// </summary>
+    public ICreateSchedulesRepository CreateSchedulesRepository { get; }
 }

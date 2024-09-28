@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using System;
+﻿using System;
+using System.Collections.Generic;
 using Clinic.Application.Features.Enums.GetAllSpecialty;
 using Microsoft.AspNetCore.Http;
 
@@ -29,12 +29,13 @@ public class GetAllSpecialtyHttpResponseManager
                     Body = response.ResponseBody
                 }
         );
-
     }
 
-    internal Func<GetAllSpecialtyRequest, GetAllSpecialtyResponse, GetAllSpecialtyHttpResponse> Resolve(
-        GetAllSpecialtyResponseStatusCode statusCode
-    )
+    internal Func<
+        GetAllSpecialtyRequest,
+        GetAllSpecialtyResponse,
+        GetAllSpecialtyHttpResponse
+    > Resolve(GetAllSpecialtyResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }
