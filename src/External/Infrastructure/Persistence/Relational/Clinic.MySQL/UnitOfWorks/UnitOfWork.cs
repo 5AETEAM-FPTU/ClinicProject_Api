@@ -54,6 +54,8 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllPosition;
+using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
+using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -92,6 +94,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllGenderRepository _getAllGenderRepository;
     private IGetAllSpecialtyRepository _getAllSpecialtyRepository;
     private IGetAllPositionRepository _getAllPositionRepository;
+    private IGetAllRetreatmentTypeRepository _getAllRetreatmentTypeRepository;
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -276,5 +279,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllPositionRepository GetAllPositionRepository
     {
         get { return _getAllPositionRepository ??= new GetAllPositionRepository(_context); }
+    }
+
+    public IGetAllRetreatmentTypeRepository GetAllRetreatmentTypeRepository
+    {
+        get { return _getAllRetreatmentTypeRepository ??= new GetAllRetreatmentTypeRepository(_context); }
     }
 }
