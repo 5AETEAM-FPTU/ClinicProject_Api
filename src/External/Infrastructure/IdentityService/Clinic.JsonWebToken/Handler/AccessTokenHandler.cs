@@ -36,13 +36,13 @@ internal sealed class AccessTokenHandler : IAccessTokenHandler
                 Audience = _tokenValidationParameters.ValidAudience,
                 Issuer = _tokenValidationParameters.ValidIssuer,
                 Subject = new(claims: claims),
-                Expires = DateTime.UtcNow.AddMinutes(value: 5),
+                Expires = DateTime.UtcNow.AddHours(value: 1),
                 IssuedAt = DateTime.UtcNow,
                 TokenType = "JWT",
                 SigningCredentials = new(
                     key: _tokenValidationParameters.IssuerSigningKey,
                     algorithm: SecurityAlgorithms.HmacSha256
-                )
+                ),
             };
 
         return _jsonWebTokenHandler.CreateToken(tokenDescriptor: tokenDescriptor);
