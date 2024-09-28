@@ -46,6 +46,8 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
+using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
+using Clinic.MySQL.Repositories.Enums.GetAllAppointmentStatus;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -80,6 +82,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateUserDescriptionRepository _updateUserDescriptionRepository;
     private IAddDoctorRepository _addDoctorRepository;
     private IGetAllUsersRepository _getAllUsersRepository;
+    private IGetAllAppointmentStatusRepository _getAllAppointmentStatusRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -245,5 +248,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllUsersRepository GetAllUsersRepository
     {
         get { return _getAllUsersRepository ??= new GetAllUsersRepository(_context); }
+    }
+
+    public IGetAllAppointmentStatusRepository GetAllAppointmentStatusRepository
+    {
+        get { return _getAllAppointmentStatusRepository ??= new GetAllAppointmentStatusRepository(_context); }
     }
 }
