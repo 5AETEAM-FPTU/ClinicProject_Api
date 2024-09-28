@@ -6,18 +6,17 @@ namespace Clinic.Domain.Commons.Entities;
 /// <summary>
 ///     Represent the "OnlinePayment" table.
 /// </summary>
-public class OnlinePayment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntity, IUpdatedEntity
+public class OnlinePayment : IBaseEntity, ICreatedEntity, IUpdatedEntity
 {
     // Primary keys.
     public Guid Id { get; set; }
-
-    // Foreign keys.
-    public Guid PatientId { get; set; }
 
     // Normal properties.
     public string TransactionID { get; set; }
 
     public int Amount { get; set; }
+
+    public string PaymentMethod { get; set; }
 
     public DateTime CreatedAt { get; set; }
 
@@ -27,11 +26,6 @@ public class OnlinePayment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEnt
 
     public Guid UpdatedBy { get; set; }
 
-    public DateTime RemovedAt { get; set; }
-
-    public Guid RemovedBy { get; set; }
-
     // Navigation properties.
-    public Patient Patient { get; set; }
     public Appointment Appointment { get; set; }
 }

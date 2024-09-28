@@ -32,10 +32,9 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 Avatar = user.Avatar,
-
+                Gender = new() { Name = user.Gender.Name, Constant = user.Gender.Constant },
                 Patient = new()
                 {
-                    Gender = user.Patient.Gender,
                     DOB = user.Patient.DOB,
                     Address = user.Patient.Address,
                     Description = user.Patient.Description

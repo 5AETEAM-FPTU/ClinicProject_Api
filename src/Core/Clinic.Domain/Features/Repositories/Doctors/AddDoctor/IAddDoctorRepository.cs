@@ -7,8 +7,12 @@ namespace Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 
 public interface IAddDoctorRepository
 {
-    Task<bool> IsDoctorStaffTypeFoundByIdQueryAsync(
-        Guid doctorStaffId,
+    Task<bool> IsGenderFoundByIdQueryAsync(Guid genderId, CancellationToken cancellationToken);
+
+    Task<bool> IsPositionFoundByIdQueryAsync(Guid positionId, CancellationToken cancellationToken);
+
+    Task<bool> IsSpecialtyFoundByIdQueryAsync(
+        Guid specialtyId,
         CancellationToken cancellationToken
     );
 

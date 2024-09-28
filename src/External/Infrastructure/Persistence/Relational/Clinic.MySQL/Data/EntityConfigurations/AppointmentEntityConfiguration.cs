@@ -1,7 +1,7 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using Clinic.MySQL.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -16,6 +16,7 @@ internal sealed class AppointmentEntityConfiguration : IEntityTypeConfiguration<
             name: $"{nameof(Appointment)}s",
             buildAction: table => table.HasComment(comment: "Contain appointment records.")
         );
+
         // Primary key configuration.
         builder.HasKey(keyExpression: entity => entity.Id);
 
@@ -23,6 +24,15 @@ internal sealed class AppointmentEntityConfiguration : IEntityTypeConfiguration<
         builder
             .Property(propertyExpression: entity => entity.ExaminationDate)
             .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
+            .IsRequired();
+
+        // ReExaminationDate property configuration.
+        builder.Property(propertyExpression: entity => entity.ReExamination).IsRequired();
+
+        // DepositPayment property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.DepositPayment)
+            .HasDefaultValue(false)
             .IsRequired();
 
         // Description property configuration.
@@ -58,13 +68,10 @@ internal sealed class AppointmentEntityConfiguration : IEntityTypeConfiguration<
         // RemovedBy property configuration.
         builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
 
-        // Table relationships configurations.
-        // [Appointment] - [PatientBookedAppointment] (1 - N).
+        // [Appointment] - [Feedback] ( 1 - 1)
         builder
-            .HasMany(navigationExpression: appointment => appointment.PatientBookedAppointments)
-            .WithOne(navigationExpression: patientBookedAppointment => patientBookedAppointment.Appointment)
-            .HasForeignKey(foreignKeyExpression: patientBookedAppointment => patientBookedAppointment.AppointmentId)
-            .IsRequired();
-
+            .HasOne(Appointment => Appointment.Feedback)
+            .WithOne(Feedback => Feedback.Appointment)
+            .HasForeignKey<Feedback>(Feedback => Feedback.AppointmentId);
     }
 }

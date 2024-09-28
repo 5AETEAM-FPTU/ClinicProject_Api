@@ -1,10 +1,10 @@
-﻿using Clinic.Domain.Commons.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
 
 namespace Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 
@@ -13,7 +13,7 @@ namespace Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 /// </summary>
 public interface IGetAllDoctorsRepository
 {
-    Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorsQueryAsync(
+    Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
         int pageIndex,
         int pageSize,
         CancellationToken cancellationToken
@@ -21,4 +21,3 @@ public interface IGetAllDoctorsRepository
 
     Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken);
 }
-

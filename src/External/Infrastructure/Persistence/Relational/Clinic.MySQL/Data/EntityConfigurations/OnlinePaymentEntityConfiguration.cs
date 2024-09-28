@@ -1,7 +1,7 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using Clinic.MySQL.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
@@ -16,6 +16,7 @@ internal sealed class OnlinePaymentEntityConfiguration : IEntityTypeConfiguratio
             name: $"{nameof(OnlinePayment)}s",
             buildAction: table => table.HasComment(comment: "Contain online payment records.")
         );
+
         // Primary key configuration.
         builder.HasKey(keyExpression: entity => entity.Id);
 
@@ -24,6 +25,15 @@ internal sealed class OnlinePaymentEntityConfiguration : IEntityTypeConfiguratio
             .Property(propertyExpression: entity => entity.TransactionID)
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
             .IsRequired();
+
+        // PaymentMethod property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.PaymentMethod)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(100))
+            .IsRequired();
+
+        // Amount property configuration.
+        builder.Property(propertyExpression: entity => entity.Amount).IsRequired();
 
         // CreatedAt property configuration.
         builder
@@ -43,21 +53,14 @@ internal sealed class OnlinePaymentEntityConfiguration : IEntityTypeConfiguratio
         // UpdatedBy property configuration.
         builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
 
-        // RemovedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.RemovedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // RemovedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
-
         // Table relationships configurations.
         // [OnlinePayment] - [Appointment] (1 - 1).
         builder
             .HasOne(navigationExpression: onlinePayment => onlinePayment.Appointment)
             .WithOne(navigationExpression: appointment => appointment.OnlinePayment)
-            .HasForeignKey<Appointment>(foreignKeyExpression: appointment => appointment.OnlinePaymentId)
+            .HasForeignKey<Appointment>(foreignKeyExpression: appointment =>
+                appointment.OnlinePaymentId
+            )
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
     }
 }

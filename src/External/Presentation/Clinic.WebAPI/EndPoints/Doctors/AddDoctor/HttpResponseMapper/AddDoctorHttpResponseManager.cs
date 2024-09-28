@@ -86,6 +86,36 @@ public class AddDoctorHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode()
                 }
         );
+
+        _dictionary.Add(
+            key: AddDoctorResponseStatusCode.POSITION_ID_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
+            key: AddDoctorResponseStatusCode.GENDER_ID_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
+            key: AddDoctorResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
     }
 
     internal Func<AddDoctorRequest, AddDoctorResponse, AddDoctorHttpResponse> Resolve(

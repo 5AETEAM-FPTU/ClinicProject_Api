@@ -98,13 +98,13 @@ public class GetProfileDoctorHandler
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-                    Gender = foundUser.Doctor.Gender,
+                    //Gender = foundUser.Doctor.Gender,
                     DOB = foundUser.Doctor.DOB,
                     Address = foundUser.Doctor.Address,
                     Description = foundUser.Doctor.Description,
                     Achievement = foundUser.Doctor.Achievement,
-                    Specialty = foundUser.Doctor.Specialty,
-                    Position = foundUser.Doctor.Position
+                    //Specialty = foundUser.Doctor.Specialty,
+                    //Position = foundUser.Doctor.Position
                 }
             }
         };

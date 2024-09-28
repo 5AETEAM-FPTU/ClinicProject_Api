@@ -1,19 +1,20 @@
 ﻿using Clinic.Domain.Commons.Entities;
-using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Microsoft.EntityFrameworkCore;
 using Clinic.MySQL.Common;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace Clinic.MySQL.Data.EntityConfigurations;
 
 /// <summary>
 ///     Represents configuration of "AppointmentStatus" table.
 /// </summary>
-internal sealed class AppointmentStatusEntityConfiguration : IEntityTypeConfiguration<AppointmentStatus>
+internal sealed class AppointmentStatusEntityConfiguration
+    : IEntityTypeConfiguration<AppointmentStatus>
 {
     public void Configure(EntityTypeBuilder<AppointmentStatus> builder)
     {
         builder.ToTable(
-            name: $"{nameof(AppointmentStatus)}s",
+            name: $"{nameof(AppointmentStatus)}es",
             buildAction: table => table.HasComment(comment: "Contain appointment status records.")
         );
         // Primary key configuration.
@@ -31,39 +32,12 @@ internal sealed class AppointmentStatusEntityConfiguration : IEntityTypeConfigur
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(36))
             .IsRequired();
 
-        // CreatedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.CreatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // CreatedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.CreatedBy).IsRequired();
-
-        // UpdatedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.UpdatedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // UpdatedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
-
-        // RemovedAt property configuration.
-        builder
-            .Property(propertyExpression: entity => entity.RemovedAt)
-            .HasColumnType(typeName: CommonConstant.Database.DataType.DATETIME)
-            .IsRequired();
-
-        // RemovedBy property configuration.
-        builder.Property(propertyExpression: entity => entity.RemovedBy).IsRequired();
-
         // Table relationships configurations.
-        // [AppointmentStatus] - [Appointment] (1 - 1).
+        // [AppointmentStatus] - [Appointment] (1 - n).
         builder
-            .HasOne(navigationExpression: appointmentStatus => appointmentStatus.Appointment)
+            .HasMany(navigationExpression: appointmentStatus => appointmentStatus.Appointment)
             .WithOne(navigationExpression: appointment => appointment.AppointmentStatus)
-            .HasForeignKey<Appointment>(foreignKeyExpression: appointment => appointment.StatusId)
+            .HasForeignKey(foreignKeyExpression: appointment => appointment.StatusId)
             .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
     }
 }

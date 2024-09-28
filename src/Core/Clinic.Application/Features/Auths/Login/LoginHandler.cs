@@ -17,7 +17,7 @@ namespace Clinic.Application.Features.Auths.Login;
 /// <summary>
 ///     Login request handler.
 /// </summary>
-internal sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
+public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly UserManager<User> _userManager;

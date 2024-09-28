@@ -72,21 +72,6 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
             };
         }
 
-        // Is user not temporarily removed.
-        //var isUserNotTemporarilyRemoved =
-        //    await _unitOfWork.LoginRepository.IsUserTemporarilyRemovedQueryAsync(
-        //        userId: userId,
-        //        cancellationToken: cancellationToken
-        //    );
-
-        //Responds if current user is temporarily removed.
-        //if (!isUserNotTemporarilyRemoved)
-        //{
-        //    return new()
-        //    {
-        //        StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
-        //    };
-        //}
         var isUserTemporarilyRemoved =
             await _unitOfWork.GetProfileUserRepository.IsUserTemporarilyRemovedQueryAsync(
                 userId: userId,
@@ -110,12 +95,11 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
             {
                 User = new()
                 {
-                    // Common attribute user
                     Username = foundUser.UserName,
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-                    Gender = foundUser.Patient.Gender,
+                    Gender = foundUser.Gender.Name,
                     DOB = foundUser.Patient.DOB,
                     Address = foundUser.Patient.Address,
                     Description = foundUser.Patient.Description
