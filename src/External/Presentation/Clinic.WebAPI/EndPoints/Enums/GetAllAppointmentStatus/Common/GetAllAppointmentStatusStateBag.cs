@@ -1,5 +1,4 @@
 ﻿using Clinic.Application.Features.Enums.GetAllAppointmentStatus;
-using Clinic.Application.Features.Users.GetAllDoctor;
 
 namespace Clinic.WebAPI.EndPoints.Enums.GetAllAppointmentStatus.Common;
 
