@@ -21,6 +21,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -51,6 +52,7 @@ using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
+using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
@@ -98,6 +100,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllPositionRepository _getAllPositionRepository;
     private IGetAllRetreatmentTypeRepository _getAllRetreatmentTypeRepository;
     private ICreateSchedulesRepository _createSchedulesRepository;
+    private IGetSchedulesByDateRepository _getSchedulesByDateRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -303,5 +306,10 @@ public class UnitOfWork : IUnitOfWork
     public ICreateSchedulesRepository CreateSchedulesRepository
     {
         get { return _createSchedulesRepository ??= new CreateSchedulesRepository(_context); }
+    }
+
+    public IGetSchedulesByDateRepository GetSchedulesByDateRepository
+    {
+        get { return _getSchedulesByDateRepository ??= new GetSchedulesByDateRepository(_context); }
     }
 }

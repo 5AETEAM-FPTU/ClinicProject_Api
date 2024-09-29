@@ -20,6 +20,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -174,4 +175,9 @@ public interface IUnitOfWork
     ///    CreateSchedulesRepository feature.
     /// </summary>
     public ICreateSchedulesRepository CreateSchedulesRepository { get; }
+
+    /// <sumary>
+    ///    GetSchedulesByDateRepository feature.
+    /// </summary>
+    public IGetSchedulesByDateRepository GetSchedulesByDateRepository { get; }
 }
