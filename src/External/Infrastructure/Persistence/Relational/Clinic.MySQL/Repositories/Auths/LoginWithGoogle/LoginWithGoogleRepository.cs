@@ -92,9 +92,7 @@ public class LoginWithGoogleRepository : ILoginWithGoogleRepository
     )
     {
         return _context.Users.AnyAsync(
-            entity =>
-                entity.Email == gmail
-                && entity.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            entity => entity.Email == gmail && entity.RemovedAt != CommonConstant.MIN_DATE_TIME,
             cancellationToken
         );
     }

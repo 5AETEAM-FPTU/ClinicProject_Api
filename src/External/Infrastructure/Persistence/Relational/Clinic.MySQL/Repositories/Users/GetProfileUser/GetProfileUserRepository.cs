@@ -32,13 +32,18 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 Avatar = user.Avatar,
-                Gender = new() { Name = user.Gender.Name, Constant = user.Gender.Constant },
+                Gender = new()
+                {
+                    Name = user.Gender.Name,
+                    Constant = user.Gender.Constant,
+                    Id = user.Gender.Id,
+                },
                 Patient = new()
                 {
                     DOB = user.Patient.DOB,
                     Address = user.Patient.Address,
-                    Description = user.Patient.Description
-                }
+                    Description = user.Patient.Description,
+                },
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
@@ -50,7 +55,7 @@ internal class GetProfileUserRepository : IGetProfileUserRepository
     {
         return _users.AnyAsync(
             predicate: entity =>
-                entity.Id == userId && entity.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                entity.Id == userId && entity.RemovedAt != CommonConstant.MIN_DATE_TIME,
             cancellationToken: cancellationToken
         );
     }
