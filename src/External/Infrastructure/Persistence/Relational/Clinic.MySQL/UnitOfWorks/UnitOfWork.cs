@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -30,6 +31,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
+using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.MySQL.Repositories.Auths.ForgotPassword;
@@ -101,6 +103,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllRetreatmentTypeRepository _getAllRetreatmentTypeRepository;
     private ICreateSchedulesRepository _createSchedulesRepository;
     private IGetSchedulesByDateRepository _getSchedulesByDateRepository;
+    private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -311,5 +314,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetSchedulesByDateRepository GetSchedulesByDateRepository
     {
         get { return _getSchedulesByDateRepository ??= new GetSchedulesByDateRepository(_context); }
+    }
+
+    public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository
+    {
+        get { return _getAppointmentsByDateRepository ??= new GetAppointmentsByDateRepository(_context); }
     }
 }

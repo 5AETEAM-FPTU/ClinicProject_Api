@@ -10,6 +10,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -180,4 +181,9 @@ public interface IUnitOfWork
     ///    GetSchedulesByDateRepository feature.
     /// </summary>
     public IGetSchedulesByDateRepository GetSchedulesByDateRepository { get; }
+
+    /// <sumary>
+    ///    GetAppointmentsByDateRepository feature.
+    /// </summary>
+    public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
 }
