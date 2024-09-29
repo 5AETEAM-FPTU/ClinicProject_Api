@@ -16,5 +16,5 @@ public class UpdatePrivateDoctorInfoByIdRequest
     public DateTime DOB { get; set; }
     public string Address { get; set; }
     public Guid? PositionId { get; set; }
-    public List<Guid> SpecialtyIds { get; set; }
+    public IEnumerable<Guid> SpecialtiesId { get; set; }
 }

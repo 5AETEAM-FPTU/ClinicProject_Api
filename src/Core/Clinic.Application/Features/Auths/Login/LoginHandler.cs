@@ -75,6 +75,7 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
         if (!doesUserHaveCurrentPassword)
         {
             // Is user locked out.
+
             var userLockedOutResult = await _signInManager.CheckPasswordSignInAsync(
                 user: foundUser,
                 password: command.Password,
@@ -111,7 +112,7 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
         [
             new(type: JwtRegisteredClaimNames.Jti, value: Guid.NewGuid().ToString()),
             new(type: JwtRegisteredClaimNames.Sub, value: foundUser.Id.ToString()),
-            new(type: "role", value: foundUserRoles[default])
+            new(type: "role", value: foundUserRoles[default]),
         ];
 
         // Create new refresh token.
@@ -130,7 +131,7 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
                     ? DateTime.UtcNow.AddDays(value: 7)
                     : DateTime.UtcNow.AddDays(value: 3),
                 CreatedAt = DateTime.UtcNow,
-                RefreshTokenValue = _refreshTokenHandler.Generate(length: 15)
+                RefreshTokenValue = _refreshTokenHandler.Generate(length: 15),
             };
 
         // Add new refresh token to the database.
@@ -165,8 +166,8 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
                     Email = foundUser.Email,
                     AvatarUrl = user.Avatar,
                     FullName = user.FullName,
-                }
-            }
+                },
+            },
         };
     }
 }

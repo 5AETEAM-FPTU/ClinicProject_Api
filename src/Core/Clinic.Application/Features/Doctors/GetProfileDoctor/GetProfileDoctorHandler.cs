@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading;
@@ -53,7 +52,10 @@ public class GetProfileDoctorHandler
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
         if (!role.Equals("doctor") && !role.Equals("staff"))
         {
-            return new() { StatusCode = GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_DOCTOR_OR_STAFF };
+            return new()
+            {
+                StatusCode = GetProfileDoctorResponseStatusCode.ROLE_IS_NOT_DOCTOR_OR_STAFF,
+            };
         }
 
         // Found user by userId
@@ -67,7 +69,7 @@ public class GetProfileDoctorHandler
         {
             return new GetProfileDoctorResponse()
             {
-                StatusCode = GetProfileDoctorResponseStatusCode.USER_IS_NOT_FOUND
+                StatusCode = GetProfileDoctorResponseStatusCode.USER_IS_NOT_FOUND,
             };
         }
 
@@ -83,35 +85,41 @@ public class GetProfileDoctorHandler
         {
             return new()
             {
-                StatusCode = GetProfileDoctorResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+                StatusCode = GetProfileDoctorResponseStatusCode.USER_IS_TEMPORARILY_REMOVED,
             };
         }
 
         // Response successfully.
         return new GetProfileDoctorResponse()
-        {           
+        {
             StatusCode = GetProfileDoctorResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
                 User = new()
                 {
-                    // Common attribute user
                     Username = foundUser.UserName,
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-                    Gender = foundUser.Gender.Name,
                     DOB = foundUser.Doctor.DOB,
                     Address = foundUser.Doctor.Address,
                     Description = foundUser.Doctor.Description,
                     Achievement = foundUser.Doctor.Achievement,
-                    
-                    Specialties = foundUser.Doctor?.DoctorSpecialties?
-                                           .Select(doctorSpecialty => doctorSpecialty.Specialty.Name)
-                                           .ToList() ?? new List<string>(),
-                    Position = foundUser.Doctor.Position.Name
-                }
-            }
+                    Gender = new() { Id = foundUser.Gender.Id, GenderName = foundUser.Gender.Name },
+                    Position = new()
+                    {
+                        Id = foundUser.Doctor.Position.Id,
+                        PositionName = foundUser.Doctor.Position.Name,
+                    },
+                    Specialties = foundUser.Doctor.DoctorSpecialties.Select(
+                        item => new GetProfileDoctorResponse.Body.UserDetail.ResponseSpecialties()
+                        {
+                            Id = item.Specialty.Id,
+                            SpecialtyName = item.Specialty.Name,
+                        }
+                    ),
+                },
+            },
         };
     }
 }
