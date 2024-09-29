@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
@@ -18,6 +19,7 @@ public interface IUpdatePrivateDoctorInfoRepository
 
     Task<bool> UpdatePrivateDoctorInfoByIdCommandAsync(
         User user,
+        IEnumerable<Guid> reqSpecialties,
         CancellationToken cancellationToken
     );
 

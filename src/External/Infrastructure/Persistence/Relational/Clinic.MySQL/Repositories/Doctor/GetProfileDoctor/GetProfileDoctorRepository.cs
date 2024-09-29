@@ -35,25 +35,36 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 Avatar = user.Avatar,
-                Gender = new() { Name = user.Gender.Name, Constant = user.Gender.Constant },
+                Gender = new()
+                {
+                    Name = user.Gender.Name,
+                    Constant = user.Gender.Constant,
+                    Id = user.Gender.Id,
+                },
                 Doctor = new()
                 {
                     DOB = user.Doctor.DOB,
                     Description = user.Doctor.Description,
-                    Position = user.Doctor.Position,
+                    Position = new()
+                    {
+                        Name = user.Doctor.Position.Name,
+                        Constant = user.Doctor.Position.Constant,
+                        Id = user.Doctor.Position.Id,
+                    },
                     DoctorSpecialties = user
                         .Doctor.DoctorSpecialties.Select(doctorSpecialty => new DoctorSpecialty()
                         {
                             Specialty = new()
                             {
                                 Constant = doctorSpecialty.Specialty.Constant,
-                                Name = doctorSpecialty.Specialty.Name
-                            }
+                                Name = doctorSpecialty.Specialty.Name,
+                                Id = doctorSpecialty.Specialty.Id,
+                            },
                         })
                         .ToList(),
                     Address = user.Doctor.Address,
-                    Achievement = user.Doctor.Achievement
-                }
+                    Achievement = user.Doctor.Achievement,
+                },
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }

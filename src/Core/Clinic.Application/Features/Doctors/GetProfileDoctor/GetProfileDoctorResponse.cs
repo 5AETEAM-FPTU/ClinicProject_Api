@@ -1,5 +1,6 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using System;
+﻿using System;
+using System.Collections.Generic;
+using Clinic.Application.Commons.Abstractions;
 
 namespace Clinic.Application.Features.Doctors.GetProfileDoctor;
 
@@ -26,7 +27,13 @@ public class GetProfileDoctorResponse : IFeatureResponse
 
             public string FullName { get; init; }
 
-            public string Gender { get; init; }
+            public ResponseGender Gender { get; init; }
+
+            public sealed class ResponseGender
+            {
+                public Guid Id { get; init; }
+                public string GenderName { get; init; }
+            }
 
             public DateTime? DOB { get; init; }
 
@@ -36,10 +43,21 @@ public class GetProfileDoctorResponse : IFeatureResponse
 
             public string Achievement { get; init; }
 
-            public string Specialty { get; init; }
-            public string Position { get; init; }
+            public IEnumerable<ResponseSpecialties> Specialties { get; init; }
 
+            public sealed class ResponseSpecialties
+            {
+                public Guid Id { get; init; }
+                public string SpecialtyName { get; init; }
+            }
 
+            public ResponsePosition Position { get; init; }
+
+            public sealed class ResponsePosition
+            {
+                public Guid Id { get; init; }
+                public string PositionName { get; init; }
+            }
         }
     }
 }

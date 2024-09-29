@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Clinic.Application.Commons.Abstractions;
 
 namespace Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
@@ -15,5 +16,5 @@ public class UpdatePrivateDoctorInfoByIdRequest
     public DateTime DOB { get; set; }
     public string Address { get; set; }
     public Guid PositionId { get; set; }
-    public Guid SpecialtyId { get; set; }
+    public IEnumerable<Guid> SpecialtiesId { get; set; }
 }
