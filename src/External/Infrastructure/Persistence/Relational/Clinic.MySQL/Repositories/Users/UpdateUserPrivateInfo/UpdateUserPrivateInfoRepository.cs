@@ -35,12 +35,13 @@ internal class UpdateUserPrivateInfoRepository : IUpdateUserPrivateInfoRepositor
         return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
 
-    public async Task<Gender> GetGenderByIdAsync(Guid genderId, CancellationToken cancellationToken)
+    public async Task<Gender> GetGenderByIdAsync(Guid? genderId, CancellationToken cancellationToken)
     {
-        return await _genders.Where(gender => gender.Id == genderId).FirstOrDefaultAsync(cancellationToken);
+        return await _genders.Where(gender => gender.Id == genderId)
+                             .FirstOrDefaultAsync(cancellationToken);
     }
 
-    public async Task<bool> IsGenderIdExistAsync(Guid genderId, CancellationToken cancellationToken)
+    public async Task<bool> IsGenderIdExistAsync(Guid? genderId, CancellationToken cancellationToken)
     {
         return await _genders
                      .AnyAsync(gender => gender.Id == genderId, cancellationToken);

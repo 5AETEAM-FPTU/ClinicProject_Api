@@ -47,38 +47,6 @@ public class UpdatePrivateDoctorInfoByIdHandler
         CancellationToken cancellationToken
     )
     {
-        // Is genderId found
-        var isGenderFound =
-            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsGenderFoundByIdQueryAsync(
-                genderId: request.GenderId,
-                cancellationToken: cancellationToken
-            );
-
-        // Respond if genderId is not found
-        if (!isGenderFound)
-        {
-            return new()
-            {
-                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.GENDER_ID_IS_NOT_FOUND,
-            };
-        }
-
-        // Is positionId found
-        var positionIdFound =
-            await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsPositionFoundByIdQueryAsync(
-                positionId: request.PositionId,
-                cancellationToken: cancellationToken
-            );
-
-        // Respond if genderId is not found
-        if (!positionIdFound)
-        {
-            return new()
-            {
-                StatusCode = UpdatePrivateDoctorInfoByIdResponseStatusCode.POSITION_ID_IS_NOT_FOUND,
-            };
-        }
-
         foreach (Guid specialtyId in request.SpecialtiesId)
         {
             var isSpecialtyFound =
@@ -116,6 +84,46 @@ public class UpdatePrivateDoctorInfoByIdHandler
             };
         }
 
+        // Is genderId found
+        if (request.GenderId.HasValue)
+        {
+            var isGenderFound =
+                await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsGenderFoundByIdQueryAsync(
+                    genderId: request.GenderId,
+                    cancellationToken: cancellationToken
+                );
+
+            // Respond if genderId is not found
+            if (!isGenderFound)
+            {
+                return new()
+                {
+                    StatusCode =
+                        UpdatePrivateDoctorInfoByIdResponseStatusCode.GENDER_ID_IS_NOT_FOUND,
+                };
+            }
+        }
+
+        // Is positionId found
+        if (request.PositionId.HasValue)
+        {
+            var positionIdFound =
+                await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsPositionFoundByIdQueryAsync(
+                    positionId: request.PositionId,
+                    cancellationToken: cancellationToken
+                );
+
+            // Respond if genderId is not found
+            if (!positionIdFound)
+            {
+                return new()
+                {
+                    StatusCode =
+                        UpdatePrivateDoctorInfoByIdResponseStatusCode.POSITION_ID_IS_NOT_FOUND,
+                };
+            }
+        }
+
         var isSucced = await UpdateUserProfileAsync(foundUser, request, cancellationToken);
 
         if (!isSucced)
@@ -142,14 +150,14 @@ public class UpdatePrivateDoctorInfoByIdHandler
         // Update the user entity with the values from the DTO
         user.FullName = request.FullName ?? user.FullName;
         user.PhoneNumber = request.PhoneNumber ?? user.PhoneNumber;
-        user.GenderId = request.GenderId;
+        user.GenderId = request.GenderId.Value;
 
         // If the user has a related doctor, update the doctor entity
         if (user.Doctor != null)
         {
             user.Doctor.DOB = request.DOB != default ? request.DOB : user.Doctor.DOB;
             user.Doctor.Address = request.Address ?? user.Doctor.Address;
-            user.Doctor.PositionId = request.PositionId;
+            user.Doctor.PositionId = request.PositionId.Value;
         }
 
         // Save the updated user back to the repository

@@ -1,19 +1,18 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
-using Clinic.WebAPI.EndPoints.Enums.GetAllSpecialty.HttpResponseMapper;
-using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Auths.Login;
 using Clinic.WebAPI.EndPoints.Enums.GetAllSpecialty.Common;
+using Clinic.WebAPI.EndPoints.Enums.GetAllSpecialty.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Enums.GetAllSpecialty;
 
 /// <summary>
 ///     GetAllSpecialty endpoint.
 /// </summary>
-internal sealed class GetAllSpecialtyEndpoint
-    : Endpoint<EmptyRequest, GetAllSpecialtyHttpResponse>
+internal sealed class GetAllSpecialtyEndpoint : Endpoint<EmptyRequest, GetAllSpecialtyHttpResponse>
 {
     public override void Configure()
     {

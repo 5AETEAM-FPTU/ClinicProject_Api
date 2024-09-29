@@ -15,9 +15,17 @@ using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
+using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
+using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
+using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
+using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
+using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
@@ -32,30 +40,24 @@ using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
-using Clinic.MySQL.Repositories.Users.GetAllDoctor;
-using Clinic.MySQL.Repositories.Users.GetProfileUser;
-using Microsoft.AspNetCore.Identity;
-using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
-using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
+using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdatePrivateDoctorInfoRepository;
-using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
-using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
-using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
-using Clinic.Domain.Features.Repositories.Users.GetAllUser;
-using Clinic.MySQL.Repositories.Users.GetAllUser;
-using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
 using Clinic.MySQL.Repositories.Enums.GetAllAppointmentStatus;
-using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.MySQL.Repositories.Enums.GetAllGender;
-using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
-using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
-using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllPosition;
-using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
+using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
+using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
+using Clinic.MySQL.Repositories.Users.GetAllDoctor;
+using Clinic.MySQL.Repositories.Users.GetAllUser;
+using Clinic.MySQL.Repositories.Users.GetProfileUser;
+using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
+using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
+using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
+using Microsoft.AspNetCore.Identity;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -95,6 +97,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllSpecialtyRepository _getAllSpecialtyRepository;
     private IGetAllPositionRepository _getAllPositionRepository;
     private IGetAllRetreatmentTypeRepository _getAllRetreatmentTypeRepository;
+    private ICreateSchedulesRepository _createSchedulesRepository;
+
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -135,8 +139,6 @@ public class UnitOfWork : IUnitOfWork
     {
         get { return _getProfileUserRepository ??= new GetProfileUserRepository(_context); }
     }
-
- 
 
     public IGetAllDoctorsRepository GetAllDoctorRepository
     {
@@ -247,7 +249,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _updateUserDescriptionRepository ??= new UpdateUserDescriptionRepository(_context);
+            return _updateUserDescriptionRepository ??= new UpdateUserDescriptionRepository(
+                _context
+            );
         }
     }
 
@@ -263,7 +267,12 @@ public class UnitOfWork : IUnitOfWork
 
     public IGetAllAppointmentStatusRepository GetAllAppointmentStatusRepository
     {
-        get { return _getAllAppointmentStatusRepository ??= new GetAllAppointmentStatusRepository(_context); }
+        get
+        {
+            return _getAllAppointmentStatusRepository ??= new GetAllAppointmentStatusRepository(
+                _context
+            );
+        }
     }
 
     public IGetAllGenderRepository GetAllGenderRepository
@@ -283,6 +292,16 @@ public class UnitOfWork : IUnitOfWork
 
     public IGetAllRetreatmentTypeRepository GetAllRetreatmentTypeRepository
     {
-        get { return _getAllRetreatmentTypeRepository ??= new GetAllRetreatmentTypeRepository(_context); }
+        get
+        {
+            return _getAllRetreatmentTypeRepository ??= new GetAllRetreatmentTypeRepository(
+                _context
+            );
+        }
+    }
+
+    public ICreateSchedulesRepository CreateSchedulesRepository
+    {
+        get { return _createSchedulesRepository ??= new CreateSchedulesRepository(_context); }
     }
 }

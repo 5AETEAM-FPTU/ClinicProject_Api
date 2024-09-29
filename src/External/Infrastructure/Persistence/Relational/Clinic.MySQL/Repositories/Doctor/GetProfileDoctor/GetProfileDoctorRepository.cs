@@ -76,7 +76,7 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
     {
         return _users.AnyAsync(
             predicate: entity =>
-                entity.Id == userId && entity.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                entity.Id == userId && entity.RemovedAt != CommonConstant.MIN_DATE_TIME,
             cancellationToken: cancellationToken
         );
     }

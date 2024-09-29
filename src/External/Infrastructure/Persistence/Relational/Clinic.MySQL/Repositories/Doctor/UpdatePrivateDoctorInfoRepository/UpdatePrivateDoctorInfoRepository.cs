@@ -14,7 +14,7 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
 {
     private readonly ClinicContext _context;
     private DbSet<User> _users;
-    private DbSet<Gender> _gender;
+    private DbSet<Gender> _genders;
     private DbSet<Position> _positions;
     private DbSet<Specialty> _specialties;
     private DbSet<DoctorSpecialty> _doctorSpecialty;
@@ -23,7 +23,7 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
     {
         _context = context;
         _users = _context.Set<User>();
-        _gender = _context.Set<Gender>();
+        _genders = _context.Set<Gender>();
         _positions = _context.Set<Position>();
         _specialties = _context.Set<Specialty>();
         _doctorSpecialty = _context.Set<DoctorSpecialty>();
@@ -47,31 +47,38 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
     {
         if (!Equals(user.Doctor, null))
         {
-            _doctorSpecialty.RemoveRange(user.Doctor.DoctorSpecialties);
+            var doctorSpecialties = user.Doctor.DoctorSpecialties;
+            var existingSpecialties = doctorSpecialties.Select(ds => ds.SpecialtyID).ToList();
+            var specialtiesToRemove = doctorSpecialties
+                .Where(ds => !reqSpecialties.Contains(ds.SpecialtyID))
+                .ToList();
 
-            var newSpecialties = reqSpecialties
+            _doctorSpecialty.RemoveRange(specialtiesToRemove);
+
+            var specialtiesToAdd = reqSpecialties
+                .Where(id => !existingSpecialties.Contains(id))
                 .Select(id => new DoctorSpecialty { DoctorId = user.Id, SpecialtyID = id })
                 .ToList();
 
-            await _doctorSpecialty.AddRangeAsync(newSpecialties, cancellationToken);
+            await _doctorSpecialty.AddRangeAsync(specialtiesToAdd, cancellationToken);
         }
         _context.Users.Update(user);
         return await _context.SaveChangesAsync(cancellationToken) > 0;
     }
 
     public Task<bool> IsGenderFoundByIdQueryAsync(
-        Guid genderId,
+        Guid? genderId,
         CancellationToken cancellationToken
     )
     {
-        return _gender.AnyAsync(
+        return _genders.AnyAsync(
             predicate: entity => entity.Id == genderId,
             cancellationToken: cancellationToken
         );
     }
 
     public Task<bool> IsPositionFoundByIdQueryAsync(
-        Guid positionId,
+        Guid? positionId,
         CancellationToken cancellationToken
     )
     {
@@ -90,5 +97,35 @@ internal class UpdatePrivateDoctorInfoRepository : IUpdatePrivateDoctorInfoRepos
             predicate: entity => entity.Id == specialtyId,
             cancellationToken: cancellationToken
         );
+    }
+
+    public async Task<Gender> GetGenderByIdAsync(
+        Guid? genderId,
+        CancellationToken cancellationToken
+    )
+    {
+        return await _genders
+            .Where(gender => gender.Id == genderId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<Position> GetPositionByIdAsync(
+        Guid? positionId,
+        CancellationToken cancellationToken
+    )
+    {
+        return await _positions
+            .Where(position => position.Id == positionId)
+            .FirstOrDefaultAsync(cancellationToken);
+    }
+
+    public async Task<Specialty> GetSpecialtyByIdAsync(
+        Guid specialtyId,
+        CancellationToken cancellationToken
+    )
+    {
+        return await _specialties
+            .Where(specialty => specialty.Id == specialtyId)
+            .FirstOrDefaultAsync(cancellationToken);
     }
 }
