@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
 
 namespace Clinic.MySQL.Data.DataSeeding;
@@ -24,10 +25,10 @@ internal class GenderSeeding
             },
             new()
             {
-                Id = Guid.NewGuid(),
+                Id = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                 Name = "Khác",
                 Constant = "Other",
-            }
+            },
         ];
     }
 }

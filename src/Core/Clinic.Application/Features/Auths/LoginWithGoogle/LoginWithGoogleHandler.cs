@@ -94,7 +94,7 @@ internal sealed class LoginWithGoogleHandler
             {
                 return new()
                 {
-                    StatusCode = LoginWithGoogleResponseStatusCode.DATABASE_OPERATION_FAIL
+                    StatusCode = LoginWithGoogleResponseStatusCode.DATABASE_OPERATION_FAIL,
                 };
             }
 
@@ -112,7 +112,7 @@ internal sealed class LoginWithGoogleHandler
             {
                 return new()
                 {
-                    StatusCode = LoginWithGoogleResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+                    StatusCode = LoginWithGoogleResponseStatusCode.USER_IS_TEMPORARILY_REMOVED,
                 };
             }
         }
@@ -127,7 +127,7 @@ internal sealed class LoginWithGoogleHandler
         [
             new(type: JwtRegisteredClaimNames.Jti, value: Guid.NewGuid().ToString()),
             new(type: JwtRegisteredClaimNames.Sub, value: userFound.Id.ToString()),
-            new(type: "role", value: "user")
+            new(type: "role", value: "user"),
         ];
 
         // Create new refresh token.
@@ -144,7 +144,7 @@ internal sealed class LoginWithGoogleHandler
                 UserId = userFound.Id,
                 ExpiredDate = DateTime.UtcNow.AddDays(value: 7),
                 CreatedAt = DateTime.UtcNow,
-                RefreshTokenValue = _refreshTokenHandler.Generate(length: 15)
+                RefreshTokenValue = _refreshTokenHandler.Generate(length: 15),
             };
 
         // Add new refresh token to the database.
@@ -174,8 +174,8 @@ internal sealed class LoginWithGoogleHandler
                 {
                     Email = googleUser.Email,
                     AvatarUrl = googleUser.Picture,
-                    FullName = googleUser.Name
-                }
+                    FullName = googleUser.Name,
+                },
             },
         };
     }
@@ -201,7 +201,7 @@ internal sealed class LoginWithGoogleHandler
 
     private User InitUser(GoogleUser user)
     {
-        var Id = new Guid();
+        var Id = Guid.NewGuid();
         return new()
         {
             Id = Id,
@@ -209,6 +209,7 @@ internal sealed class LoginWithGoogleHandler
             UserName = user.Email,
             Email = user.Email,
             Avatar = _defaultUserAvatarAsUrlHandler.Get(),
+            GenderId = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             Patient = new()
             {
                 UserId = Id,
@@ -221,7 +222,7 @@ internal sealed class LoginWithGoogleHandler
             UpdatedAt = DateTime.UtcNow,
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             RemovedAt = CommonConstant.MIN_DATE_TIME,
-            RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
         };
     }
 
