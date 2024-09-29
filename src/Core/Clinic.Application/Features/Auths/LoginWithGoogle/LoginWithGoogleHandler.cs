@@ -172,9 +172,9 @@ internal sealed class LoginWithGoogleHandler
                 RefreshToken = newRefreshToken.RefreshTokenValue,
                 User = new()
                 {
-                    Email = googleUser.Email,
-                    AvatarUrl = googleUser.Picture,
-                    FullName = googleUser.Name,
+                    Email = userFound.Email,
+                    AvatarUrl = userFound.Avatar,
+                    FullName = userFound.FullName,
                 },
             },
         };
@@ -208,7 +208,7 @@ internal sealed class LoginWithGoogleHandler
             FullName = user.Name,
             UserName = user.Email,
             Email = user.Email,
-            Avatar = _defaultUserAvatarAsUrlHandler.Get(),
+            Avatar = user.Picture,
             GenderId = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             Patient = new()
             {
