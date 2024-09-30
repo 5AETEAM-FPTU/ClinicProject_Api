@@ -52,15 +52,5 @@ internal sealed class OnlinePaymentEntityConfiguration : IEntityTypeConfiguratio
 
         // UpdatedBy property configuration.
         builder.Property(propertyExpression: entity => entity.UpdatedBy).IsRequired();
-
-        // Table relationships configurations.
-        // [OnlinePayment] - [Appointment] (1 - 1).
-        builder
-            .HasOne(navigationExpression: onlinePayment => onlinePayment.Appointment)
-            .WithOne(navigationExpression: appointment => appointment.OnlinePayment)
-            .HasForeignKey<Appointment>(foreignKeyExpression: appointment =>
-                appointment.OnlinePaymentId
-            )
-            .OnDelete(deleteBehavior: DeleteBehavior.NoAction);
     }
 }

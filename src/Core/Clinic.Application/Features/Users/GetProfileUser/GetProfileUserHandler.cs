@@ -48,7 +48,7 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
         {
             return new GetProfileUserResponse()
             {
-                StatusCode = GetProfileUserResponseStatusCode.FORBIDDEN
+                StatusCode = GetProfileUserResponseStatusCode.FORBIDDEN,
             };
         }
 
@@ -68,7 +68,7 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
         {
             return new GetProfileUserResponse()
             {
-                StatusCode = GetProfileUserResponseStatusCode.USER_IS_NOT_FOUND
+                StatusCode = GetProfileUserResponseStatusCode.USER_IS_NOT_FOUND,
             };
         }
 
@@ -83,7 +83,7 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
         {
             return new()
             {
-                StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED
+                StatusCode = GetProfileUserResponseStatusCode.USER_IS_TEMPORARILY_REMOVED,
             };
         }
 
@@ -99,12 +99,12 @@ public class GetProfileUserHandler : IFeatureHandler<GetProfileUserRequest, GetP
                     PhoneNumber = foundUser.PhoneNumber,
                     AvatarUrl = foundUser.Avatar,
                     FullName = foundUser.FullName,
-                    Gender = foundUser.Gender.Name,
+                    Gender = new() { Id = foundUser.Gender.Id, GenderName = foundUser.Gender.Name },
                     DOB = foundUser.Patient.DOB,
                     Address = foundUser.Patient.Address,
-                    Description = foundUser.Patient.Description
-                }
-            }
+                    Description = foundUser.Patient.Description,
+                },
+            },
         };
     }
 }

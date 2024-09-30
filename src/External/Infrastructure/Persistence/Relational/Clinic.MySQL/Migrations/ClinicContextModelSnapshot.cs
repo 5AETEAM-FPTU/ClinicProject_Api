@@ -43,9 +43,6 @@ namespace Clinic.MySQL.Migrations
                     b.Property<DateTime>("ExaminationDate")
                         .HasColumnType("DATETIME");
 
-                    b.Property<Guid>("OnlinePaymentId")
-                        .HasColumnType("char(36)");
-
                     b.Property<Guid>("PatientId")
                         .HasColumnType("char(36)");
 
@@ -71,9 +68,6 @@ namespace Clinic.MySQL.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("OnlinePaymentId")
-                        .IsUnique();
 
                     b.HasIndex("PatientId");
 
@@ -602,6 +596,9 @@ namespace Clinic.MySQL.Migrations
                     b.Property<int>("Amount")
                         .HasColumnType("int");
 
+                    b.Property<Guid>("AppointmentId")
+                        .HasColumnType("char(36)");
+
                     b.Property<DateTime>("CreatedAt")
                         .HasColumnType("DATETIME");
 
@@ -623,6 +620,9 @@ namespace Clinic.MySQL.Migrations
                         .HasColumnType("char(36)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AppointmentId")
+                        .IsUnique();
 
                     b.ToTable("OnlinePayments", null, t =>
                         {
@@ -1299,12 +1299,6 @@ namespace Clinic.MySQL.Migrations
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Appointment", b =>
                 {
-                    b.HasOne("Clinic.Domain.Commons.Entities.OnlinePayment", "OnlinePayment")
-                        .WithOne("Appointment")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.Appointment", "OnlinePaymentId")
-                        .OnDelete(DeleteBehavior.NoAction)
-                        .IsRequired();
-
                     b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
                         .WithMany("Appointments")
                         .HasForeignKey("PatientId")
@@ -1324,8 +1318,6 @@ namespace Clinic.MySQL.Migrations
                         .IsRequired();
 
                     b.Navigation("AppointmentStatus");
-
-                    b.Navigation("OnlinePayment");
 
                     b.Navigation("Patient");
 
@@ -1501,6 +1493,17 @@ namespace Clinic.MySQL.Migrations
                     b.Navigation("MedicineOrder");
                 });
 
+            modelBuilder.Entity("Clinic.Domain.Commons.Entities.OnlinePayment", b =>
+                {
+                    b.HasOne("Clinic.Domain.Commons.Entities.Appointment", "Appointment")
+                        .WithOne("OnlinePayment")
+                        .HasForeignKey("Clinic.Domain.Commons.Entities.OnlinePayment", "AppointmentId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Appointment");
+                });
+
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Patient", b =>
                 {
                     b.HasOne("Clinic.Domain.Commons.Entities.User", "User")
@@ -1667,6 +1670,8 @@ namespace Clinic.MySQL.Migrations
                     b.Navigation("Feedback");
 
                     b.Navigation("MedicalReport");
+
+                    b.Navigation("OnlinePayment");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.AppointmentStatus", b =>
@@ -1718,11 +1723,6 @@ namespace Clinic.MySQL.Migrations
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.MedicineType", b =>
                 {
                     b.Navigation("Medicines");
-                });
-
-            modelBuilder.Entity("Clinic.Domain.Commons.Entities.OnlinePayment", b =>
-                {
-                    b.Navigation("Appointment");
                 });
 
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.Patient", b =>

@@ -1,3 +1,4 @@
+using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -11,6 +12,7 @@ using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedE
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
+using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -20,6 +22,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.OnlinePayment.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
@@ -182,8 +185,24 @@ public interface IUnitOfWork
     /// </summary>
     public IGetSchedulesByDateRepository GetSchedulesByDateRepository { get; }
 
+
     /// <sumary>
     ///    GetAllDoctorForBookingRepository feature.
     /// </summary>
     public IGetAllDoctorForBookingRepository GetAllDoctorForBookingRepository { get; }
+
+    /// <summary>
+    ///    CreateNewAppointmentRepository feature.
+    /// </summary>
+    public ICreateNewAppointmentRepository CreateNewAppointmentRepository { get; }
+
+    /// <summary>
+    ///    CreateNewOnlinePaymentRepository feature.
+    /// </summary>
+    public ICreateNewOnlinePaymentRepository CreateNewOnlinePaymentRepository { get; }
+    /// <sumary>
+    ///    GetAppointmentsByDateRepository feature.
+    /// </summary>
+    public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
+
 }

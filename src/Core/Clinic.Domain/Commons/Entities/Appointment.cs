@@ -37,8 +37,6 @@ public class Appointment : IBaseEntity, ICreatedEntity, ITemporarilyRemovedEntit
 
     public Guid StatusId { get; set; }
 
-    public Guid OnlinePaymentId { get; set; }
-
     public Guid ScheduleId { get; set; }
 
     // Navigation properties.

@@ -1,11 +1,11 @@
-﻿using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
-using Clinic.Domain.Commons.Entities;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 
@@ -23,16 +23,18 @@ internal class GetAllRetreatmentTypeRepository : IGetAllRetreatmentTypeRepositor
         _retreatmentDetails = _context.Set<RetreatmentType>();
     }
 
-    public async Task<IEnumerable<RetreatmentType>> FindAllRetreatmentTypeQueryAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<RetreatmentType>> FindAllRetreatmentTypeQueryAsync(
+        CancellationToken cancellationToken
+    )
     {
         return await _retreatmentDetails
-           .AsNoTracking()
-           .Select(retreatmentDetail => new RetreatmentType()
-           {
-               Id = retreatmentDetail.Id,
-               Name = retreatmentDetail.Name,
-               Constant = retreatmentDetail.Constant,
-           })
-           .ToListAsync(cancellationToken: cancellationToken);
+            .AsNoTracking()
+            .Select(retreatmentDetail => new RetreatmentType()
+            {
+                Id = retreatmentDetail.Id,
+                Name = retreatmentDetail.Name,
+                Constant = retreatmentDetail.Constant,
+            })
+            .ToListAsync(cancellationToken: cancellationToken);
     }
 }

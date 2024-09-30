@@ -25,14 +25,19 @@ public class GetProfileUserResponse : IFeatureResponse
 
             public string FullName { get; init; }
 
-            public string Gender { get; init; }
+            public ResponseGender Gender { get; init; }
+
+            public sealed class ResponseGender
+            {
+                public Guid Id { get; init; }
+                public string GenderName { get; init; }
+            }
 
             public DateTime? DOB { get; init; }
 
             public string Address { get; init; }
 
             public string Description { get; init; }
-
         }
     }
 }
