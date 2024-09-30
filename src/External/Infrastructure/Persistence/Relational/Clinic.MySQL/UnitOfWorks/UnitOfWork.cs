@@ -1,4 +1,5 @@
 using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -21,6 +22,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.OnlinePayment.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
@@ -31,7 +33,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
-using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
+using Clinic.MySQL.Repositories.Appointments;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.MySQL.Repositories.Auths.ForgotPassword;
@@ -44,6 +46,7 @@ using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
+using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
@@ -53,6 +56,7 @@ using Clinic.MySQL.Repositories.Enums.GetAllGender;
 using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
+using Clinic.MySQL.Repositories.OnlinePayment.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
@@ -103,6 +107,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllRetreatmentTypeRepository _getAllRetreatmentTypeRepository;
     private ICreateSchedulesRepository _createSchedulesRepository;
     private IGetSchedulesByDateRepository _getSchedulesByDateRepository;
+    private ICreateNewAppointmentRepository _createNewAppointmentRepository;
+    private ICreateNewOnlinePaymentRepository _createNewOnlinePaymentRepository;
     private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
 
     public UnitOfWork(
@@ -316,8 +322,30 @@ public class UnitOfWork : IUnitOfWork
         get { return _getSchedulesByDateRepository ??= new GetSchedulesByDateRepository(_context); }
     }
 
+    public ICreateNewAppointmentRepository CreateNewAppointmentRepository
+    {
+        get
+        {
+            return _createNewAppointmentRepository ??= new CreateNewAppointmentRepository(_context);
+        }
+    }
+
+    public ICreateNewOnlinePaymentRepository CreateNewOnlinePaymentRepository
+    {
+        get
+        {
+            return _createNewOnlinePaymentRepository ??= new CreateNewOnlinePaymentRepository(
+                _context
+            );
+        }
+    }
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository
     {
-        get { return _getAppointmentsByDateRepository ??= new GetAppointmentsByDateRepository(_context); }
+        get
+        {
+            return _getAppointmentsByDateRepository ??= new GetAppointmentsByDateRepository(
+                _context
+            );
+        }
     }
 }

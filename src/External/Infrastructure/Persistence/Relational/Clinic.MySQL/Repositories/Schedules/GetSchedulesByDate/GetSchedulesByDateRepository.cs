@@ -35,7 +35,7 @@ internal class GetSchedulesByDateRepository : IGetSchedulesByDateRepository
             .Select(entity => new Schedule()
             {
                 StartDate = entity.StartDate,
-                EndDate = entity.EndDate
+                EndDate = entity.EndDate,
             })
             .ToListAsync(cancellationToken);
     }

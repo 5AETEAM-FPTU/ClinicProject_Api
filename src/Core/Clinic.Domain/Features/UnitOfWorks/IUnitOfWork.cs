@@ -1,3 +1,4 @@
+using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -20,6 +21,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.OnlinePayment.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
@@ -182,6 +184,15 @@ public interface IUnitOfWork
     /// </summary>
     public IGetSchedulesByDateRepository GetSchedulesByDateRepository { get; }
 
+    /// <summary>
+    ///    CreateNewAppointmentRepository feature.
+    /// </summary>
+    public ICreateNewAppointmentRepository CreateNewAppointmentRepository { get; }
+
+    /// <summary>
+    ///    CreateNewOnlinePaymentRepository feature.
+    /// </summary>
+    public ICreateNewOnlinePaymentRepository CreateNewOnlinePaymentRepository { get; }
     /// <sumary>
     ///    GetAppointmentsByDateRepository feature.
     /// </summary>
