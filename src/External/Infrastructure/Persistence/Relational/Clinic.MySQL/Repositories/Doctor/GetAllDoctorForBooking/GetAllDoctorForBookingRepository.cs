@@ -26,36 +26,8 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
 
     public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorForBookingQueryAsync(CancellationToken cancellationToken)
     {
-        var defaultSchedules = new List<Schedule>()
-            {
-                new Schedule()
-                {
-                    StartDate = new DateTime(2024, 9, 25, 10, 30, 0),
-                    Appointment = new Appointment()
-                    {
-                        Feedback = new Feedback()
-                        {
-                            Vote = 4
-                        }
-                    }
-                },
-                new Schedule()
-                {
-                    StartDate = new DateTime(2024, 10, 10, 10, 30, 0),
-                    Appointment = new Appointment()
-                    {
-                        Feedback = new Feedback()
-                        {
-                            Vote = 3
-                        }
-                    }
-                }
-            };
+        
         return await _userDetails
-            //.Include(doctor => doctor.User)
-            //.Include(doctor => doctor.Schedules)
-            //.ThenInclude(schedule => schedule.Appointment)
-            //.ThenInclude(appointment => appointment.Feedback)
             .AsNoTracking()
             .Where(doctor =>  doctor.Schedules != null && doctor.Schedules.Any(schedule => schedule.StartDate > DateTime.Now))
             .Select(selector: doctor => new Domain.Commons.Entities.Doctor()
@@ -78,17 +50,16 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
                     },
                 })
                 .ToList(),
-                Schedules = defaultSchedules,
-                //doctor.Schedules.Select(doctorSchedule => new Schedule()
-                //{
-                //    Appointment = new Appointment()
-                //    {
-                //        Feedback = new Feedback()
-                //        {
-                //            Vote = doctorSchedule.Appointment.Feedback.Vote
-                //        }
-                //    }
-                //}),
+                Schedules = doctor.Schedules.Select(doctorSchedule => new Schedule()
+                {
+                    Appointment = new Appointment()
+                    {
+                        Feedback = new Feedback()
+                        {
+                            Vote = doctorSchedule.Appointment.Feedback != null ? doctorSchedule.Appointment.Feedback.Vote : 0,
+                        }
+                    }
+                }),
                 Address = doctor.Address,
                 Achievement = doctor.Achievement,
                 User = new User()
