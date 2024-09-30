@@ -35,7 +35,7 @@ public class ChangingPasswordHttpResponseManager
                 new()
                 {
                     HttpCode = StatusCodes.Status400BadRequest,
-                    AppCode = response.StatusCode.ToAppCode()
+                    AppCode = response.StatusCode.ToAppCode(),
                 }
         );
 
@@ -45,7 +45,7 @@ public class ChangingPasswordHttpResponseManager
                 new()
                 {
                     HttpCode = StatusCodes.Status500InternalServerError,
-                    AppCode = response.StatusCode.ToAppCode()
+                    AppCode = response.StatusCode.ToAppCode(),
                 }
         );
 

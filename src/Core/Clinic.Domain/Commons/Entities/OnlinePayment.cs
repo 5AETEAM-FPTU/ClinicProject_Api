@@ -26,6 +26,9 @@ public class OnlinePayment : IBaseEntity, ICreatedEntity, IUpdatedEntity
 
     public Guid UpdatedBy { get; set; }
 
+    // Foreign keys.
+    public Guid AppointmentId { get; set; }
+
     // Navigation properties.
     public Appointment Appointment { get; set; }
 }

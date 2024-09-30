@@ -73,5 +73,10 @@ internal sealed class AppointmentEntityConfiguration : IEntityTypeConfiguration<
             .HasOne(Appointment => Appointment.Feedback)
             .WithOne(Feedback => Feedback.Appointment)
             .HasForeignKey<Feedback>(Feedback => Feedback.AppointmentId);
+
+        builder
+            .HasOne(Appointment => Appointment.OnlinePayment)
+            .WithOne(OnlinePayment => OnlinePayment.Appointment)
+            .HasForeignKey<OnlinePayment>(OnlinePayment => OnlinePayment.AppointmentId);
     }
 }
