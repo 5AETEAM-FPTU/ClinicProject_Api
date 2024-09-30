@@ -1,4 +1,5 @@
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -11,6 +12,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
@@ -184,6 +186,12 @@ public interface IUnitOfWork
     /// </summary>
     public IGetSchedulesByDateRepository GetSchedulesByDateRepository { get; }
 
+
+    /// <sumary>
+    ///    GetAllDoctorForBookingRepository feature.
+    /// </summary>
+    public IGetAllDoctorForBookingRepository GetAllDoctorForBookingRepository { get; }
+
     /// <summary>
     ///    CreateNewAppointmentRepository feature.
     /// </summary>
@@ -193,8 +201,15 @@ public interface IUnitOfWork
     ///    CreateNewOnlinePaymentRepository feature.
     /// </summary>
     public ICreateNewOnlinePaymentRepository CreateNewOnlinePaymentRepository { get; }
+
     /// <sumary>
     ///    GetAppointmentsByDateRepository feature.
     /// </summary>
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
+
+    /// <sumary>
+    ///    GetUserBookedAppointmentRepository feature.
+    /// </summary>
+    public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
+
 }
