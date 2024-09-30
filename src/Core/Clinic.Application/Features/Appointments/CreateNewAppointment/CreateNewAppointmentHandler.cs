@@ -6,6 +6,8 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Constance;
+using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 
@@ -64,6 +66,46 @@ internal sealed class CreateNewAppointmentHandler
                 StatusCode = CreateNewAppointmentResponseStatusCode.USER_IS_NOT_FOUND
             };
         }
+         
+        var appointmentStatus = await _unitOfWork.CreateNewAppointmentRepository.GetPendingStatusAsync(cancellationToken:ct);
+
+        if(Equals(objA: appointmentStatus, objB: default)) {
+            return new() {
+                StatusCode = CreateNewAppointmentResponseStatusCode.DATABASE_OPERATION_FAIL
+            };
+        }
+
+        var foundSchedule = await _unitOfWork.CreateNewAppointmentRepository.IsExistSchedule(command.ScheduleId, cancellationToken:ct);
+
+        if(Equals(objA: foundSchedule, objB: default)) {
+            return new() {
+                StatusCode = CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_FOUND
+            };
+        }
+
+        var IsExistScheduleHadAppointment = await _unitOfWork.CreateNewAppointmentRepository.IsExistScheduleHadAppointment(command.ScheduleId, cancellationToken:ct);
+
+        if(IsExistScheduleHadAppointment) {
+            return new() {
+                StatusCode = CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_AVAILABLE
+            };
+        }
+
+        var appointment = new Appointment
+        {
+            Id = Guid.NewGuid(),
+            PatientId = command.PatientID,
+            ScheduleId = command.ScheduleId,
+            StatusId = appointmentStatus.Id,
+            DepositPayment = command.DepositPayment,
+            Description = command.Description,
+            CreatedBy = command.PatientID,
+            CreatedAt = DateTime.UtcNow,
+            RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            RemovedAt = CommonConstant.MIN_DATE_TIME,
+            UpdatedAt = CommonConstant.MIN_DATE_TIME,
+            UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+        };        
 
         return new() {
             StatusCode = CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS
