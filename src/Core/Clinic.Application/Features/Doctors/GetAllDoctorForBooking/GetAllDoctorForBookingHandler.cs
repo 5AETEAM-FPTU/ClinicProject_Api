@@ -74,7 +74,10 @@ public class GetAllDoctorForBookingHandler : IFeatureHandler<GetAllDoctorForBook
                     Address = doctor.Address,
                     Description = doctor.Description,
                     Achievement = doctor.Achievement,
-                    Gender = new() { Id = doctor.User.Gender.Id, GenderName = doctor.User.Gender.Name },
+                    Gender = new() 
+                    {   Id = doctor.User.Gender.Id, 
+                        GenderName = doctor.User.Gender.Name 
+                    },
                     Position = new()
                     {
                         Id = doctor.Position.Id,
