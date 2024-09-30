@@ -12,6 +12,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -45,6 +46,7 @@ using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
+using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
@@ -107,6 +109,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetSchedulesByDateRepository _getSchedulesByDateRepository;
     private ICreateNewAppointmentRepository _createNewAppointmentRepository;
     private ICreateNewOnlinePaymentRepository _createNewOnlinePaymentRepository;
+    private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -332,6 +335,15 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _createNewOnlinePaymentRepository ??= new CreateNewOnlinePaymentRepository(
+                _context
+            );
+        }
+    }
+    public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository
+    {
+        get
+        {
+            return _getAppointmentsByDateRepository ??= new GetAppointmentsByDateRepository(
                 _context
             );
         }
