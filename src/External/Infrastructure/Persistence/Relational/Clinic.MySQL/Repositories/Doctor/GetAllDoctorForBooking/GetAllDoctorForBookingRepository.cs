@@ -56,7 +56,7 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
                     {
                         Feedback = new Feedback()
                         {
-                            Vote = doctorSchedule.Appointment.Feedback.Vote,
+                            Vote = doctorSchedule.Appointment.Feedback != null ? doctorSchedule.Appointment.Feedback.Vote : 0,
                         }
                     }
                 }),
