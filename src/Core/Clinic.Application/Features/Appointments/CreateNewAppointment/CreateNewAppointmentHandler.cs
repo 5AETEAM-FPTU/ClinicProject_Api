@@ -91,13 +91,14 @@ internal sealed class CreateNewAppointmentHandler
             };
         }
 
-        var appointment = new Appointment
+        var newAppointment = new Appointment
         {
             Id = Guid.NewGuid(),
             PatientId = command.PatientID,
             ScheduleId = command.ScheduleId,
             StatusId = appointmentStatus.Id,
             DepositPayment = command.DepositPayment,
+            ExaminationDate = command.ExaminationDate,
             Description = command.Description,
             CreatedBy = command.PatientID,
             CreatedAt = DateTime.UtcNow,
@@ -107,7 +108,18 @@ internal sealed class CreateNewAppointmentHandler
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
         };        
 
-        return new() {
+        var dbResult = await _unitOfWork.CreateNewAppointmentRepository.CreateNewAppointment(
+            appointment: newAppointment,
+            cancellationToken: ct
+        );
+
+        if(!dbResult) {
+            return new() {
+                StatusCode = CreateNewAppointmentResponseStatusCode.DATABASE_OPERATION_FAIL
+            };
+        }
+
+        return new CreateNewAppointmentResponse() {
             StatusCode = CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS
         };
      }
