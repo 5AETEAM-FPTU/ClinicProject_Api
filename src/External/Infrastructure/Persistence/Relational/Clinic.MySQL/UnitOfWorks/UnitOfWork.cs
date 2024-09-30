@@ -1,5 +1,6 @@
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -35,6 +36,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Appointments;
+using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.MySQL.Repositories.Auths.ForgotPassword;
@@ -113,7 +115,7 @@ public class UnitOfWork : IUnitOfWork
     private ICreateNewAppointmentRepository _createNewAppointmentRepository;
     private ICreateNewOnlinePaymentRepository _createNewOnlinePaymentRepository;
     private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
-
+    private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -353,6 +355,16 @@ public class UnitOfWork : IUnitOfWork
             return _getAppointmentsByDateRepository ??= new GetAppointmentsByDateRepository(
                 _context
             );
+        }
+    }
+
+    public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository
+    {
+        get
+        {
+            return _getUserBookedAppointmentRepository ??= new GetUserBookedAppointmentRepository(
+                _context 
+             );
         }
     }
 }

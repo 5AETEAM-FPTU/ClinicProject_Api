@@ -1,4 +1,5 @@
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -200,9 +201,15 @@ public interface IUnitOfWork
     ///    CreateNewOnlinePaymentRepository feature.
     /// </summary>
     public ICreateNewOnlinePaymentRepository CreateNewOnlinePaymentRepository { get; }
+
     /// <sumary>
     ///    GetAppointmentsByDateRepository feature.
     /// </summary>
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
+
+    /// <sumary>
+    ///    GetUserBookedAppointmentRepository feature.
+    /// </summary>
+    public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
 
 }
