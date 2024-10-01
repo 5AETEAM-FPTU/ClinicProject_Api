@@ -41,20 +41,22 @@ public class AddDoctorEndpoint : Endpoint<AddDoctorRequest, AddDoctorHttpRespons
         CancellationToken ct
     )
     {
+        // Get app feature response.
         var appResponse = await req.ExecuteAsync(ct: ct);
 
+        // Convert to http response.    
         var httpResponse = AddDoctorHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
-
+        // Store the real http code of http response into a temporary variable.
         var httpResponseStatusCode = httpResponse.HttpCode;
         httpResponse.HttpCode = default;
-
+        // Send http response to client.
         await SendAsync(httpResponse, httpResponseStatusCode, ct);
-
+         // The http code of http response will be stored into a temporary variable.
         httpResponse.HttpCode = httpResponseStatusCode;
-
+        // Set the http code of http response back to real one.
         return httpResponse;
     }
 }

@@ -20,7 +20,6 @@ internal sealed class ChangingPasswordEndpoint
         PreProcessor<ValidationPreProcessor<ChangingPasswordRequest>>();
         AllowAnonymous();
         DontThrowIfValidationFails();
-        DontThrowIfValidationFails();
         Description(builder: builder =>
         {
             builder.ClearDefaultProduces(statusCodes: StatusCodes.Status400BadRequest);
@@ -33,7 +32,7 @@ internal sealed class ChangingPasswordEndpoint
             {
                 NewPassword = "string",
                 ResetPasswordToken = "string",
-                Email = "string"
+                Email = "string",
             };
             summary.Response<ChangingPasswordHttpResponse>(
                 description: "Represent successful operation response.",
