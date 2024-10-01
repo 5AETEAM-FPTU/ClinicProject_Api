@@ -21,7 +21,7 @@ public class GetAppointmentsByDateRepository : IGetAppointmentsByDateRepository
         _appointments = _context.Set<Appointment>();
     }
 
-    public async Task<IEnumerable<Appointment>> GetAppointmentsByDateQueryAsync(DateTime startDate, DateTime endDate, Guid userId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Appointment>> GetAppointmentsByDateQueryAsync(DateTime startDate, DateTime? endDate, Guid userId, CancellationToken cancellationToken = default)
     {
         return await _appointments
             .Include(appointment => appointment.Patient)

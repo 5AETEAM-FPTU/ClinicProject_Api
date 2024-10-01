@@ -118,7 +118,8 @@ public class GetProfileDoctorHandler
                             Id = item.Specialty.Id,
                             SpecialtyName = item.Specialty.Name,
                         }
-                    )
+                    ),
+                    IsOnDuty = foundUser.Doctor.IsOnDuty
                 },
             },
         };

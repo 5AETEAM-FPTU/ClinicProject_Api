@@ -64,6 +64,7 @@ internal class GetProfileDoctorRepository : IGetProfileDoctorRepository
                         .ToList(),
                     Address = user.Doctor.Address,
                     Achievement = user.Doctor.Achievement,
+                    IsOnDuty = user.Doctor.IsOnDuty
                 },
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
