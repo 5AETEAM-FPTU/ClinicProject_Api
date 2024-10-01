@@ -70,6 +70,8 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
+using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -115,7 +117,9 @@ public class UnitOfWork : IUnitOfWork
     private ICreateNewAppointmentRepository _createNewAppointmentRepository;
     private ICreateNewOnlinePaymentRepository _createNewOnlinePaymentRepository;
     private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
+    private IUpdateDutyStatusRepository _updateDutyStatusRepository;
     private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
+
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -366,5 +370,10 @@ public class UnitOfWork : IUnitOfWork
                 _context 
              );
         }
+    }
+
+    public IUpdateDutyStatusRepository UpdateDutyStatusRepository
+    {
+        get { return _updateDutyStatusRepository ??= new UpdateDutyStatusRepository(_context); }
     }
 }
