@@ -100,9 +100,15 @@ public class GetAppointmentsByDateHandler
                             DOB = appointment.Patient.DOB
                         },
                         Schedule = new GetAppointmentsByDateResponse.Body.AppointmentDTO.ScheduleDTO()
-                        {
+                        {                      
                             StartDate = appointment.Schedule.StartDate,
                             EndDate = appointment.Schedule.EndDate
+                        },
+                        AppointmentStatus = new GetAppointmentsByDateResponse.Body.AppointmentDTO.AppointmentStatusDTO()
+                        {
+                            Id = appointment.AppointmentStatus.Id,
+                            StatusName = appointment.AppointmentStatus.StatusName, 
+                            Constant = appointment.AppointmentStatus.Constant
                         }
 
                     }

@@ -38,6 +38,14 @@ public class GetAppointmentsByDateResponse : IFeatureResponse
 
                 public DateTime EndDate { get; set; }
             }
+
+            public AppointmentStatusDTO AppointmentStatus { get; set; }
+            public sealed class AppointmentStatusDTO
+            {
+                public Guid Id { get; set; }
+                public string StatusName { get; set; }
+                public string Constant { get; set; }
+            }
         }
     }
 }

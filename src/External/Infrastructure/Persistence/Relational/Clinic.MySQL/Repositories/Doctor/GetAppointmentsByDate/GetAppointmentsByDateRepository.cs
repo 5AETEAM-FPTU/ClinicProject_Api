@@ -27,6 +27,7 @@ public class GetAppointmentsByDateRepository : IGetAppointmentsByDateRepository
             .Include(appointment => appointment.Patient)
             .ThenInclude(patient => patient.User)
             .Include(appointment => appointment.Schedule)
+            .Include(appointment => appointment.AppointmentStatus)
             .Where(appointment =>
                     appointment.Schedule.StartDate >= startDate
                     && appointment.Schedule.EndDate <= endDate
