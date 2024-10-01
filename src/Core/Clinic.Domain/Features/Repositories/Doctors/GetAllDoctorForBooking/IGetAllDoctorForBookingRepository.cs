@@ -10,7 +10,10 @@ namespace Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 /// </summary>
 public interface IGetAllDoctorForBookingRepository
 {
-    Task<IEnumerable<Doctor>> FindAllDoctorForBookingQueryAsync(CancellationToken cancellationToken);
-    
+    Task<IEnumerable<Doctor>> FindAllDoctorForBookingQueryAsync(
+        int pageIndex,
+        int pageSize,
+        CancellationToken cancellationToken);
+    Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken);
 }
 
