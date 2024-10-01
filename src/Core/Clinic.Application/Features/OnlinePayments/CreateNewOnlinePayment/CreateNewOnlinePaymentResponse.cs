@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
 
-namespace Clinic.Application.Features.OnlinePayment.CreateNewOnlinePayment;
+namespace Clinic.Application.Features.OnlinePayments.CreateNewOnlinePayment;
 
 public sealed class CreateNewOnlinePaymentResponse : IFeatureResponse
 {
