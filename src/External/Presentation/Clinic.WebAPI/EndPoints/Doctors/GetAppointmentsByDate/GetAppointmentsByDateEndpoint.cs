@@ -10,14 +10,15 @@ using Microsoft.AspNetCore.Http;
 namespace Clinic.WebAPI.EndPoints.Doctors.GetAppointmentsByDate;
 
 /// <summary>
-///     GetSchedulesByDate endpoint
+///     GetAppointmentsByDate endpoint
 /// </summary>
 public class GetAppointmentsByDateEndpoint
     : Endpoint<GetAppointmentsByDateRequest, GetAppointmentsByDateHttpResponse>
 {
     public override void Configure()
     {
-        Get("doctor/appointments/{date}");
+        // param bind from at request
+        Get("/doctor/appointments");
         PreProcessor<ValidationPreProcessor<GetAppointmentsByDateRequest>>();
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
@@ -27,8 +28,8 @@ public class GetAppointmentsByDateEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to get appointments on date of doctor.";
-            summary.Description = "This endpoint allows doctor to get his appointments on date.";
+            summary.Summary = "Endpoint to get appointments on date or range date of doctor.";
+            summary.Description = "This endpoint allows doctor to get his appointments on date or range date.";
             summary.Response<GetAppointmentsByDateHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

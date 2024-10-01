@@ -66,9 +66,15 @@ public class GetAppointmentsByDateHandler
 
 
         // Handle date
-        var startDate = request.Date.Date;
-        var endDate = startDate.AddDays(1).AddTicks(-1);
-
+        var startDate = request.StartDate.Date;
+        var endDate = request.EndDate;
+        if (request.EndDate != null)
+        {
+            endDate = request.EndDate?.Date.AddDays(1).AddTicks(-1);
+        } else
+        {
+            endDate = startDate.AddDays(1).AddTicks(-1);
+        }
         //Get Appointments on day and by doctorId
         var appointments = await _unitOfWork.GetAppointmentsByDateRepository.GetAppointmentsByDateQueryAsync(
             startDate: startDate,
