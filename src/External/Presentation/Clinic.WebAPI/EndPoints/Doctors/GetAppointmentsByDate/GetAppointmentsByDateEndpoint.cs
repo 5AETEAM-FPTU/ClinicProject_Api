@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using Clinic.Application.Features.Doctors.GetAppointmentsByDate;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
 using Clinic.WebAPI.EndPoints.Doctors.GetAppointmentsByDate.HttpResponseMapper;
-using Clinic.WebAPI.EndPoints.Schedules.GetSchedulesByDate.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -30,7 +29,7 @@ public class GetAppointmentsByDateEndpoint
         {
             summary.Summary = "Endpoint to get appointments on date of doctor.";
             summary.Description = "This endpoint allows doctor to get his appointments on date.";
-            summary.Response<GetSchedulesByDateHttpResponse>(
+            summary.Response<GetAppointmentsByDateHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {

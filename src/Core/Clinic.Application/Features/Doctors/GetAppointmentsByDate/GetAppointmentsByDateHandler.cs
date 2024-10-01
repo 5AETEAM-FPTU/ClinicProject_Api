@@ -4,18 +4,14 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.FIleObjectStorage;
-using Clinic.Application.Features.Users.UpdateUserDesciption;
-using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Clinic.Application.Features.Doctors.GetAppointmentsByDate;
 
 /// <summary>
-///     GetSchedulesByDate Handler
+///     GetAppointmentsByDate Handler
 /// </summary>
 public class GetAppointmentsByDateHandler
     : IFeatureHandler<GetAppointmentsByDateRequest, GetAppointmentsByDateResponse>
@@ -87,19 +83,23 @@ public class GetAppointmentsByDateHandler
         return new GetAppointmentsByDateResponse()
         {
             StatusCode = GetAppointmentsByDateResponseStatusCode.OPERATION_SUCCESS,
+            ResponseBody = new()
+            {
             AppointmentDTOResponse = appointments
                 .Select(appointment =>
-                    new GetAppointmentsByDateResponse.AppointmentDTO()
+                    new GetAppointmentsByDateResponse.Body.AppointmentDTO()
                     {
+                        Id = appointment.Id,
                         Description = appointment.Description,
-                        PatientDTOResponse = new GetAppointmentsByDateResponse.AppointmentDTO.PatientDTO()
+                        Patient = new GetAppointmentsByDateResponse.Body.AppointmentDTO.PatientDTO()
                         {
+                            Avatar = appointment.Patient.User.Avatar,
                             FullName = appointment.Patient.User.FullName,
                             PhoneNumber = appointment.Patient.User.PhoneNumber,
                             Gender = appointment.Patient.User.Gender,
                             DOB = appointment.Patient.DOB
                         },
-                        ScheduleDTOResponse = new GetAppointmentsByDateResponse.AppointmentDTO.ScheduleDTO()
+                        Schedule = new GetAppointmentsByDateResponse.Body.AppointmentDTO.ScheduleDTO()
                         {
                             StartDate = appointment.Schedule.StartDate,
                             EndDate = appointment.Schedule.EndDate
@@ -107,6 +107,9 @@ public class GetAppointmentsByDateHandler
 
                     }
                 )
+                .ToList()
+            }
+
         };
     }
 }

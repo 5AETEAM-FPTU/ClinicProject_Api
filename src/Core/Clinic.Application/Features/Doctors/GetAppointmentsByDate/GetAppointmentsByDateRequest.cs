@@ -6,7 +6,7 @@ using FastEndpoints;
 namespace Clinic.Application.Features.Doctors.GetAppointmentsByDate;
 
 /// <summary>
-///     GetSchedulesByDate Request
+///     GetAppointmentsByDate Request
 /// </summary>
 
 public class GetAppointmentsByDateRequest : IFeatureRequest<GetAppointmentsByDateResponse>

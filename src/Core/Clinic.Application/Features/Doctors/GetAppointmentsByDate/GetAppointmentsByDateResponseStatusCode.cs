@@ -1,7 +1,7 @@
 ﻿namespace Clinic.Application.Features.Doctors.GetAppointmentsByDate;
 
 /// <summary>
-///     GetSchedulesByDate Response Status Code
+///     GetAppointmentsByDate Response Status Code
 /// </summary>
 public enum GetAppointmentsByDateResponseStatusCode
 {

@@ -25,6 +25,7 @@ public class GetAppointmentsByDateRepository : IGetAppointmentsByDateRepository
     {
         return await _appointments
             .Include(appointment => appointment.Patient)
+            .ThenInclude(patient => patient.User)
             .Include(appointment => appointment.Schedule)
             .Where(appointment =>
                     appointment.Schedule.StartDate >= startDate

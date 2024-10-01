@@ -1,7 +1,7 @@
 ﻿namespace Clinic.Application.Features.Doctors.GetAppointmentsByDate;
 
 /// <summary>
-///     Extension Method for GetSchedulesByDate features.
+///     Extension Method for GetAppointmentsByDate features.
 /// </summary>
 public static class GetAppointmentsByDateExtensionMethod
 {

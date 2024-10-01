@@ -5,6 +5,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.Pagination;
+using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 
@@ -79,13 +80,13 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
                         PhoneNumber = user.PhoneNumber,
                         AvatarUrl = user.Avatar,
                         FullName = user.FullName,
-                        //Gender = user.Doctor.Gender,
+                        Gender = user.Gender,
                         DOB = user.Doctor.DOB,
                         Address = user.Doctor.Address,
                         Description = user.Doctor.Description,
                         Achievement = user.Doctor.Achievement,
-                        //Specialty = user.Doctor.Specialty,
-                        //Position = user.Doctor.Position
+                        Specialty = user.Doctor.DoctorSpecialties.Select(ds => ds.Specialty),
+                        Position = user.Doctor.Position
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
