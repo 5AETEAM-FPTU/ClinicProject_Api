@@ -10,4 +10,10 @@ namespace Clinic.Application.Features.Appointments.CreateNewAppointment;
 public sealed class CreateNewAppointmentResponse : IFeatureResponse
 {
     public CreateNewAppointmentResponseStatusCode StatusCode { get; set; }
+    public Body ResponseBody { get; init; }
+    public sealed class Body {
+        public Guid Id { get; init; }
+        public DateTime ExaminationDate {get; init;}
+        public bool DepositPayment {get;init;}
+    }
 }

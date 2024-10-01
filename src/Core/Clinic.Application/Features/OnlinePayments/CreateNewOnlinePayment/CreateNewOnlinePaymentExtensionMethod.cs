@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Clinic.Application.Features.OnlinePayment.CreateNewOnlinePayment;
+namespace Clinic.Application.Features.OnlinePayments.CreateNewOnlinePayment;
 
 public static class CreateNewOnlinePaymentExtensionMethod
 {

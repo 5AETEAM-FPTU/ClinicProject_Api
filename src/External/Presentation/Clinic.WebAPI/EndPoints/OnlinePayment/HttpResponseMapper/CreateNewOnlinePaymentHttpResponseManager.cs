@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Clinic.Application.Features.Appointments.CreateNewAppointment;
-using Clinic.Application.Features.OnlinePayment.CreateNewOnlinePayment;
+using Clinic.Application.Features.OnlinePayments.CreateNewOnlinePayment;
 using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.OnlinePayment.HttpResponseMapper;
@@ -63,6 +63,33 @@ public class CreateNewOnlinePaymentHttpResponseManager
                 new()
                 {
                     HttpCode = StatusCodes.Status403Forbidden,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+        _dictionary.Add(
+            key: CreateNewOnlinePaymentResponseStatusCode.USER_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+        _dictionary.Add(
+            key: CreateNewOnlinePaymentResponseStatusCode.APPOINTMENT_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+         _dictionary.Add(
+            key: CreateNewOnlinePaymentResponseStatusCode.APPOINTMENT_HAS_DEPOSITED,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status406NotAcceptable,
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );

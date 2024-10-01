@@ -10,6 +10,8 @@ using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
+using static Clinic.Application.Features.Enums.GetAllAppointmentStatus.GetAllAppointmentStatusResponse.Body;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
 
 namespace Clinic.Application.Features.Appointments.CreateNewAppointment;
 
@@ -17,12 +19,9 @@ internal sealed class CreateNewAppointmentHandler
     : IFeatureHandler<CreateNewAppointmentRequest, CreateNewAppointmentResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
-    private readonly IHttpContextAccessor _contextAccessor; 
+    private readonly IHttpContextAccessor _contextAccessor;
 
-    public CreateNewAppointmentHandler(
-        IUnitOfWork unitOfWork,
-        IHttpContextAccessor contextAccessor
-    )
+    public CreateNewAppointmentHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
     {
         _unitOfWork = unitOfWork;
         _contextAccessor = contextAccessor;
@@ -34,7 +33,7 @@ internal sealed class CreateNewAppointmentHandler
     /// <param name="command"></param>
     /// <param name="ct"></param>
     /// <returns></returns> <summary>
-    /// 
+    ///
     /// </summary>
     /// <param name="command"></param>
     /// <param name="ct">
@@ -49,66 +48,106 @@ internal sealed class CreateNewAppointmentHandler
     public async Task<CreateNewAppointmentResponse> ExecuteAsync(
         CreateNewAppointmentRequest command,
         CancellationToken ct
-    ) { 
-        
+    )
+    {
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
 
-        if(!Equals(objA: role, objB: "user")) {
-            return new() {
-                StatusCode = CreateNewAppointmentResponseStatusCode.FORBIDEN_ACCESS
-            };
-        } 
+        if (!Equals(objA: role, objB: "user"))
+        {
+            return new() { StatusCode = CreateNewAppointmentResponseStatusCode.FORBIDEN_ACCESS };
+        }
 
         var userId = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "sub");
 
-        if(Equals(objA: userId, objB: null)) {
-            return new() {
-                StatusCode = CreateNewAppointmentResponseStatusCode.USER_IS_NOT_FOUND
-            };
-        }
-         
-        var appointmentStatus = await _unitOfWork.CreateNewAppointmentRepository.GetPendingStatusAsync(cancellationToken:ct);
-
-        if(Equals(objA: appointmentStatus, objB: default)) {
-            return new() {
-                StatusCode = CreateNewAppointmentResponseStatusCode.DATABASE_OPERATION_FAIL
-            };
+        if (Equals(objA: userId, objB: default))
+        {
+            return new() { StatusCode = CreateNewAppointmentResponseStatusCode.USER_IS_NOT_FOUND };
         }
 
-        var foundSchedule = await _unitOfWork.CreateNewAppointmentRepository.IsExistSchedule(command.ScheduleId, cancellationToken:ct);
+        var appointmentStatus =
+            await _unitOfWork.CreateNewAppointmentRepository.GetPendingStatusAsync(
+                cancellationToken: ct
+            );
 
-        if(Equals(objA: foundSchedule, objB: default)) {
-            return new() {
-                StatusCode = CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_FOUND
+        if (Equals(objA: appointmentStatus, objB: default))
+        {
+            return new()
+            {
+                StatusCode = CreateNewAppointmentResponseStatusCode.DATABASE_OPERATION_FAIL,
             };
         }
 
-        var IsExistScheduleHadAppointment = await _unitOfWork.CreateNewAppointmentRepository.IsExistScheduleHadAppointment(command.ScheduleId, cancellationToken:ct);
+        var foundSchedule = await _unitOfWork.CreateNewAppointmentRepository.IsExistSchedule(
+            command.ScheduleId,
+            cancellationToken: ct
+        );
 
-        if(IsExistScheduleHadAppointment) {
-            return new() {
-                StatusCode = CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_AVAILABLE
+        if (Equals(objA: foundSchedule, objB: default))
+        {
+            return new()
+            {
+                StatusCode = CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_FOUND,
             };
         }
 
-        var appointment = new Appointment
+        var IsExistScheduleHadAppointment =
+            await _unitOfWork.CreateNewAppointmentRepository.IsExistScheduleHadAppointment(
+                command.ScheduleId,
+                cancellationToken: ct
+            );
+
+        if (IsExistScheduleHadAppointment)
+        {
+            return new()
+            {
+                StatusCode = CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_AVAILABLE,
+            };
+        }
+
+        var newAppointment = new Appointment
         {
             Id = Guid.NewGuid(),
-            PatientId = command.PatientID,
+            PatientId = Guid.Parse(userId),
             ScheduleId = command.ScheduleId,
             StatusId = appointmentStatus.Id,
             DepositPayment = command.DepositPayment,
+            ExaminationDate = command.ExaminationDate,
             Description = command.Description,
-            CreatedBy = command.PatientID,
-            CreatedAt = DateTime.UtcNow,
+            CreatedBy = Guid.Parse(userId),
+            CreatedAt = TimeZoneInfo.ConvertTimeFromUtc(
+                dateTime: DateTime.UtcNow,
+                destinationTimeZone: TimeZoneInfo.FindSystemTimeZoneById(
+                    id: "SE Asia Standard Time"
+                )
+            ),
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             RemovedAt = CommonConstant.MIN_DATE_TIME,
             UpdatedAt = CommonConstant.MIN_DATE_TIME,
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-        };        
-
-        return new() {
-            StatusCode = CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS
         };
-     }
+
+        var dbResult = await _unitOfWork.CreateNewAppointmentRepository.CreateNewAppointment(
+            appointment: newAppointment,
+            cancellationToken: ct
+        );
+
+        if (!dbResult)
+        {
+            return new()
+            {
+                StatusCode = CreateNewAppointmentResponseStatusCode.DATABASE_OPERATION_FAIL,
+            };
+        }
+
+        return new()
+        {
+            StatusCode = CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS,
+            ResponseBody = new()
+            {
+                Id = newAppointment.Id,
+                DepositPayment = newAppointment.DepositPayment,
+                ExaminationDate = newAppointment.ExaminationDate,
+            },
+        };
+    }
 }

@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.OnlinePayment.CreateNewOnlinePayment;
+using Clinic.Application.Features.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.WebAPI.EndPoints.OnlinePayment.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

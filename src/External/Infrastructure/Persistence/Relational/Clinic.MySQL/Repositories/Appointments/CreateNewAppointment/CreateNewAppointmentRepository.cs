@@ -9,7 +9,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.Appointments;
+namespace Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 
 internal class CreateNewAppointmentRepository : ICreateNewAppointmentRepository
 {
