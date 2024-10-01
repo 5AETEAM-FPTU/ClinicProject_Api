@@ -1,6 +1,7 @@
 ﻿using Clinic.Application.Commons.Abstractions;
 using System.Collections.Generic;
 using System;
+using Clinic.Application.Commons.Pagination;
 
 namespace Clinic.Application.Features.Doctors.GetAllDoctorForBooking;
 
@@ -15,7 +16,7 @@ public class GetAllDoctorForBookingResponse : IFeatureResponse
 
     public sealed class Body
     {
-        public IEnumerable<UserDetail> userDetails { get; init; }
+        public PaginationResponse<UserDetail> userDetails { get; init; }
 
         public sealed class UserDetail
         {
