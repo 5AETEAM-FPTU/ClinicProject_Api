@@ -43,6 +43,7 @@ internal class GetUserBookedAppointmentRepository : IGetUserBookedAppointmentRep
                         User = new User()
                         {
                             FullName = appointment.Schedule.Doctor.User.FullName,
+                            Avatar = appointment.Schedule.Doctor.User.Avatar
                         }
                     }
                 }

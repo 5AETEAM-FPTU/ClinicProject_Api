@@ -89,6 +89,7 @@ public class GetUserBookedAppointmentHandler
                     {
                         DoctorId = appointment.Schedule.Doctor.UserId,
                         FullName = appointment.Schedule.Doctor.User.FullName,
+                        AvatarUrl = appointment.Schedule.Doctor.User.Avatar,
                     }
                 })
             },
