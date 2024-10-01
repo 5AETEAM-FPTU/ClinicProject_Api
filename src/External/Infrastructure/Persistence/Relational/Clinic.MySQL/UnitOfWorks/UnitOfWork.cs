@@ -62,6 +62,8 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
+using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -104,6 +106,7 @@ public class UnitOfWork : IUnitOfWork
     private ICreateSchedulesRepository _createSchedulesRepository;
     private IGetSchedulesByDateRepository _getSchedulesByDateRepository;
     private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
+    private IUpdateDutyStatusRepository _updateDutyStatusRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -319,5 +322,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository
     {
         get { return _getAppointmentsByDateRepository ??= new GetAppointmentsByDateRepository(_context); }
+    }
+
+    public IUpdateDutyStatusRepository UpdateDutyStatusRepository
+    {
+        get { return _updateDutyStatusRepository ??= new UpdateDutyStatusRepository(_context); }
     }
 }

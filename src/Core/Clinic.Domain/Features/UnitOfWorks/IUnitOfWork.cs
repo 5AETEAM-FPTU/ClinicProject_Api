@@ -14,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
@@ -186,4 +187,9 @@ public interface IUnitOfWork
     ///    GetAppointmentsByDateRepository feature.
     /// </summary>
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
+
+    /// <sumary>
+    ///    UpdateDutyStatusRepository feature.
+    /// </summary>
+    public IUpdateDutyStatusRepository UpdateDutyStatusRepository { get; }
 }
