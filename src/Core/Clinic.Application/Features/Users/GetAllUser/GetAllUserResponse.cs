@@ -27,7 +27,13 @@ public class GetAllUserResponse : IFeatureResponse
 
             public string FullName { get; init; }
 
-            public string Gender { get; init; }
+            public GenderDTO Gender { get; init; }
+            public sealed class GenderDTO
+            {
+                public Guid Id { get; init; }
+                public string Name { get; init; }
+                public string Constant { get; init; }
+            }
 
             public DateTime? DOB { get; init; }
 
