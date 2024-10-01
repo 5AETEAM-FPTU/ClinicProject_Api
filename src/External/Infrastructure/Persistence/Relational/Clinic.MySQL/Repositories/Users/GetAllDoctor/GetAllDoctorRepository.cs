@@ -57,14 +57,20 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                 {
                     DOB = user.Doctor.DOB,
                     Description = user.Doctor.Description,
-                    Position = user.Doctor.Position,
+                    Position = new()
+                    {
+                        Id = user.Doctor.Position.Id,
+                        Name= user.Doctor.Position.Name,
+                        Constant = user.Doctor.Position.Constant
+                    },
                     DoctorSpecialties = user
                         .Doctor.DoctorSpecialties.Select(doctorSpecialty => new DoctorSpecialty()
                         {
                             Specialty = new Specialty 
                             { 
                                 Id = doctorSpecialty.Specialty.Id,
-                                Name = doctorSpecialty.Specialty.Name 
+                                Name = doctorSpecialty.Specialty.Name,
+                                Constant = doctorSpecialty.Specialty.Constant
                             }
                         })
                         .ToList(),

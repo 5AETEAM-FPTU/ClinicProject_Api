@@ -85,7 +85,7 @@ public class GetAppointmentsByDateHandler
             StatusCode = GetAppointmentsByDateResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-            AppointmentDTOResponse = appointments
+            Appointment = appointments
                 .Select(appointment =>
                     new GetAppointmentsByDateResponse.Body.AppointmentDTO()
                     {
@@ -96,7 +96,12 @@ public class GetAppointmentsByDateHandler
                             Avatar = appointment.Patient.User.Avatar,
                             FullName = appointment.Patient.User.FullName,
                             PhoneNumber = appointment.Patient.User.PhoneNumber,
-                            Gender = appointment.Patient.User.Gender,
+                            Gender = new GetAppointmentsByDateResponse.Body.AppointmentDTO.PatientDTO.GenderDTO()
+                            {
+                                Id = appointment.Patient.User.Gender.Id,
+                                Name = appointment.Patient.User.Gender.Name,
+                                Constant = appointment.Patient.User.Gender.Constant
+                            },
                             DOB = appointment.Patient.DOB
                         },
                         Schedule = new GetAppointmentsByDateResponse.Body.AppointmentDTO.ScheduleDTO()

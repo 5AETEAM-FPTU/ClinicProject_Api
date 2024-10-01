@@ -80,7 +80,12 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
                         PhoneNumber = user.PhoneNumber,
                         AvatarUrl = user.Avatar,
                         FullName = user.FullName,
-                        //Gender = user.Patient.Gender,
+                        Gender = new GetAllUserResponse.Body.User.GenderDTO()
+                        {
+                            Id = user.Gender.Id,
+                            Name = user.Gender.Name,
+                            Constant = user.Gender.Constant,
+                        },
                         DOB = user.Patient.DOB,
                         Address = user.Patient.Address,
                         Description = user.Patient.Description,

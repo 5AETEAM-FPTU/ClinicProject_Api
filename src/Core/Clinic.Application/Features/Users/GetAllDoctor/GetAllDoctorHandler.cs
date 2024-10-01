@@ -80,13 +80,30 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
                         PhoneNumber = user.PhoneNumber,
                         AvatarUrl = user.Avatar,
                         FullName = user.FullName,
-                        //Gender = new user.Gender,
+                        Gender = new GetAllDoctorResponse.Body.User.GenderDTO()
+                        {
+                            Id = user.Gender.Id,
+                            Name = user.Gender.Name,
+                            Constant = user.Gender.Constant,    
+                        },
                         DOB = user.Doctor.DOB,
                         Address = user.Doctor.Address,
                         Description = user.Doctor.Description,
-                        Achievement = user.Doctor.Achievement
-                        //Specialty = user.Doctor.DoctorSpecialties.Select(ds => ds.Specialty),
-                        //Position = user.Doctor.Position
+                        Achievement = user.Doctor.Achievement,
+                        Specialty = user.Doctor.DoctorSpecialties
+                            .Select(ds => new GetAllDoctorResponse.Body.User.SpecialtyDTO()
+                            {
+                                Id =ds.Specialty.Id,
+                                Name = ds.Specialty.Name,
+                                Constant = ds.Specialty.Constant
+                            }
+                        ),
+                        Position = new GetAllDoctorResponse.Body.User.PositionDTO()
+                        {
+                            Id = user.Doctor.Position.Id,
+                            Name = user.Doctor.Position.Name,
+                           Constant = user.Doctor.Position.Constant
+                        }
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,

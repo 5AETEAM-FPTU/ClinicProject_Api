@@ -34,7 +34,8 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
         return await _patient
             .AsNoTracking()
             .Where(predicate: user =>
-                user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                user.Patient != null
+                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
                 && user.RemovedBy
                     == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             )
@@ -45,7 +46,12 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
                 FullName = user.FullName,
                 PhoneNumber = user.PhoneNumber,
                 Avatar = user.Avatar,
-                Gender = new() { Name = user.Gender.Name, Constant = user.Gender.Constant },
+                Gender = new() 
+                {
+                    Id = user.Gender.Id,
+                    Name = user.Gender.Name, 
+                    Constant = user.Gender.Constant
+                },
                 Patient = new()
                 {
                     DOB = user.Patient.DOB,

@@ -33,6 +33,7 @@ public class GetAllDoctorResponse : IFeatureResponse
             {
                 public Guid Id { get; init; }
                 public string Name { get; init; }
+                public string Constant {  get; init; }
             }
 
             public DateTime? DOB { get; init; }
@@ -48,12 +49,15 @@ public class GetAllDoctorResponse : IFeatureResponse
             {
                 public Guid Id { get; init; }
                 public string Name { get; init; }
+                public string Constant { get; init; }
+
             } 
             public PositionDTO Position { get; init; }
             public sealed class PositionDTO
             {
                 public Guid Id { get; init; }
                 public string Name { get; init; }
+                public string Constant { get; init; }
             }
         }
     }

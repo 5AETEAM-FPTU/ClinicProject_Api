@@ -15,7 +15,7 @@ public class GetAppointmentsByDateResponse : IFeatureResponse
     public Body ResponseBody { get; init; }
     public sealed class Body
     {
-        public List<AppointmentDTO> AppointmentDTOResponse { get; init; }
+        public List<AppointmentDTO> Appointment { get; init; }
 
         public sealed class AppointmentDTO
         {
@@ -27,7 +27,13 @@ public class GetAppointmentsByDateResponse : IFeatureResponse
                 public string Avatar { get; set; }
                 public string FullName { get; set; }
                 public string PhoneNumber { get; set; }
-                public Gender Gender { get; set; }
+                public GenderDTO Gender { get; set; }
+                public sealed class GenderDTO
+                {
+                    public Guid Id { get; set; }
+                    public string Name { get; set; }
+                    public string Constant { get; set; }
+                }
                 public DateTime DOB { get; set; }
             }
 
