@@ -1,4 +1,5 @@
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -214,7 +215,7 @@ public interface IUnitOfWork
     ///    UpdateDutyStatusRepository feature.
     /// </summary>
     public IUpdateDutyStatusRepository UpdateDutyStatusRepository { get; }
-    
+
     ///    GetUserBookedAppointmentRepository feature.
     /// </summary>
     public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
@@ -223,6 +224,7 @@ public interface IUnitOfWork
     ///     UpdateAppointmentDepositPaymentRepository feature.
     /// </summary>
     public IUpdateAppointmentDepositPaymentRepository UpdateAppointmentDepositPaymentRepository { get; }
+
     /// <sumary>
     ///    GetAllMedicalReportRepository feature.
     /// </summary>
@@ -236,4 +238,9 @@ public interface IUnitOfWork
     ///    GetRecentBookedAppointmentsRepository feature.
     /// </summary>
     public IGetRecentBookedAppointmentsRepository GetRecentBookedAppointmentsRepository { get; }
+
+    /// <sumary>
+    ///    GetAppointmentUpcoming feature.
+    /// </summary>
+    public IGetAppointmentUpcomingRepository GetAppointmentUpcomingRepository { get; }
 }
