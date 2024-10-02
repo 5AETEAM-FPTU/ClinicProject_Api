@@ -29,6 +29,7 @@ internal class GetAppointmentUpcomingRepository : IGetAppointmentUpcomingReposit
     )
     {
         return _appointments
+            .AsNoTracking()
             .Where(entity => entity.PatientId == userId && entity.ExaminationDate > DateTime.Now)
             .OrderBy(entity => entity.ExaminationDate)
             .Select(entity => entity.ExaminationDate)
