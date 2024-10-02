@@ -76,6 +76,10 @@ using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
 using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
+using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
+using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
+using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -123,6 +127,9 @@ public class UnitOfWork : IUnitOfWork
     private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
     private IUpdateDutyStatusRepository _updateDutyStatusRepository;
     private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
+    private IUpdateAppointmentDepositPaymentRepository _updateAppointmentDepositPaymentRepository;
+
+    private IGetAllMedicalReportRepository _getAllMedicalReportRepository;
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
     private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
 
@@ -398,4 +405,14 @@ public class UnitOfWork : IUnitOfWork
         get { return _getRecentBookedAppointmentsRepository ??= new GetRecentBookedAppointmentsRepository(_context); }
     }
 
+    public IUpdateAppointmentDepositPaymentRepository UpdateAppointmentDepositPaymentRepository {
+        get{
+            return _updateAppointmentDepositPaymentRepository ??= new UpdateAppointmentDepositPaymentRepository(_context);
+        }
+    }
+    public IGetAllMedicalReportRepository GetAllMedicalReportRepository
+    {
+        get { return _getAllMedicalReportRepository ??= new GetAllMedicalReportRepository(_context); }
+
+    }
 }

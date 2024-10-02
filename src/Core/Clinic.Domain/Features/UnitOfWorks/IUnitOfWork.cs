@@ -1,5 +1,6 @@
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -13,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedE
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
+using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
@@ -189,7 +191,6 @@ public interface IUnitOfWork
     /// </summary>
     public IGetSchedulesByDateRepository GetSchedulesByDateRepository { get; }
 
-
     /// <sumary>
     ///    GetAllDoctorForBookingRepository feature.
     /// </summary>
@@ -213,12 +214,20 @@ public interface IUnitOfWork
     ///    UpdateDutyStatusRepository feature.
     /// </summary>
     public IUpdateDutyStatusRepository UpdateDutyStatusRepository { get; }
-
+    
     ///    GetUserBookedAppointmentRepository feature.
     /// </summary>
     public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
 
+    /// <summary>
+    ///     UpdateAppointmentDepositPaymentRepository feature.
+    /// </summary>
+    public IUpdateAppointmentDepositPaymentRepository UpdateAppointmentDepositPaymentRepository { get; }
     /// <sumary>
+    ///    GetAllMedicalReportRepository feature.
+    /// </summary>
+    public IGetAllMedicalReportRepository GetAllMedicalReportRepository { get; }
+
     ///    GetScheduleDatesByMonthRepository feature.
     /// </summary>
     public IGetScheduleDatesByMonthRepository GetScheduleDatesByMonthRepository { get; }
