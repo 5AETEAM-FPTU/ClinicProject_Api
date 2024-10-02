@@ -9,7 +9,6 @@ namespace Clinic.Application.Features.Appointments.CreateNewAppointment;
 
 public class CreateNewAppointmentRequest : IFeatureRequest<CreateNewAppointmentResponse>
 {
-    public Guid PatientID { get; init; }
     public Guid ScheduleId { get; init; }
     public bool ReExamination { get; set; }
     public DateTime ExaminationDate { get; init; }

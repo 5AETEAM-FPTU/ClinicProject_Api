@@ -5,6 +5,8 @@ using System.Threading;
 using System.Linq;
 using Microsoft.AspNetCore.Http;
 using System.Security.Claims;
+using System;
+using Clinic.Application.Commons.Pagination;
 
 namespace Clinic.Application.Features.Doctors.GetAllDoctorForBooking;
 
@@ -52,10 +54,15 @@ public class GetAllDoctorForBookingHandler : IFeatureHandler<GetAllDoctorForBook
 
         // Find all doctor for booking query.
         var doctors = await _unitOfWork.GetAllDoctorForBookingRepository.FindAllDoctorForBookingQueryAsync(
+            pageIndex: request.PageIndex,
+            pageSize: request.PageSize,
             cancellationToken: cancellationToken
         );
 
-
+        // Count all the doctors.
+        var counDoctor = await _unitOfWork.GetAllDoctorForBookingRepository.CountAllDoctorsQueryAsync(
+            cancellationToken: cancellationToken
+        );
 
         // Response successfully.
         return new GetAllDoctorForBookingResponse()
@@ -64,38 +71,45 @@ public class GetAllDoctorForBookingHandler : IFeatureHandler<GetAllDoctorForBook
 
             ResponseBody = new()
             {
-                userDetails = doctors.Select(doctor => new GetAllDoctorForBookingResponse.Body.UserDetail
+                userDetails = new PaginationResponse<GetAllDoctorForBookingResponse.Body.UserDetail>()
                 {
-                    Username = doctor.User.UserName,
-                    PhoneNumber = doctor.User.PhoneNumber,
-                    AvatarUrl = doctor.User.Avatar,
-                    FullName = doctor.User.FullName,
-                    DOB = doctor.DOB,
-                    Address = doctor.Address,
-                    Description = doctor.Description,
-                    Achievement = doctor.Achievement,
-                    Gender = new() 
-                    {   Id = doctor.User.Gender.Id, 
-                        GenderName = doctor.User.Gender.Name 
-                    },
-                    Position = new()
+                    Contents = doctors.Select(doctor => new GetAllDoctorForBookingResponse.Body.UserDetail()
                     {
-                        Id = doctor.Position.Id,
-                        PositionName = doctor.Position.Name,
-                    },
-                    Specialties = doctor.DoctorSpecialties.Select(
+                        Username = doctor.User.UserName,
+                        PhoneNumber = doctor.User.PhoneNumber,
+                        AvatarUrl = doctor.User.Avatar,
+                        FullName = doctor.User.FullName,
+                        DOB = doctor.DOB,
+                        Address = doctor.Address,
+                        Description = doctor.Description,
+                        Achievement = doctor.Achievement,
+                        Gender = new()
+                        {
+                            Id = doctor.User.Gender.Id,
+                            GenderName = doctor.User.Gender.Name
+                        },
+                        Position = new()
+                        {
+                            Id = doctor.Position.Id,
+                            PositionName = doctor.Position.Name,
+                        },
+                        Specialties = doctor.DoctorSpecialties.Select(
                         item => new GetAllDoctorForBookingResponse.Body.UserDetail.ResponseSpecialties()
                         {
                             Id = item.Specialty.Id,
                             SpecialtyName = item.Specialty.Name,
                         }
-                    ),
-                    Rating = doctor.Schedules
-                    .Select(schedule => schedule?.Appointment)
-                    .Select(appointment => appointment?.Feedback)
-                    .Select(feedback => feedback.Vote)
-                    .Average()
-                })
+                         ),
+                        Rating = doctor.Schedules
+                        .Select(schedule => schedule?.Appointment)
+                        .Select(appointment => appointment?.Feedback)
+                        .Select(feedback => feedback.Vote)
+                        .Average()
+                    }),
+                    PageIndex = request.PageIndex,
+                    PageSize = request.PageSize,
+                    TotalPages = (int)Math.Ceiling((double)counDoctor / request.PageSize)
+                }
             }
         };
     }

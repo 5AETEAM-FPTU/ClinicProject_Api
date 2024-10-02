@@ -17,13 +17,14 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
-using Clinic.Domain.Features.Repositories.OnlinePayment.CreateNewOnlinePayment;
+using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -208,7 +209,10 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
 
-    /// <sumary>
+    ///    UpdateDutyStatusRepository feature.
+    /// </summary>
+    public IUpdateDutyStatusRepository UpdateDutyStatusRepository { get; }
+
     ///    GetUserBookedAppointmentRepository feature.
     /// </summary>
     public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }

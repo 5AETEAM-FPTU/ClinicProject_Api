@@ -24,7 +24,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
-using Clinic.Domain.Features.Repositories.OnlinePayment.CreateNewOnlinePayment;
+using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -37,6 +37,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Appointments;
+using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
@@ -61,7 +62,7 @@ using Clinic.MySQL.Repositories.Enums.GetAllGender;
 using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
-using Clinic.MySQL.Repositories.OnlinePayment.CreateNewOnlinePayment;
+using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
@@ -72,6 +73,8 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
+using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -117,6 +120,7 @@ public class UnitOfWork : IUnitOfWork
     private ICreateNewAppointmentRepository _createNewAppointmentRepository;
     private ICreateNewOnlinePaymentRepository _createNewOnlinePaymentRepository;
     private IGetAppointmentsByDateRepository _getAppointmentsByDateRepository;
+    private IUpdateDutyStatusRepository _updateDutyStatusRepository;
     private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
     public UnitOfWork(
@@ -381,4 +385,8 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IUpdateDutyStatusRepository UpdateDutyStatusRepository
+    {
+        get { return _updateDutyStatusRepository ??= new UpdateDutyStatusRepository(_context); }
+    }
 }

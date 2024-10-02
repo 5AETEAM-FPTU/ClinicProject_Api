@@ -24,7 +24,15 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
         _userDetails = _context.Set<Domain.Commons.Entities.Doctor>();
     }
 
-    public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorForBookingQueryAsync(CancellationToken cancellationToken)
+    public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
+    {
+        return _userDetails.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+    }
+
+    public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorForBookingQueryAsync(
+        int pageIndex,
+        int pageSize,
+        CancellationToken cancellationToken)
     {
         
         return await _userDetails
@@ -77,6 +85,8 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
                 }
 
             })
-           .ToListAsync(cancellationToken: cancellationToken);
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
+            .ToListAsync(cancellationToken: cancellationToken);
     }
 }
