@@ -1,25 +1,26 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Doctors.GetAppointmentsByDate;
+using Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
+using Clinic.Application.Features.Schedules.GetScheduleDatesByMonth;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
 using Clinic.WebAPI.EndPoints.Doctors.GetAppointmentsByDate.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Schedules.GetScheduleDatesByMonth.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Doctors.GetAppointmentsByDate;
+namespace Clinic.WebAPI.EndPoints.Schedules.GetSchedulesByDate;
 
 /// <summary>
-///     GetAppointmentsByDate endpoint
+///     GetSchedulesByDate endpoint
 /// </summary>
-public class GetAppointmentsByDateEndpoint
-    : Endpoint<GetAppointmentsByDateRequest, GetAppointmentsByDateHttpResponse>
+public class GetScheduleDatesByMonthEndpoint
+    : Endpoint<GetScheduleDatesByMonthRequest, GetScheduleDatesByMonthHttpResponse>
 {
     public override void Configure()
     {
-        // param bind from at request
-        Get("/doctor/appointments");
-        PreProcessor<ValidationPreProcessor<GetAppointmentsByDateRequest>>();
+        Get("/schedules/month");
+        PreProcessor<ValidationPreProcessor<GetScheduleDatesByMonthRequest>>();
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -28,27 +29,27 @@ public class GetAppointmentsByDateEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for doctor/staff.";
-            summary.Description = "This endpoint allows doctor to get his appointments on date or range date.";
-            summary.Response<GetAppointmentsByDateHttpResponse>(
+            summary.Summary = "Endpoint for doctor overview to get date they have schedule.";
+            summary.Description = "This endpoint allows doctor to get schedule dates by month.";
+            summary.Response<GetScheduleDatesByMonthHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = GetAppointmentsByDateResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = GetScheduleDatesByMonthResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<GetAppointmentsByDateHttpResponse> ExecuteAsync(
-        GetAppointmentsByDateRequest req,
+    public override async Task<GetScheduleDatesByMonthHttpResponse> ExecuteAsync(
+        GetScheduleDatesByMonthRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = GetAppointmentByDateHttpResponseMapper
+        var httpResponse = GetScheduleDatesByMonthHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
