@@ -17,6 +17,7 @@ using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
+using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
@@ -243,4 +244,9 @@ public interface IUnitOfWork
     ///    GetAppointmentUpcoming feature.
     /// </summary>
     public IGetAppointmentUpcomingRepository GetAppointmentUpcomingRepository { get; }
+
+    /// <sumary>
+    ///    GetAvailableDoctor feature.
+    /// </summary>
+    public IGetAvailableDoctorRepository GetAvailableDoctorRepository { get; }
 }
