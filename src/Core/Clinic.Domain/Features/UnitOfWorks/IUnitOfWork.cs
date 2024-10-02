@@ -13,6 +13,7 @@ using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedE
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
+using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
@@ -218,6 +219,10 @@ public interface IUnitOfWork
     public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
 
     /// <sumary>
+    ///    GetAllMedicalReportRepository feature.
+    /// </summary>
+    public IGetAllMedicalReportRepository GetAllMedicalReportRepository { get; }
+
     ///    GetScheduleDatesByMonthRepository feature.
     /// </summary>
     public IGetScheduleDatesByMonthRepository GetScheduleDatesByMonthRepository { get; }
