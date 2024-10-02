@@ -402,6 +402,7 @@ public class UnitOfWork : IUnitOfWork
         get{
             return _updateAppointmentDepositPaymentRepository ??= new UpdateAppointmentDepositPaymentRepository(_context);
         }
+    }
     public IGetAllMedicalReportRepository GetAllMedicalReportRepository
     {
         get { return _getAllMedicalReportRepository ??= new GetAllMedicalReportRepository(_context); }
