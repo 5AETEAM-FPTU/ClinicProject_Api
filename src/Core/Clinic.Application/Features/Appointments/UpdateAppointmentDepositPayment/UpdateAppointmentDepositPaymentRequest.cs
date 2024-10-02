@@ -8,5 +8,5 @@ public class UpdateAppoinmentDepositPaymenRequest
 {
     public Guid AppointmentId { get; init; }
 
-    public bool isDepositPayment { get; init; }
+    public bool IsDepositPayment { get; init; }
 }

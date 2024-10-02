@@ -18,5 +18,5 @@ public interface IGetAppointmentsByDateRepository
         CancellationToken cancellationToken = default
     );
 
-    public Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
+    Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
 }

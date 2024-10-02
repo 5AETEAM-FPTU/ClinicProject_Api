@@ -27,7 +27,20 @@ internal class UpdateAppointmentDepositPaymentHandler : IFeatureHandler<UpdateAp
             return new() { StatusCode = UpdateAppointmentDepositPaymentResponseStatusCode.FORBIDEN_ACCESS };
         }
 
-        var foundAppointment = null;
+        var foundAppointment = await _unitOfWork.UpdateAppointmentDepositPaymentRepository.GetAppointmentByIdAsync(command.AppointmentId, ct);
+
+        if (Equals(objA: foundAppointment, objB: default))
+        {
+            return new() { StatusCode = UpdateAppointmentDepositPaymentResponseStatusCode.APPOINTMENTS_IS_NOT_FOUND };
+        }
+
+        var dbResult = await _unitOfWork.UpdateAppointmentDepositPaymentRepository.UpdateAppointmentDepositPaymentCommandAsync(foundAppointment.Id, command.IsDepositPayment, ct);
+        
+        if (!dbResult) {
+            return new() {
+                StatusCode = UpdateAppointmentDepositPaymentResponseStatusCode.DATABASE_OPERATION_FAIL
+            };
+        }
 
         return new() {
             StatusCode = UpdateAppointmentDepositPaymentResponseStatusCode.OPERATION_SUCCESS

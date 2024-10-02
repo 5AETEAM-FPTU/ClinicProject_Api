@@ -34,6 +34,7 @@ public class GetAppointmentsByDateRepository : IGetAppointmentsByDateRepository
                     && appointment.Schedule.EndDate <= endDate
                     && appointment.Schedule.DoctorId == userId
                     )
+            .OrderBy(appointment => appointment.Schedule.StartDate)
             .ToListAsync(cancellationToken);
     }
 

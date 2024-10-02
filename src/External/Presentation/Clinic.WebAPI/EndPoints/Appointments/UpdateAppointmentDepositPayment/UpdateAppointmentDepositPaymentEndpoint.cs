@@ -2,6 +2,8 @@ using System.Threading;
 using System.Threading.Tasks;
 using FastEndpoints;
 using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
 
@@ -9,7 +11,26 @@ internal sealed class UpdateAppointmentDepositPaymentEndpoint:Endpoint<UpdateApp
 
     public override void Configure() {
 
-        base.Configure();
+        Patch("appointment/update-deposit-payment");
+        AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
+        DontThrowIfValidationFails();
+        Description(builder: builder =>
+        {
+            builder.ClearDefaultProduces(statusCodes: StatusCodes.Status400BadRequest);
+        });
+        Summary(endpointSummary: summary =>
+        {
+            summary.Summary = "Endpoint for update appointment deposit payment.";
+            summary.Description = "This endpoint is used for update appointment deposit payment purpose.";
+            summary.Response<UpdateAppointmentDepositPaymentHttpResponse>(
+                description: "Represent successful operation response.",
+                example: new()
+                {
+                    HttpCode = StatusCodes.Status200OK,
+                    AppCode = UpdateAppointmentDepositPaymentResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                }
+            );
+        });
     }
 
     public override async Task<UpdateAppointmentDepositPaymentHttpResponse> ExecuteAsync(UpdateAppoinmentDepositPaymenRequest req, CancellationToken ct)
