@@ -63,6 +63,7 @@ public class GetSchedulesByDateHandler
                     {
                         StartTime = schedule.StartDate,
                         EndTime = schedule.EndDate,
+                        IsHadAppointment = schedule.Appointment != null
                     })
                     .ToList()
             }

@@ -144,9 +144,11 @@ internal sealed class CreateNewAppointmentHandler
             StatusCode = CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
+              Appointment = new () {
                 Id = newAppointment.Id,
                 DepositPayment = newAppointment.DepositPayment,
                 ExaminationDate = newAppointment.ExaminationDate,
+              }
             },
         };
     }
