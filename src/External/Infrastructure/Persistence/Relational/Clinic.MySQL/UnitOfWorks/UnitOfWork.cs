@@ -36,7 +36,6 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
-using Clinic.MySQL.Repositories.Appointments;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -75,6 +74,8 @@ using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
 using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
+using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
+using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -130,6 +131,7 @@ public class UnitOfWork : IUnitOfWork
 
     private IGetAllMedicalReportRepository _getAllMedicalReportRepository;
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
+    private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -396,6 +398,11 @@ public class UnitOfWork : IUnitOfWork
     public IUpdateDutyStatusRepository UpdateDutyStatusRepository
     {
         get { return _updateDutyStatusRepository ??= new UpdateDutyStatusRepository(_context); }
+    }
+
+    public IGetRecentBookedAppointmentsRepository GetRecentBookedAppointmentsRepository
+    {
+        get { return _getRecentBookedAppointmentsRepository ??= new GetRecentBookedAppointmentsRepository(_context); }
     }
 
     public IUpdateAppointmentDepositPaymentRepository UpdateAppointmentDepositPaymentRepository {
