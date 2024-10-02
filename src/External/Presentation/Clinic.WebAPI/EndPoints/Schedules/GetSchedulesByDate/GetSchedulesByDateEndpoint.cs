@@ -38,17 +38,18 @@ public class GetSchedulesByDateEndpoint
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = GetSchedulesByDateResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
-                    Body = new GetSchedulesByDateResponse.Body {
+                    Body = new GetSchedulesByDateResponse.Body
+                    {
                         TimeSlots = new List<GetSchedulesByDateResponse.Body.TimeSlot>
                         {
                             new()
                             {
-                               EndTime = CommonConstant.MIN_DATE_TIME,
-                               StartTime = CommonConstant.MIN_DATE_TIME,
-                               IsHadAppointment = false
-                            }
-                        }
-                    }
+                                EndTime = CommonConstant.MIN_DATE_TIME,
+                                StartTime = CommonConstant.MIN_DATE_TIME,
+                                IsHadAppointment = false,
+                            },
+                        },
+                    },
                 }
             );
         });
