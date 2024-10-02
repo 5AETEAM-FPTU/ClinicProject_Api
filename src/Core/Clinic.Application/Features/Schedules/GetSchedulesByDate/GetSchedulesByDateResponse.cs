@@ -22,6 +22,7 @@ public class GetSchedulesByDateResponse : IFeatureResponse
             public DateTime StartTime { get; set; }
 
             public DateTime EndTime { get; set; }
+            public bool IsHadAppointment {get; set;}
         }
     }
 }

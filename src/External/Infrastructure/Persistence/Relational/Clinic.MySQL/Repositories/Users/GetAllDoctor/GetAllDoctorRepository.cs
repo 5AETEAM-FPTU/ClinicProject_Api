@@ -13,17 +13,17 @@ namespace Clinic.MySQL.Repositories.Users.GetAllDoctor;
 internal class GetAllDoctorRepository : IGetAllDoctorsRepository
 {
     private readonly ClinicContext _context;
-    private DbSet<User> _doctors;
+    private DbSet<User> _users;
 
     public GetAllDoctorRepository(ClinicContext context)
     {
         _context = context;
-        _doctors = _context.Set<User>();
+        _users = _context.Set<User>();
     }
 
     public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
     {
-        return _doctors.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+        return _users.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
@@ -32,35 +32,50 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
         CancellationToken cancellationToken
     )
     {
-        return await _doctors
-            .AsNoTracking()
+        return await _users
+            .AsNoTracking()       
+            .Where(predicate: user => user.Doctor!= null)
             .Where(predicate: doctor =>
-                //doctor.UserRoles.Any(userRole => userRole.RoleId.Equals(Guid.Parse("c39aa1ac-8ded-46be-870c-115b200b09fc"))) &&
-                doctor.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
-                && doctor.RemovedBy
-                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                    doctor != null 
+                && doctor.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && doctor.RemovedBy == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             )
-            .Select(selector: doctor => new User()
+            .Select(selector: user => new User()
             {
-                Id = doctor.Id,
-                UserName = doctor.UserName,
-                FullName = doctor.FullName,
-                PhoneNumber = doctor.PhoneNumber,
-                Avatar = doctor.Avatar,
-                Gender = new() { Name = doctor.Gender.Name, Constant = doctor.Gender.Constant },
+                Id = user.Id,
+                UserName = user.UserName,
+                FullName = user.FullName,
+                PhoneNumber = user.PhoneNumber,
+                Avatar = user.Avatar,
+                Gender = new() 
+                { 
+                    Id = user.Gender.Id,
+                    Name = user.Gender.Name, 
+                    Constant = user.Gender.Constant 
+                },
                 Doctor = new()
                 {
-                    DOB = doctor.Doctor.DOB,
-                    Description = doctor.Doctor.Description,
-                    Position = doctor.Doctor.Position,
-                    DoctorSpecialties = doctor
+                    DOB = user.Doctor.DOB,
+                    Description = user.Doctor.Description,
+                    Position = new()
+                    {
+                        Id = user.Doctor.Position.Id,
+                        Name= user.Doctor.Position.Name,
+                        Constant = user.Doctor.Position.Constant
+                    },
+                    DoctorSpecialties = user
                         .Doctor.DoctorSpecialties.Select(doctorSpecialty => new DoctorSpecialty()
                         {
-                            Specialty = new Specialty { Name = doctorSpecialty.Specialty.Name }
+                            Specialty = new Specialty 
+                            { 
+                                Id = doctorSpecialty.Specialty.Id,
+                                Name = doctorSpecialty.Specialty.Name,
+                                Constant = doctorSpecialty.Specialty.Constant
+                            }
                         })
                         .ToList(),
-                    Address = doctor.Doctor.Address,
-                    Achievement = doctor.Doctor.Achievement
+                    Address = user.Doctor.Address,
+                    Achievement = user.Doctor.Achievement
                 }
             })
             .Skip((pageIndex - 1) * pageSize)

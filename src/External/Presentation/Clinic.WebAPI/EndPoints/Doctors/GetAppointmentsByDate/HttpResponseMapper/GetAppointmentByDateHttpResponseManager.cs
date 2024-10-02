@@ -25,7 +25,8 @@ public class GetAppointmentByDateHttpResponseManager
                 new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = response.StatusCode.ToAppCode()
+                    AppCode = response.StatusCode.ToAppCode(),
+                    Body = response.ResponseBody
                 }
         );
 

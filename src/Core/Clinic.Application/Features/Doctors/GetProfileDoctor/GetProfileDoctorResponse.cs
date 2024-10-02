@@ -58,6 +58,8 @@ public class GetProfileDoctorResponse : IFeatureResponse
                 public Guid Id { get; init; }
                 public string PositionName { get; init; }
             }
+
+            public bool IsOnDuty { get; init; }
         }
     }
 }

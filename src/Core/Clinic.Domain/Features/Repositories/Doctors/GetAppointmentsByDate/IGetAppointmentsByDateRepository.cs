@@ -7,16 +7,16 @@ using System.Threading.Tasks;
 namespace Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 
 /// <summary>
-///     Interface for Query GetSchedulesByDate Repository
+///     Interface for Query GetAppointmentsByDate Repository
 /// </summary>
 public interface IGetAppointmentsByDateRepository
 {
     Task<IEnumerable<Appointment>> GetAppointmentsByDateQueryAsync(
         DateTime startDate,
-        DateTime endDate,
+        DateTime? endDate,
         Guid userId,
         CancellationToken cancellationToken = default
     );
 
-    public Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
+    Task<User> GetUserByIdAsync(Guid userId, CancellationToken cancellationToken);
 }

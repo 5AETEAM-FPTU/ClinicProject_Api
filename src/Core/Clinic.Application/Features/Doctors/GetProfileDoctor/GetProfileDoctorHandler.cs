@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -118,6 +119,7 @@ public class GetProfileDoctorHandler
                             SpecialtyName = item.Specialty.Name,
                         }
                     ),
+                    IsOnDuty = foundUser.Doctor.IsOnDuty
                 },
             },
         };

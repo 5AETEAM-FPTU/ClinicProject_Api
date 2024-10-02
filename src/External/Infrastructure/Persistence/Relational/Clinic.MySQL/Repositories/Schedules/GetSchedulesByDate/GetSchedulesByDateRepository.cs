@@ -36,6 +36,7 @@ internal class GetSchedulesByDateRepository : IGetSchedulesByDateRepository
             {
                 StartDate = entity.StartDate,
                 EndDate = entity.EndDate,
+                Appointment = entity.Appointment.ScheduleId == entity.Id ? entity.Appointment : null
             })
             .ToListAsync(cancellationToken);
     }

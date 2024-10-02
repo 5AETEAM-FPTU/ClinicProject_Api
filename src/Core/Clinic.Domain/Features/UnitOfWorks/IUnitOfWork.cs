@@ -27,6 +27,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
@@ -221,4 +222,8 @@ public interface IUnitOfWork
     ///    GetAllMedicalReportRepository feature.
     /// </summary>
     public IGetAllMedicalReportRepository GetAllMedicalReportRepository { get; }
+
+    ///    GetScheduleDatesByMonthRepository feature.
+    /// </summary>
+    public IGetScheduleDatesByMonthRepository GetScheduleDatesByMonthRepository { get; }
 }

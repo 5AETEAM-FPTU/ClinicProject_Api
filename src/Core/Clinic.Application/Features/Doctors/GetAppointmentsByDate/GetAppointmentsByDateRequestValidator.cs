@@ -11,6 +11,6 @@ public sealed class GetAppointmentsByDateRequestValidator
 {
     public GetAppointmentsByDateRequestValidator()
     {
-        RuleFor(expression: request => request.Date).NotEmpty();
+        RuleFor(expression: request => request.StartDate).NotEmpty();
     }
 }

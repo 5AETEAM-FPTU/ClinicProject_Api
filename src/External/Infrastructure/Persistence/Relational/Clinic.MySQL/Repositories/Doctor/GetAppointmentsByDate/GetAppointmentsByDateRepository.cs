@@ -21,16 +21,20 @@ public class GetAppointmentsByDateRepository : IGetAppointmentsByDateRepository
         _appointments = _context.Set<Appointment>();
     }
 
-    public async Task<IEnumerable<Appointment>> GetAppointmentsByDateQueryAsync(DateTime startDate, DateTime endDate, Guid userId, CancellationToken cancellationToken = default)
+    public async Task<IEnumerable<Appointment>> GetAppointmentsByDateQueryAsync(DateTime startDate, DateTime? endDate, Guid userId, CancellationToken cancellationToken = default)
     {
         return await _appointments
             .Include(appointment => appointment.Patient)
+            .ThenInclude(patient => patient.User)
+            .ThenInclude(user => user.Gender)
             .Include(appointment => appointment.Schedule)
+            .Include(appointment => appointment.AppointmentStatus)
             .Where(appointment =>
                     appointment.Schedule.StartDate >= startDate
                     && appointment.Schedule.EndDate <= endDate
                     && appointment.Schedule.DoctorId == userId
                     )
+            .OrderBy(appointment => appointment.Schedule.StartDate)
             .ToListAsync(cancellationToken);
     }
 

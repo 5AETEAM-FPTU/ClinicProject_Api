@@ -1,5 +1,7 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Commons.Constance;
 using Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Application.Features.Schedules.GetSchedulesByDate;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
@@ -36,6 +38,18 @@ public class GetSchedulesByDateEndpoint
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = GetSchedulesByDateResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    Body = new GetSchedulesByDateResponse.Body
+                    {
+                        TimeSlots = new List<GetSchedulesByDateResponse.Body.TimeSlot>
+                        {
+                            new()
+                            {
+                                EndTime = CommonConstant.MIN_DATE_TIME,
+                                StartTime = CommonConstant.MIN_DATE_TIME,
+                                IsHadAppointment = false,
+                            },
+                        },
+                    },
                 }
             );
         });

@@ -32,11 +32,15 @@ public class CreateNewAppointmentEndpoint
                 {
                     AppCode = CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                     HttpCode = StatusCodes.Status200OK,
-                    Body = new CreateNewAppointmentResponse.Body{
-                        Id = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-                        DepositPayment = false,
-                        ExaminationDate = CommonConstant.MIN_DATE_TIME
-                    }
+                    Body = new CreateNewAppointmentResponse.Body
+                    {
+                        Appointment = new()
+                        {
+                            Id = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                            DepositPayment = false,
+                            ExaminationDate = CommonConstant.MIN_DATE_TIME,
+                        },
+                    },
                 }
             );
         });
