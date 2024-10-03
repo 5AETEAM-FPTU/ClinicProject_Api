@@ -37,16 +37,6 @@ public class GetUserBookedAppointmentHttpResponseManager
                 }
         );
 
-        _dictionary.Add(
-            key: GetUserBookedAppointmentResponseStatusCode.APPOINTMENTS_IS_NOT_FOUND,
-            value: (_, response) =>
-                new()
-                {
-                    HttpCode = StatusCodes.Status404NotFound,
-                    AppCode = response.StatusCode.ToAppCode()
-                }
-        );
-
        
         _dictionary.Add(
             key: GetUserBookedAppointmentResponseStatusCode.ROLE_IS_NOT_USER,

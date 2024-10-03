@@ -64,15 +64,6 @@ public class GetUserBookedAppointmentHandler
             cancellationToken: cancellationToken
         );
 
-        // Responds if userId is not found
-        if (Equals(objA: foundAppointment, objB: default))
-        {
-            return new GetUserBookedAppointmentResponse()
-            {
-                StatusCode = GetUserBookedAppointmentResponseStatusCode.APPOINTMENTS_IS_NOT_FOUND,
-            };
-        }
-
         // Response successfully.
         return new GetUserBookedAppointmentResponse()
         {
