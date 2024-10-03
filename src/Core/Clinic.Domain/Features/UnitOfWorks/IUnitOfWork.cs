@@ -18,6 +18,7 @@ using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
+using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
@@ -235,6 +236,10 @@ public interface IUnitOfWork
     ///    GetScheduleDatesByMonthRepository feature.
     /// </summary>
     public IGetScheduleDatesByMonthRepository GetScheduleDatesByMonthRepository { get; }
+    /// <sumary>
+    ///    GetMedicalReportByIdRepository feature.
+    /// </summary>
+    public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository { get; }
 
     /// <sumary>
     ///    GetRecentBookedAppointmentsRepository feature.
