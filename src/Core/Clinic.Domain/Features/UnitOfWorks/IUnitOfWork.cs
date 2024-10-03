@@ -1,4 +1,5 @@
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -17,6 +18,7 @@ using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
+using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
@@ -214,10 +216,12 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
 
+    /// <summary>
     ///    UpdateDutyStatusRepository feature.
     /// </summary>
     public IUpdateDutyStatusRepository UpdateDutyStatusRepository { get; }
 
+    /// <summary>
     ///    GetUserBookedAppointmentRepository feature.
     /// </summary>
     public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
@@ -232,9 +236,15 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAllMedicalReportRepository GetAllMedicalReportRepository { get; }
 
+    /// <summary>
     ///    GetScheduleDatesByMonthRepository feature.
     /// </summary>
     public IGetScheduleDatesByMonthRepository GetScheduleDatesByMonthRepository { get; }
+
+    /// <sumary>
+    ///    GetMedicalReportByIdRepository feature.
+    /// </summary>
+    public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository { get; }
 
     /// <sumary>
     ///    GetRecentBookedAppointmentsRepository feature.
@@ -255,4 +265,9 @@ public interface IUnitOfWork
     ///    UpdateScheduleById feature.
     /// </summary>
     public IUpdateScheduleByIdRepository UpdateScheduleByIdRepository { get; }
+
+    /// <sumary>
+    ///    GetAbsentAppointmentRepository feature.
+    /// </summary>
+    public IGetAbsentAppointmentRepository GetAbsentAppointmentRepository { get; }
 }

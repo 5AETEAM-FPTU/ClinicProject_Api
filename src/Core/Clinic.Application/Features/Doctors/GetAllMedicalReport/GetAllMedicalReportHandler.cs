@@ -71,7 +71,7 @@ public class GetAllMedicalReportHandler : IFeatureHandler<GetAllMedicalReportReq
             ResponseBody = new GetAllMedicalReportResponse.Body()
             {
               GroupedReports = reports
-                .GroupBy(report => report.Appointment.Schedule.StartDate.Day)
+                .GroupBy(report => report.Appointment.Schedule.StartDate.Date)
                 .Select(group => new GetAllMedicalReportResponse.Body.GroupedReport
                 {
                     DayOfDate = group.Key, // Group by day of the StartDate

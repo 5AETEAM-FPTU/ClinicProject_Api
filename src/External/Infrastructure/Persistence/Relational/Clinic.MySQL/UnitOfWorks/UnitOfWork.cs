@@ -1,6 +1,7 @@
 using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -45,6 +46,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
+using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -86,6 +88,9 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
+using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
+
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -134,12 +139,14 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateDutyStatusRepository _updateDutyStatusRepository;
     private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
     private IUpdateAppointmentDepositPaymentRepository _updateAppointmentDepositPaymentRepository;
-    private IGetAppointmentUpcomingRepository _getAppointmentUpcomingRepository;
     private IGetAllMedicalReportRepository _getAllMedicalReportRepository;
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
+    private IGetMedicalReportByIdRepository _getMedicalReportByIdRepository;
+    private IGetAppointmentUpcomingRepository _getAppointmentUpcomingRepository;
     private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
     private IGetAvailableDoctorRepository _getAvailableDoctorRepository;
     private IUpdateScheduleByIdRepository _updateScheduleByIdRepository;
+    private IGetAbsentAppointmentRepository _getAbsentAppointmentRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -456,5 +463,18 @@ public class UnitOfWork : IUnitOfWork
     public IUpdateScheduleByIdRepository UpdateScheduleByIdRepository
     {
         get { return _updateScheduleByIdRepository ??= new UpdateScheduleByIdRepository(_context); }
+    }
+
+    public IGetAbsentAppointmentRepository GetAbsentAppointmentRepository
+    {
+        get
+        {
+            return _getAbsentAppointmentRepository ??= new GetAbsentAppointmentRepository(_context);
+        }
+    }
+
+    public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository
+    {
+        get { return _getMedicalReportByIdRepository ??= new GetMedicalReportByIdRepository(_context); }
     }
 }

@@ -13,7 +13,7 @@ public class CreateNewOnlinePaymentEndpoint
 {
     public override void Configure()
     {
-        Post("online-payment/create");
+        Post("payment/create");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>

@@ -20,6 +20,7 @@ public class GetAllDoctorForBookingResponse : IFeatureResponse
 
         public sealed class UserDetail
         {
+            public Guid Id { get; init; }
             public string Username { get; init; }
 
             public string PhoneNumber { get; init; }
