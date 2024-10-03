@@ -84,6 +84,9 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
+using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
+
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -132,12 +135,12 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateDutyStatusRepository _updateDutyStatusRepository;
     private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
     private IUpdateAppointmentDepositPaymentRepository _updateAppointmentDepositPaymentRepository;
-    private IGetAppointmentUpcomingRepository _getAppointmentUpcomingRepository;
     private IGetAllMedicalReportRepository _getAllMedicalReportRepository;
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
+    private IGetMedicalReportByIdRepository _getMedicalReportByIdRepository;
+    private IGetAppointmentUpcomingRepository _getAppointmentUpcomingRepository;
     private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
     private IGetAvailableDoctorRepository _getAvailableDoctorRepository;
-
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -448,5 +451,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetAvailableDoctorRepository GetAvailableDoctorRepository
     {
         get { return _getAvailableDoctorRepository ??= new GetAvailableDoctorRepository(_context); }
+    }
+
+    public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository
+    {
+        get { return _getMedicalReportByIdRepository ??= new GetMedicalReportByIdRepository(_context); }
     }
 }
