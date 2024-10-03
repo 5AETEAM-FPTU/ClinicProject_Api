@@ -79,6 +79,8 @@ using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositP
 using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
+using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
+using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -127,9 +129,9 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateDutyStatusRepository _updateDutyStatusRepository;
     private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
     private IUpdateAppointmentDepositPaymentRepository _updateAppointmentDepositPaymentRepository;
-
     private IGetAllMedicalReportRepository _getAllMedicalReportRepository;
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
+    private IGetMedicalReportByIdRepository _getMedicalReportByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -407,5 +409,10 @@ public class UnitOfWork : IUnitOfWork
     {
         get { return _getAllMedicalReportRepository ??= new GetAllMedicalReportRepository(_context); }
 
+    }
+
+    public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository
+    {
+        get { return _getMedicalReportByIdRepository ??= new GetMedicalReportByIdRepository(_context)}
     }
 }
