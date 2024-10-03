@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Linq;
+﻿
 using Clinic.Application.Commons.Abstractions;
 using FluentValidation;
 
@@ -13,5 +12,6 @@ public sealed class RemoveAllSchedulesRequestValidator
 {
     public RemoveAllSchedulesRequestValidator()
     {
+        RuleFor(expression: request => request.Date).NotEmpty();
     }
 }
