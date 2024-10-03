@@ -25,6 +25,12 @@ internal sealed class QueueRoomEntityConfiguration : IEntityTypeConfiguration<Qu
             .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
             .IsRequired();
 
+        // Title property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.Title)
+            .HasColumnType(typeName: CommonConstant.Database.DataType.TEXT)
+            .IsRequired();
+
         // IsSuported property configuration.
         builder
             .Property(propertyExpression: entity => entity.IsSuported)

@@ -12,6 +12,8 @@ public class QueueRoom : IBaseEntity, ICreatedEntity, IUpdatedEntity
     public Guid Id { get; set; }
 
     // Normal columns.
+    public string Title { get; set; }
+
     public string Message { get; set; }
 
     public bool IsSuported { get; set; }
