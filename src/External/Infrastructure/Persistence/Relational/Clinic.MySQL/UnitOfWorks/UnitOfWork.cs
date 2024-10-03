@@ -88,6 +88,8 @@ using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
+using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -144,7 +146,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
     private IGetAvailableDoctorRepository _getAvailableDoctorRepository;
     private IGetAbsentAppointmentRepository _getAbsentAppointmentRepository;
-
+    private IGetRecentMedicalReportRepository _getRecentMedicalReportRepository;
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -468,5 +470,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository
     {
         get { return _getMedicalReportByIdRepository ??= new GetMedicalReportByIdRepository(_context); }
+    }
+
+    public IGetRecentMedicalReportRepository GetRecentMedicalReportRepository
+    {
+        get { return _getRecentMedicalReportRepository ??= new GetRecentMedicalReportRepository(_context); }
     }
 }
