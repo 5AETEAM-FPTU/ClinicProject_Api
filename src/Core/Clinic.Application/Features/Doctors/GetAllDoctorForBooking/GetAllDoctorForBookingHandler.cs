@@ -75,6 +75,7 @@ public class GetAllDoctorForBookingHandler : IFeatureHandler<GetAllDoctorForBook
                 {
                     Contents = doctors.Select(doctor => new GetAllDoctorForBookingResponse.Body.UserDetail()
                     {
+                        Id = doctor.UserId,
                         Username = doctor.User.UserName,
                         PhoneNumber = doctor.User.PhoneNumber,
                         AvatarUrl = doctor.User.Avatar,

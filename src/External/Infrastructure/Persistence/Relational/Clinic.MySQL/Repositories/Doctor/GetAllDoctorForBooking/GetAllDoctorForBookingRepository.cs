@@ -40,6 +40,7 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
             .Where(doctor =>  doctor.Schedules != null && doctor.Schedules.Any(schedule => schedule.StartDate > DateTime.Now))
             .Select(selector: doctor => new Domain.Commons.Entities.Doctor()
             {
+                UserId = doctor.UserId,
                 DOB = doctor.DOB,
                 Description = doctor.Description,
                 Position = new()
