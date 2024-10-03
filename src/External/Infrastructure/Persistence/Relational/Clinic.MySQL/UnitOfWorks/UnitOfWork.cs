@@ -1,6 +1,7 @@
 using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -44,6 +45,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
+using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -137,6 +139,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
     private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
     private IGetAvailableDoctorRepository _getAvailableDoctorRepository;
+    private IGetAbsentAppointmentRepository _getAbsentAppointmentRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -448,5 +451,13 @@ public class UnitOfWork : IUnitOfWork
     public IGetAvailableDoctorRepository GetAvailableDoctorRepository
     {
         get { return _getAvailableDoctorRepository ??= new GetAvailableDoctorRepository(_context); }
+    }
+
+    public IGetAbsentAppointmentRepository GetAbsentAppointmentRepository
+    {
+        get
+        {
+            return _getAbsentAppointmentRepository ??= new GetAbsentAppointmentRepository(_context);
+        }
     }
 }

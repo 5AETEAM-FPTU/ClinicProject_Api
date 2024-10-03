@@ -1,4 +1,5 @@
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -249,4 +250,9 @@ public interface IUnitOfWork
     ///    GetAvailableDoctor feature.
     /// </summary>
     public IGetAvailableDoctorRepository GetAvailableDoctorRepository { get; }
+
+    /// <sumary>
+    ///    GetAbsentAppointmentRepository feature.
+    /// </summary>
+    public IGetAbsentAppointmentRepository GetAbsentAppointmentRepository { get; }
 }
