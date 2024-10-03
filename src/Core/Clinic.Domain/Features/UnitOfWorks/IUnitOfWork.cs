@@ -1,4 +1,5 @@
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -17,7 +18,9 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
+using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -214,7 +217,7 @@ public interface IUnitOfWork
     ///    UpdateDutyStatusRepository feature.
     /// </summary>
     public IUpdateDutyStatusRepository UpdateDutyStatusRepository { get; }
-    
+
     ///    GetUserBookedAppointmentRepository feature.
     /// </summary>
     public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
@@ -223,6 +226,7 @@ public interface IUnitOfWork
     ///     UpdateAppointmentDepositPaymentRepository feature.
     /// </summary>
     public IUpdateAppointmentDepositPaymentRepository UpdateAppointmentDepositPaymentRepository { get; }
+
     /// <sumary>
     ///    GetAllMedicalReportRepository feature.
     /// </summary>
@@ -235,4 +239,20 @@ public interface IUnitOfWork
     ///    GetMedicalReportByIdRepository feature.
     /// </summary>
     public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository { get; }
+
+    /// <sumary>
+    ///    GetRecentBookedAppointmentsRepository feature.
+    /// </summary>
+    public IGetRecentBookedAppointmentsRepository GetRecentBookedAppointmentsRepository { get; }
+
+    /// <sumary>
+    ///    GetAppointmentUpcoming feature.
+    /// </summary>
+    public IGetAppointmentUpcomingRepository GetAppointmentUpcomingRepository { get; }
+
+    /// <sumary>
+    ///    GetAvailableDoctor feature.
+    /// </summary>
+    public IGetAvailableDoctorRepository GetAvailableDoctorRepository { get; }
+
 }

@@ -1,7 +1,6 @@
 ﻿using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.IdentityModel.JsonWebTokens;
 using System.Threading.Tasks;
 using System.Threading;
 using System;
@@ -71,6 +70,7 @@ public class GetMedicalReportByIdHandler
                     DOB = foundReport.PatientInformation.DOB,
                     FullName = foundReport.PatientInformation.FullName,
                     Gender = foundReport.PatientInformation.Gender,
+                    PhoneNumber = foundReport.PatientInformation.PhoneNumber,
                 },
                 MedicalReport = new GetMedicalReportByIdResponse.Body.ReportDetail()
                 {
