@@ -90,6 +90,10 @@ using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
+using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
+using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 
@@ -149,6 +153,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetAvailableDoctorRepository _getAvailableDoctorRepository;
     private IUpdateScheduleByIdRepository _updateScheduleByIdRepository;
     private IGetAbsentAppointmentRepository _getAbsentAppointmentRepository;
+    private IRemoveScheduleRepository _removeScheduleRepository;
+    private IRemoveAllSchedulesRepository _removeAllSchedulesRepository;
     private IGetRecentMedicalReportRepository _getRecentMedicalReportRepository;
     public UnitOfWork(
         ClinicContext context,
@@ -478,6 +484,16 @@ public class UnitOfWork : IUnitOfWork
     public IGetMedicalReportByIdRepository GetMedicalReportByIdRepository
     {
         get { return _getMedicalReportByIdRepository ??= new GetMedicalReportByIdRepository(_context); }
+    }
+
+    public IRemoveScheduleRepository RemoveScheduleRepository
+    {
+        get { return _removeScheduleRepository ??= new RemoveScheduleRepository(_context); }
+    }
+
+    public IRemoveAllSchedulesRepository RemoveAllSchedulesRepository
+    {
+        get { return _removeAllSchedulesRepository ??= new RemoveAllSchedulesRepository(_context); }
     }
 
     public IGetRecentMedicalReportRepository GetRecentMedicalReportRepository
