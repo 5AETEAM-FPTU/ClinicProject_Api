@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics.CodeAnalysis;
 using Clinic.Application.Commons.Abstractions;
 using FastEndpoints;
 
@@ -15,4 +16,7 @@ public class GetScheduleDatesByMonthRequest : IFeatureRequest<GetScheduleDatesBy
 
     [BindFrom("month")]
     public int Month { get; set; }
+
+    [BindFrom("doctorId")]
+    public Guid? DoctorId { get; set; }
 }

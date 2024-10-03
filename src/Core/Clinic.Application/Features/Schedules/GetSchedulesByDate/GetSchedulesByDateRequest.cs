@@ -13,4 +13,7 @@ public class GetSchedulesByDateRequest : IFeatureRequest<GetSchedulesByDateRespo
 {
     [BindFrom("date")]
     public DateTime Date { get; set; }
+
+    [BindFrom("doctorId")]
+    public Guid? DoctorId { get; set; }
 }

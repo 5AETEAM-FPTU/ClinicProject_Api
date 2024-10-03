@@ -1,12 +1,12 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
+using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.FIleObjectStorage;
-using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
+using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Clinic.Application.Features.Schedules.GetSchedulesByDate;
 
@@ -17,10 +17,12 @@ public class GetSchedulesByDateHandler
     : IFeatureHandler<GetSchedulesByDateRequest, GetSchedulesByDateResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
+    private IHttpContextAccessor _contextAccessor;
 
-    public GetSchedulesByDateHandler(IUnitOfWork unitOfWork)
+    public GetSchedulesByDateHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
     {
         _unitOfWork = unitOfWork;
+        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -41,6 +43,17 @@ public class GetSchedulesByDateHandler
         CancellationToken cancellationToken
     )
     {
+        // Get userId from sub type jwt
+        var userId = Guid.Parse(
+            _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
+        );
+
+        // Found user by userId
+        var foundUser = await _unitOfWork.GetScheduleDatesByMonthRepository.GetUserByIdAsync(
+            userId,
+            cancellationToken
+        );
+
         // Handle date
         var startDate = request.Date.Date;
         var endDate = startDate.AddDays(1).AddTicks(-1);
@@ -49,6 +62,7 @@ public class GetSchedulesByDateHandler
         var schedules = await _unitOfWork.GetSchedulesByDateRepository.GetSchedulesByDateQueryAsync(
             startDate: startDate,
             endDate: endDate,
+            doctorId: request.DoctorId != Guid.Empty ? (Guid)request.DoctorId : userId,
             cancellationToken: cancellationToken
         );
 

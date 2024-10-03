@@ -25,13 +25,18 @@ internal class GetSchedulesByDateRepository : IGetSchedulesByDateRepository
     }
 
     public async Task<IEnumerable<Schedule>> GetSchedulesByDateQueryAsync(
+        Guid doctorId,
         DateTime startDate,
         DateTime endDate,
         CancellationToken cancellationToken = default
     )
     {
         return await _schedules
-            .Where(entity => entity.StartDate >= startDate && entity.EndDate <= endDate)
+            .Where(entity =>
+                entity.StartDate >= startDate
+                && entity.EndDate <= endDate
+                && entity.DoctorId == doctorId
+            )
             .Select(entity => new Schedule()
             {
                 StartDate = entity.StartDate,

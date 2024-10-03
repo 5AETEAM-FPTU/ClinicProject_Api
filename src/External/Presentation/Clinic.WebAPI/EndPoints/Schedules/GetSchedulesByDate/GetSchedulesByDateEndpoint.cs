@@ -20,9 +20,9 @@ public class GetSchedulesByDateEndpoint
 {
     public override void Configure()
     {
-        Get("schedules/{date}");
+        Get("schedules/date");
+        AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<ValidationPreProcessor<GetSchedulesByDateRequest>>();
-        AllowAnonymous();
         DontThrowIfValidationFails();
         Description(builder =>
         {
