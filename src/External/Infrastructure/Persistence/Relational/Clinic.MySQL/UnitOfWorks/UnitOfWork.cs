@@ -36,6 +36,7 @@ using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
+using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -79,6 +80,7 @@ using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
+using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
@@ -143,6 +145,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAppointmentUpcomingRepository _getAppointmentUpcomingRepository;
     private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
     private IGetAvailableDoctorRepository _getAvailableDoctorRepository;
+    private IUpdateScheduleByIdRepository _updateScheduleByIdRepository;
     private IGetAbsentAppointmentRepository _getAbsentAppointmentRepository;
 
     public UnitOfWork(
@@ -455,6 +458,11 @@ public class UnitOfWork : IUnitOfWork
     public IGetAvailableDoctorRepository GetAvailableDoctorRepository
     {
         get { return _getAvailableDoctorRepository ??= new GetAvailableDoctorRepository(_context); }
+    }
+
+    public IUpdateScheduleByIdRepository UpdateScheduleByIdRepository
+    {
+        get { return _updateScheduleByIdRepository ??= new UpdateScheduleByIdRepository(_context); }
     }
 
     public IGetAbsentAppointmentRepository GetAbsentAppointmentRepository

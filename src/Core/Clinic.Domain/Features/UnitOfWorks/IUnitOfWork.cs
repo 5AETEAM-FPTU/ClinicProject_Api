@@ -35,6 +35,7 @@ using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
+using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -215,10 +216,12 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAppointmentsByDateRepository GetAppointmentsByDateRepository { get; }
 
+    /// <summary>
     ///    UpdateDutyStatusRepository feature.
     /// </summary>
     public IUpdateDutyStatusRepository UpdateDutyStatusRepository { get; }
 
+    /// <summary>
     ///    GetUserBookedAppointmentRepository feature.
     /// </summary>
     public IGetUserBookedAppointmentRepository GetUserBookedAppointmentRepository { get; }
@@ -233,9 +236,11 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAllMedicalReportRepository GetAllMedicalReportRepository { get; }
 
+    /// <summary>
     ///    GetScheduleDatesByMonthRepository feature.
     /// </summary>
     public IGetScheduleDatesByMonthRepository GetScheduleDatesByMonthRepository { get; }
+
     /// <sumary>
     ///    GetMedicalReportByIdRepository feature.
     /// </summary>
@@ -255,6 +260,11 @@ public interface IUnitOfWork
     ///    GetAvailableDoctor feature.
     /// </summary>
     public IGetAvailableDoctorRepository GetAvailableDoctorRepository { get; }
+
+    /// <sumary>
+    ///    UpdateScheduleById feature.
+    /// </summary>
+    public IUpdateScheduleByIdRepository UpdateScheduleByIdRepository { get; }
 
     /// <sumary>
     ///    GetAbsentAppointmentRepository feature.
