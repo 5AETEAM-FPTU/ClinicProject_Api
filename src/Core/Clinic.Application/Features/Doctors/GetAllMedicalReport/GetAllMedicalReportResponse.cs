@@ -20,7 +20,7 @@ public class GetAllMedicalReportResponse : IFeatureResponse
         public sealed class GroupedReport 
         {
             public IEnumerable<MedicalReport> MedicalReports { get; init; }
-            public int DayOfDate { get; init; }
+            public DateTime DayOfDate { get; init; }
             public sealed class MedicalReport
             {
                 public Guid PatientId { get; init; }
