@@ -1,6 +1,9 @@
+using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -14,10 +17,14 @@ using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedE
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
+using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
+using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
 using Clinic.Domain.Features.Repositories.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Domain.Features.Repositories.Enums.GetAllAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
@@ -36,8 +43,8 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
-using Clinic.MySQL.Repositories.Appointments;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
+using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
@@ -52,10 +59,14 @@ using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
+using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
+using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
+using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
+using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdatePrivateDoctorInfoRepository;
 using Clinic.MySQL.Repositories.Enums.GetAllAppointmentStatus;
 using Clinic.MySQL.Repositories.Enums.GetAllGender;
@@ -73,12 +84,6 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
-using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
-using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
-using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
-using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
-using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
-using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -127,9 +132,11 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateDutyStatusRepository _updateDutyStatusRepository;
     private IGetUserBookedAppointmentRepository _getUserBookedAppointmentRepository;
     private IUpdateAppointmentDepositPaymentRepository _updateAppointmentDepositPaymentRepository;
-
+    private IGetAppointmentUpcomingRepository _getAppointmentUpcomingRepository;
     private IGetAllMedicalReportRepository _getAllMedicalReportRepository;
     private IGetScheduleDatesByMonthRepository _getScheduleDatesByMonthRepository;
+    private IGetRecentBookedAppointmentsRepository _getRecentBookedAppointmentsRepository;
+    private IGetAvailableDoctorRepository _getAvailableDoctorRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -344,7 +351,12 @@ public class UnitOfWork : IUnitOfWork
 
     public IGetAllDoctorForBookingRepository GetAllDoctorForBookingRepository
     {
-        get { return _getAllDoctorForBookingRepository ??= new GetAllDoctorForBookingRepository(_context); }
+        get
+        {
+            return _getAllDoctorForBookingRepository ??= new GetAllDoctorForBookingRepository(
+                _context
+            );
+        }
     }
     public ICreateNewAppointmentRepository CreateNewAppointmentRepository
     {
@@ -378,8 +390,8 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getUserBookedAppointmentRepository ??= new GetUserBookedAppointmentRepository(
-                _context 
-             );
+                _context
+            );
         }
     }
 
@@ -389,7 +401,7 @@ public class UnitOfWork : IUnitOfWork
         {
             return _getScheduleDatesByMonthRepository ??= new GetScheduleDatesByMonthRepository(
                 _context
-             );
+            );
         }
     }
 
@@ -398,13 +410,43 @@ public class UnitOfWork : IUnitOfWork
         get { return _updateDutyStatusRepository ??= new UpdateDutyStatusRepository(_context); }
     }
 
-    public IUpdateAppointmentDepositPaymentRepository UpdateAppointmentDepositPaymentRepository {
-        get{
-            return _updateAppointmentDepositPaymentRepository ??= new UpdateAppointmentDepositPaymentRepository(_context);
+    public IGetRecentBookedAppointmentsRepository GetRecentBookedAppointmentsRepository
+    {
+        get
+        {
+            return _getRecentBookedAppointmentsRepository ??=
+                new GetRecentBookedAppointmentsRepository(_context);
+        }
+    }
+
+    public IUpdateAppointmentDepositPaymentRepository UpdateAppointmentDepositPaymentRepository
+    {
+        get
+        {
+            return _updateAppointmentDepositPaymentRepository ??=
+                new UpdateAppointmentDepositPaymentRepository(_context);
         }
     }
     public IGetAllMedicalReportRepository GetAllMedicalReportRepository
     {
-        get { return _getAllMedicalReportRepository ??= new GetAllMedicalReportRepository(_context); }
+        get
+        {
+            return _getAllMedicalReportRepository ??= new GetAllMedicalReportRepository(_context);
+        }
+    }
+
+    public IGetAppointmentUpcomingRepository GetAppointmentUpcomingRepository
+    {
+        get
+        {
+            return _getAppointmentUpcomingRepository ??= new GetAppointmentUpcomingRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetAvailableDoctorRepository GetAvailableDoctorRepository
+    {
+        get { return _getAvailableDoctorRepository ??= new GetAvailableDoctorRepository(_context); }
     }
 }
