@@ -42,6 +42,7 @@ using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -270,4 +271,9 @@ public interface IUnitOfWork
     ///    GetAbsentAppointmentRepository feature.
     /// </summary>
     public IGetAbsentAppointmentRepository GetAbsentAppointmentRepository { get; }
+
+    /// <sumary>
+    ///    GetRecentMedicalReportRepository feature.
+    /// </summary>
+    public IGetRecentMedicalReportRepository GetRecentMedicalReportRepository { get; }
 }
