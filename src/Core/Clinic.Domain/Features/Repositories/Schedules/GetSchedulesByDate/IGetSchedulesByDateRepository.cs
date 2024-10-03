@@ -13,6 +13,7 @@ namespace Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 public interface IGetSchedulesByDateRepository
 {
     Task<IEnumerable<Schedule>> GetSchedulesByDateQueryAsync(
+        Guid doctorId,
         DateTime startDate,
         DateTime endDate,
         CancellationToken cancellationToken = default

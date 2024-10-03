@@ -19,10 +19,13 @@ public class GetScheduleDatesByMonthHandler
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public GetScheduleDatesByMonthHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
+    public GetScheduleDatesByMonthHandler(
+        IUnitOfWork unitOfWork,
+        IHttpContextAccessor contextAccessor
+    )
     {
         _unitOfWork = unitOfWork;
-        _contextAccessor = contextAccessor; 
+        _contextAccessor = contextAccessor;
     }
 
     /// <summary>
@@ -43,18 +46,16 @@ public class GetScheduleDatesByMonthHandler
         CancellationToken cancellationToken
     )
     {
-
         // Get userId from sub type jwt
         var userId = Guid.Parse(
             _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
         );
 
         // Found user by userId
-        var foundUser =
-            await _unitOfWork.GetScheduleDatesByMonthRepository.GetUserByIdAsync(
-                    userId,
-                    cancellationToken
-                );
+        var foundUser = await _unitOfWork.GetScheduleDatesByMonthRepository.GetUserByIdAsync(
+            userId,
+            cancellationToken
+        );
 
         // Responds if userId is not found
         if (Equals(objA: foundUser, objB: default))
@@ -66,12 +67,13 @@ public class GetScheduleDatesByMonthHandler
         }
 
         // Get Schedule dates
-        var schedules = await _unitOfWork.GetScheduleDatesByMonthRepository.GetScheduleDatesByMonthQueryAsync(
-            year: request.Year,
-            month: request.Month,
-            userId: userId,
-            cancellationToken: cancellationToken
-        );
+        var schedules =
+            await _unitOfWork.GetScheduleDatesByMonthRepository.GetScheduleDatesByMonthQueryAsync(
+                year: request.Year,
+                month: request.Month,
+                userId: request.DoctorId != Guid.Empty ? (Guid)request.DoctorId : userId,
+                cancellationToken: cancellationToken
+            );
 
         // Response successfully.
         return new GetScheduleDatesByMonthResponse()
