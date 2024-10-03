@@ -42,6 +42,8 @@ using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -270,4 +272,14 @@ public interface IUnitOfWork
     ///    GetAbsentAppointmentRepository feature.
     /// </summary>
     public IGetAbsentAppointmentRepository GetAbsentAppointmentRepository { get; }
+
+    /// <summary>
+    ///    RemoveSchedule feature.
+    /// </summary>
+    public IRemoveScheduleRepository RemoveScheduleRepository { get; }
+
+    /// <summary>
+    ///    RemoveAllSchedules feature.
+    /// </summary>
+    public IRemoveAllSchedulesRepository RemoveAllSchedulesRepository { get; }
 }
