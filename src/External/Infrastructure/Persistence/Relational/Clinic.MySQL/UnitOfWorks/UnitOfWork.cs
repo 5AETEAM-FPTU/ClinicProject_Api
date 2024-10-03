@@ -406,6 +406,5 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllMedicalReportRepository GetAllMedicalReportRepository
     {
         get { return _getAllMedicalReportRepository ??= new GetAllMedicalReportRepository(_context); }
-
     }
 }
