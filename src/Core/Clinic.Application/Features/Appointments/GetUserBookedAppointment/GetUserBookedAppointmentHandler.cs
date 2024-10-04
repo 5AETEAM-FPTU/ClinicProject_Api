@@ -81,7 +81,7 @@ public class GetUserBookedAppointmentHandler
                         DoctorId = appointment.Schedule.Doctor.UserId,
                         FullName = appointment.Schedule.Doctor.User.FullName,
                         AvatarUrl = appointment.Schedule.Doctor.User.Avatar,
-                        Specailties = appointment.Schedule.Doctor.DoctorSpecialties.Select(specialty => new GetUserBookedAppointmentResponse.Body.AppointmentDetail.Doctor.Specailty()
+                        Specialties = appointment.Schedule.Doctor.DoctorSpecialties.Select(specialty => new GetUserBookedAppointmentResponse.Body.AppointmentDetail.Doctor.Specialty()
                         {
                             Id = specialty.Specialty.Id,
                             Constant = specialty.Specialty.Constant,
