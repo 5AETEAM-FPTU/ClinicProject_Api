@@ -17,6 +17,5 @@ public sealed class CreateNewOnlinePaymentRequestValidator: FeatureRequestValida
         .WithMessage("AppointmentId must be a valid");
         RuleFor(expression: request => request.PaymentMethod).NotEmpty();
         RuleFor(expression: request => request.TransactionId).NotEmpty();
-
     }
  }

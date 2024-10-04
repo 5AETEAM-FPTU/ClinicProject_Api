@@ -11,7 +11,6 @@ public class CreateNewAppointmentRequest : IFeatureRequest<CreateNewAppointmentR
 {
     public Guid ScheduleId { get; init; }
     public bool ReExamination { get; set; }
-    public DateTime ExaminationDate { get; init; }
     public bool DepositPayment { get; set; }
     public string Description { get; init; }
 }

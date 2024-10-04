@@ -26,12 +26,18 @@ internal class CreateNewAppointmentRepository : ICreateNewAppointmentRepository
         _appointments = _context.Set<Appointment>();
     }
 
-    public async Task<bool> CreateNewAppointment(Appointment appointment, CancellationToken cancellationToken = default)
+    public async Task<bool> CreateNewAppointment(
+        Appointment appointment,
+        CancellationToken cancellationToken = default
+    )
     {
-        try {
+        try
+        {
             _appointments.Add(appointment);
             await _context.SaveChangesAsync(cancellationToken: cancellationToken);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             await Console.Out.WriteLineAsync(ex.ToString());
             return false;
         }
@@ -46,6 +52,16 @@ internal class CreateNewAppointmentRepository : ICreateNewAppointmentRepository
             status => status.Constant == "Pending",
             cancellationToken: cancellationToken
         );
+    }
+
+    public Task<Schedule> GetScheduleByIdAsync(
+        Guid scheduleId,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return _schedules
+            .Where(predicate: entity => entity.Id == scheduleId)
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
     public Task<bool> IsExistSchedule(

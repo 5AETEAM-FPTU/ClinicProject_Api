@@ -77,7 +77,7 @@ internal sealed class CreateNewAppointmentHandler
             };
         }
 
-        var foundSchedule = await _unitOfWork.CreateNewAppointmentRepository.IsExistSchedule(
+        var foundSchedule = await _unitOfWork.CreateNewAppointmentRepository.GetScheduleByIdAsync(
             command.ScheduleId,
             cancellationToken: ct
         );
@@ -111,7 +111,8 @@ internal sealed class CreateNewAppointmentHandler
             ScheduleId = command.ScheduleId,
             StatusId = appointmentStatus.Id,
             DepositPayment = command.DepositPayment,
-            ExaminationDate = command.ExaminationDate,
+            ReExamination = command.ReExamination,
+            ExaminationDate = foundSchedule.StartDate,
             Description = command.Description,
             CreatedBy = Guid.Parse(userId),
             CreatedAt = TimeZoneInfo.ConvertTimeFromUtc(

@@ -16,4 +16,6 @@ public interface ICreateNewAppointmentRepository {
     Task<bool> IsExistScheduleHadAppointment(Guid schedueleId, CancellationToken cancellationToken = default);
 
     Task<bool> CreateNewAppointment(Appointment appointment, CancellationToken cancellationToken = default);
+
+    Task<Schedule> GetScheduleByIdAsync(Guid scheduleId, CancellationToken cancellationToken = default);
 }
