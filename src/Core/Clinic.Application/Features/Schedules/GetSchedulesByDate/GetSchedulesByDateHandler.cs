@@ -11,7 +11,7 @@ using Microsoft.IdentityModel.JsonWebTokens;
 namespace Clinic.Application.Features.Schedules.GetSchedulesByDate;
 
 /// <summary>
-///     GetSchedulesByDate Handler
+///     GetSchedulesByDate Handler //
 /// </summary>
 public class GetSchedulesByDateHandler
     : IFeatureHandler<GetSchedulesByDateRequest, GetSchedulesByDateResponse>
@@ -75,6 +75,7 @@ public class GetSchedulesByDateHandler
                 TimeSlots = schedules
                     .Select(schedule => new GetSchedulesByDateResponse.Body.TimeSlot()
                     {
+                        SlotId = schedule.Id,
                         StartTime = schedule.StartDate,
                         EndTime = schedule.EndDate,
                         IsHadAppointment = schedule.Appointment != null
