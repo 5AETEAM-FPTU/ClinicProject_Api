@@ -29,6 +29,13 @@ public class GetUserBookedAppointmentResponse : IFeatureResponse
                 public Guid DoctorId { get; init; }
                 public string FullName { get; init; }
                 public string AvatarUrl { get; init; }
+                public IEnumerable<Specailty> Specailties { get; init; }
+                public sealed class Specailty
+                {
+                    public Guid Id { get; init; }
+                    public string Name { get; init; }
+                    public string Constant { get; init; }
+                }
             }
         }
     }

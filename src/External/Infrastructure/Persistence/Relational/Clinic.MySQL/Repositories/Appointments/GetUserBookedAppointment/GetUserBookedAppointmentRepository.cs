@@ -40,6 +40,15 @@ internal class GetUserBookedAppointmentRepository : IGetUserBookedAppointmentRep
                     Doctor = new Domain.Commons.Entities.Doctor() 
                     { 
                         UserId = appointment.Schedule.Doctor.UserId,
+                        DoctorSpecialties = appointment.Schedule.Doctor.DoctorSpecialties.Select(specialty => new DoctorSpecialty()
+                        {
+                            Specialty = new Specialty()
+                            {
+                                Name = specialty.Specialty.Name,
+                                Constant = specialty.Specialty.Constant,
+                                Id = specialty.Specialty.Id
+                            }
+                        }),
                         User = new User()
                         {
                             FullName = appointment.Schedule.Doctor.User.FullName,
