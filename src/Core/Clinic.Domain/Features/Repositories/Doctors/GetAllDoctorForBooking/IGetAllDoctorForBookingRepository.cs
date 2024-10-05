@@ -18,6 +18,10 @@ public interface IGetAllDoctorForBookingRepository
         Guid? specialtyId,
         Guid? genderId,
         CancellationToken cancellationToken);
-    Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken);
+    Task<int> CountAllDoctorsQueryAsync(
+        string? filterName,
+        Guid? specialtyId,
+        Guid? genderId,
+        CancellationToken cancellationToken);
 }
 
