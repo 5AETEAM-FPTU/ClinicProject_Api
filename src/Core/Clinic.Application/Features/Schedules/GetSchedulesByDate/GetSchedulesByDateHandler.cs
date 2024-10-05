@@ -62,7 +62,7 @@ public class GetSchedulesByDateHandler
         var schedules = await _unitOfWork.GetSchedulesByDateRepository.GetSchedulesByDateQueryAsync(
             startDate: startDate,
             endDate: endDate,
-            doctorId: request.DoctorId != Guid.Empty ? (Guid)request.DoctorId : userId,
+            doctorId: request.DoctorId != default ? (Guid)request.DoctorId : userId,
             cancellationToken: cancellationToken
         );
 
