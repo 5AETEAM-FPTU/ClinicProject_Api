@@ -56,11 +56,17 @@ public class GetAllDoctorForBookingHandler : IFeatureHandler<GetAllDoctorForBook
         var doctors = await _unitOfWork.GetAllDoctorForBookingRepository.FindAllDoctorForBookingQueryAsync(
             pageIndex: request.PageIndex,
             pageSize: request.PageSize,
+            filterName: request.Name,
+            specialtyId: request.SpecialtyId,
+            genderId: request.GenderId,
             cancellationToken: cancellationToken
         );
 
         // Count all the doctors.
-        var counDoctor = await _unitOfWork.GetAllDoctorForBookingRepository.CountAllDoctorsQueryAsync(
+        var countDoctor = await _unitOfWork.GetAllDoctorForBookingRepository.CountAllDoctorsQueryAsync(
+            filterName: request.Name,
+            specialtyId: request.SpecialtyId,
+            genderId: request.GenderId,
             cancellationToken: cancellationToken
         );
 
@@ -109,7 +115,7 @@ public class GetAllDoctorForBookingHandler : IFeatureHandler<GetAllDoctorForBook
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)counDoctor / request.PageSize)
+                    TotalPages = (int)Math.Ceiling((double)countDoctor / request.PageSize)
                 }
             }
         };

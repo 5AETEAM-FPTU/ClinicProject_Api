@@ -39,6 +39,7 @@ internal class GetSchedulesByDateRepository : IGetSchedulesByDateRepository
             )
             .Select(entity => new Schedule()
             {
+                Id = entity.Id,
                 StartDate = entity.StartDate,
                 EndDate = entity.EndDate,
                 Appointment = entity.Appointment.ScheduleId == entity.Id ? entity.Appointment : null
