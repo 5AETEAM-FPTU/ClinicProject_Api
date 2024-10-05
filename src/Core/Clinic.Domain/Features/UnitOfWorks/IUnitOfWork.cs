@@ -46,6 +46,7 @@ using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -294,4 +295,9 @@ public interface IUnitOfWork
     ///    GetConsultationOverviewRepository feature.
     /// </summary>
     public IGetConsultationOverviewRepository GetConsultationOverviewRepository { get; }
+
+    /// <sumary>
+    ///    UpdateUserBookedAppointmentRepository feature.
+    /// </summary>
+    public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository { get; }
 }
