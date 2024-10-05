@@ -98,6 +98,8 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
+using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
 
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -159,6 +161,7 @@ public class UnitOfWork : IUnitOfWork
     private IRemoveAllSchedulesRepository _removeAllSchedulesRepository;
     private IGetRecentMedicalReportRepository _getRecentMedicalReportRepository;
     private IGetConsultationOverviewRepository _getConsultationOverviewRepository;
+    private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -507,5 +510,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetConsultationOverviewRepository GetConsultationOverviewRepository
     {
         get { return _getConsultationOverviewRepository ??= new GetConsultationOverviewRepository(_context); }
+    }
+
+    public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository
+    {
+        get { return _updateUserBookedAppointmentRepository ??= new UpdateUserBookedAppointmentRepository(_context); }
     }
 }
