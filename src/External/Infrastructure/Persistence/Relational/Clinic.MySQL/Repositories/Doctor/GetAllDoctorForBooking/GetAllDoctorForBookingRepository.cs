@@ -32,7 +32,7 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
     public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorForBookingQueryAsync(
         int pageIndex,
         int pageSize,
-        string filterName,
+        string? filterName,
         Guid? specialtyId,
         Guid? genderId,
         CancellationToken cancellationToken)
@@ -52,9 +52,10 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
                    results = results.Where(entity => entity.User.GenderId == genderId);
                 }
 
-
-       results = results.Where(entity => entity.User.FullName.Contains(filterName));
-
+                if (filterName != default) 
+                {
+                    results = results.Where(entity => entity.User.FullName.Contains(filterName));
+                }
 
         return await results
             .Where(doctor => doctor.Schedules != null && doctor.Schedules.Any(schedule => schedule.StartDate > DateTime.Now))
