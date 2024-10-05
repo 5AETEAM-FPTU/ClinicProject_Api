@@ -56,6 +56,9 @@ public class GetAllDoctorForBookingHandler : IFeatureHandler<GetAllDoctorForBook
         var doctors = await _unitOfWork.GetAllDoctorForBookingRepository.FindAllDoctorForBookingQueryAsync(
             pageIndex: request.PageIndex,
             pageSize: request.PageSize,
+            filterName: request.Name,
+            specialtyId: request.SpecialtyId,
+            genderId: request.GenderId,
             cancellationToken: cancellationToken
         );
 
