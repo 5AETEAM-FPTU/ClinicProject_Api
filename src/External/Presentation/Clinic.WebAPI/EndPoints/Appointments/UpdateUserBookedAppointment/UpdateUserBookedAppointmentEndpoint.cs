@@ -24,7 +24,7 @@ internal sealed class UpdateUserBookedAppointmentEndpoint : Endpoint<UpdateUserB
         Summary(endpointSummary: summary =>
         {
             summary.Summary = "Endpoint for user to update their booked appointment.";
-            summary.Description = "This endpoint is used for update appointment deposit payment purpose.";
+            summary.Description = "This endpoint is used for update their booked appointment purpose.";
             summary.Response<UpdateAppointmentDepositPaymentHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

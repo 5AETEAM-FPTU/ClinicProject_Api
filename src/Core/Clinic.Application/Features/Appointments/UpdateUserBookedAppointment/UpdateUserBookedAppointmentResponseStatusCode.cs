@@ -8,5 +8,6 @@ public enum UpdateUserBookedAppointmentResponseStatusCode
     ROLE_IS_NOT_ACCEPTABLE,
     DATABASE_OPERATION_FAIL,
     UNAUTHORIZE,
-    FORBIDEN_ACCESS
+    FORBIDEN_ACCESS,
+    APPOINTMENT_ONLY_UPDATE_ONCE
 }

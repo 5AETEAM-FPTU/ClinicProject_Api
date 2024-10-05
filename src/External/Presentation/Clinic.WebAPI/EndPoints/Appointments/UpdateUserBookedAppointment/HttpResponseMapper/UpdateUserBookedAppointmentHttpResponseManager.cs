@@ -77,6 +77,15 @@ public class UpdateUserBookedAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+        _dictionary.Add(
+            key: UpdateUserBookedAppointmentResponseStatusCode.APPOINTMENT_ONLY_UPDATE_ONCE,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status406NotAcceptable,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
 
     }
     internal Func<

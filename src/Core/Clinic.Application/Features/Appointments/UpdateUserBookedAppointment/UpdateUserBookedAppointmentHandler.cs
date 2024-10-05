@@ -37,16 +37,21 @@ public class UpdateUserBookedAppointmentHandler : IFeatureHandler<UpdateUserBook
         {
             return new() { StatusCode = UpdateUserBookedAppointmentResponseStatusCode.APPOINTMENTS_IS_NOT_FOUND };
         }
+        
+        if(!Equals(objA: Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID, objB: foundAppointment.UpdatedBy))
+        {
+            return new() { StatusCode = UpdateUserBookedAppointmentResponseStatusCode.APPOINTMENT_ONLY_UPDATE_ONCE };
+        }
 
         // check if user is owner of appointment or not
-        var userId = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "sub");
-        if (Equals(objA: foundAppointment.PatientId, objB: userId))
+        var userId = Guid.Parse(_contextAccessor.HttpContext.User.FindFirstValue(claimType: "sub"));
+        if (!Equals(objA: foundAppointment.PatientId, objB: userId))
         {
-            return new() { StatusCode = UpdateUserBookedAppointmentResponseStatusCode.UNAUTHORIZE };
+            return new() { StatusCode = UpdateUserBookedAppointmentResponseStatusCode.FORBIDEN_ACCESS };
         }
         
 
-        var dbResult = await _unitOfWork.UpdateUserBookedAppointmentRepository.UpdateUserBookedAppointmentCommandAsync(foundAppointment.Id, command.AppointmentId, ct);
+        var dbResult = await _unitOfWork.UpdateUserBookedAppointmentRepository.UpdateUserBookedAppointmentCommandAsync(foundAppointment.Id, userId, command.SelectedSlotID, ct);
 
         if (!dbResult)
         {

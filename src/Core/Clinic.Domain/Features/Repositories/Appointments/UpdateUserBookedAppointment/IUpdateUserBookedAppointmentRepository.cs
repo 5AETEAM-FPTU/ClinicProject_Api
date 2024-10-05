@@ -14,6 +14,7 @@ public interface IUpdateUserBookedAppointmentRepository
 
     Task<bool> UpdateUserBookedAppointmentCommandAsync(
         Guid appointmentId,
+        Guid userId,
         Guid slotId, CancellationToken ct
     );
 }

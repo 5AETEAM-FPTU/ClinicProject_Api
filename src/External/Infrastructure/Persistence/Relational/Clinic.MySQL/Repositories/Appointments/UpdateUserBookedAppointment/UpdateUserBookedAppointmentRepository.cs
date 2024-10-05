@@ -25,11 +25,10 @@ namespace Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment
         {
             return await _appointments
            .Where(entity => entity.Id == id)
-           .Select(entity => new Appointment() { Id = entity.Id })
            .FirstOrDefaultAsync(cancellationToken: ct);
         }
 
-        public async Task<bool> UpdateUserBookedAppointmentCommandAsync(Guid appointmentId, Guid slotId, CancellationToken ct)
+        public async Task<bool> UpdateUserBookedAppointmentCommandAsync(Guid appointmentId, Guid userId, Guid slotId, CancellationToken ct)
         {
             var dbResult = false;
 
@@ -44,7 +43,10 @@ namespace Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment
                         await _appointments
                             .Where(predicate: entity => entity.Id == appointmentId)
                             .ExecuteUpdateAsync(setPropertyCalls: builder =>
-                                builder.SetProperty(entity => entity.ScheduleId, slotId)
+                                builder
+                                .SetProperty(entity => entity.ScheduleId, slotId)
+                                .SetProperty(entity => entity.UpdatedAt, DateTime.Now)
+                                .SetProperty(entity => entity.UpdatedBy, userId)
                             );
 
                         await transaction.CommitAsync(ct);

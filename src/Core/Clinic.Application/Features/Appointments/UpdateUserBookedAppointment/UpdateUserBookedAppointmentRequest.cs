@@ -12,6 +12,6 @@ public class UpdateUserBookedAppointmentRequest : IFeatureRequest<UpdateUserBook
 {
     public Guid AppointmentId { get; init; }
 
-    public Guid SelectedSlot { get; init; }
+    public Guid SelectedSlotID { get; init; }
 
 }
