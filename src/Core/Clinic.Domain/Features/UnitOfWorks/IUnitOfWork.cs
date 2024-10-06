@@ -47,6 +47,11 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
+using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -300,4 +305,9 @@ public interface IUnitOfWork
     ///    CreateMedicalReportRepository feature.
     /// </summary>
     public ICreateMedicalReportRepository CreateMedicalReportRepository { get; }
+
+    /// <sumary>
+    ///    UpdateUserBookedAppointmentRepository feature.
+    /// </summary>
+    public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository { get; }
 }

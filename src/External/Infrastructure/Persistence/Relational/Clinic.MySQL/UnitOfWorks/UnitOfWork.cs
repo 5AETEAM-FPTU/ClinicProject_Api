@@ -100,6 +100,19 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
+using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
+using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
+using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
+using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
+using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
+using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
+using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
+
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -161,6 +174,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetRecentMedicalReportRepository _getRecentMedicalReportRepository;
     private IGetConsultationOverviewRepository _getConsultationOverviewRepository;
     private ICreateMedicalReportRepository _createMedicalReportRepository;
+    private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -531,5 +545,10 @@ public class UnitOfWork : IUnitOfWork
         {
             return _createMedicalReportRepository ??= new CreateMedicalReportRepository(_context);
         }
+    }
+
+    public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository
+    {
+        get { return _updateUserBookedAppointmentRepository ??= new UpdateUserBookedAppointmentRepository(_context); }
     }
 }

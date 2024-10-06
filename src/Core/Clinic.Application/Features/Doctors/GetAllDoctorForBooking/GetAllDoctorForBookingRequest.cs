@@ -14,7 +14,7 @@ public class GetAllDoctorForBookingRequest : IFeatureRequest<GetAllDoctorForBook
     public int PageSize { get; init; } = 6;
 
     [BindFrom("doctorName")]
-    public string Name { get; init; }
+    public string? Name { get; init; }
     [BindFrom("doctorGender")]
     public Guid? GenderId { get; init; }
     [BindFrom("doctorSpecialtyId")]
