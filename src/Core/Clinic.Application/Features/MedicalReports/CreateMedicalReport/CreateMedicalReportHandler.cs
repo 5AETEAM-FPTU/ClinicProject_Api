@@ -89,7 +89,7 @@ internal sealed class CreateMedicalReportHandler
         // Is appointment reported.
         var isAppointmentReported =
             await _unitOfWork.CreateMedicalReportRepository.IsAppointmentReportedQueryAsync(
-                appointmentId: command.PatientId,
+                appointmentId: command.AppointmentId,
                 cancellationToken: ct
             );
 

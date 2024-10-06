@@ -82,7 +82,8 @@ internal class CreateMedicalReportRepository : ICreateMedicalReportRepository
     )
     {
         return _appointments.AnyAsync(
-            predicate: entity => entity.Id == appointmentId && !Equals(entity.MedicalReport, null),
+            predicate: entity =>
+                entity.Id == appointmentId && !Equals(entity.MedicalReport, default),
             cancellationToken: cancellationToken
         );
     }
