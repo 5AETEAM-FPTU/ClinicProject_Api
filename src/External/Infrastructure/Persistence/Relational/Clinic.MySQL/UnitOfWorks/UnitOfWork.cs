@@ -112,6 +112,8 @@ using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
+using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -175,6 +177,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetConsultationOverviewRepository _getConsultationOverviewRepository;
     private ICreateMedicalReportRepository _createMedicalReportRepository;
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
+
+    private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -550,5 +554,15 @@ public class UnitOfWork : IUnitOfWork
     public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository
     {
         get { return _updateUserBookedAppointmentRepository ??= new UpdateUserBookedAppointmentRepository(_context); }
+    }
+
+    public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository
+    {
+        get
+        {
+            return _updateAppointmentStatusRepository ??= new UpdateAppointmentStatusRepository(
+                _context
+            );
+        }
     }
 }
