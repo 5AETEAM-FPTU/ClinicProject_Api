@@ -24,6 +24,7 @@ namespace Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment
         public async Task<Appointment> GetAppointmentByIdAsync(Guid id, CancellationToken ct)
         {
             return await _appointments
+           .Include(entity => entity.Schedule)
            .Where(entity => entity.Id == id)
            .FirstOrDefaultAsync(cancellationToken: ct);
         }
