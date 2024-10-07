@@ -14,10 +14,14 @@ public interface IGetAllDoctorForBookingRepository
     Task<IEnumerable<Doctor>> FindAllDoctorForBookingQueryAsync(
         int pageIndex,
         int pageSize,
-        string filterName,
+        string? filterName,
         Guid? specialtyId,
         Guid? genderId,
         CancellationToken cancellationToken);
-    Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken);
+    Task<int> CountAllDoctorsQueryAsync(
+        string? filterName,
+        Guid? specialtyId,
+        Guid? genderId,
+        CancellationToken cancellationToken);
 }
 
