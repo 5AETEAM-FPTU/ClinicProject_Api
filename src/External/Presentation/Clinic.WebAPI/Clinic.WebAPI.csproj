@@ -7,9 +7,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="EndPoints\Appointments\NewFolder\**" />
     <Compile Remove="EndPoints\Appointment\**" />
+    <Content Remove="EndPoints\Appointments\NewFolder\**" />
     <Content Remove="EndPoints\Appointment\**" />
+    <EmbeddedResource Remove="EndPoints\Appointments\NewFolder\**" />
     <EmbeddedResource Remove="EndPoints\Appointment\**" />
+    <None Remove="EndPoints\Appointments\NewFolder\**" />
     <None Remove="EndPoints\Appointment\**" />
   </ItemGroup>
 
@@ -33,10 +37,6 @@
     <ProjectReference Include="..\..\Infrastructure\Notification\Mail\Clinic.MailKit\Clinic.MailKit.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Cache\Clinic.Redis\Clinic.Redis.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Relational\Clinic.MySQL\Clinic.MySQL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EndPoints\Appointments\NewFolder\" />
   </ItemGroup>
 
 </Project>

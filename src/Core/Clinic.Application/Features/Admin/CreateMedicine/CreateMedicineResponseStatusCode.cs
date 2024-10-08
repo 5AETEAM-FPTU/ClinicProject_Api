@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿namespace Clinic.Application.Features.Admin.CreateMedicine;
 
-namespace Clinic.Application.Features.Admin.CreateMedicine
+public enum CreateMedicineResponseStatusCode
 {
-    internal class CreateMedicineResponseStatusCode
-    {
-    }
+    INPUT_VALIDATION_FAIL,
+    OPERATION_SUCCESS,
+    UNAUTHORIZE,
+    DATABASE_OPERATION_FAIL,
+    FORBIDEN_ACCESS,
+    MEDICINE_ALREADY_EXISTED
 }
