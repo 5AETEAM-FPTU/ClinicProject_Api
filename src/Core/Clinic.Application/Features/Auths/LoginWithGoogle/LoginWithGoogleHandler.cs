@@ -73,6 +73,11 @@ internal sealed class LoginWithGoogleHandler
     {
         var googleUser = await ValidateGoogleToken(idToken: request.IdToken);
 
+        if (Equals(objA: googleUser, objB: default))
+        {
+            return new() { StatusCode = LoginWithGoogleResponseStatusCode.INVALID_GOOGLE_TOKEN, };
+        }
+
         // Find user by email
         var userFound = await _userManager.FindByEmailAsync(googleUser.Email);
 
@@ -115,11 +120,6 @@ internal sealed class LoginWithGoogleHandler
                     StatusCode = LoginWithGoogleResponseStatusCode.USER_IS_TEMPORARILY_REMOVED,
                 };
             }
-        }
-
-        if (Equals(objA: googleUser, objB: default))
-        {
-            return new() { StatusCode = LoginWithGoogleResponseStatusCode.UNAUTHORIZE };
         }
 
         // Init list of user claims.

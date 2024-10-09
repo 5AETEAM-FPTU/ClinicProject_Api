@@ -5,6 +5,7 @@ using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
+using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -55,6 +56,7 @@ using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.MySQL.Repositories.Auths.ForgotPassword;
@@ -100,8 +102,6 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
-using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
-using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 
@@ -541,7 +541,11 @@ public class UnitOfWork : IUnitOfWork
 
     public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository
     {
-        get { return _updateUserBookedAppointmentRepository ??= new UpdateUserBookedAppointmentRepository(_context); }
+        get
+        {
+            return _updateUserBookedAppointmentRepository ??=
+                new UpdateUserBookedAppointmentRepository(_context);
+        }
     }
 
     public ICreateMedicineRepository CreateMedicineRepository
