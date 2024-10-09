@@ -6,7 +6,6 @@ using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
-using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
 using Clinic.Domain.Features.Repositories.Auths.ConfirmUserRegistrationEmail;
 using Clinic.Domain.Features.Repositories.Auths.ForgotPassword;
@@ -23,8 +22,6 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
-using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
-using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
@@ -43,20 +40,12 @@ using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
-using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
-using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
-using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
-using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
-using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
-using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
-using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
-using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
@@ -67,7 +56,6 @@ using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
-using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
 using Clinic.MySQL.Repositories.Auths.ConfirmUserRegistrationEmail;
@@ -86,8 +74,6 @@ using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
 using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
-using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
-using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
@@ -105,27 +91,19 @@ using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
 using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
-using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
-using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
-using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
-using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
 using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
 using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
-using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
-using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
-using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
-using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
-using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
-using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
+using Clinic.MySQL.Repositories.VNPays.CreatePaymentLink;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
@@ -190,6 +168,7 @@ public class UnitOfWork : IUnitOfWork
     private IRemoveScheduleRepository _removeScheduleRepository;
     private IRemoveAllSchedulesRepository _removeAllSchedulesRepository;
     private IGetRecentMedicalReportRepository _getRecentMedicalReportRepository;
+    private ICreatePaymentLinkRepository _createPaymentLinkRepository;
     private IGetConsultationOverviewRepository _getConsultationOverviewRepository;
     private ICreateMedicalReportRepository _createMedicalReportRepository;
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
@@ -589,5 +568,10 @@ public class UnitOfWork : IUnitOfWork
     public ICreateMedicineRepository CreateMedicineRepository
     {
         get { return _createMedicineRepository ??= new CreateMedicineRepository(_context); }
+    }
+
+    public ICreatePaymentLinkRepository CreatePaymentLinkRepository
+    {
+        get { return _createPaymentLinkRepository ??= new CreatePaymentLinkRepository(_context); }
     }
 }
