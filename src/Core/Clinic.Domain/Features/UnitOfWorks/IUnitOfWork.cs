@@ -58,6 +58,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
@@ -317,6 +318,11 @@ public interface IUnitOfWork
     ///    UpdateUserBookedAppointmentRepository feature.
     /// </summary>
     public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository { get; }
+    
+    /// <sumary>
+    ///    CreateMedicineRepository feature.
+    /// </summary>
+    public ICreateMedicineRepository CreateMedicineRepository { get; }
     /// <summary>
     /// UpdateAppointmentStatusRepository feature
     /// </summary>

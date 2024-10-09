@@ -57,7 +57,7 @@ public class GetUserBookedAppointmentHandler
                 StatusCode = GetUserBookedAppointmentResponseStatusCode.ROLE_IS_NOT_USER,
             };
         }
-
+            
         // Found appointments booked by userId
         var foundAppointment = await _unitOfWork.GetUserBookedAppointmentRepository.GetUserBookedAppointmentByUserIdQueryAsync(
             userId: userId,
