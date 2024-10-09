@@ -10,7 +10,8 @@ namespace Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
 
 public interface IUpdateDutyStatusRepository
 {
+    Task<User> GetDoctorById(Guid id);
     Task<bool> UpdateDutyStatusCommandAsync(
-        Guid userId, bool status, CancellationToken cancellationToken
+        User doctor, bool status, CancellationToken cancellationToken
     );
 }

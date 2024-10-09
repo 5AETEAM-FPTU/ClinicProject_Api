@@ -1,4 +1,6 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using Clinic.Application.Commons.Abstractions;
+using FastEndpoints;
 
 namespace Clinic.Application.Features.Doctors.GetAllMedicalReport;
 
@@ -7,7 +9,11 @@ namespace Clinic.Application.Features.Doctors.GetAllMedicalReport;
 /// </summary>
 public class GetAllMedicalReportRequest : IFeatureRequest<GetAllMedicalReportResponse>
 {
-    public int PageIndex { get; set; }
+    [BindFrom("keyword")]
+    public string? Keyword { get; set; }
 
-    public int PageSize { get; set; }
+    [BindFrom("lastReportDate")]
+    public DateTime? LastReportDate { get; set; }
+
+    public int PageSize { get; set; } = 2;
 }

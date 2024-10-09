@@ -32,13 +32,17 @@ public class UpdateUserBookedAppointmentHandler : IFeatureHandler<UpdateUserBook
         }
 
         var foundAppointment = await _unitOfWork.UpdateUserBookedAppointmentRepository.GetAppointmentByIdAsync(command.AppointmentId, ct);
-
         if (Equals(objA: foundAppointment, objB: default))
         {
             return new() { StatusCode = UpdateUserBookedAppointmentResponseStatusCode.APPOINTMENTS_IS_NOT_FOUND };
         }
-        
-        if(!Equals(objA: Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID, objB: foundAppointment.UpdatedBy))
+
+        if (DateTime.Compare(foundAppointment.Schedule.StartDate, DateTime.Now.AddHours(12)) <= 0)
+        {
+            return new() { StatusCode = UpdateUserBookedAppointmentResponseStatusCode.UPDATE_EXPIRED };
+        }
+
+        if (!Equals(objA: Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID, objB: foundAppointment.UpdatedBy))
         {
             return new() { StatusCode = UpdateUserBookedAppointmentResponseStatusCode.APPOINTMENT_ONLY_UPDATE_ONCE };
         }

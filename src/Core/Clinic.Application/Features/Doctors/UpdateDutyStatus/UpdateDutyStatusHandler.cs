@@ -1,4 +1,5 @@
 ﻿using Clinic.Application.Commons.Abstractions;
+using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -25,16 +26,29 @@ public class UpdateDutyStatusHandler : IFeatureHandler<UpdateDutyStatusRequest, 
         var userId = Guid.Parse(
             _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
         );
+        User doctor = await _unitOfWork.UpdateDutyStatusRepository.GetDoctorById(userId);
+
+        if (doctor.Equals(default))
+        {
+            return new UpdateDutyStatusResponse()
+            {
+                StatusCode = UpdateDutyStatusResponseStatusCode.USER_IS_NOT_FOUND
+            };
+        }
+
+        bool ok = await _unitOfWork.UpdateDutyStatusRepository.UpdateDutyStatusCommandAsync(doctor: doctor, status: req.Status, cancellationToken: ct);
         
-        bool ok = await _unitOfWork.UpdateDutyStatusRepository.UpdateDutyStatusCommandAsync(userId: userId, status: req.Status, cancellationToken: ct);
-        var StatusCode = UpdateDutyStatusResponseStatusCode.OPERATION_SUCCESS;
         if (!ok)
         {
-            StatusCode = UpdateDutyStatusResponseStatusCode.USER_IS_NOT_FOUND;
+            return new UpdateDutyStatusResponse
+            {
+                StatusCode = UpdateDutyStatusResponseStatusCode.DATABASE_OPERATION_FAIL
+            };
         }
+
         return new UpdateDutyStatusResponse()
         {
-            StatusCode = StatusCode
+            StatusCode = UpdateDutyStatusResponseStatusCode.OPERATION_SUCCESS
         };
 
     }
