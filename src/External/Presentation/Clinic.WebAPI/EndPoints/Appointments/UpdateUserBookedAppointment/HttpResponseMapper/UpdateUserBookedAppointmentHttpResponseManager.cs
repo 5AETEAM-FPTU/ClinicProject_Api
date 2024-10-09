@@ -1,5 +1,4 @@
 ﻿using Clinic.Application.Features.Appointments.UpdateUserBookedAppointment;
-using Clinic.Application.Features.Appointments.UpdateUserBookedAppointment;
 using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;

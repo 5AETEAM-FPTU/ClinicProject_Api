@@ -52,10 +52,7 @@ public class GetAbsentAppointmentHandler
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
         if (!role.Equals("doctor"))
         {
-            return new()
-            {
-                StatusCode = GetAbsentAppointmentResponseStatusCode.ROLE_IS_NOT_DOCTOR,
-            };
+            return new() { StatusCode = GetAbsentAppointmentResponseStatusCode.ROLE_IS_NOT_DOCTOR };
         }
 
         // Found appointments booked by userId
@@ -74,21 +71,34 @@ public class GetAbsentAppointmentHandler
                 Appointment = foundAppointment.Select(
                     appointment => new GetAbsentAppointmentResponse.Body.AppointmentDetail()
                     {
-                        AppointmentId = appointment.Id,
-                        ScheduleId = appointment.Schedule.Id,
-                        StartDate = appointment.Schedule.StartDate,
-                        EndDate = appointment.Schedule.EndDate,
-                        Users = new GetAbsentAppointmentResponse.Body.AppointmentDetail.UserDetail()
-                        {
-                            UserId = appointment.Schedule.Doctor.UserId,
-                            FullName = appointment.Schedule.Doctor.User.FullName,
-                            AvatarUrl = appointment.Schedule.Doctor.User.Avatar,
-                            DOB = appointment.Patient.DOB,
-                            Description = appointment.Patient.Description,
-                            Gender = appointment.Patient.User.Gender.Constant,
-                        }
+                        Id = appointment.Id,
+                        Description = appointment.Description,
+                        Patients =
+                            new GetAbsentAppointmentResponse.Body.AppointmentDetail.UserDetail()
+                            {
+                                UserId = appointment.Patient.UserId,
+                                FullName = appointment.Patient.User.FullName,
+                                AvatarUrl = appointment.Patient.User.Avatar,
+                                DOB = appointment.Patient.DOB,
+                                Gender = appointment.Patient.User.Gender.Constant,
+                                PhoneNumber = appointment.Patient.User.PhoneNumber,
+                            },
+                        Schedules =
+                            new GetAbsentAppointmentResponse.Body.AppointmentDetail.Schedule()
+                            {
+                                ScheduleId = appointment.Schedule.Id,
+                                StartDate = appointment.Schedule.StartDate,
+                                EndDate = appointment.Schedule.EndDate,
+                            },
+                        AppointmentStatus =
+                            new GetAbsentAppointmentResponse.Body.AppointmentDetail.Status()
+                            {
+                                Id = appointment.AppointmentStatus.Id,
+                                StatusName = appointment.AppointmentStatus.StatusName,
+                                Constant = appointment.AppointmentStatus.Constant,
+                            },
                     }
-                )
+                ),
             },
         };
     }

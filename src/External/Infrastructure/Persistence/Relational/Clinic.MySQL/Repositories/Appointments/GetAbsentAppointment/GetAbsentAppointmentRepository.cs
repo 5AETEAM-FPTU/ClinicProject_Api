@@ -49,14 +49,20 @@ internal class GetAbsentAppointmentRepository : IGetAbsentAppointmentRepository
                     UserId = appointment.Schedule.Doctor.UserId,
                     User = new User()
                     {
-                        FullName = appointment.Schedule.Doctor.User.FullName,
-                        Avatar = appointment.Schedule.Doctor.User.Avatar,
-                        Gender = appointment.Schedule.Doctor.User.Gender,
-                        PhoneNumber = appointment.Schedule.Doctor.User.PhoneNumber,
+                        FullName = appointment.Patient.User.FullName,
+                        Avatar = appointment.Patient.User.Avatar,
+                        Gender = appointment.Patient.User.Gender,
+                        PhoneNumber = appointment.Patient.User.PhoneNumber,
                     },
-                    DOB = appointment.Schedule.Doctor.DOB
+                    DOB = appointment.Patient.DOB,
                 },
-                Description = appointment.Description
+                AppointmentStatus = new AppointmentStatus()
+                {
+                    Id = appointment.AppointmentStatus.Id,
+                    Constant = appointment.AppointmentStatus.Constant,
+                    StatusName = appointment.AppointmentStatus.StatusName,
+                },
+                Description = appointment.Description,
             })
             .ToListAsync(cancellationToken: cancellationToken);
     }
