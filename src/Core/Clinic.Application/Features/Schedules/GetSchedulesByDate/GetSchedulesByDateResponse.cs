@@ -19,10 +19,13 @@ public class GetSchedulesByDateResponse : IFeatureResponse
 
         public sealed class TimeSlot
         {
+            public Guid SlotId { get; set; }
+
             public DateTime StartTime { get; set; }
 
             public DateTime EndTime { get; set; }
-            public bool IsHadAppointment {get; set;}
+
+            public bool IsHadAppointment { get; set; }
         }
     }
 }

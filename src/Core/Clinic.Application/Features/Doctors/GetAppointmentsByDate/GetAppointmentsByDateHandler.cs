@@ -19,7 +19,10 @@ public class GetAppointmentsByDateHandler
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
 
-    public GetAppointmentsByDateHandler(IUnitOfWork unitOfWork, IHttpContextAccessor contextAccessor)
+    public GetAppointmentsByDateHandler(
+        IUnitOfWork unitOfWork,
+        IHttpContextAccessor contextAccessor
+    )
     {
         _unitOfWork = unitOfWork;
         _contextAccessor = contextAccessor;
@@ -49,21 +52,19 @@ public class GetAppointmentsByDateHandler
         );
 
         // Found user by userId
-        var foundUser =
-            await _unitOfWork.GetAppointmentsByDateRepository.GetUserByIdAsync(
-                    userId,
-                    cancellationToken
-                );
+        var foundUser = await _unitOfWork.GetAppointmentsByDateRepository.GetUserByIdAsync(
+            userId,
+            cancellationToken
+        );
 
         // Responds if userId is not found
         if (Equals(objA: foundUser, objB: default))
         {
             return new GetAppointmentsByDateResponse()
             {
-                StatusCode = GetAppointmentsByDateResponseStatusCode.USER_IS_NOT_FOUND
+                StatusCode = GetAppointmentsByDateResponseStatusCode.USER_IS_NOT_FOUND,
             };
         }
-
 
         // Handle date
         var startDate = request.StartDate.Date;
@@ -71,19 +72,19 @@ public class GetAppointmentsByDateHandler
         if (request.EndDate != null)
         {
             endDate = request.EndDate?.Date.AddDays(1).AddTicks(-1);
-        } else
+        }
+        else
         {
             endDate = startDate.AddDays(1).AddTicks(-1);
         }
         //Get Appointments on day and by doctorId
-        var appointments = await _unitOfWork.GetAppointmentsByDateRepository.GetAppointmentsByDateQueryAsync(
-            startDate: startDate,
-            endDate: endDate,
-            userId: userId,
-            cancellationToken: cancellationToken
-        );
-
-
+        var appointments =
+            await _unitOfWork.GetAppointmentsByDateRepository.GetAppointmentsByDateQueryAsync(
+                startDate: startDate,
+                endDate: endDate,
+                userId: userId,
+                cancellationToken: cancellationToken
+            );
 
         // Response successfully.
         return new GetAppointmentsByDateResponse()
@@ -91,9 +92,8 @@ public class GetAppointmentsByDateHandler
             StatusCode = GetAppointmentsByDateResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-            Appointment = appointments
-                .Select(appointment =>
-                    new GetAppointmentsByDateResponse.Body.AppointmentDTO()
+                Appointment = appointments
+                    .Select(appointment => new GetAppointmentsByDateResponse.Body.AppointmentDTO()
                     {
                         Id = appointment.Id,
                         Description = appointment.Description,
@@ -102,31 +102,32 @@ public class GetAppointmentsByDateHandler
                             Avatar = appointment.Patient.User.Avatar,
                             FullName = appointment.Patient.User.FullName,
                             PhoneNumber = appointment.Patient.User.PhoneNumber,
-                            Gender = new GetAppointmentsByDateResponse.Body.AppointmentDTO.PatientDTO.GenderDTO()
+                            Gender =
+                                new GetAppointmentsByDateResponse.Body.AppointmentDTO.PatientDTO.GenderDTO()
+                                {
+                                    Id = appointment.Patient.User.Gender.Id,
+                                    Name = appointment.Patient.User.Gender.Name,
+                                    Constant = appointment.Patient.User.Gender.Constant,
+                                },
+                            DOB = appointment.Patient.DOB,
+                        },
+                        Schedule =
+                            new GetAppointmentsByDateResponse.Body.AppointmentDTO.ScheduleDTO()
                             {
-                                Id = appointment.Patient.User.Gender.Id,
-                                Name = appointment.Patient.User.Gender.Name,
-                                Constant = appointment.Patient.User.Gender.Constant
+                                StartDate = appointment.Schedule.StartDate,
+                                EndDate = appointment.Schedule.EndDate,
                             },
-                            DOB = appointment.Patient.DOB
-                        },
-                        Schedule = new GetAppointmentsByDateResponse.Body.AppointmentDTO.ScheduleDTO()
-                        {                      
-                            StartDate = appointment.Schedule.StartDate,
-                            EndDate = appointment.Schedule.EndDate
-                        },
-                        AppointmentStatus = new GetAppointmentsByDateResponse.Body.AppointmentDTO.AppointmentStatusDTO()
-                        {
-                            Id = appointment.AppointmentStatus.Id,
-                            StatusName = appointment.AppointmentStatus.StatusName, 
-                            Constant = appointment.AppointmentStatus.Constant
-                        }
-
-                    }
-                )
-                .ToList()
-            }
-
+                        AppointmentStatus =
+                            new GetAppointmentsByDateResponse.Body.AppointmentDTO.AppointmentStatusDTO()
+                            {
+                                Id = appointment.AppointmentStatus.Id,
+                                StatusName = appointment.AppointmentStatus.StatusName,
+                                Constant = appointment.AppointmentStatus.Constant,
+                            },
+                        IsHadMedicalReport = appointment.MedicalReport != null,
+                    })
+                    .ToList(),
+            },
         };
     }
 }

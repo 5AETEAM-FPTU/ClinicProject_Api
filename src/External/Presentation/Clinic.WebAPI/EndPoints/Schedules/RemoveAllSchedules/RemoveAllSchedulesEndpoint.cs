@@ -12,11 +12,12 @@ namespace Clinic.WebAPI.EndPoints.Schedules.RemoveAllSchedules;
 /// <summary>
 ///     UpdateSchedule endpoint
 /// </summary>
-public class RemoveScheduleEndpoint : Endpoint<RemoveAllSchedulesRequest, RemoveAllSchedulesHttpResponse>
+public class RemoveScheduleEndpoint
+    : Endpoint<RemoveAllSchedulesRequest, RemoveAllSchedulesHttpResponse>
 {
     public override void Configure()
     {
-        Delete("schedules/remove/{date}");
+        Delete("schedules/remove/all/{date}");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<ValidationPreProcessor<RemoveAllSchedulesRequest>>();
         DontThrowIfValidationFails();
@@ -27,8 +28,7 @@ public class RemoveScheduleEndpoint : Endpoint<RemoveAllSchedulesRequest, Remove
         Summary(summary =>
         {
             summary.Summary = "Endpoint for doctor";
-            summary.Description =
-                "This endpoint allows doctor for remove all schedule on date.";
+            summary.Description = "This endpoint allows doctor for remove all schedule on date.";
             summary.Response<RemoveAllSchedulesHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

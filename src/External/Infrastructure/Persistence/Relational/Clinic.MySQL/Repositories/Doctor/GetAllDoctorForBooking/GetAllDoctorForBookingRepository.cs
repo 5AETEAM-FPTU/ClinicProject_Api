@@ -24,20 +24,68 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
         _userDetails = _context.Set<Domain.Commons.Entities.Doctor>();
     }
 
-    public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
+    public async Task<int> CountAllDoctorsQueryAsync(
+        string? filterName,
+        Guid? specialtyId,
+        Guid? genderId,
+        CancellationToken cancellationToken)
     {
-        return _userDetails.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+        var results = _userDetails
+           .AsNoTracking()
+           .AsQueryable();
+
+        if (specialtyId != default)
+        {
+            results = results.Where(entity => entity.DoctorSpecialties.Any(doctorSpecialty => doctorSpecialty.SpecialtyID == specialtyId));
+        }
+
+        if (genderId != default)
+        {
+            results = results.Where(entity => entity.User.GenderId == genderId);
+        }
+
+        if (filterName != default)
+        {
+            results = results.Where(entity => entity.User.FullName.Contains(filterName));
+        }
+        return await results
+            .AsNoTracking()
+            .Where(doctor => doctor.Schedules != null && doctor.Schedules.Any(schedule => schedule.StartDate > DateTime.Now))
+            .CountAsync(cancellationToken: cancellationToken);
     }
+
+
 
     public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorForBookingQueryAsync(
         int pageIndex,
         int pageSize,
+        string? filterName,
+        Guid? specialtyId,
+        Guid? genderId,
         CancellationToken cancellationToken)
     {
-        
-        return await _userDetails
+
+        var results =  _userDetails
             .AsNoTracking()
-            .Where(doctor =>  doctor.Schedules != null && doctor.Schedules.Any(schedule => schedule.StartDate > DateTime.Now))
+            .AsQueryable();
+
+                if (specialtyId != default) 
+                {
+                    results = results.Where(entity => entity.DoctorSpecialties.Any(doctorSpecialty => doctorSpecialty.SpecialtyID == specialtyId));
+                }
+
+                if (genderId != default) 
+                {
+                   results = results.Where(entity => entity.User.GenderId == genderId);
+                }
+
+                if (filterName != default) 
+                {
+                    results = results.Where(entity => entity.User.FullName.Contains(filterName));
+                }
+
+        return await results
+            .Where(doctor => doctor.Schedules != null && doctor.Schedules.Any(schedule => schedule.StartDate > DateTime.Now))
             .Select(selector: doctor => new Domain.Commons.Entities.Doctor()
             {
                 UserId = doctor.UserId,
@@ -65,7 +113,7 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
                     {
                         Feedback = new Feedback()
                         {
-                            Vote =  doctorSchedule.Appointment.Feedback != null ? doctorSchedule.Appointment.Feedback.Vote : 0 ,
+                            Vote = doctorSchedule.Appointment.Feedback != null ? doctorSchedule.Appointment.Feedback.Vote : 0,
                         }
                     }
                 }),
@@ -90,4 +138,6 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
+
+
 }

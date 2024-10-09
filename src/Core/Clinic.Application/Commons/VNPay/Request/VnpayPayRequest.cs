@@ -43,7 +43,7 @@ public class VnpayPayRequest
         this.vnp_Locale = "vn";
         this.vnp_OrderInfo = vnp_OrderInfo;
         this.vnp_OrderType = "other";
-        this.vnp_ReturnUrl = $"https://localhost:3000/payment-return?appointmentId={appointmentId}";          // có sẵn config
+        this.vnp_ReturnUrl = $"http://localhost:3000/vi/user/treatment-calendar/booking/success?appointmentId={appointmentId}";          // có sẵn config
         this.vnp_TxnRef = vnp_TxnRef;                                           // id online payment
     }
 
