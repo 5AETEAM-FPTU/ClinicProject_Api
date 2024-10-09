@@ -69,6 +69,16 @@ public class LoginWithGoogleHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: LoginWithGoogleResponseStatusCode.INVALID_GOOGLE_TOKEN,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<

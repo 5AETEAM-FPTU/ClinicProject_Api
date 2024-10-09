@@ -1,11 +1,12 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
-using Clinic.WebAPI.EndPoints.Doctors.GetAllMedicalReport.HttpResponseMapper;
-using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Auths.Login;
-using Clinic.WebAPI.EndPoints.Doctors.GetAllMedicalReport.Common;
+using Clinic.Application.Features.Doctors.GetAllMedicalReport;
+using Clinic.Application.Features.Enums.GetAllAppointmentStatus;
+using Clinic.WebAPI.EndPoints.Doctors.GetAllMedicalReport.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Doctors.GetAllMedicalReport;
 
@@ -13,11 +14,11 @@ namespace Clinic.WebAPI.EndPoints.Doctors.GetAllMedicalReport;
 ///     GetAllMedicalReport endpoint.
 /// </summary>
 internal sealed class GetAllMedicalReportEndpoint
-    : Endpoint<EmptyRequest, GetAllMedicalReportHttpResponse>
+    : Endpoint<GetAllMedicalReportRequest, GetAllMedicalReportHttpResponse>
 {
     public override void Configure()
     {
-        Get(routePatterns: "doctor/getAllMedicalReport");
+        Get(routePatterns: "medical-report/all");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder: builder =>
@@ -40,20 +41,19 @@ internal sealed class GetAllMedicalReportEndpoint
     }
 
     public override async Task<GetAllMedicalReportHttpResponse> ExecuteAsync(
-        EmptyRequest req,
+        GetAllMedicalReportRequest req,
         CancellationToken ct
     )
     {
         // Get app feature response.
-        var stateBag = ProcessorState<GetAllMedicalReportStateBag>();
 
-        var appResponse = await stateBag.AppRequest.ExecuteAsync(ct: ct);
+        var appResponse = await req.ExecuteAsync(ct: ct);
 
         // Convert to http response.
         var httpResponse = GetAllMedicalReportHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
-            .Invoke(arg1: stateBag.AppRequest, arg2: appResponse);
+            .Invoke(arg1: req, arg2: appResponse);
 
         /*
         * Store the real http code of http response into a temporary variable.

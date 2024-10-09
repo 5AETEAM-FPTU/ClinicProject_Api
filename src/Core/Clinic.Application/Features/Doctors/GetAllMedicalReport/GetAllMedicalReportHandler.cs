@@ -1,19 +1,20 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Security.Claims;
 using Microsoft.IdentityModel.JsonWebTokens;
-using System;
-using System.Linq;
 
 namespace Clinic.Application.Features.Doctors.GetAllMedicalReport;
 
 /// <summary>
 ///     GetAllMedicalReport Handler
 /// </summary>
-public class GetAllMedicalReportHandler : IFeatureHandler<GetAllMedicalReportRequest, GetAllMedicalReportResponse>
+public class GetAllMedicalReportHandler
+    : IFeatureHandler<GetAllMedicalReportRequest, GetAllMedicalReportResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
@@ -58,38 +59,45 @@ public class GetAllMedicalReportHandler : IFeatureHandler<GetAllMedicalReportReq
         }
 
         // Get all reports.
-        var reports = await _unitOfWork.GetAllMedicalReportRepository.FindAllMedicalReportByDoctorIdQueryAsync(
-            userId,
-            cancellationToken: cancellationToken
-        );
+        var reports =
+            await _unitOfWork.GetAllMedicalReportRepository.FindAllMedicalReportByDoctorIdQueryAsync(
+                request.Keyword,
+                request.LastReportDate,
+                request.PageSize,
+                userId,
+                cancellationToken: cancellationToken
+            );
 
-      
         // Response successfully.
         return new GetAllMedicalReportResponse()
         {
             StatusCode = GetAllMedicalReportResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new GetAllMedicalReportResponse.Body()
             {
-              GroupedReports = reports
-                .GroupBy(report => report.Appointment.Schedule.StartDate.Date)
-                .Select(group => new GetAllMedicalReportResponse.Body.GroupedReport
-                {
-                    DayOfDate = group.Key, // Group by day of the StartDate
-                    MedicalReports = group.Select(report => new GetAllMedicalReportResponse.Body.GroupedReport.MedicalReport()
+                GroupedReports = reports
+                    .GroupBy(report => report.Appointment.Schedule.StartDate.Date)
+                    .Select(group => new GetAllMedicalReportResponse.Body.GroupedReport
                     {
-                        PatientId = report.PatientInformation.Id,
-                        ReportId = report.Id,
-                        FullName = report.PatientInformation.FullName,
-                        Avatar = "", 
-                        PhoneNumber = report.PatientInformation.PhoneNumber,
-                        Gender = report.PatientInformation.Gender,
-                        StartTime = report.Appointment.Schedule.StartDate,
-                        EndTime = report.Appointment.Schedule.EndDate,
-                        Age = DateTime.Now.Year - report.PatientInformation.DOB.Year, // Calculate age
-                        Diagnosis = report.Diagnosis
-                    }).ToList()
-                })
-                .ToList()
+                        DayOfDate = group.Key,
+                        MedicalReports = group
+                            .Select(
+                                report => new GetAllMedicalReportResponse.Body.GroupedReport.MedicalReport()
+                                {
+                                    PatientId = report.PatientInformation.Id,
+                                    ReportId = report.Id,
+                                    FullName = report.PatientInformation.FullName,
+                                    Avatar = "",
+                                    PhoneNumber = report.PatientInformation.PhoneNumber,
+                                    Gender = report.PatientInformation.Gender,
+                                    StartTime = report.Appointment.Schedule.StartDate,
+                                    EndTime = report.Appointment.Schedule.EndDate,
+                                    Age = DateTime.Now.Year - report.PatientInformation.DOB.Year,
+                                    Diagnosis = report.Diagnosis
+                                }
+                            )
+                            .ToList()
+                    })
+                    .ToList()
             }
         };
     }
