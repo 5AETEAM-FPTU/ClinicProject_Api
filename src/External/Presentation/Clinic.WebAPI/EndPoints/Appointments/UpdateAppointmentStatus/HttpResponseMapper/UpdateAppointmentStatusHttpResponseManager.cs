@@ -1,20 +1,26 @@
-﻿using Clinic.Application.Features.Appointments.UpdateUserBookedAppointment;
-using System.Collections.Generic;
 using System;
+using System.Collections.Generic;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Appointments.UpdateUserBookedAppointment.HttpResponseMapper;
+namespace Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 
-public class UpdateUserBookedAppointmentHttpResponseManager
+public class UpdateAppointmentStatusHttpResponseManager
 {
-    private readonly Dictionary<UpdateUserBookedAppointmentResponseStatusCode, Func<UpdateUserBookedAppointmentRequest, UpdateUserBookedAppointmentResponse, UpdateUserBookedAppointmentHttpResponse>> _dictionary;
+    private readonly Dictionary<
+        UpdateAppointmentStatusResponseStatusCode,
+        Func<
+            UpdateAppointmentStatusRequest,
+            UpdateAppointmentStatusResponse,
+            UpdateAppointmentStatusHttpResponse
+        >
+    > _dictionary;
 
-    internal UpdateUserBookedAppointmentHttpResponseManager()
+    internal UpdateAppointmentStatusHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.OPERATION_SUCCESS,
+            key: UpdateAppointmentStatusResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -22,8 +28,9 @@ public class UpdateUserBookedAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
         _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: UpdateAppointmentStatusResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -31,17 +38,9 @@ public class UpdateUserBookedAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
         _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.UNAUTHORIZE,
-            value: (_, response) =>
-                new()
-                {
-                    HttpCode = StatusCodes.Status401Unauthorized,
-                    AppCode = response.StatusCode.ToAppCode(),
-                }
-        );
-        _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.APPOINTMENTS_IS_NOT_FOUND,
+            key: UpdateAppointmentStatusResponseStatusCode.APPOINTMENT_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -49,8 +48,9 @@ public class UpdateUserBookedAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
         _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.FORBIDEN_ACCESS,
+            key: UpdateAppointmentStatusResponseStatusCode.FORBIDEN_ACCESS,
             value: (_, response) =>
                 new()
                 {
@@ -58,8 +58,19 @@ public class UpdateUserBookedAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
         _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.INPUT_VALIDATION_FAIL,
+            key: UpdateAppointmentStatusResponseStatusCode.UNAUTHORIZE,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status401Unauthorized,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: UpdateAppointmentStatusResponseStatusCode.INPUT_VALIDATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -67,31 +78,23 @@ public class UpdateUserBookedAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
-        _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.ROLE_IS_NOT_ACCEPTABLE,
-            value: (_, response) =>
-                new()
-                {
-                    HttpCode = StatusCodes.Status406NotAcceptable,
-                    AppCode = response.StatusCode.ToAppCode(),
-                }
-        );
-        _dictionary.Add(
-            key: UpdateUserBookedAppointmentResponseStatusCode.APPOINTMENT_ONLY_UPDATE_ONCE,
-            value: (_, response) =>
-                new()
-                {
-                    HttpCode = StatusCodes.Status406NotAcceptable,
-                    AppCode = response.StatusCode.ToAppCode(),
-                }
-        );
 
+        _dictionary.Add(
+            key: UpdateAppointmentStatusResponseStatusCode.STATUS_IS_NOT_ACCEPTABLE,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status406NotAcceptable,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
+
     internal Func<
-        UpdateUserBookedAppointmentRequest,
-        UpdateUserBookedAppointmentResponse,
-        UpdateUserBookedAppointmentHttpResponse
-    > Resolve(UpdateUserBookedAppointmentResponseStatusCode statusCode)
+        UpdateAppointmentStatusRequest,
+        UpdateAppointmentStatusResponse,
+        UpdateAppointmentStatusHttpResponse
+    > Resolve(UpdateAppointmentStatusResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

@@ -14,6 +14,6 @@ public sealed class CreateMedicalReportResponse : IFeatureResponse
 
     public sealed class BodyResponse
     {
-        public Guid MedicalReport { get; set; }
+        public Guid MedicalReportId { get; set; }
     }
 }

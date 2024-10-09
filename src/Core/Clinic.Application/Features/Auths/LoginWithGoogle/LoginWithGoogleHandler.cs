@@ -85,7 +85,7 @@ internal sealed class LoginWithGoogleHandler
             // Create user command.
             var dbResult = await _unitOfWork.LoginWithGoogleRepository.CreateUserCommandAsync(
                 user: newUser,
-                defaultPassword: _configuration["DefaultPassword"],
+                defaultPassword: _configuration["Authentication:DefaultPassword"],
                 cancellationToken: ct
             );
 
