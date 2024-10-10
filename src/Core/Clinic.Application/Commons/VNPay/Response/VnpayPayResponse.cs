@@ -1,7 +1,5 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.VNPay.Helpers;
+﻿using Clinic.Application.Commons.VNPay.Helpers;
 using Clinic.Application.Commons.VNPay.Lib;
-using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
 using System.Net;
