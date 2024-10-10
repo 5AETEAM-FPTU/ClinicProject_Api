@@ -13,6 +13,7 @@ using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Data.DataSeeding;
 using Clinic.OTP;
 using Clinic.Redis;
+using Clinic.VNPAY;
 using Clinic.WebAPI;
 using Clinic.WebAPI.Commons.Middleware;
 using FastEndpoints;
@@ -41,6 +42,7 @@ services.ConfigFirebaseImageStorage();
 services.ConfigureJwtIdentityService();
 services.ConfigRedisCachingDatabase(configuration: config);
 services.ConfigAppBackgroundJob();
+services.ConfigVNPay(configuration: config);
 
 var app = builder.Build();
 
