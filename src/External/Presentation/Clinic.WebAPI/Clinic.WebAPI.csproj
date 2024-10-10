@@ -32,6 +32,7 @@
   <ItemGroup>
     <ProjectReference Include="..\..\Infrastructure\BackgroundJob\Clinic.AppBackgroundJob\Clinic.AppBackgroundJob.csproj" />
     <ProjectReference Include="..\..\Infrastructure\ChatMessage\Clinic.SignalR\Clinic.SignalR.csproj" />
+    <ProjectReference Include="..\..\Infrastructure\Communication\Clinic.Stringee\Clinic.Stringee.csproj" />
     <ProjectReference Include="..\..\Infrastructure\FileObjectStorage\Image\Clinic.Firebase\Clinic.Firebase.csproj" />
     <ProjectReference Include="..\..\Infrastructure\IdentityService\Clinic.JsonWebToken\Clinic.JsonWebToken.csproj" />
     <ProjectReference Include="..\..\Infrastructure\IdentityService\Clinic.OTP\Clinic.OTP.csproj" />
