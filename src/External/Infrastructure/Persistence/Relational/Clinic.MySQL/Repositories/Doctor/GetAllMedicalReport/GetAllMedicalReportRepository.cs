@@ -29,6 +29,16 @@ internal class GetAllMedicalReportRepository : IGetAllMedicalReportRepository
         CancellationToken cancellationToken
     )
     {
+        var latestDateBeforeGivenDate = await _reports
+            .Where(report =>
+                report.Appointment.Schedule.Doctor.UserId == doctorId
+                && report.Appointment.Schedule.StartDate.Date
+                    < (lastReportDate.HasValue ? lastReportDate.Value.Date : DateTime.Now.Date)
+            )
+            .OrderByDescending(report => report.Appointment.Schedule.StartDate)
+            .Select(report => report.Appointment.Schedule.StartDate.Date)
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
         var reportsQuery = _reports.AsQueryable();
 
         if (!string.IsNullOrEmpty(keyword))
@@ -42,12 +52,9 @@ internal class GetAllMedicalReportRepository : IGetAllMedicalReportRepository
             report.Appointment.Schedule.Doctor.UserId == doctorId
         );
 
-        if (lastReportDate.HasValue)
-        {
-            reportsQuery = reportsQuery.Where(report =>
-                report.Appointment.Schedule.StartDate.Date < lastReportDate.Value.Date
-            );
-        }
+        reportsQuery = reportsQuery.Where(report =>
+            report.Appointment.Schedule.StartDate.Date == latestDateBeforeGivenDate.Date
+        );
 
         return await reportsQuery
             .OrderByDescending(report => report.Appointment.Schedule.StartDate)

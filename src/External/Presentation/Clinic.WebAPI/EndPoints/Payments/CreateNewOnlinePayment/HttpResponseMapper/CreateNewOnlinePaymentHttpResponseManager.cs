@@ -1,37 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using Clinic.Application.Features.Appointments.CreateNewAppointment;
+using Clinic.Application.Features.OnlinePayments.CreateNewOnlinePayment;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Appointments.CreateNewAppointment.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Payments.CreateNewOnlinePayment.HttpResponseMapper;
 
-public class CreateNewAppointmentHttpResponseManager
+public class CreateNewOnlinePaymentHttpResponseManager
 {
     private readonly Dictionary<
-        CreateNewAppointmentResponseStatusCode,
+        CreateNewOnlinePaymentResponseStatusCode,
         Func<
-            CreateNewAppointmentRequest,
-            CreateNewAppointmentResponse,
-            CreateNewAppointmentHttpResponse
+            CreateNewOnlinePaymentRequest,
+            CreateNewOnlinePaymentResponse,
+            CreateNewOnlinePaymentHttpResponse
         >
     > _dictionary;
 
-    internal CreateNewAppointmentHttpResponseManager()
+    internal CreateNewOnlinePaymentHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS,
+            key: CreateNewOnlinePaymentResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = response.StatusCode.ToAppCode(),
-                    Body = response.ResponseBody
                 }
         );
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: CreateNewOnlinePaymentResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -40,7 +40,7 @@ public class CreateNewAppointmentHttpResponseManager
                 }
         );
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.UNAUTHORIZE,
+            key: CreateNewOnlinePaymentResponseStatusCode.UNAUTHORIZE,
             value: (_, response) =>
                 new()
                 {
@@ -49,7 +49,7 @@ public class CreateNewAppointmentHttpResponseManager
                 }
         );
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.INPUT_VALIDATION_FAIL,
+            key: CreateNewOnlinePaymentResponseStatusCode.INPUT_VALIDATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -58,7 +58,7 @@ public class CreateNewAppointmentHttpResponseManager
                 }
         );
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.FORBIDEN_ACCESS,
+            key: CreateNewOnlinePaymentResponseStatusCode.FORBIDEN_ACCESS,
             value: (_, response) =>
                 new()
                 {
@@ -67,7 +67,7 @@ public class CreateNewAppointmentHttpResponseManager
                 }
         );
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.USER_IS_NOT_FOUND,
+            key: CreateNewOnlinePaymentResponseStatusCode.USER_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -76,7 +76,7 @@ public class CreateNewAppointmentHttpResponseManager
                 }
         );
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_FOUND,
+            key: CreateNewOnlinePaymentResponseStatusCode.APPOINTMENT_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -85,21 +85,21 @@ public class CreateNewAppointmentHttpResponseManager
                 }
         );
         _dictionary.Add(
-            key: CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_AVAILABLE,
+            key: CreateNewOnlinePaymentResponseStatusCode.APPOINTMENT_HAS_DEPOSITED,
             value: (_, response) =>
                 new()
                 {
-                    HttpCode = StatusCodes.Status405MethodNotAllowed,
+                    HttpCode = StatusCodes.Status406NotAcceptable,
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
     }
 
     internal Func<
-        CreateNewAppointmentRequest,
-        CreateNewAppointmentResponse,
-        CreateNewAppointmentHttpResponse
-    > Resolve(CreateNewAppointmentResponseStatusCode statusCode)
+        CreateNewOnlinePaymentRequest,
+        CreateNewOnlinePaymentResponse,
+        CreateNewOnlinePaymentHttpResponse
+    > Resolve(CreateNewOnlinePaymentResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }
