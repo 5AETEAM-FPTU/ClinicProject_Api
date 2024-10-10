@@ -43,6 +43,14 @@ public class HandleRedirectURLHandler
         CancellationToken cancellationToken
     )
     {
+        // Find online payment by appiointment id.
+
+        // Respond if online payment not found.
+
+        // Update online payment status.
+
+        // Respond if database operation fail.
+
         return new HandleRedirectURLResponse()
         {
             StatusCode = HandleRedirectURLResponseStatusCode.OPERATION_SUCCESS,
