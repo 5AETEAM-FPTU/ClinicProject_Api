@@ -1,4 +1,5 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
 
 namespace Clinic.Application.Commons.Utils;
@@ -23,5 +24,12 @@ public class HashHelper
         }
 
         return hash.ToString();
+    }
+
+    public static bool VerifyHmacSHA512(string key, string inputData, string hmacToVerify)
+    {
+        string computedHmac = HmacSHA512(key, inputData);
+
+        return string.Equals(computedHmac, hmacToVerify, StringComparison.OrdinalIgnoreCase);
     }
 }

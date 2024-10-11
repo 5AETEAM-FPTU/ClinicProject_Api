@@ -1,3 +1,5 @@
+using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -34,6 +36,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -297,11 +300,6 @@ public interface IUnitOfWork
     public IGetRecentMedicalReportRepository GetRecentMedicalReportRepository { get; }
 
     /// <sumary>
-    ///    CreatePaymentLink feature.
-    /// </summary>
-    public ICreatePaymentLinkRepository CreatePaymentLinkRepository { get; }
-    
-    
     ///    GetConsultationOverviewRepository feature.
     /// </summary>
     public IGetConsultationOverviewRepository GetConsultationOverviewRepository { get; }
@@ -315,18 +313,24 @@ public interface IUnitOfWork
     ///    UpdateUserBookedAppointmentRepository feature.
     /// </summary>
     public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository { get; }
-    
+
     /// <sumary>
     ///    CreateMedicineRepository feature.
     /// </summary>
     public ICreateMedicineRepository CreateMedicineRepository { get; }
+
     /// <summary>
-    /// UpdateAppointmentStatusRepository feature
+    ///    UpdateAppointmentStatusRepository feature
     /// </summary>
     public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository { get; }
 
     /// <summary>
-    /// GetAllMedicineRepository feature
+    ///    HandleRedirectURLRepository feature
+    /// </summary>
+    public IHandleRedirectURLRepository HandleRedirectURLRepository { get; }
+
+    /// <summary>
+    ///    GetAllMedicineRepository feature
     /// </summary>
     public IGetAllMedicineRepository GetAllMedicineRepository { get; }
 }
