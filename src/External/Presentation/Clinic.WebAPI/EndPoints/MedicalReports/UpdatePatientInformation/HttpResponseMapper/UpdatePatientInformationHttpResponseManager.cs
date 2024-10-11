@@ -5,20 +5,20 @@ using Clinic.Application.Features.MedicalReports.UpdateMedicalReportPatientInfor
 using Clinic.WebAPI.EndPoints.MedicalReports.CreateMedicalReport.HttpResponseMapper;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdateMedicalReportPatientInformation.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdatePatientInformation.HttpResponseMapper;
 
-public class UpdateMedicalReportPatientInformationHttpResponseManager
+public class UpdatePatientInformationHttpResponseManager
 {
     private readonly Dictionary<
         UpdateMedicalReportPatientInformationResponseStatusCode,
         Func<
             UpdateMedicalReportPatientInformationRequest,
             UpdateMedicalReportPatientInformationResponse,
-            UpdateMedicalReportPatientInformationHttpResponse
+            UpdatePatientInformationHttpResponse
         >
     > _dictionary;
 
-    internal UpdateMedicalReportPatientInformationHttpResponseManager()
+    internal UpdatePatientInformationHttpResponseManager()
     {
         _dictionary = [];
 
@@ -72,7 +72,7 @@ public class UpdateMedicalReportPatientInformationHttpResponseManager
     internal Func<
         UpdateMedicalReportPatientInformationRequest,
         UpdateMedicalReportPatientInformationResponse,
-        UpdateMedicalReportPatientInformationHttpResponse
+        UpdatePatientInformationHttpResponse
     > Resolve(UpdateMedicalReportPatientInformationResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];

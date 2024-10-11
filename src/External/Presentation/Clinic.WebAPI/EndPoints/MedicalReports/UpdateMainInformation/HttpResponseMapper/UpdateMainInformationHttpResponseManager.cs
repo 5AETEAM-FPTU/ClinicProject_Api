@@ -5,20 +5,20 @@ using Clinic.Application.Features.MedicalReports.UpdateMainMedicalReportInformat
 using Clinic.WebAPI.EndPoints.MedicalReports.CreateMedicalReport.HttpResponseMapper;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdateMainMedicalReportInformation.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdateMainInformation.HttpResponseMapper;
 
-public class UpdateMainMedicalReportInformationHttpResponseManager
+public class UpdateMainInformationHttpResponseManager
 {
     private readonly Dictionary<
         UpdateMainMedicalReportInformationResponseStatusCode,
         Func<
             UpdateMainMedicalReportInformationRequest,
             UpdateMainMedicalReportInformationResponse,
-            UpdateMainMedicalReportInformationHttpResponse
+            UpdateMainInformationHttpResponse
         >
     > _dictionary;
 
-    internal UpdateMainMedicalReportInformationHttpResponseManager()
+    internal UpdateMainInformationHttpResponseManager()
     {
         _dictionary = [];
         _dictionary.Add(
@@ -71,7 +71,7 @@ public class UpdateMainMedicalReportInformationHttpResponseManager
     internal Func<
         UpdateMainMedicalReportInformationRequest,
         UpdateMainMedicalReportInformationResponse,
-        UpdateMainMedicalReportInformationHttpResponse
+        UpdateMainInformationHttpResponse
     > Resolve(UpdateMainMedicalReportInformationResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
