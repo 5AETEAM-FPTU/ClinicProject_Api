@@ -1,4 +1,5 @@
-﻿using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
+﻿using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -19,15 +20,21 @@ internal class UpdateDutyStatusRepository : IUpdateDutyStatusRepository
         _context = context;
     }
 
-    public async Task<bool> UpdateDutyStatusCommandAsync(Guid userId, bool status, CancellationToken cancellationToken)
+    public async Task<User> GetDoctorById(Guid userId)
     {
-        var doctor =  await _context.Users.Include(u => u.Doctor).FirstOrDefaultAsync(u => u.Id == userId);
-        if (Equals(doctor,default))
+        return await _context.Users.Include(u => u.Doctor).FirstOrDefaultAsync(u => u.Id == userId);
+    }
+    public async Task<bool> UpdateDutyStatusCommandAsync(User doctor, bool status, CancellationToken cancellationToken)
+    {
+        try
         {
+            doctor.Doctor.IsOnDuty = status;
+            await _context.SaveChangesAsync(cancellationToken);
+            return true;
+        }
+        catch (Exception ex) { 
             return false;
         }
-        doctor.Doctor.IsOnDuty = status;
-        await _context.SaveChangesAsync(cancellationToken);
-        return true;
+        
     }
 }

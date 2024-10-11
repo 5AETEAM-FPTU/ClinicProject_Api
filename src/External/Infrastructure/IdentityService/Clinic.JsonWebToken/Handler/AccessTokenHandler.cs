@@ -36,7 +36,7 @@ internal sealed class AccessTokenHandler : IAccessTokenHandler
                 Audience = _tokenValidationParameters.ValidAudience,
                 Issuer = _tokenValidationParameters.ValidIssuer,
                 Subject = new(claims: claims),
-                Expires = DateTime.UtcNow.AddHours(value: 2),
+                Expires = DateTime.UtcNow.AddHours(value: 24),
                 IssuedAt = DateTime.UtcNow,
                 TokenType = "JWT",
                 SigningCredentials = new(

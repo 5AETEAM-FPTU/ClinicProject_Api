@@ -19,11 +19,18 @@ public class GetAbsentAppointmentResponse : IFeatureResponse
 
         public sealed class AppointmentDetail
         {
-            public Guid AppointmentId { get; init; }
-            public Guid ScheduleId { get; init; }
-            public DateTime StartDate { get; init; }
-            public DateTime EndDate { get; init; }
-            public UserDetail Users { get; init; }
+            public Guid Id { get; init; }
+            public string Description { get; init; }
+            public Schedule Schedules { get; init; }
+            public UserDetail Patients { get; init; }
+            public Status AppointmentStatus { get; init; }
+
+            public sealed class Schedule
+            {
+                public Guid ScheduleId { get; init; }
+                public DateTime StartDate { get; init; }
+                public DateTime EndDate { get; init; }
+            }
 
             public sealed class UserDetail
             {
@@ -32,8 +39,14 @@ public class GetAbsentAppointmentResponse : IFeatureResponse
                 public string AvatarUrl { get; init; }
                 public string Gender { get; init; }
                 public string PhoneNumber { get; init; }
-                public string Description { get; init; }
                 public DateTime DOB { get; init; }
+            }
+
+            public sealed class Status
+            {
+                public Guid Id { get; init; }
+                public string StatusName { get; init; }
+                public string Constant { get; init; }
             }
         }
     }

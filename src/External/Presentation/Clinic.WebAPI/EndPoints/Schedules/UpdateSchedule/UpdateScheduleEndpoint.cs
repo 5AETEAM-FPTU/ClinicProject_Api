@@ -16,7 +16,7 @@ public class UpdateScheduleEndpoint : Endpoint<UpdateScheduleRequest, UpdateSche
 {
     public override void Configure()
     {
-        Post("schedules/update/{scheduleId}");
+        Patch("schedules/update/{scheduleId}");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<ValidationPreProcessor<UpdateScheduleRequest>>();
         DontThrowIfValidationFails();
@@ -27,8 +27,7 @@ public class UpdateScheduleEndpoint : Endpoint<UpdateScheduleRequest, UpdateSche
         Summary(summary =>
         {
             summary.Summary = "Endpoint for doctor/staff";
-            summary.Description =
-                "This endpoint allows doctor/staff for update specific schedule.";
+            summary.Description = "This endpoint allows doctor/staff for update specific schedule.";
             summary.Response<UpdateScheduleHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

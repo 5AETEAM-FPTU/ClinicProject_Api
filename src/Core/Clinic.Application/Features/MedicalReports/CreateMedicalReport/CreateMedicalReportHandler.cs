@@ -66,7 +66,7 @@ internal sealed class CreateMedicalReportHandler
         {
             return new()
             {
-                StatusCode = CreateMedicalReportResponseStatusCode.PATIENT_IS_NOT_FOUND
+                StatusCode = CreateMedicalReportResponseStatusCode.PATIENT_IS_NOT_FOUND,
             };
         }
 
@@ -82,7 +82,7 @@ internal sealed class CreateMedicalReportHandler
         {
             return new()
             {
-                StatusCode = CreateMedicalReportResponseStatusCode.APPOINTMENT_HAS_ALREADY_REPORT
+                StatusCode = CreateMedicalReportResponseStatusCode.APPOINTMENT_HAS_ALREADY_REPORT,
             };
         }
 
@@ -98,7 +98,7 @@ internal sealed class CreateMedicalReportHandler
         {
             return new()
             {
-                StatusCode = CreateMedicalReportResponseStatusCode.APPOINTMENT_HAS_ALREADY_REPORT
+                StatusCode = CreateMedicalReportResponseStatusCode.APPOINTMENT_HAS_ALREADY_REPORT,
             };
         }
 
@@ -122,7 +122,7 @@ internal sealed class CreateMedicalReportHandler
         {
             return new()
             {
-                StatusCode = CreateMedicalReportResponseStatusCode.DATABASE_OPERATION_FAIL
+                StatusCode = CreateMedicalReportResponseStatusCode.DATABASE_OPERATION_FAIL,
             };
         }
 
@@ -130,7 +130,7 @@ internal sealed class CreateMedicalReportHandler
         return new()
         {
             StatusCode = CreateMedicalReportResponseStatusCode.OPERATION_SUCCESS,
-            Body = new() { MedicalReport = newMedicalReport.Id }
+            Body = new() { MedicalReportId = newMedicalReport.Id },
         };
     }
 
@@ -168,7 +168,7 @@ internal sealed class CreateMedicalReportHandler
                 Gender = patient.Gender.Name,
                 PhoneNumber = patient.PhoneNumber,
             },
-            MedicineOrder = new() { Id = Guid.NewGuid(), TotalItem = 0, },
+            MedicineOrder = new() { Id = Guid.NewGuid(), TotalItem = 0 },
             Diagnosis = request.Diagnosis,
             MedicalHistory = request.MedicalHistory,
             GeneralCondition = request.GeneralCondition,

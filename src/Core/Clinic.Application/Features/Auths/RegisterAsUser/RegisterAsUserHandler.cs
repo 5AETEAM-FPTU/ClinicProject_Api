@@ -66,7 +66,7 @@ internal sealed class RegisterAsUserHandler
         // Responds if email is exist.
         if (isEmailExist)
         {
-            return new() { StatusCode = RegisterAsUserResponseStatusCode.EMAIL_IS_EXIST, };
+            return new() { StatusCode = RegisterAsUserResponseStatusCode.EMAIL_IS_EXIST };
         }
 
         // Check username is registered by other users.
@@ -89,13 +89,14 @@ internal sealed class RegisterAsUserHandler
                 FullName = request.FullName,
                 UserName = request.Email,
                 Email = request.Email,
+                GenderId = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                 Avatar = _defaultUserAvatarAsUrlHandler.Get(),
                 CreatedAt = DateTime.UtcNow,
                 CreatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                 UpdatedAt = CommonConstant.MIN_DATE_TIME,
                 UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
                 RemovedAt = CommonConstant.MIN_DATE_TIME,
-                RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             };
 
         // Validation password.
@@ -107,7 +108,7 @@ internal sealed class RegisterAsUserHandler
         // Responds if password is not valid.
         if (!isPasswordValid)
         {
-            return new() { StatusCode = RegisterAsUserResponseStatusCode.PASSWORD_IS_NOT_VAID, };
+            return new() { StatusCode = RegisterAsUserResponseStatusCode.PASSWORD_IS_NOT_VAID };
         }
 
         // Init user information.
@@ -126,7 +127,7 @@ internal sealed class RegisterAsUserHandler
         // Responds if user cannot create successfully.
         if (!dbResult)
         {
-            return new() { StatusCode = RegisterAsUserResponseStatusCode.DATABASE_OPERATION_FAIL, };
+            return new() { StatusCode = RegisterAsUserResponseStatusCode.DATABASE_OPERATION_FAIL };
         }
 
         // Send account creation confirmation mail to user.
@@ -147,7 +148,7 @@ internal sealed class RegisterAsUserHandler
         // Response successfully.
         return new RegisterAsUserResponse()
         {
-            StatusCode = RegisterAsUserResponseStatusCode.OPERATION_SUCCESS
+            StatusCode = RegisterAsUserResponseStatusCode.OPERATION_SUCCESS,
         };
     }
 

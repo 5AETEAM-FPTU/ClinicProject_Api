@@ -104,6 +104,8 @@ using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -168,6 +170,8 @@ public class UnitOfWork : IUnitOfWork
     private ICreateMedicalReportRepository _createMedicalReportRepository;
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
     private ICreateMedicineRepository _createMedicineRepository;
+    private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
+
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -545,6 +549,16 @@ public class UnitOfWork : IUnitOfWork
         {
             return _updateUserBookedAppointmentRepository ??=
                 new UpdateUserBookedAppointmentRepository(_context);
+        }
+    }
+
+    public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository
+    {
+        get
+        {
+            return _updateAppointmentStatusRepository ??= new UpdateAppointmentStatusRepository(
+                _context
+            );
         }
     }
 
