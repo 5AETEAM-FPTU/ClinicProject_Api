@@ -4,7 +4,7 @@ using Clinic.Application.Features.Appointments.CreateNewAppointment;
 using Clinic.Application.Features.OnlinePayments.CreateNewOnlinePayment;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.OnlinePayment.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Payments.CreateNewOnlinePayment.HttpResponseMapper;
 
 public class CreateNewOnlinePaymentHttpResponseManager
 {
@@ -84,7 +84,7 @@ public class CreateNewOnlinePaymentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
-         _dictionary.Add(
+        _dictionary.Add(
             key: CreateNewOnlinePaymentResponseStatusCode.APPOINTMENT_HAS_DEPOSITED,
             value: (_, response) =>
                 new()

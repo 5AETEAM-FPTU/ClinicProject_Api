@@ -1,19 +1,23 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Features.OnlinePayments.CreateNewOnlinePayment;
-using Clinic.WebAPI.EndPoints.OnlinePayment.HttpResponseMapper;
+using Clinic.Application.Features.OnlinePayments.CreatePaymentLink;
+using Clinic.WebAPI.EndPoints.Payments.CreatePaymentLink.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.OnlinePayment;
+namespace Clinic.WebAPI.EndPoints.Payments.CreatePaymentLink;
 
-public class CreateNewOnlinePaymentEndpoint
-    : Endpoint<CreateNewOnlinePaymentRequest, CreateNewOnlinePaymentHttpResponse>
+/// <summary>
+///     Endpoint for CreatePaymentLinkEndpoint.
+/// </summary>
+public class CreatePaymentLinkEndpoint
+    : Endpoint<CreatePaymentLinkRequest, CreatePaymentLinkHttpResponse>
 {
     public override void Configure()
     {
-        Post("payment/create");
+        Post("payment/generate-link");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -22,10 +26,10 @@ public class CreateNewOnlinePaymentEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for creating new online payment";
+            summary.Summary = "Endpoint for generating link payment";
             summary.Description =
-                "This endpoint allow user for create new online payment after successful payment with vnpay";
-            summary.Response<CreateNewOnlinePaymentHttpResponse>(
+                "This endpoint allow user for generate link payment to redirect to gateway payment.";
+            summary.Response<CreatePaymentLinkHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
@@ -37,15 +41,15 @@ public class CreateNewOnlinePaymentEndpoint
         });
     }
 
-    public override async Task<CreateNewOnlinePaymentHttpResponse> ExecuteAsync(
-        CreateNewOnlinePaymentRequest req,
+    public override async Task<CreatePaymentLinkHttpResponse> ExecuteAsync(
+        CreatePaymentLinkRequest req,
         CancellationToken ct
     )
     {
         // Get app feature response.
         var appResponse = await req.ExecuteAsync(ct: ct);
         // Convert to http response.
-        var httpResponse = CreateNewOnlinePaymentHttpResponseMapper
+        var httpResponse = CreatePaymentLinkHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

@@ -1,4 +1,4 @@
-﻿namespace Clinic.WebAPI.EndPoints.OnlinePayment.HttpResponseMapper;
+﻿namespace Clinic.WebAPI.EndPoints.Payments.CreateNewOnlinePayment.HttpResponseMapper;
 
 internal static class CreateNewOnlinePaymentHttpResponseMapper
 {

@@ -48,8 +48,10 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -295,6 +297,11 @@ public interface IUnitOfWork
     public IGetRecentMedicalReportRepository GetRecentMedicalReportRepository { get; }
 
     /// <sumary>
+    ///    CreatePaymentLink feature.
+    /// </summary>
+    public ICreatePaymentLinkRepository CreatePaymentLinkRepository { get; }
+    
+    
     ///    GetConsultationOverviewRepository feature.
     /// </summary>
     public IGetConsultationOverviewRepository GetConsultationOverviewRepository { get; }
@@ -317,4 +324,9 @@ public interface IUnitOfWork
     /// UpdateAppointmentStatusRepository feature
     /// </summary>
     public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository { get; }
+
+    /// <summary>
+    /// GetAllMedicineRepository feature
+    /// </summary>
+    public IGetAllMedicineRepository GetAllMedicineRepository { get; }
 }

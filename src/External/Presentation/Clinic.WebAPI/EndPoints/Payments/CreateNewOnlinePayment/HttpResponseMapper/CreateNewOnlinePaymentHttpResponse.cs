@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Clinic.Application.Features.Auths.ChangingPassword;
 
-namespace Clinic.WebAPI.EndPoints.OnlinePayment.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Payments.CreateNewOnlinePayment.HttpResponseMapper;
 
 public sealed class CreateNewOnlinePaymentHttpResponse
 {

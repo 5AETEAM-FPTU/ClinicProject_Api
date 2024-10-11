@@ -68,6 +68,10 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{23F5
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.VNPAY", "External\Infrastructure\PaymentService\Clinic.VNPAY\Clinic.VNPAY.csproj", "{9C0AD944-E288-4AD0-9A66-F59B37C2FB95}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{911C93E2-FDDF-4B1E-B7B4-BBB875A3BAF7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Stringee", "External\Infrastructure\Communication\Clinic.Stringee\Clinic.Stringee.csproj", "{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -126,6 +130,10 @@ Global
 		{9C0AD944-E288-4AD0-9A66-F59B37C2FB95}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9C0AD944-E288-4AD0-9A66-F59B37C2FB95}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9C0AD944-E288-4AD0-9A66-F59B37C2FB95}.Release|Any CPU.Build.0 = Release|Any CPU
+		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -160,6 +168,8 @@ Global
 		{670D0A76-6F35-4603-A144-2B112363B1CF} = {091077DF-D7D6-408F-ABB9-C2BE47737C3D}
 		{23F5EAA8-4076-4B98-9282-B0215ADE6F51} = {73B3CE16-E7BD-41A9-9412-D507DE095E0E}
 		{9C0AD944-E288-4AD0-9A66-F59B37C2FB95} = {23F5EAA8-4076-4B98-9282-B0215ADE6F51}
+		{911C93E2-FDDF-4B1E-B7B4-BBB875A3BAF7} = {73B3CE16-E7BD-41A9-9412-D507DE095E0E}
+		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC} = {911C93E2-FDDF-4B1E-B7B4-BBB875A3BAF7}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57676846-8CE4-4665-BA4C-2AEACCFDCFAE}
