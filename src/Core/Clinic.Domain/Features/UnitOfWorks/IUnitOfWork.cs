@@ -1,5 +1,6 @@
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -51,10 +52,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
-using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
-using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
-using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 

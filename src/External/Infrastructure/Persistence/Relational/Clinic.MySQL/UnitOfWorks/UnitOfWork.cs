@@ -55,7 +55,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
@@ -110,7 +109,6 @@ using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.MySQL.Repositories.VNPays.CreatePaymentLink;
 using Microsoft.AspNetCore.Identity;
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -579,7 +577,7 @@ public class UnitOfWork : IUnitOfWork
         get { return _handleRedirectURLRepository ??= new HandleRedirectURLRepository(_context); }
     }
 
-    public IGetAllMedicineRepository GetAllMedicineRepository 
+    public IGetAllMedicineRepository GetAllMedicineRepository
     {
         get { return _getAllMedicineRepository ??= new GetAllMedicineRepository(_context); }
     }
