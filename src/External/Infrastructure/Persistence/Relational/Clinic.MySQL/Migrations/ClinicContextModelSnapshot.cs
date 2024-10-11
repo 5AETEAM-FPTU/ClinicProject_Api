@@ -1019,6 +1019,14 @@ namespace Clinic.MySQL.Migrations
                     b.Property<Guid>("CreatedBy")
                         .HasColumnType("char(36)");
 
+                    b.Property<bool>("IsUpdated")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("tinyint(1)")
+                        .HasDefaultValue(false);
+
+                    b.Property<int>("PriceAtOrder")
+                        .HasColumnType("int");
+
                     b.Property<DateTime>("RemovedAt")
                         .HasColumnType("DATETIME");
 

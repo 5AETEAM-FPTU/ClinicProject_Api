@@ -1,3 +1,4 @@
+﻿
 ﻿using Clinic.VNPAY.Common;
 
 namespace Clinic.VNPAY.Model;

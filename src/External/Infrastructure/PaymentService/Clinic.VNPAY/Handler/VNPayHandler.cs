@@ -21,13 +21,16 @@ internal class VNPayHandler : IPaymentHandler
 
     public string CreatePaymentLink(PaymentModel paymentData)
     {
+        var hashKey = HashHelper.HmacSHA512(_options.SecretKey, _options.SecretKey);
+
         var vnpayRequest = new VNPayRequest(
             ipAddr: paymentData.IPAddress,
             amount: paymentData.Amount,
             orderInfo: paymentData.OrderInfo,
             createdDate: paymentData.CreatedDate,
             txnRef: paymentData.TxnRef,
-            appointmentId: paymentData.AppointmentId
+            appointmentId: paymentData.AppointmentId,
+            hashKey: hashKey
         );
 
         vnpayRequest.MakeRequestData();
@@ -91,6 +94,15 @@ internal class VNPayHandler : IPaymentHandler
         return checkSum.Equals(
             vNPayRepsonse.vnp_SecureHash,
             StringComparison.InvariantCultureIgnoreCase
+        );
+    }
+
+    public bool VerifySecureKey(string secureHash)
+    {
+        return HashHelper.VerifyHmacSHA512(
+            key: _options.SecretKey,
+            inputData: _options.SecretKey,
+            hmacToVerify: secureHash
         );
     }
 }

@@ -2,7 +2,6 @@
 using System.Text;
 using Clinic.Application.Commons.CallToken;
 using Clinic.Configuration.Infrastructure.Stringee;
-using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Clinic.Stringee.Handler;
@@ -14,10 +13,7 @@ internal class SrtringeeAccessTokenHandler : ICallTokenHandler
 {
     private readonly StringeeOption _stringeeOption;
 
-    public SrtringeeAccessTokenHandler(
-        JsonWebTokenHandler jsonWebTokenHandler,
-        StringeeOption stringeeOption
-    )
+    public SrtringeeAccessTokenHandler(StringeeOption stringeeOption)
     {
         _stringeeOption = stringeeOption;
     }

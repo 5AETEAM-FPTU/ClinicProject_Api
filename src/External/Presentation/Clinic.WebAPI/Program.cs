@@ -14,6 +14,7 @@ using Clinic.MySQL.Data.DataSeeding;
 using Clinic.OTP;
 using Clinic.Redis;
 using Clinic.Stringee;
+using Clinic.TwilioSMS;
 using Clinic.VNPAY;
 using Clinic.WebAPI;
 using Clinic.WebAPI.Commons.Middleware;
@@ -45,6 +46,7 @@ services.ConfigRedisCachingDatabase(configuration: config);
 services.ConfigAppBackgroundJob();
 services.ConfigVNPay(configuration: config);
 services.ConfigureStringeeService(configuration: config);
+services.ConfigTwilioSmsNotification(configuration: config);
 
 var app = builder.Build();
 

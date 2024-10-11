@@ -22,6 +22,15 @@ internal sealed class ServiceOrderItemsEntityConfiguration
             serviceOrderItem.ServiceOrderId,
         });
 
+        // PriceAtOrder property configuration.
+        builder.Property(propertyExpression: service => service.PriceAtOrder).IsRequired();
+
+        // IsUpdated property configuration.
+        builder
+            .Property(propertyExpression: service => service.IsUpdated)
+            .HasDefaultValue(false)
+            .IsRequired();
+
         // CreatedAt property configuration.
         builder
             .Property(propertyExpression: service => service.CreatedAt)

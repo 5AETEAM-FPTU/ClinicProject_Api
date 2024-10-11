@@ -1,11 +1,11 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
-using Clinic.WebAPI.EndPoints.Doctors.GetMedicalReportById.HttpResponseMapper;
-using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Auths.Login;
 using Clinic.Application.Features.Doctors.GetMedicalReportById;
+using Clinic.WebAPI.EndPoints.Doctors.GetMedicalReportById.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Doctors.GetMedicalReportById;
 
@@ -17,7 +17,7 @@ internal sealed class GetMedicalReportByIdEndpoint
 {
     public override void Configure()
     {
-        Get(routePatterns: "doctor/getMedicalReportById");
+        Get(routePatterns: "medical-report");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder: builder =>
@@ -26,23 +26,23 @@ internal sealed class GetMedicalReportByIdEndpoint
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Doctor feature";
-            summary.Description = "This endpoint is used for display profile user medical report .";
+            summary.Summary = "Endpoint for Doctor/Staff feature";
+            summary.Description = "This endpoint is used for display profile user medical report.";
             summary.Response<GetMedicalReportByIdHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
     public override async Task<GetMedicalReportByIdHttpResponse> ExecuteAsync(
-          GetMedicalReportByIdRequest req,
-          CancellationToken ct
-      )
+        GetMedicalReportByIdRequest req,
+        CancellationToken ct
+    )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
@@ -61,4 +61,3 @@ internal sealed class GetMedicalReportByIdEndpoint
         return httpResponse;
     }
 }
-
