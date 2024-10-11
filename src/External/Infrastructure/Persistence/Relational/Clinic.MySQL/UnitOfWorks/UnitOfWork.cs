@@ -1,5 +1,8 @@
 using Clinic.Application.Features.Appointments.UpdateAppointmentDepositPayment;
+using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -36,6 +39,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -52,6 +56,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
+using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
@@ -87,6 +92,7 @@ using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
@@ -102,13 +108,6 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
-using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
-using Clinic.MySQL.Repositories.VNPays.CreatePaymentLink;
-using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
-using Clinic.MySQL.Repositories.Admin.CreateMedicine;
-using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
-using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
-
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -168,12 +167,12 @@ public class UnitOfWork : IUnitOfWork
     private IRemoveScheduleRepository _removeScheduleRepository;
     private IRemoveAllSchedulesRepository _removeAllSchedulesRepository;
     private IGetRecentMedicalReportRepository _getRecentMedicalReportRepository;
-    private ICreatePaymentLinkRepository _createPaymentLinkRepository;
     private IGetConsultationOverviewRepository _getConsultationOverviewRepository;
     private ICreateMedicalReportRepository _createMedicalReportRepository;
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
     private ICreateMedicineRepository _createMedicineRepository;
     private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
+    private IHandleRedirectURLRepository _handleRedirectURLRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -570,8 +569,8 @@ public class UnitOfWork : IUnitOfWork
         get { return _createMedicineRepository ??= new CreateMedicineRepository(_context); }
     }
 
-    public ICreatePaymentLinkRepository CreatePaymentLinkRepository
+    public IHandleRedirectURLRepository HandleRedirectURLRepository
     {
-        get { return _createPaymentLinkRepository ??= new CreatePaymentLinkRepository(_context); }
+        get { return _handleRedirectURLRepository ??= new HandleRedirectURLRepository(_context); }
     }
 }
