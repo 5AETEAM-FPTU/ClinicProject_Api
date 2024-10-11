@@ -108,6 +108,8 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
 
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -174,6 +176,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
     private ICreateMedicineRepository _createMedicineRepository;
     private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
+    private ICreateServiceRepository _createServiceRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -573,5 +576,10 @@ public class UnitOfWork : IUnitOfWork
     public ICreatePaymentLinkRepository CreatePaymentLinkRepository
     {
         get { return _createPaymentLinkRepository ??= new CreatePaymentLinkRepository(_context); }
+    }
+
+    public ICreateServiceRepository CreateServiceRepository
+    {
+        get { return _createServiceRepository ??= new CreateServiceRepository(_context); }
     }
 }

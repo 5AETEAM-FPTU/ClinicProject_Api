@@ -51,6 +51,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -319,8 +320,14 @@ public interface IUnitOfWork
     ///    CreateMedicineRepository feature.
     /// </summary>
     public ICreateMedicineRepository CreateMedicineRepository { get; }
+
     /// <summary>
     /// UpdateAppointmentStatusRepository feature
     /// </summary>
     public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository { get; }
+
+    /// <summary>
+    /// CreateService feature
+    /// </summary>
+    public ICreateServiceRepository CreateServiceRepository { get; }
 }

@@ -1,9 +1,4 @@
-﻿using Clinic.Application.Commons.VNPay.Helpers;
-using Clinic.Application.Commons.VNPay.Lib;
-using System;
-using System.Collections.Generic;
-using System.Net;
-using System.Text;
+﻿
 ﻿using Clinic.VNPAY.Common;
 
 namespace Clinic.VNPAY.Model;
