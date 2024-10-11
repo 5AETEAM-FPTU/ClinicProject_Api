@@ -13,6 +13,7 @@ using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Data.DataSeeding;
 using Clinic.OTP;
 using Clinic.Redis;
+using Clinic.Stringee;
 using Clinic.VNPAY;
 using Clinic.WebAPI;
 using Clinic.WebAPI.Commons.Middleware;
@@ -43,6 +44,7 @@ services.ConfigureJwtIdentityService();
 services.ConfigRedisCachingDatabase(configuration: config);
 services.ConfigAppBackgroundJob();
 services.ConfigVNPay(configuration: config);
+services.ConfigureStringeeService(configuration: config);
 
 var app = builder.Build();
 

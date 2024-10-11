@@ -125,6 +125,7 @@ public class GetAppointmentsByDateHandler
                                 Constant = appointment.AppointmentStatus.Constant,
                             },
                         IsHadMedicalReport = appointment.MedicalReport != null,
+                        MedicalReportId = appointment.MedicalReport?.Id ?? Guid.Empty,
                     })
                     .ToList(),
             },
