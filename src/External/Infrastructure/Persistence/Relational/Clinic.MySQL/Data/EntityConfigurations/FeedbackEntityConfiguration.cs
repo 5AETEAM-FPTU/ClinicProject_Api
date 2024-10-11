@@ -8,7 +8,7 @@ namespace Clinic.MySQL.Data.EntityConfigurations;
 /// <summary>
 ///     Represents configuration of "Feedback" table.
 /// </summary>
-internal sealed class PatientInformationConfiguration : IEntityTypeConfiguration<Feedback>
+internal sealed class FeedbackEntityConfiguration : IEntityTypeConfiguration<Feedback>
 {
     public void Configure(EntityTypeBuilder<Feedback> builder)
     {
