@@ -18,6 +18,10 @@ public class ServiceOrderItem
 
     public Guid ServiceId { get; set; }
 
+    public bool IsUpdated { get; set; }
+
+    public int PriceAtOrder { get; set; }
+
     // Normal properties.
     public DateTime UpdatedAt { get; set; }
 

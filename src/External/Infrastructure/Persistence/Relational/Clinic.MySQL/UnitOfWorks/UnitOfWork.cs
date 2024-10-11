@@ -38,6 +38,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
@@ -95,6 +96,7 @@ using Clinic.MySQL.Repositories.Enums.GetAllGender;
 using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
+using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
@@ -181,6 +183,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
     private IUpdatePatientInformationRepository _updateMedicalReportPatientInformationRepository;
     private IUpdateMainInformationRepository _updateMainMedicalReportInformationRepository;
+    private ICreateServiceRepository _createServiceRepository;
     private IHandleRedirectURLRepository _handleRedirectURLRepository;
     private IGetAllMedicineRepository _getAllMedicineRepository;
 
@@ -605,5 +608,10 @@ public class UnitOfWork : IUnitOfWork
             return _updateMainMedicalReportInformationRepository ??=
                 new UpdateMainInformationRepository(_context);
         }
+    }
+
+    public ICreateServiceRepository CreateServiceRepository
+    {
+        get { return _createServiceRepository ??= new CreateServiceRepository(_context); }
     }
 }
