@@ -28,7 +28,10 @@ internal class GetUserBookedAppointmentRepository : IGetUserBookedAppointmentRep
     {
         return await _appointments
             .AsNoTracking()
-            .Where(appointment => appointment.Patient.UserId == userId && appointment.AppointmentStatus.Constant.Equals("Pending") && appointment.Schedule.StartDate > DateTime.Now)
+            .Where(appointment => appointment.Patient.UserId == userId)
+            .Where( appointment => appointment.AppointmentStatus.Constant.Equals("Pending"))
+            .Where(appointment => appointment.Schedule.StartDate > DateTime.Now)
+            .Where(appointment => appointment.DepositPayment)
             .Select( appointment => new Appointment()
             {
                 Id = appointment.Id,
