@@ -2,19 +2,15 @@
 using System.Threading.Tasks;
 using Clinic.Application.Features.MedicalReports.CreateMedicalReport;
 using Clinic.Application.Features.MedicalReports.UpdateMedicalReportPatientInformation;
-using Clinic.WebAPI.EndPoints.MedicalReports.CreateMedicalReport.HttpResponseMapper;
-using Clinic.WebAPI.EndPoints.MedicalReports.UpdateMedicalReportPatientInformation.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.MedicalReports.UpdatePatientInformation.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdateMedicalReportPatientInformation;
+namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdatePatientInformation;
 
-public class UpdateMedicalReportPatientInformationEndpoint
-    : Endpoint<
-        UpdateMedicalReportPatientInformationRequest,
-        UpdateMedicalReportPatientInformationHttpResponse
-    >
+public class UpdatePatientInformationEndpoint
+    : Endpoint<UpdateMedicalReportPatientInformationRequest, UpdatePatientInformationHttpResponse>
 {
     public override void Configure()
     {
@@ -29,7 +25,7 @@ public class UpdateMedicalReportPatientInformationEndpoint
         {
             summary.Summary = "Endpoint for update patient information of medical report.";
             summary.Description = "This endpoint allow user for create medical report.";
-            summary.Response<UpdateMedicalReportPatientInformationHttpResponse>(
+            summary.Response<UpdatePatientInformationHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
@@ -41,7 +37,7 @@ public class UpdateMedicalReportPatientInformationEndpoint
         });
     }
 
-    public override async Task<UpdateMedicalReportPatientInformationHttpResponse> ExecuteAsync(
+    public override async Task<UpdatePatientInformationHttpResponse> ExecuteAsync(
         UpdateMedicalReportPatientInformationRequest req,
         CancellationToken ct
     )
@@ -49,7 +45,7 @@ public class UpdateMedicalReportPatientInformationEndpoint
         // Get app feature response.
         var appResponse = await req.ExecuteAsync(ct: ct);
         // Convert to http response.
-        var httpResponse = UpdateMedicalReportPatientInformationHttpResponseMapper
+        var httpResponse = UpdatePatientInformationHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

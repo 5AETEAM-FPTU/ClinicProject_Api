@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 using Clinic.Application.Features.Auths.ChangingPassword;
-using Clinic.Application.Features.MedicalReports.UpdateMainMedicalReportInformation;
+using Clinic.Application.Features.MedicalReports.UpdateMedicalReportPatientInformation;
 
-namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdateMainMedicalReportInformation.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdatePatientInformation.HttpResponseMapper;
 
-public class UpdateMainMedicalReportInformationHttpResponse
+public class UpdatePatientInformationHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
     public string AppCode { get; init; } =
-        UpdateMainMedicalReportInformationResponseStatusCode.OPERATION_SUCCESSFUL.ToAppCode();
+        UpdateMedicalReportPatientInformationResponseStatusCode.OPERATION_SUCCESSFUL.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(
