@@ -36,8 +36,8 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
-using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainMedicalReportInformation;
-using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMedicalReportPatientInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
@@ -332,12 +332,13 @@ public interface IUnitOfWork
     /// <summary>
     /// UpdateMedicalReportPatientInformationRepository feature
     /// </summary>
-    public IUpdateMedicalReportPatientInformationRepository UpdateMedicalReportPatientInformationRepository { get; }
+    public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository { get; }
 
     /// <summary>
     /// UpdateMainMedicalReportInformationRepository feature
     /// </summary>
-    public IUpdateMainMedicalReportInformationRepository UpdateMainMedicalReportInformationRepository { get; }
+    public IUpdateMainInformationRepository UpdateMainMedicalReportInformationRepository { get; }
+
     ///    HandleRedirectURLRepository feature
     /// </summary>
     public IHandleRedirectURLRepository HandleRedirectURLRepository { get; }

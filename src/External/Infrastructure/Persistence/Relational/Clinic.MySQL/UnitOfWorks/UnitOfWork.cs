@@ -4,7 +4,6 @@ using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
-
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -39,9 +38,11 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
-using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainMedicalReportInformation;
-using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMedicalReportPatientInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
@@ -95,9 +96,10 @@ using Clinic.MySQL.Repositories.Enums.GetAllGender;
 using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
+using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
-using Clinic.MySQL.Repositories.MedicalReports.UpdateMainMedicalReportInformation;
-using Clinic.MySQL.Repositories.MedicalReports.UpdateMedicalReportPatientInformation;
+using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
+using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
@@ -115,9 +117,6 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
-using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
-using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
-
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -182,9 +181,9 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
     private ICreateMedicineRepository _createMedicineRepository;
     private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
+    private IUpdatePatientInformationRepository _updateMedicalReportPatientInformationRepository;
+    private IUpdateMainInformationRepository _updateMainMedicalReportInformationRepository;
     private ICreateServiceRepository _createServiceRepository;
-    private IUpdateMedicalReportPatientInformationRepository _updateMedicalReportPatientInformationRepository;
-    private IUpdateMainMedicalReportInformationRepository _updateMainMedicalReportInformationRepository;
     private IHandleRedirectURLRepository _handleRedirectURLRepository;
     private IGetAllMedicineRepository _getAllMedicineRepository;
 
@@ -593,21 +592,21 @@ public class UnitOfWork : IUnitOfWork
         get { return _getAllMedicineRepository ??= new GetAllMedicineRepository(_context); }
     }
 
-    public IUpdateMedicalReportPatientInformationRepository UpdateMedicalReportPatientInformationRepository
+    public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository
     {
         get
         {
             return _updateMedicalReportPatientInformationRepository ??=
-                new UpdateMedicalReportPatientInformationRepository(_context);
+                new UpdatePatientInformationRepository(_context);
         }
     }
 
-    public IUpdateMainMedicalReportInformationRepository UpdateMainMedicalReportInformationRepository
+    public IUpdateMainInformationRepository UpdateMainMedicalReportInformationRepository
     {
         get
         {
             return _updateMainMedicalReportInformationRepository ??=
-                new UpdateMainMedicalReportInformationRepository(_context);
+                new UpdateMainInformationRepository(_context);
         }
     }
 
