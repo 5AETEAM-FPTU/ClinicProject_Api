@@ -60,6 +60,7 @@ public class GetAppointmentsByDateResponse : IFeatureResponse
             }
 
             public bool IsHadMedicalReport { get; set; }
+            public Guid MedicalReportId { get; set; }
         }
     }
 }

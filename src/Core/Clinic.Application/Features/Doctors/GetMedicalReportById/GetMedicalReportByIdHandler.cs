@@ -1,9 +1,9 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
 
 namespace Clinic.Application.Features.Doctors.GetMedicalReportById;
 
@@ -43,16 +43,16 @@ public class GetMedicalReportByIdHandler
         // Found medical report by reportId
         var foundReport =
             await _unitOfWork.GetMedicalReportByIdRepository.GetMedicalReportByIdQueryAsync(
-                    request.ReportId,
-                    cancellationToken
-                );
+                request.ReportId,
+                cancellationToken
+            );
 
         // Responds if reportId is not found
         if (Equals(objA: foundReport, objB: default))
         {
             return new GetMedicalReportByIdResponse()
             {
-                StatusCode = GetMedicalReportByIdResponseStatusCode.REPORT_IS_NOT_FOUND
+                StatusCode = GetMedicalReportByIdResponseStatusCode.REPORT_IS_NOT_FOUND,
             };
         }
 
@@ -66,7 +66,7 @@ public class GetMedicalReportByIdHandler
                 {
                     PatientId = foundReport.PatientInformation.Id,
                     Address = foundReport.PatientInformation.Address,
-                    Avatar = "",
+                    Avatar = foundReport.Appointment.Patient.User.Avatar,
                     DOB = foundReport.PatientInformation.DOB,
                     FullName = foundReport.PatientInformation.FullName,
                     Gender = foundReport.PatientInformation.Gender,
@@ -83,20 +83,19 @@ public class GetMedicalReportByIdHandler
                     Pulse = foundReport.Pulse,
                     ReportId = foundReport.Id,
                     Temperature = foundReport.Temperature,
-                    Weight = foundReport.Weight
+                    Weight = foundReport.Weight,
                 },
                 Medicine = new GetMedicalReportByIdResponse.Body.MedicineOreder()
                 {
-                    MedicineOrderId = foundReport.MedicineOrderId, 
+                    MedicineOrderId = foundReport.MedicineOrder.Id,
                 },
                 Service = new GetMedicalReportByIdResponse.Body.ServiceOrder()
                 {
-                    ServiceOrderId = foundReport.ServiceOrderId,
+                    ServiceOrderId = foundReport.ServiceOrder.Id,
                     Quantity = foundReport.ServiceOrder.Quantity,
                     TotalPrice = foundReport.ServiceOrder.TotalPrice,
-                }
-            }
+                },
+            },
         };
     }
 }
-

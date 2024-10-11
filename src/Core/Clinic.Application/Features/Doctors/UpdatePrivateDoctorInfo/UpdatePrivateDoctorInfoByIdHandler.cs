@@ -47,28 +47,12 @@ public class UpdatePrivateDoctorInfoByIdHandler
         CancellationToken cancellationToken
     )
     {
-        foreach (Guid specialtyId in request.SpecialtiesId)
-        {
-            var isSpecialtyFound =
-                await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsSpecialtyFoundByIdQueryAsync(
-                    specialtyId: specialtyId,
-                    cancellationToken: cancellationToken
-                );
-            if (!isSpecialtyFound)
-            {
-                return new()
-                {
-                    StatusCode =
-                        UpdatePrivateDoctorInfoByIdResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND,
-                };
-            }
-        }
-
+       
         // Get userId from sub type jwt
         var userId = Guid.Parse(
             _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
         );
-
+        
         // Found user by userId
         var foundUser = await _unitOfWork.UpdatePrivateDoctorInfoRepository.GetDoctorByIdAsync(
             userId,
@@ -123,6 +107,24 @@ public class UpdatePrivateDoctorInfoByIdHandler
                 };
             }
         }
+
+        foreach (Guid specialtyId in request.SpecialtiesId)
+        {
+            var isSpecialtyFound =
+                await _unitOfWork.UpdatePrivateDoctorInfoRepository.IsSpecialtyFoundByIdQueryAsync(
+                    specialtyId: specialtyId,
+                    cancellationToken: cancellationToken
+                );
+            if (!isSpecialtyFound)
+            {
+                return new()
+                {
+                    StatusCode =
+                        UpdatePrivateDoctorInfoByIdResponseStatusCode.SPECIALTY_ID_IS_NOT_FOUND,
+                };
+            }
+        }
+
 
         var isSucced = await UpdateUserProfileAsync(foundUser, request, cancellationToken);
 

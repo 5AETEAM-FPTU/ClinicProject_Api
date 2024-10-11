@@ -1,11 +1,11 @@
-﻿using Clinic.Domain.Commons.Entities;
+﻿using System;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
-using System.Linq;
 
 namespace Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 
@@ -20,7 +20,10 @@ public class GetMedicalReportByIdRepository : IGetMedicalReportByIdRepository
         _reports = _context.Set<MedicalReport>();
     }
 
-    public async Task<MedicalReport> GetMedicalReportByIdQueryAsync(Guid reportId, CancellationToken cancellationToken)
+    public async Task<MedicalReport> GetMedicalReportByIdQueryAsync(
+        Guid reportId,
+        CancellationToken cancellationToken
+    )
     {
         return await _reports
             .Where(report => report.Id == reportId)
@@ -37,30 +40,28 @@ public class GetMedicalReportByIdRepository : IGetMedicalReportByIdRepository
                 GeneralCondition = report.GeneralCondition,
                 Appointment = new Appointment()
                 {
-                    Schedule = new Schedule()
+                    Schedule = new Schedule() { StartDate = report.Appointment.Schedule.StartDate },
+                    Patient = new Patient()
                     {
-                        StartDate = report.Appointment.Schedule.StartDate,
-                    }
+                        User = new User() { Avatar = report.Appointment.Patient.User.Avatar },
+                    },
                 },
-                PatientInformation = new PatientInformation() 
-                { 
+                PatientInformation = new PatientInformation()
+                {
                     Id = report.PatientInformation.Id,
                     Gender = report.PatientInformation.Gender,
                     Address = report.PatientInformation.Address,
                     DOB = report.PatientInformation.DOB,
                     FullName = report.PatientInformation.FullName,
-                    PhoneNumber = report.PatientInformation.PhoneNumber
+                    PhoneNumber = report.PatientInformation.PhoneNumber,
                 },
-                ServiceOrder = new ServiceOrder() 
+                ServiceOrder = new ServiceOrder()
                 {
-                    Id=report.ServiceOrderId,
+                    Id = report.ServiceOrder.Id,
                     Quantity = report.ServiceOrder.Quantity,
                     TotalPrice = report.ServiceOrder.TotalPrice,
                 },
-                MedicineOrder = new MedicineOrder()
-                {
-                    Id = report.MedicineOrderId,
-                }
+                MedicineOrder = new MedicineOrder() { Id = report.MedicineOrder.Id },
             })
             .FirstOrDefaultAsync();
     }
