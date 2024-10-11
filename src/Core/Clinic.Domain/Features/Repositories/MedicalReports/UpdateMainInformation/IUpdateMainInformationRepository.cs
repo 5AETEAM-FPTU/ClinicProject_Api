@@ -6,9 +6,9 @@ using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
 
-namespace Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainMedicalReportInformation;
+namespace Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 
-public interface IUpdateMainMedicalReportInformationRepository
+public interface IUpdateMainInformationRepository
 {
     Task<MedicalReport> GetMedicalReportsByIdQueryAsync(
         Guid medicalReportId,

@@ -5,19 +5,18 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainMedicalReportInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.MedicalReports.UpdateMainMedicalReportInformation;
+namespace Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 
-internal class UpdateMainMedicalReportInformationRepository
-    : IUpdateMainMedicalReportInformationRepository
+internal class UpdateMainInformationRepository : IUpdateMainInformationRepository
 {
     private readonly ClinicContext _context;
     private readonly DbSet<MedicalReport> _medicalReports;
 
-    public UpdateMainMedicalReportInformationRepository(ClinicContext context)
+    public UpdateMainInformationRepository(ClinicContext context)
     {
         _context = context;
         _medicalReports = _context.Set<MedicalReport>();
