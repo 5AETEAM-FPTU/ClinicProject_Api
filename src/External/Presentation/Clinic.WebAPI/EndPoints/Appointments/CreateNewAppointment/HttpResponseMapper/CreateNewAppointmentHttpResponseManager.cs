@@ -27,6 +27,7 @@ public class CreateNewAppointmentHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = response.StatusCode.ToAppCode(),
+                    Body = response.ResponseBody
                 }
         );
         _dictionary.Add(
@@ -65,7 +66,7 @@ public class CreateNewAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
-         _dictionary.Add(
+        _dictionary.Add(
             key: CreateNewAppointmentResponseStatusCode.USER_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
@@ -74,7 +75,7 @@ public class CreateNewAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
-         _dictionary.Add(
+        _dictionary.Add(
             key: CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
@@ -83,7 +84,7 @@ public class CreateNewAppointmentHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
-         _dictionary.Add(
+        _dictionary.Add(
             key: CreateNewAppointmentResponseStatusCode.SCHEDUELE_IS_NOT_AVAILABLE,
             value: (_, response) =>
                 new()
@@ -93,7 +94,6 @@ public class CreateNewAppointmentHttpResponseManager
                 }
         );
     }
-
 
     internal Func<
         CreateNewAppointmentRequest,

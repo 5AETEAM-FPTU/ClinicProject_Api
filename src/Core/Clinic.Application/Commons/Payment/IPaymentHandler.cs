@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-
-namespace Clinic.Application.Commons.Payment;
+﻿namespace Clinic.Application.Commons.Payment;
 
 /// <summary>
 ///     Represent interface of payment gateway handler.
@@ -16,16 +14,21 @@ public interface IPaymentHandler
     /// <returns>
     ///     String contain checkout url.
     /// </returns>
-    Task<string> CreatePaymentLink(PaymentModel paymentData);
+    string CreatePaymentLink(PaymentModel paymentData);
 
     /// <summary>
-    ///     Verify webhook data signature.
+    ///     Verify IPN
     /// </summary>
-    /// <param name="paymentData">
-    ///     Model contains payment information.
+    /// <param name="webhookType">
+    ///     Model contain ipn data.
     /// </param>
-    /// <returns>
-    ///     return webhooktype model.
-    /// </returns>
-    bool VerifyWebhookData(WebhookType webhookType);
+    /// <returns></returns>
+    bool VerifySignatureForIPN(WebhookType webhookType);
+
+    /// <summary>
+    ///     Verify secure key
+    /// </summary>
+    /// <param name="secureHash"></param>
+    /// <returns></returns>
+    bool VerifySecureKey(string secureHash);
 }
