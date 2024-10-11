@@ -115,6 +115,9 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
+
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -179,6 +182,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
     private ICreateMedicineRepository _createMedicineRepository;
     private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
+    private ICreateServiceRepository _createServiceRepository;
     private IUpdateMedicalReportPatientInformationRepository _updateMedicalReportPatientInformationRepository;
     private IUpdateMainMedicalReportInformationRepository _updateMainMedicalReportInformationRepository;
     private IHandleRedirectURLRepository _handleRedirectURLRepository;
@@ -605,5 +609,10 @@ public class UnitOfWork : IUnitOfWork
             return _updateMainMedicalReportInformationRepository ??=
                 new UpdateMainMedicalReportInformationRepository(_context);
         }
+    }
+
+    public ICreateServiceRepository CreateServiceRepository
+    {
+        get { return _createServiceRepository ??= new CreateServiceRepository(_context); }
     }
 }

@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 using System;
-using Clinic.Application.Features.Admin.CreateMedicine;
 using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.ExaminationServices.CreateService;
 
-namespace Clinic.WebAPI.EndPoints.Admin.CreateMedicine.HttpResoponseMapper;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.CreateService.HttpResoponseMapper;
 
 /// <summary>
 ///     Mapper for CreateMedicine feature
 /// </summary>
-public class CreateMedicineHttpResponseManager
+public class CreateServiceHttpResponseManager
 {
     private readonly Dictionary<
-        CreateMedicineResponseStatusCode,
-        Func<CreateMedicineRequest, CreateMedicineResponse, CreateMedicineHttpResponse>
+        CreateServiceResponseStatusCode,
+        Func<CreateServiceRequest, CreateServiceResponse, CreateServiceHttpResponse>
     > _dictionary;
 
-    internal CreateMedicineHttpResponseManager()
+    internal CreateServiceHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: CreateMedicineResponseStatusCode.OPERATION_SUCCESS,
+            key: CreateServiceResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -31,7 +30,7 @@ public class CreateMedicineHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateMedicineResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: CreateServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -41,7 +40,7 @@ public class CreateMedicineHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateMedicineResponseStatusCode.FORBIDEN_ACCESS,
+            key: CreateServiceResponseStatusCode.FORBIDEN_ACCESS,
             value: (_, response) =>
                 new()
                 {
@@ -51,7 +50,7 @@ public class CreateMedicineHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateMedicineResponseStatusCode.MEDICINE_ALREADY_EXISTED,
+            key: CreateServiceResponseStatusCode.SERVICE_CODE_ALREADY_EXISTED,
             value: (_, response) =>
                 new()
                 {
@@ -62,10 +61,10 @@ public class CreateMedicineHttpResponseManager
     }
 
     internal Func<
-        CreateMedicineRequest,
-        CreateMedicineResponse,
-        CreateMedicineHttpResponse
-    > Resolve(CreateMedicineResponseStatusCode statusCode)
+        CreateServiceRequest,
+        CreateServiceResponse,
+        CreateServiceHttpResponse
+    > Resolve(CreateServiceResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }
