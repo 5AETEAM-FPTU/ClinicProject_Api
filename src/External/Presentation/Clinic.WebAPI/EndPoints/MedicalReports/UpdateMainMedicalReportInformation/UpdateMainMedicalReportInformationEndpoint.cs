@@ -1,22 +1,24 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.MedicalReports.CreateMedicalReport;
-using Clinic.WebAPI.EndPoints.MedicalReports.CreateMedicalReport.HttpResponseMapper;
+using Clinic.Application.Features.MedicalReports.UpdateMainMedicalReportInformation;
+using Clinic.Application.Features.MedicalReports.UpdateMedicalReportPatientInformation;
+using Clinic.WebAPI.EndPoints.MedicalReports.UpdateMainMedicalReportInformation.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.MedicalReports.UpdateMedicalReportPatientInformation.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.OnlinePayment;
+namespace Clinic.WebAPI.EndPoints.MedicalReports.UpdateMainMedicalReportInformation;
 
-/// <summary>
-///     Endpoint for CreateMedicalReport
-/// </summary>
-public class CreateMedicalReportEndpoint
-    : Endpoint<CreateMedicalReportRequest, CreateMedicalReportHttpResponse>
+public class UpdateMainMedicalReportInformationEndpoint
+    : Endpoint<
+        UpdateMainMedicalReportInformationRequest,
+        UpdateMainMedicalReportInformationHttpResponse
+    >
 {
     public override void Configure()
     {
-        Post("medical-report/create");
+        Patch("/medical-report/update-main-information");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -25,28 +27,29 @@ public class CreateMedicalReportEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for create medical report.";
+            summary.Summary = "Endpoint for update main content of medical report.";
             summary.Description = "This endpoint allow user for create medical report.";
-            summary.Response<CreateMedicalReportHttpResponse>(
+            summary.Response<UpdateMedicalReportPatientInformationHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = CreateMedicalReportResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode =
+                        UpdateMedicalReportPatientInformationResponseStatusCode.OPERATION_SUCCESSFUL.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<CreateMedicalReportHttpResponse> ExecuteAsync(
-        CreateMedicalReportRequest req,
+    public override async Task<UpdateMainMedicalReportInformationHttpResponse> ExecuteAsync(
+        UpdateMainMedicalReportInformationRequest req,
         CancellationToken ct
     )
     {
         // Get app feature response.
         var appResponse = await req.ExecuteAsync(ct: ct);
         // Convert to http response.
-        var httpResponse = CreateMedicalReportHttpResponseMapper
+        var httpResponse = UpdateMainMedicalReportInformationHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
