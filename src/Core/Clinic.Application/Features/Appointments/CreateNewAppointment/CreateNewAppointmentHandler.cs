@@ -110,7 +110,7 @@ internal sealed class CreateNewAppointmentHandler
             PatientId = Guid.Parse(userId),
             ScheduleId = command.ScheduleId,
             StatusId = appointmentStatus.Id,
-            DepositPayment = command.DepositPayment,
+            DepositPayment = false,
             ExaminationDate = command.ExaminationDate,
             Description = command.Description,
             CreatedBy = Guid.Parse(userId),
@@ -120,6 +120,15 @@ internal sealed class CreateNewAppointmentHandler
                     id: "SE Asia Standard Time"
                 )
             ),
+            OnlinePayment = new()
+            {
+                Id = Guid.NewGuid(),
+                Amount = 0,
+                CreatedAt = DateTime.UtcNow,
+                CreatedBy = CommonConstant.SYSTEM_GUID,
+                PaymentMethod = "None",
+                TransactionID = "None",
+            },
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             RemovedAt = CommonConstant.MIN_DATE_TIME,
             UpdatedAt = CommonConstant.MIN_DATE_TIME,
@@ -144,11 +153,12 @@ internal sealed class CreateNewAppointmentHandler
             StatusCode = CreateNewAppointmentResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-              Appointment = new () {
-                Id = newAppointment.Id,
-                DepositPayment = newAppointment.DepositPayment,
-                ExaminationDate = newAppointment.ExaminationDate,
-              }
+                Appointment = new()
+                {
+                    Id = newAppointment.Id,
+                    DepositPayment = newAppointment.DepositPayment,
+                    ExaminationDate = newAppointment.ExaminationDate,
+                }
             },
         };
     }

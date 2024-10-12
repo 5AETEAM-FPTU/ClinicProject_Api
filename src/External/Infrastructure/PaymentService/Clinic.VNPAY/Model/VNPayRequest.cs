@@ -1,4 +1,5 @@
-﻿using Clinic.VNPAY.Common;
+﻿using System.Net;
+using Clinic.VNPAY.Common;
 
 namespace Clinic.VNPAY.Model;
 
@@ -37,17 +38,18 @@ internal class VNPayRequest
         string orderInfo,
         DateTime createdDate,
         string txnRef,
-        string appointmentId
+        string appointmentId,
+        string hashKey
     )
         : this()
     {
         IpAddr = ipAddr;
-        Amount = amount * 100; // Amount in VND
+        Amount = amount * 1000; // Amount in VND
         OrderInfo = orderInfo;
         CreateDate = createdDate.ToString("yyyyMMddHHmmss");
         TxnRef = txnRef;
         ReturnUrl =
-            $"https://localhost:7161/payment/return-url/success?appointmentId={appointmentId}";
+            $"https://localhost:7161/payment/return-url/success?appointmentId={appointmentId}&hashKey={hashKey}";
     }
 
     public void MakeRequestData()

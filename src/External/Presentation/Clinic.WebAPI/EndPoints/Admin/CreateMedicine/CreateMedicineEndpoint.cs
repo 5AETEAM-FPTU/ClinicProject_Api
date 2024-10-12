@@ -6,6 +6,7 @@ using System.Threading;
 using Clinic.Application.Features.Admin.CreateMedicine;
 using Clinic.WebAPI.EndPoints.Admin.CreateMedicine.HttpResoponseMapper;
 using Microsoft.AspNetCore.Http;
+using Clinic.Application.Features.ExaminationServices.CreateService;
 
 namespace Clinic.WebAPI.EndPoints.Admin.CreateMedicine;
 

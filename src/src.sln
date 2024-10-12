@@ -64,13 +64,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "ChatMessage", "ChatMessage"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.SignalR", "External\Infrastructure\ChatMessage\Clinic.SignalR\Clinic.SignalR.csproj", "{670D0A76-6F35-4603-A144-2B112363B1CF}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Payment", "Payment", "{23F5EAA8-4076-4B98-9282-B0215ADE6F51}"
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "PaymentService", "PaymentService", "{23F5EAA8-4076-4B98-9282-B0215ADE6F51}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.VNPAY", "External\Infrastructure\PaymentService\Clinic.VNPAY\Clinic.VNPAY.csproj", "{9C0AD944-E288-4AD0-9A66-F59B37C2FB95}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Communication", "Communication", "{911C93E2-FDDF-4B1E-B7B4-BBB875A3BAF7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.Stringee", "External\Infrastructure\Communication\Clinic.Stringee\Clinic.Stringee.csproj", "{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Clinic.Stringee", "External\Infrastructure\Communication\Clinic.Stringee\Clinic.Stringee.csproj", "{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "SMS", "SMS", "{4DA6DBF0-1E3D-463C-BCE6-ED6EA80C5A61}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Clinic.TwilioSMS", "External\Infrastructure\Notification\SMS\Clinic.TwilioSMS\Clinic.TwilioSMS.csproj", "{FFEEB450-E79D-426A-9534-C4C0557AF394}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -134,6 +138,10 @@ Global
 		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FFEEB450-E79D-426A-9534-C4C0557AF394}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FFEEB450-E79D-426A-9534-C4C0557AF394}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FFEEB450-E79D-426A-9534-C4C0557AF394}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FFEEB450-E79D-426A-9534-C4C0557AF394}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -170,6 +178,8 @@ Global
 		{9C0AD944-E288-4AD0-9A66-F59B37C2FB95} = {23F5EAA8-4076-4B98-9282-B0215ADE6F51}
 		{911C93E2-FDDF-4B1E-B7B4-BBB875A3BAF7} = {73B3CE16-E7BD-41A9-9412-D507DE095E0E}
 		{64D7C870-B527-4E8C-A5B3-8501D0DE89BC} = {911C93E2-FDDF-4B1E-B7B4-BBB875A3BAF7}
+		{4DA6DBF0-1E3D-463C-BCE6-ED6EA80C5A61} = {4EA42DFE-706B-443D-BE92-9003167DD5D9}
+		{FFEEB450-E79D-426A-9534-C4C0557AF394} = {4DA6DBF0-1E3D-463C-BCE6-ED6EA80C5A61}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {57676846-8CE4-4665-BA4C-2AEACCFDCFAE}

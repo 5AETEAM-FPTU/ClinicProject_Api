@@ -26,14 +26,36 @@ public class HandleRedirectURLHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = response.StatusCode.ToAppCode(),
+                    Body = response.ResponseBody
                 }
         );
+
         _dictionary.Add(
             key: HandleRedirectURLResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
                     HttpCode = StatusCodes.Status500InternalServerError,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: HandleRedirectURLResponseStatusCode.PAYMENT_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: HandleRedirectURLResponseStatusCode.PAYMENT_IS_ALREADY_PAID,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status409Conflict,
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );

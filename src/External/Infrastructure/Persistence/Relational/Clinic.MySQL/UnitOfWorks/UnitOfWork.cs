@@ -40,8 +40,13 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -56,7 +61,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
@@ -96,8 +100,13 @@ using Clinic.MySQL.Repositories.Enums.GetAllGender;
 using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
+using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
+using Clinic.MySQL.Repositories.ExaminationServices.GetAllServices;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
+using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
@@ -112,7 +121,6 @@ using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.MySQL.Repositories.VNPays.CreatePaymentLink;
 using Microsoft.AspNetCore.Identity;
 
 namespace Clinic.MySQL.UnitOfWorks;
@@ -173,15 +181,20 @@ public class UnitOfWork : IUnitOfWork
     private IRemoveScheduleRepository _removeScheduleRepository;
     private IRemoveAllSchedulesRepository _removeAllSchedulesRepository;
     private IGetRecentMedicalReportRepository _getRecentMedicalReportRepository;
-    private ICreatePaymentLinkRepository _createPaymentLinkRepository;
     private IGetConsultationOverviewRepository _getConsultationOverviewRepository;
     private ICreateMedicalReportRepository _createMedicalReportRepository;
     private IUpdateUserBookedAppointmentRepository _updateUserBookedAppointmentRepository;
     private ICreateMedicineRepository _createMedicineRepository;
     private IUpdateAppointmentStatusRepository _updateAppointmentStatusRepository;
+    private IUpdatePatientInformationRepository _updateMedicalReportPatientInformationRepository;
+    private IUpdateMainInformationRepository _updateMainMedicalReportInformationRepository;
+    private ICreateServiceRepository _createServiceRepository;
+    private IHandleRedirectURLRepository _handleRedirectURLRepository;
     private IGetAllMedicineRepository _getAllMedicineRepository;
     private IGetMedicineByIdRepository _getMedicineByIdRepository;
     private IUpdateMedicineRepository _updateMedicineRepository;
+    private IGetAllServicesRepository _getAllServiceRepository;
+
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -577,9 +590,9 @@ public class UnitOfWork : IUnitOfWork
         get { return _createMedicineRepository ??= new CreateMedicineRepository(_context); }
     }
 
-    public ICreatePaymentLinkRepository CreatePaymentLinkRepository
+    public IHandleRedirectURLRepository HandleRedirectURLRepository
     {
-        get { return _createPaymentLinkRepository ??= new CreatePaymentLinkRepository(_context); }
+        get { return _handleRedirectURLRepository ??= new HandleRedirectURLRepository(_context); }
     }
 
     public IGetAllMedicineRepository GetAllMedicineRepository
@@ -595,5 +608,33 @@ public class UnitOfWork : IUnitOfWork
     public IUpdateMedicineRepository UpdateMedicineRepository
     {
         get { return  _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
+    }
+    
+    public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository
+    {
+        get
+        {
+            return _updateMedicalReportPatientInformationRepository ??=
+                new UpdatePatientInformationRepository(_context);
+        }
+    }
+
+    public IUpdateMainInformationRepository UpdateMainMedicalReportInformationRepository
+    {
+        get
+        {
+            return _updateMainMedicalReportInformationRepository ??=
+                new UpdateMainInformationRepository(_context);
+        }
+    }
+
+    public ICreateServiceRepository CreateServiceRepository
+    {
+        get { return _createServiceRepository ??= new CreateServiceRepository(_context); }
+    }
+
+    public IGetAllServicesRepository GetAllServicesRepository
+    {
+        get { return _getAllServiceRepository ??= new GetAllServicesRepository(_context); }
     }
 }

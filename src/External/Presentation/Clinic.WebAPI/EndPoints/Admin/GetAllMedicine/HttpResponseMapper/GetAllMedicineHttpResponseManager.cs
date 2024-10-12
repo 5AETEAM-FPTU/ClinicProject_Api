@@ -2,6 +2,7 @@
 using System;
 using Clinic.Application.Features.Admin.GetAllMedicine;
 using Microsoft.AspNetCore.Http;
+using Clinic.Application.Features.ExaminationServices.GetAllServices;
 
 namespace Clinic.WebAPI.EndPoints.Admin.GetAllMedicine.HttpResponseMapper;
 

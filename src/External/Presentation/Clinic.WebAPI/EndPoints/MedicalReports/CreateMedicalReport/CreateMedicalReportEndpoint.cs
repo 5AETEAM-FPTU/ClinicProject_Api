@@ -16,7 +16,7 @@ public class CreateMedicalReportEndpoint
 {
     public override void Configure()
     {
-        Post("medicalReport");
+        Post("medical-report/create");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
