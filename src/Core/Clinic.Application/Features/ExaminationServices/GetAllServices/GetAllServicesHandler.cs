@@ -7,7 +7,6 @@ using System.Security.Claims;
 using Clinic.Application.Commons.Pagination;
 using System.Linq;
 using System;
-using Clinic.Application.Features.Admin.GetAllMedicine;
 
 namespace Clinic.Application.Features.ExaminationServices.GetAllServices;
 

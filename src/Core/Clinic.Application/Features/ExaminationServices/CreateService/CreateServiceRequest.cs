@@ -1,5 +1,4 @@
 ﻿using Clinic.Application.Commons.Abstractions;
-using System;
 
 namespace Clinic.Application.Features.ExaminationServices.CreateService;
 

@@ -1,7 +1,5 @@
 ﻿using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Features.Admin.GetMedicineById;
 using System;
-using System.Security.Cryptography.X509Certificates;
 
 namespace Clinic.Application.Features.ExaminationServices.GetDetailService;
 

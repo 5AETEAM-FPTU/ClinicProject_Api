@@ -1,5 +1,4 @@
-﻿using Clinic.Application.Features.Admin.GetMedicineById;
-
+﻿
 namespace Clinic.Application.Features.ExaminationServices.GetDetailService;
 
 /// <summary>

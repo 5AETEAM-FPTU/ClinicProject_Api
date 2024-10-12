@@ -1,6 +1,4 @@
 ﻿using Clinic.Application.Commons.Abstractions;
-using FluentValidation;
-using System;
 
 namespace Clinic.Application.Features.ExaminationServices.UpdateService;
 

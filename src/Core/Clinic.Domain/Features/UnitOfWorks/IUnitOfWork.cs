@@ -60,6 +60,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -378,4 +379,9 @@ public interface IUnitOfWork
     /// Get Detail Service feature
     /// </summary>
     public IGetDetailServiceRepository GetDetailServiceRepository { get; }
+
+    /// <summary>
+    ///     Remove Service feature
+    /// </summary>
+    public IRemoveServiceRepository RemoveServiceRepository { get; }
 }
