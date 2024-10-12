@@ -54,7 +54,7 @@ public class GetAllMedicalReportHandler
         {
             return new GetAllMedicalReportResponse()
             {
-                StatusCode = GetAllMedicalReportResponseStatusCode.ROLE_IS_NOT_DOCTOR_STAFF
+                StatusCode = GetAllMedicalReportResponseStatusCode.ROLE_IS_NOT_DOCTOR_STAFF,
             };
         }
 
@@ -86,19 +86,19 @@ public class GetAllMedicalReportHandler
                                     PatientId = report.PatientInformation.Id,
                                     ReportId = report.Id,
                                     FullName = report.PatientInformation.FullName,
-                                    Avatar = "",
+                                    Avatar = report.Appointment.Patient.User.Avatar,
                                     PhoneNumber = report.PatientInformation.PhoneNumber,
                                     Gender = report.PatientInformation.Gender,
                                     StartTime = report.Appointment.Schedule.StartDate,
                                     EndTime = report.Appointment.Schedule.EndDate,
                                     Age = DateTime.Now.Year - report.PatientInformation.DOB.Year,
-                                    Diagnosis = report.Diagnosis
+                                    Diagnosis = report.Diagnosis,
                                 }
                             )
-                            .ToList()
+                            .ToList(),
                     })
-                    .ToList()
-            }
+                    .ToList(),
+            },
         };
     }
 }
