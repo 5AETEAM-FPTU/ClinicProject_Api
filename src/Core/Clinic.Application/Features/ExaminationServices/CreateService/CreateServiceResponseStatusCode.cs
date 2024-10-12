@@ -6,10 +6,8 @@
 /// </summary>
 public enum CreateServiceResponseStatusCode
 {
-    INPUT_VALIDATION_FAIL,
     OPERATION_SUCCESS,
-    UNAUTHORIZE,
     DATABASE_OPERATION_FAIL,
-    FORBIDEN_ACCESS,
+    ROLE_IS_NOT_ADMIN_STAFF,
     SERVICE_CODE_ALREADY_EXISTED
 }

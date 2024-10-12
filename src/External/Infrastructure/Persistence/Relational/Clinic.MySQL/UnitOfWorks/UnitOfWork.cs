@@ -40,8 +40,8 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
-using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -99,6 +99,7 @@ using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
+using Clinic.MySQL.Repositories.ExaminationServices.GetAllServices;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
@@ -189,6 +190,7 @@ public class UnitOfWork : IUnitOfWork
     private IHandleRedirectURLRepository _handleRedirectURLRepository;
     private IGetAllMedicineRepository _getAllMedicineRepository;
     private IGetMedicineByIdRepository _getMedicineByIdRepository;
+    private IGetAllServicesRepository _getAllServiceRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -621,5 +623,10 @@ public class UnitOfWork : IUnitOfWork
     public ICreateServiceRepository CreateServiceRepository
     {
         get { return _createServiceRepository ??= new CreateServiceRepository(_context); }
+    }
+
+    public IGetAllServicesRepository GetAllServicesRepository
+    {
+        get { return _getAllServiceRepository ??= new GetAllServicesRepository(_context); }
     }
 }

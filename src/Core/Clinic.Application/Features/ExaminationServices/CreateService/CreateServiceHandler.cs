@@ -10,6 +10,7 @@ using System.Security.Claims;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Clinic.Application.Features.Admin.CreateMedicine;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using Clinic.Application.Features.ExaminationServices.GetAllServices;
 
 namespace Clinic.Application.Features.ExaminationServices.CreateService;
 
@@ -52,13 +53,14 @@ internal sealed class CreateServiceHandler
         CancellationToken ct
     )
     {
-        //Get role
+        // Check role user from role type jwt
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-
-        //Check if role is not admin
-        if (Equals(objA: role, objB: "user"))
+        if (!role.Equals("admin") && !role.Equals("staff"))
         {
-            return new() { StatusCode = CreateServiceResponseStatusCode.FORBIDEN_ACCESS };
+            return new()
+            {
+                StatusCode = CreateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
+            };
         }
 
         //Check if service already existed
@@ -109,6 +111,7 @@ internal sealed class CreateServiceHandler
         //Create new service
         return new Service()
         {
+            Id = Guid.NewGuid(),
             Code = request.Code,
             Name = request.Name,
             Descripiton = request.Description,
