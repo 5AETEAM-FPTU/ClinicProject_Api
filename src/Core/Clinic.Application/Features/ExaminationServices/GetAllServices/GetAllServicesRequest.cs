@@ -1,6 +1,5 @@
 ﻿using Clinic.Application.Commons.Abstractions;
 using FastEndpoints;
-using System;
 
 namespace Clinic.Application.Features.ExaminationServices.GetAllServices;
 

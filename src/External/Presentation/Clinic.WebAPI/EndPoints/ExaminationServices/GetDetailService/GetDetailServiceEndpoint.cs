@@ -26,8 +26,8 @@ internal sealed class GetDetailServiceEndpoint : Endpoint<GetDetailServiceReques
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for User feature";
-            summary.Description = "This endpoint is used for display profile user.";
+            summary.Summary = "Endpoint for admin/staff to view detail of service feature";
+            summary.Description = "This endpoint is admin/staff for view more detail of service.";
             summary.Response<GetDetailServiceHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

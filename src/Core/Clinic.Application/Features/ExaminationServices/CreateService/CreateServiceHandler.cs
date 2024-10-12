@@ -8,9 +8,6 @@ using System.Threading;
 using System;
 using System.Security.Claims;
 using Microsoft.IdentityModel.JsonWebTokens;
-using Clinic.Application.Features.Admin.CreateMedicine;
-using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
-using Clinic.Application.Features.ExaminationServices.GetAllServices;
 
 namespace Clinic.Application.Features.ExaminationServices.CreateService;
 

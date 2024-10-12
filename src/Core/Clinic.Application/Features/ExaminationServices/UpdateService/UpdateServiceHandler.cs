@@ -7,7 +7,6 @@ using System.Threading;
 using System;
 using System.Security.Claims;
 using Microsoft.IdentityModel.JsonWebTokens;
-using Clinic.Application.Features.ExaminationServices.CreateService;
 
 namespace Clinic.Application.Features.ExaminationServices.UpdateService;
 

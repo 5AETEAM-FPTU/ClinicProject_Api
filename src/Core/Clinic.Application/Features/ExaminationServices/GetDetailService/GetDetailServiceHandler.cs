@@ -3,7 +3,6 @@ using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 using System.Threading;
-using Clinic.Application.Features.Admin.GetMedicineById;
 
 namespace Clinic.Application.Features.ExaminationServices.GetDetailService;
 

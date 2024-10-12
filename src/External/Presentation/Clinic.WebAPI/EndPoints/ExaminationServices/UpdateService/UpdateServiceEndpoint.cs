@@ -1,5 +1,4 @@
-﻿using Clinic.WebAPI.Commons.Behaviors.Validation;
-using FastEndpoints;
+﻿using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Threading.Tasks;
 using System.Threading;
