@@ -41,6 +41,6 @@ public class HandleRedirectURLEndpoint : Endpoint<HandleRedirectURLRequest>
 
         httpResponse.HttpCode = default;
 
-        await SendRedirectAsync(location: "https://www.facebook.com", allowRemoteRedirects: true);
+        await SendRedirectAsync(location: "http://localhost:3000/", allowRemoteRedirects: true);
     }
 }

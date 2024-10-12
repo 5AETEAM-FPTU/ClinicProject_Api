@@ -26,7 +26,7 @@ internal class SrtringeeAccessTokenHandler : ICallTokenHandler
     {
         var now = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
 
-        var exp = now + 3600;
+        var exp = now + 3600*24;
 
         var header = new JwtHeader(
             new SigningCredentials(
@@ -42,7 +42,6 @@ internal class SrtringeeAccessTokenHandler : ICallTokenHandler
             { "jti", $"{_stringeeOption.SID}-{now}" },
             { "iss", _stringeeOption.SID },
             { "exp", exp },
-            { "rest_api", true },
             { "userId", userId }
         };
 
