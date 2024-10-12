@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
-using Clinic.Application.Features.ExaminationServices.CreateService;
 using Clinic.Application.Features.ExaminationServices.UpdateService;
 
-namespace Clinic.WebAPI.EndPoints.ExaminationServices.CreateService.HttpResoponseMapper;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.UpdateService.HttpResoponseMapper;
 
 /// <summary>
-///     Mapper for CreateMedicine feature
+///     Mapper for  UpdateService feature
 /// </summary>
-public class CreateServiceHttpResponseManager
+public class UpdateServiceHttpResponseManager
 {
     private readonly Dictionary<
-        CreateServiceResponseStatusCode,
-        Func<CreateServiceRequest, CreateServiceResponse, CreateServiceHttpResponse>
+        UpdateServiceResponseStatusCode,
+        Func<UpdateServiceRequest, UpdateServiceResponse, UpdateServiceHttpResponse>
     > _dictionary;
 
-    internal CreateServiceHttpResponseManager()
+    internal UpdateServiceHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.OPERATION_SUCCESS,
+            key: UpdateServiceResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -31,7 +30,7 @@ public class CreateServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: UpdateServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -41,7 +40,7 @@ public class CreateServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
+            key: UpdateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
             value: (_, response) =>
                 new()
                 {
@@ -51,7 +50,17 @@ public class CreateServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.SERVICE_CODE_ALREADY_EXISTED,
+            key: UpdateServiceResponseStatusCode.SERVICE_CODE_ALREADY_EXISTED,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
+        _dictionary.Add(
+            key: UpdateServiceResponseStatusCode.SERVICE_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -62,10 +71,10 @@ public class CreateServiceHttpResponseManager
     }
 
     internal Func<
-        CreateServiceRequest,
-        CreateServiceResponse,
-        CreateServiceHttpResponse
-    > Resolve(CreateServiceResponseStatusCode statusCode)
+        UpdateServiceRequest,
+        UpdateServiceResponse,
+        UpdateServiceHttpResponse
+    > Resolve(UpdateServiceResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

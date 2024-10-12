@@ -64,9 +64,9 @@ internal sealed class CreateServiceHandler
         }
 
         //Check if service already existed
-        var isServiceExisted = await _unitOfWork.CreateServiceRepository.IsExistServiceCode(request.Code, cancellationToken: ct);
+        var isServiceCodeExisted = await _unitOfWork.CreateServiceRepository.IsExistServiceCode(request.Code, cancellationToken: ct);
 
-        if (isServiceExisted)
+        if (isServiceCodeExisted)
         {
             return new()
             {
