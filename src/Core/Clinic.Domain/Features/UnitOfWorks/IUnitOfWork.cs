@@ -57,6 +57,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -360,5 +361,10 @@ public interface IUnitOfWork
     /// Get all services feature
     /// </summary>
     public IGetAllServicesRepository GetAllServicesRepository { get; }
+
+    /// <summary>
+    /// Update Service feature
+    /// </summary>
+    public IUpdateServiceRepository UpdateServiceRepository { get; }
 
 }

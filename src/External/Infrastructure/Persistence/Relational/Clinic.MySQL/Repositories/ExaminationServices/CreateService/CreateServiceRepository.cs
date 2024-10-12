@@ -37,8 +37,8 @@ public class CreateServiceRepository : ICreateServiceRepository
         return true;
     }
 
-    public Task<bool> IsExistServiceCode(string code, CancellationToken cancellationToken)
+    public async Task<bool> IsExistServiceCode(string code, CancellationToken cancellationToken)
     {
-        return _services.AnyAsync(entity => entity.Code.Equals(code));
+        return await _services.AnyAsync(entity => entity.Code.Equals(code), cancellationToken);
     }
 }

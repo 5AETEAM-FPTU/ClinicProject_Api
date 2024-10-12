@@ -59,6 +59,7 @@ public class GetAllServicesRepository : IGetAllServicesRepository
         return await results
             .Select(service => new Service()
             {
+                Id = service.Id,
                 Name = service.Name,
                 Code = service.Code,
                 Descripiton = service.Descripiton,

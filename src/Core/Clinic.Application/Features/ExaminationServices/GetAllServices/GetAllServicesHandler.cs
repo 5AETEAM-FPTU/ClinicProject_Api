@@ -83,7 +83,8 @@ public class GetAllServicesHandler : IFeatureHandler<GetAllServicesRequest, GetA
                         Name = service.Name,
                         Code = service.Code,
                         Price = (int) service.Price,
-                        Group = service.Group
+                        Group = service.Group,
+                        Description = service.Descripiton
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,

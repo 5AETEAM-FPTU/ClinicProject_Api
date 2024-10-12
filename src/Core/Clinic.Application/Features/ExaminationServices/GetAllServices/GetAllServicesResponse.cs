@@ -24,7 +24,7 @@ public class GetAllServicesResponse : IFeatureResponse
             public string Code { get; init; }
             public int Price { get; init; }
             public string Group { get; init; }
-            
+            public string Description { get; init; }
         }
     }
 }
