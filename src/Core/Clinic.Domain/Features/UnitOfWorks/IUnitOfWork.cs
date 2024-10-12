@@ -54,12 +54,9 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
-using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
-using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
-using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -359,5 +356,9 @@ public interface IUnitOfWork
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
 
-    
+    /// <summary>
+    /// Get all services feature
+    /// </summary>
+    public IGetAllServicesRepository GetAllServicesRepository { get; }
+
 }
