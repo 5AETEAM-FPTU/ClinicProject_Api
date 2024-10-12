@@ -53,6 +53,7 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -336,6 +337,11 @@ public interface IUnitOfWork
     /// GetMedicineByIdRepository feature
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
+    
+    /// <summary>
+    /// UpdateMedicineRepository feature
+    /// </summary>
+    public IUpdateMedicineRepository UpdateMedicineRepository { get; }
 
     
 }
