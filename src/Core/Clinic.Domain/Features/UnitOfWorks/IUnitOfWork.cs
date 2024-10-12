@@ -1,6 +1,7 @@
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -35,6 +36,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
@@ -54,12 +56,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
-using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
-using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
-using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
-using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
-using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -333,7 +329,7 @@ public interface IUnitOfWork
     /// CreateService feature
     /// </summary>
     public ICreateServiceRepository CreateServiceRepository { get; }
-    
+
     /// <summary>
     /// UpdateMedicalReportPatientInformationRepository feature
     /// </summary>
@@ -353,11 +349,8 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAllMedicineRepository GetAllMedicineRepository { get; }
 
-    
     /// <summary>
     /// GetMedicineByIdRepository feature
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
-
-    
 }
