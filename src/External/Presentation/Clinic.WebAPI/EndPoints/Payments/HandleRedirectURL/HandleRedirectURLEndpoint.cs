@@ -1,4 +1,6 @@
-﻿using System.Threading;
+﻿using System.Net;
+using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Features.OnlinePayments.HandleRedirectURL;
 using Clinic.WebAPI.EndPoints.Payments.HandleRedirectURL.HttpResponseMapper;
@@ -31,16 +33,39 @@ public class HandleRedirectURLEndpoint : Endpoint<HandleRedirectURLRequest>
     public override async Task HandleAsync(HandleRedirectURLRequest request, CancellationToken ct)
     {
         var appResponse = await request.ExecuteAsync(ct: ct);
-        // Convert to http response.
+
         var httpResponse = HandleRedirectURLHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: request, arg2: appResponse);
-        // Store the real http code of http response into a temporary variable.
+
         var httpResponseStatusCode = httpResponse.HttpCode;
 
-        httpResponse.HttpCode = default;
+        var redirectUrl = $"http://localhost:3000/vi/user/treatment-calendar/booking/payment?code={httpResponseStatusCode}";
 
-        await SendRedirectAsync(location: "http://localhost:3000/", allowRemoteRedirects: true);
+        if (httpResponseStatusCode == 200)
+        {
+            var properties = httpResponse.Body.GetType().GetProperties();
+
+            var queryParams = new StringBuilder();
+            foreach (var property in properties)
+            {
+                var propertyName = property.Name;
+                var propertyValue = property.GetValue(httpResponse.Body, null)?.ToString();
+
+                if (!string.IsNullOrEmpty(propertyValue))
+                {
+                    queryParams.Append(
+                        $"{WebUtility.UrlEncode(propertyName)}={WebUtility.UrlEncode(propertyValue)}&"
+                    );
+                }
+            }
+
+            queryParams.Remove(queryParams.Length - 1, 1);
+
+            redirectUrl = $"{redirectUrl}&{queryParams}";
+        }
+
+        await SendRedirectAsync(location: redirectUrl, allowRemoteRedirects: true);
     }
 }

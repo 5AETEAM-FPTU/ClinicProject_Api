@@ -1,3 +1,6 @@
+using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -33,7 +36,10 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
+using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -48,9 +54,12 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
+//using Clinic.Domain.Features.Repositories.VNPays.CreatePaymentLink;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -296,11 +305,6 @@ public interface IUnitOfWork
     public IGetRecentMedicalReportRepository GetRecentMedicalReportRepository { get; }
 
     /// <sumary>
-    ///    CreatePaymentLink feature.
-    /// </summary>
-    public ICreatePaymentLinkRepository CreatePaymentLinkRepository { get; }
-    
-    
     ///    GetConsultationOverviewRepository feature.
     /// </summary>
     public IGetConsultationOverviewRepository GetConsultationOverviewRepository { get; }
@@ -314,13 +318,46 @@ public interface IUnitOfWork
     ///    UpdateUserBookedAppointmentRepository feature.
     /// </summary>
     public IUpdateUserBookedAppointmentRepository UpdateUserBookedAppointmentRepository { get; }
-    
+
     /// <sumary>
     ///    CreateMedicineRepository feature.
     /// </summary>
     public ICreateMedicineRepository CreateMedicineRepository { get; }
+
     /// <summary>
-    /// UpdateAppointmentStatusRepository feature
+    ///    UpdateAppointmentStatusRepository feature
     /// </summary>
     public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository { get; }
+
+    /// <summary>
+    /// CreateService feature
+    /// </summary>
+    public ICreateServiceRepository CreateServiceRepository { get; }
+    
+    /// <summary>
+    /// UpdateMedicalReportPatientInformationRepository feature
+    /// </summary>
+    public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository { get; }
+
+    /// <summary>
+    /// UpdateMainMedicalReportInformationRepository feature
+    /// </summary>
+    public IUpdateMainInformationRepository UpdateMainMedicalReportInformationRepository { get; }
+
+    ///    HandleRedirectURLRepository feature
+    /// </summary>
+    public IHandleRedirectURLRepository HandleRedirectURLRepository { get; }
+
+    /// <summary>
+    ///    GetAllMedicineRepository feature
+    /// </summary>
+    public IGetAllMedicineRepository GetAllMedicineRepository { get; }
+
+    
+    /// <summary>
+    /// GetMedicineByIdRepository feature
+    /// </summary>
+    public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
+
+    
 }

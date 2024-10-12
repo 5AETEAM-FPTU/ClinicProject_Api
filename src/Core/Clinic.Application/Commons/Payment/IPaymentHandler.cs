@@ -24,4 +24,11 @@ public interface IPaymentHandler
     /// </param>
     /// <returns></returns>
     bool VerifySignatureForIPN(WebhookType webhookType);
+
+    /// <summary>
+    ///     Verify secure key
+    /// </summary>
+    /// <param name="secureHash"></param>
+    /// <returns></returns>
+    bool VerifySecureKey(string secureHash);
 }

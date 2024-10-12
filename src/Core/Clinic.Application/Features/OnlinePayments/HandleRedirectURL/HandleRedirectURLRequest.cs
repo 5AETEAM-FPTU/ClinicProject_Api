@@ -1,4 +1,5 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using Clinic.Application.Commons.Abstractions;
 using FastEndpoints;
 
 namespace Clinic.Application.Features.OnlinePayments.HandleRedirectURL;
@@ -8,6 +9,9 @@ namespace Clinic.Application.Features.OnlinePayments.HandleRedirectURL;
 /// </summary>
 public class HandleRedirectURLRequest : IFeatureRequest<HandleRedirectURLResponse>
 {
+    [BindFrom("appointmentId")]
+    public Guid AppointmentId { get; set; }
+
     [BindFrom("vnp_Amount")]
     public string Amount { get; set; }
 
@@ -43,4 +47,7 @@ public class HandleRedirectURLRequest : IFeatureRequest<HandleRedirectURLRespons
 
     [BindFrom("vnp_SecureHash")]
     public string SecureHash { get; set; }
+
+    [BindFrom("hashKey")]
+    public string HashKey { get; set; }
 }

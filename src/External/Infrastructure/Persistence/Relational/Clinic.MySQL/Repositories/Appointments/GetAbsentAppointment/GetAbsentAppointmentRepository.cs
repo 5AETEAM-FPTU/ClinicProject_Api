@@ -46,7 +46,7 @@ internal class GetAbsentAppointmentRepository : IGetAbsentAppointmentRepository
                 },
                 Patient = new Patient()
                 {
-                    UserId = appointment.Schedule.Doctor.UserId,
+                    UserId = appointment.Patient.UserId,
                     User = new User()
                     {
                         FullName = appointment.Patient.User.FullName,
