@@ -5,6 +5,7 @@ using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -65,6 +66,7 @@ using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
@@ -190,6 +192,7 @@ public class UnitOfWork : IUnitOfWork
     private IHandleRedirectURLRepository _handleRedirectURLRepository;
     private IGetAllMedicineRepository _getAllMedicineRepository;
     private IGetMedicineByIdRepository _getMedicineByIdRepository;
+    private IUpdateMedicineRepository _updateMedicineRepository;
     private IGetAllServicesRepository _getAllServiceRepository;
 
     public UnitOfWork(
@@ -602,6 +605,11 @@ public class UnitOfWork : IUnitOfWork
         get { return _getMedicineByIdRepository ??= new GetMedicineByIdRepository(_context); }
     }
 
+    public IUpdateMedicineRepository UpdateMedicineRepository
+    {
+        get { return  _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
+    }
+    
     public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository
     {
         get

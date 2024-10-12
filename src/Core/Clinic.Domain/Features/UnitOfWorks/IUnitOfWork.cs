@@ -55,6 +55,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 
@@ -355,6 +356,11 @@ public interface IUnitOfWork
     /// GetMedicineByIdRepository feature
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
+    
+    /// <summary>
+    /// UpdateMedicineRepository feature
+    /// </summary>
+    public IUpdateMedicineRepository UpdateMedicineRepository { get; }
 
     /// <summary>
     /// Get all services feature
