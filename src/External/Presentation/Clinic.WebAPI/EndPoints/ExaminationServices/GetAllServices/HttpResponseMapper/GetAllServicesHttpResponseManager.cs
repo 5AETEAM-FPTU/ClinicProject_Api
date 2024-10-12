@@ -1,24 +1,23 @@
 ﻿using System.Collections.Generic;
 using System;
-using Clinic.Application.Features.Admin.GetAllMedicine;
 using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.ExaminationServices.GetAllServices;
 
-namespace Clinic.WebAPI.EndPoints.Admin.GetAllMedicine.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
 
-public class GetAllMedicineHttpResponseManager
+public class GetAllServicesHttpResponseManager
 {
     private readonly Dictionary<
-        GetAllMedicineResponseStatusCode,
-        Func<GetAllMedicineRequest, GetAllMedicineResponse, GetAllMedicineHttpResponse>
+        GetAllServicesResponseStatusCode,
+        Func<GetAllServicesRequest, GetAllServicesResponse, GetAllServicesHttpResponse>
     > _dictionary;
 
-    internal GetAllMedicineHttpResponseManager()
+    internal GetAllServicesHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: GetAllMedicineResponseStatusCode.OPERATION_SUCCESS,
+            key: GetAllServicesResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -28,10 +27,8 @@ public class GetAllMedicineHttpResponseManager
                 }
         );
 
-
-
         _dictionary.Add(
-            key: GetAllMedicineResponseStatusCode.ROLE_IS_NOT_ADMIN,
+            key: GetAllServicesResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
             value: (request, response) =>
                 new()
                 {
@@ -42,10 +39,10 @@ public class GetAllMedicineHttpResponseManager
     }
 
     internal Func<
-        GetAllMedicineRequest,
-        GetAllMedicineResponse,
-        GetAllMedicineHttpResponse
-    > Resolve(GetAllMedicineResponseStatusCode statusCode)
+        GetAllServicesRequest,
+        GetAllServicesResponse,
+        GetAllServicesHttpResponse
+    > Resolve(GetAllServicesResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }
