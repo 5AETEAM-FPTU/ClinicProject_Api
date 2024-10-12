@@ -59,6 +59,7 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -373,4 +374,8 @@ public interface IUnitOfWork
     /// </summary>
     public IUpdateServiceRepository UpdateServiceRepository { get; }
 
+    /// <summary>
+    /// Get Detail Service feature
+    /// </summary>
+    public IGetDetailServiceRepository GetDetailServiceRepository { get; }
 }
