@@ -50,7 +50,7 @@ internal sealed class CreateMedicineHandler
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
 
         //Check if role is not admin
-        if (!Equals(objA: role, objB: "admin"))
+        if (Equals(objA: role, objB: "user"))
         {
             return new() { StatusCode = CreateMedicineResponseStatusCode.FORBIDEN_ACCESS };
         }
@@ -58,7 +58,7 @@ internal sealed class CreateMedicineHandler
         //Check if medicine already existed
         var isExisted = await _unitOfWork.CreateMedicineRepository.IsExistDrug(command.MedicineName, cancellationToken: ct);
 
-        if (!isExisted)
+        if (isExisted)
         {
             return new()
             {
@@ -75,6 +75,7 @@ internal sealed class CreateMedicineHandler
         var newMedicine = new Medicine()
         {
             Id = Guid.NewGuid(),
+            Name = command.MedicineName,
             Ingredient = command.Ingredient,
             Manufacture = command.Manufacture,
             MedicineGroupId = command.MedicineGroupId,
