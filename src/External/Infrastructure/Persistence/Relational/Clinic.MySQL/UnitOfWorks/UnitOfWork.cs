@@ -3,6 +3,7 @@ using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
@@ -64,6 +65,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
@@ -194,6 +196,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetMedicineByIdRepository _getMedicineByIdRepository;
     private IUpdateMedicineRepository _updateMedicineRepository;
     private IGetAllServicesRepository _getAllServiceRepository;
+    private IDeleteMedicineByIdRepository _deleteMedicineByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -636,5 +639,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllServicesRepository GetAllServicesRepository
     {
         get { return _getAllServiceRepository ??= new GetAllServicesRepository(_context); }
+    }
+
+    public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository
+    {
+        get { return _deleteMedicineByIdRepository ??= new DeleteMedicineByIdRepository(_context); }
     }
 }

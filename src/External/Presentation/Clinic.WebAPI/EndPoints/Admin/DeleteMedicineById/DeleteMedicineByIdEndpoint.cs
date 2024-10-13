@@ -2,17 +2,20 @@
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using System.Threading.Tasks;
 using System.Threading;
-using Clinic.Application.Features.Admin.UpdateMedicine;
-using Clinic.WebAPI.EndPoints.Admin.UpdateMedicine.HttpResponseMapper;
+using Clinic.Application.Features.Admin.DeleteMedicineById;
+using Clinic.WebAPI.EndPoints.Admin.DeleteMedicineById.HttpResponseMapper;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Admin.UpdateMedicine;
+namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineById;
 
-public class UpdateMedicineEndpoint : Endpoint<UpdateMedicineRequest, UpdateMedicineHttpResponse>
+/// <summary>
+///     DeleteMedicineById endpoint
+/// </summary>
+public class DeleteMedicineByIdEndpoint : Endpoint<DeleteMedicineByIdRequest, DeleteMedicineByIdHttpResponse>
 {
     public override void Configure()
     {
-        Patch("admin/medicine/update/{medicineId}");
+        Delete("admin/medicine/{medicineId}");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -21,27 +24,28 @@ public class UpdateMedicineEndpoint : Endpoint<UpdateMedicineRequest, UpdateMedi
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to update medicine information";
-            summary.Description = "This endpoint allows doctor, admin, staff to update medicine information.";
-            summary.Response<UpdateMedicineHttpResponse>(
+            summary.Summary = "Endpoint for admin";
+            summary.Description =
+                "This endpoint allows admin to remove specific medicine.";
+            summary.Response<DeleteMedicineByIdHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = UpdateMedicineResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = DeleteMedicineByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<UpdateMedicineHttpResponse> ExecuteAsync
-        (UpdateMedicineRequest req,
-        CancellationToken ct)
+    public override async Task<DeleteMedicineByIdHttpResponse> ExecuteAsync(
+        DeleteMedicineByIdRequest req,
+        CancellationToken ct
+    )
     {
+        var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var appResponse = await req.ExecuteAsync(ct: ct); // Assuming the actual update logic is in AppRequest.
-
-        var httpResponse = UpdateMedicineHttpResponseMapper
+        var httpResponse = DeleteMedicineByIdHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
@@ -56,4 +60,3 @@ public class UpdateMedicineEndpoint : Endpoint<UpdateMedicineRequest, UpdateMedi
         return httpResponse;
     }
 }
-

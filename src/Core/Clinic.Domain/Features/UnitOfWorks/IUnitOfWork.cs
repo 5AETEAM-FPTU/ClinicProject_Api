@@ -58,6 +58,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -366,5 +367,10 @@ public interface IUnitOfWork
     /// Get all services feature
     /// </summary>
     public IGetAllServicesRepository GetAllServicesRepository { get; }
+    
+    /// <summary>
+    /// DeleteMedicineByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository { get; }
 
 }

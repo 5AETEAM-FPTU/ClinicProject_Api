@@ -17,7 +17,7 @@ public class CreateMedicineEndpoint : Endpoint<CreateMedicineRequest, CreateMedi
 {
     public override void Configure()
     {
-        Post("admin/medicine");
+        Post("admin/medicine/create");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<ValidationPreProcessor<CreateMedicineRequest>>();
         DontThrowIfValidationFails();
