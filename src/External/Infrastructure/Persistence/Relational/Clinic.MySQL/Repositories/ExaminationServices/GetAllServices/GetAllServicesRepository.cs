@@ -2,10 +2,8 @@
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -59,6 +57,7 @@ public class GetAllServicesRepository : IGetAllServicesRepository
         return await results
             .Select(service => new Service()
             {
+                Id = service.Id,
                 Name = service.Name,
                 Code = service.Code,
                 Descripiton = service.Descripiton,

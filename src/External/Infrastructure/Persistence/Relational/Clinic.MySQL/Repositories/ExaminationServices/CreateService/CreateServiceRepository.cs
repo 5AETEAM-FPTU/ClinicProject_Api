@@ -3,9 +3,6 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -37,8 +34,8 @@ public class CreateServiceRepository : ICreateServiceRepository
         return true;
     }
 
-    public Task<bool> IsExistServiceCode(string code, CancellationToken cancellationToken)
+    public async Task<bool> IsExistServiceCode(string code, CancellationToken cancellationToken)
     {
-        return _services.AnyAsync(entity => entity.Code.Equals(code));
+        return await _services.AnyAsync(entity => entity.Code.Equals(code), cancellationToken);
     }
 }

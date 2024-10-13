@@ -1,23 +1,22 @@
 ﻿using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.Pagination;
 using System;
 
-namespace Clinic.Application.Features.ExaminationServices.GetAllServices;
+namespace Clinic.Application.Features.ExaminationServices.GetDetailService;
 
 /// <summary>
-///     GetAllServices Response
+///     GetMedicineById Response
 /// </summary>
-public class GetAllServicesResponse : IFeatureResponse
+public class GetDetailServiceResponse : IFeatureResponse
 {
-    public GetAllServicesResponseStatusCode StatusCode { get; init; }
+    public GetDetailServiceResponseStatusCode StatusCode { get; init; }
 
     public Body ResponseBody { get; init; }
 
     public sealed class Body
     {
-        public PaginationResponse<Service> Services { get; init; }
+        public ServiceDetail Service { get; init; }
 
-        public sealed class Service
+        public sealed class ServiceDetail
         {
             public Guid Id { get; init; }
             public string Name { get; init; }
@@ -25,6 +24,8 @@ public class GetAllServicesResponse : IFeatureResponse
             public int Price { get; init; }
             public string Group { get; init; }
             public string Description { get; init; }
+
         }
     }
 }
+

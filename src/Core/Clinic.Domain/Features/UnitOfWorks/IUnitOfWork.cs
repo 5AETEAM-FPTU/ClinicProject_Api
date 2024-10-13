@@ -59,6 +59,9 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -373,4 +376,18 @@ public interface IUnitOfWork
     /// </summary>
     public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository { get; }
 
+    /// <summary>
+    /// Update Service feature
+    /// </summary>
+    public IUpdateServiceRepository UpdateServiceRepository { get; }
+
+    /// <summary>
+    /// Get Detail Service feature
+    /// </summary>
+    public IGetDetailServiceRepository GetDetailServiceRepository { get; }
+
+    /// <summary>
+    ///     Remove Service feature
+    /// </summary>
+    public IRemoveServiceRepository RemoveServiceRepository { get; }
 }

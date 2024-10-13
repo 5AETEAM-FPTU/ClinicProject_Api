@@ -1,27 +1,26 @@
-﻿using System;
-using System.Collections.Generic;
-using Clinic.Application.Features.ExaminationServices.RemoveService;
-using Clinic.Application.Features.Schedules.RemoveSchedule;
+﻿using System.Collections.Generic;
+using System;
 using Microsoft.AspNetCore.Http;
+using Clinic.Application.Features.ExaminationServices.UpdateService;
 
-namespace Clinic.WebAPI.EndPoints.Schedules.RemoveSchedule.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.UpdateService.HttpResoponseMapper;
 
 /// <summary>
-///     Mapper for UpdateSchedule feature
+///     Mapper for  UpdateService feature
 /// </summary>
-public class RemoveScheduleHttpResponseManager
+public class UpdateServiceHttpResponseManager
 {
     private readonly Dictionary<
-        RemoveScheduleResponseStatusCode,
-        Func<RemoveScheduleRequest, RemoveScheduleResponse, RemoveScheduleHttpResponse>
+        UpdateServiceResponseStatusCode,
+        Func<UpdateServiceRequest, UpdateServiceResponse, UpdateServiceHttpResponse>
     > _dictionary;
 
-    internal RemoveScheduleHttpResponseManager()
+    internal UpdateServiceHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: RemoveScheduleResponseStatusCode.OPERATION_SUCCESS,
+            key: UpdateServiceResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -31,7 +30,7 @@ public class RemoveScheduleHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveScheduleResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: UpdateServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -41,7 +40,7 @@ public class RemoveScheduleHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveScheduleResponseStatusCode.FORBIDEN,
+            key: UpdateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
             value: (_, response) =>
                 new()
                 {
@@ -51,7 +50,7 @@ public class RemoveScheduleHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveScheduleResponseStatusCode.SCHEDULE_HAD_APPOINTMENT,
+            key: UpdateServiceResponseStatusCode.SERVICE_CODE_ALREADY_EXISTED,
             value: (_, response) =>
                 new()
                 {
@@ -61,22 +60,23 @@ public class RemoveScheduleHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveScheduleResponseStatusCode.NOT_FOUND_SCHEDULE,
+            key: UpdateServiceResponseStatusCode.SERVICE_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
-                    HttpCode = StatusCodes.Status404NotFound,
+                    HttpCode = StatusCodes.Status400BadRequest,
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
     }
 
     internal Func<
-        RemoveScheduleRequest,
-        RemoveScheduleResponse,
-        RemoveScheduleHttpResponse
-    > Resolve(RemoveScheduleResponseStatusCode statusCode)
+        UpdateServiceRequest,
+        UpdateServiceResponse,
+        UpdateServiceHttpResponse
+    > Resolve(UpdateServiceResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }
 }
+

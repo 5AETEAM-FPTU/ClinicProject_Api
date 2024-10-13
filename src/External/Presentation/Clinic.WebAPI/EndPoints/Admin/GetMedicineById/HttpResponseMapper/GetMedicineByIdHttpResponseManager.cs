@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Clinic.Application.Features.Admin.GetMedicineById;
+using Clinic.Application.Features.ExaminationServices.GetDetailService;
 using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Admin.GetMedicineById.HttpResponseMapper;

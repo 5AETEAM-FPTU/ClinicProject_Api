@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
-using Clinic.Application.Features.ExaminationServices.CreateService;
-using Clinic.Application.Features.ExaminationServices.UpdateService;
+using Clinic.Application.Features.ExaminationServices.RemoveService;
 
-namespace Clinic.WebAPI.EndPoints.ExaminationServices.CreateService.HttpResoponseMapper;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.RemoveService.HttpResoponseMapper;
 
 /// <summary>
-///     Mapper for CreateMedicine feature
+///     Mapper for  UpdateService feature
 /// </summary>
-public class CreateServiceHttpResponseManager
+public class RemoveServiceHttpResponseManager
 {
     private readonly Dictionary<
-        CreateServiceResponseStatusCode,
-        Func<CreateServiceRequest, CreateServiceResponse, CreateServiceHttpResponse>
+        RemoveServiceResponseStatusCode,
+        Func<RemoveServiceRequest, RemoveServiceResponse, RemoveServiceHttpResponse>
     > _dictionary;
 
-    internal CreateServiceHttpResponseManager()
+    internal RemoveServiceHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.OPERATION_SUCCESS,
+            key: RemoveServiceResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -31,7 +30,7 @@ public class CreateServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: RemoveServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -41,7 +40,7 @@ public class CreateServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
+            key: RemoveServiceResponseStatusCode.FORBIDEN,
             value: (_, response) =>
                 new()
                 {
@@ -51,7 +50,7 @@ public class CreateServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.SERVICE_CODE_ALREADY_EXISTED,
+            key: RemoveServiceResponseStatusCode.SERVICE_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -62,10 +61,10 @@ public class CreateServiceHttpResponseManager
     }
 
     internal Func<
-        CreateServiceRequest,
-        CreateServiceResponse,
-        CreateServiceHttpResponse
-    > Resolve(CreateServiceResponseStatusCode statusCode)
+        RemoveServiceRequest,
+        RemoveServiceResponse,
+        RemoveServiceHttpResponse
+    > Resolve(RemoveServiceResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }
