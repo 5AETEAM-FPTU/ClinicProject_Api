@@ -28,6 +28,8 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
@@ -100,7 +102,9 @@ using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
+using Clinic.MySQL.Repositories.ChatContents.CreateChatContent;
 using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
+using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
@@ -229,6 +233,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetAvailableServicesRepository _getAvailableServicesRepository;
     private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
     private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
+    private ICreateChatContentRepository _createChatContentRepository;
+    private IRemoveChatContentTemporarilyRepository _removeChatContentTemporarilyRepository;
     private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
 
     public UnitOfWork(
@@ -720,6 +726,21 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository
     {
         get { return _getAllMedicineTypeRepository ??= new GetAllMedicineTypeRepository(_context); }
+    }
+
+    public IRemoveChatContentTemporarilyRepository RemoveChatContentTemporarilyRepository
+    {
+        get
+        {
+            return _removeChatContentTemporarilyRepository ??= new RemoveChatTemporarilyRepository(
+                _context
+            );
+        }
+    }
+
+    public ICreateChatContentRepository CreateChatContentRepository
+    {
+        get { return _createChatContentRepository ??= new CreateChatContentRepository(_context); }
     }
 
     public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository

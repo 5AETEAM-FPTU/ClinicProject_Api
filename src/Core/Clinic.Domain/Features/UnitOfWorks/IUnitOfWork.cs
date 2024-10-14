@@ -25,6 +25,8 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
@@ -422,6 +424,16 @@ public interface IUnitOfWork
     ///    Get Available Services feature
     /// </summary>
     public IGetAvailableServicesRepository GetAvailableServicesRepository { get; }
+
+    /// <summary>
+    ///    CreateChatContentRepository feature
+    /// </summary>
+    public ICreateChatContentRepository CreateChatContentRepository { get; }
+
+    /// <summary>
+    ///    RemoveChatContentTemporarilyRepository feature
+    /// </summary>
+    public IRemoveChatContentTemporarilyRepository RemoveChatContentTemporarilyRepository { get; }
 
     /// <summary>
     ///     GetAllMedicineGroupRepository feature
