@@ -8,6 +8,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -437,4 +438,9 @@ public interface IUnitOfWork
     ///     CreateNewMedicineGroupRepository feature
     /// </summary>
     public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository { get; }
+
+    /// <summary>
+    ///     UpdateMedicineTypeByIdRepository feature
+    /// </summary>
+    public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository { get; }
 }

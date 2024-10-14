@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -84,6 +85,7 @@ using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
@@ -230,6 +232,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
     private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
     private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
+    private IUpdateMedicineTypeByIdRepository _updateMedicineTypeByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -747,6 +750,16 @@ public class UnitOfWork : IUnitOfWork
             return _createNewMedicineGroupRepository ??= new CreateNewMedicineGroupRepository(
                 _context
             );
+        }
+    }
+
+    public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _updateMedicineTypeByIdRepository ??= new UpdateMedicineTypeByIdRepository(
+               _context
+           );
         }
     }
 }
