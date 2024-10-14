@@ -12,5 +12,7 @@ public sealed class AssignChatRoomRequestValidator
     public AssignChatRoomRequestValidator()
     {
         RuleFor(expression: request => request.InitialMessage).NotEmpty();
+        RuleFor(expression: request => request.PatientId).NotEmpty();
+        RuleFor(expression: request => request.QueueRoomId).NotEmpty();
     }
 }

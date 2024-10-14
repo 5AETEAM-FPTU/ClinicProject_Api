@@ -26,6 +26,8 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
@@ -57,6 +59,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformatio
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -425,6 +428,16 @@ public interface IUnitOfWork
     public IGetAvailableServicesRepository GetAvailableServicesRepository { get; }
 
     /// <summary>
+    ///    CreateChatContentRepository feature
+    /// </summary>
+    public ICreateChatContentRepository CreateChatContentRepository { get; }
+
+    /// <summary>
+    ///    RemoveChatContentTemporarilyRepository feature
+    /// </summary>
+    public IRemoveChatContentTemporarilyRepository RemoveChatContentTemporarilyRepository { get; }
+
+    /// <summary>
     ///     GetAllMedicineGroupRepository feature
     /// </summary>
     public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository { get; }
@@ -443,4 +456,7 @@ public interface IUnitOfWork
     ///     UpdateMedicineTypeByIdRepository feature
     /// </summary>
     public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository { get; }
+    ///     GetAllQueueRoomsRepository feature
+    /// </summary>
+    public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }
 }
