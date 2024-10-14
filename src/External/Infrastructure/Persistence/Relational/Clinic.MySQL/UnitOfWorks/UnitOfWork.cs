@@ -6,6 +6,7 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
@@ -88,6 +89,7 @@ using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
@@ -257,6 +259,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateMedicineGroupByIdRepository _updateMedicineGroupByIdRepository;
     private IDeleteMedicineTypeByIdRepository _deleteMedicineTypeByIdRepository;
     private IGetQueueRoomByUserIdRepository _getQueueRoomByUserIdRepository;
+    private IDeleteMedicineGroupByIdRepository _deleteMedicineGroupByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -828,9 +831,11 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _deleteMedicineTypeByIdRepository ??= new DeleteMedicineTypeByIdRepository(_context);
-         }
-     }
+            return _deleteMedicineTypeByIdRepository ??= new DeleteMedicineTypeByIdRepository(
+                _context
+            );
+        }
+    }
 
     public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository
     {
@@ -845,6 +850,16 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getQueueRoomByUserIdRepository ??= new GetQueueRoomByUserIdRepository(_context);
+        }
+    }
+
+    public IDeleteMedicineGroupByIdRepository DeleteMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _deleteMedicineGroupByIdRepository ??= new DeleteMedicineGroupByIdRepository(
+                _context
+            );
         }
     }
 }
