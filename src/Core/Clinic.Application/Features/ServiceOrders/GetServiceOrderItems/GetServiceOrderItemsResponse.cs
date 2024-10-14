@@ -5,7 +5,7 @@ using Clinic.Application.Commons.Abstractions;
 namespace Clinic.Application.Features.ServiceOrders.GetServiceOrderItems;
 
 /// <summary>
-///     GetServiceOrderItems Response Status Code
+///     GetServiceOrderItems Response
 /// </summary>
 public class GetServiceOrderItemsResponse : IFeatureResponse
 {

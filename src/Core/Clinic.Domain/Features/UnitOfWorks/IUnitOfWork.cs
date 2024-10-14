@@ -76,6 +76,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
+using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -473,4 +474,9 @@ public interface IUnitOfWork
     ///     UpdateMedicineGroupByIdRepository feature
     /// </summary>
     public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     AddOrderService feature
+    /// </summary>
+    public IAddOrderServiceRepository AddOrderServiceRepository { get; }
 }

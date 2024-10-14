@@ -1,28 +1,22 @@
-﻿using System.Collections.Generic;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Commons.Constance;
-using Clinic.Application.Features.Schedules.CreateSchedules;
 using Clinic.Application.Features.ServiceOrders.AddOrderService;
-using Clinic.Application.Features.ServiceOrders.GetServiceOrderItems;
-using Clinic.WebAPI.EndPoints.Schedules.CreateSchedules.HttpResponseMapper;
 using Clinic.WebAPI.EndPoints.ServiceOrders.AddOrderService.HttpResponseMapper;
-using Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems;
+namespace Clinic.WebAPI.EndPoints.ServiceOrders.AddOrderService;
 
 /// <summary>
 ///     GetServiceOrderItems endpoint
 /// </summary>
-public class GetServiceOrderItemsEndpoint
-    : Endpoint<GetServiceOrderItemsRequest, GetServiceOrderItemsHttpResponse>
+public class AddOrderServiceEndpoint
+    : Endpoint<AddOrderServiceRequest, AddOrderServiceHttpResponse>
 {
     public override void Configure()
     {
-        Get("service-order/detail");
+        Post("service-order/add");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -31,27 +25,27 @@ public class GetServiceOrderItemsEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to get detail of service indication (order).";
-            summary.Description = "This endpoint allows user to get detail of service indication.";
-            summary.Response<GetServiceOrderItemsHttpResponse>(
+            summary.Summary = "Endpoint for staff/doctor to add list services into service's order. (order service)";
+            summary.Description = "This endpoint allows doctor/staff to add list services into service's order.";
+            summary.Response<AddOrderServiceHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = CreateSchedulesResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode = AddOrderServiceResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
                 }
             );
         });
     }
 
-    public override async Task<GetServiceOrderItemsHttpResponse> ExecuteAsync(
-        GetServiceOrderItemsRequest req,
+    public override async Task<AddOrderServiceHttpResponse> ExecuteAsync(
+        AddOrderServiceRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = GetServiceOrderItemsHttpResponseMapper
+        var httpResponse = AddOrderServiceHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

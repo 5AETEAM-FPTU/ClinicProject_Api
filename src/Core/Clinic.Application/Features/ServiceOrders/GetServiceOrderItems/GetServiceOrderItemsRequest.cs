@@ -11,5 +11,5 @@ namespace Clinic.Application.Features.ServiceOrders.GetServiceOrderItems;
 public class GetServiceOrderItemsRequest : IFeatureRequest<GetServiceOrderItemsResponse>
 {
     [BindFrom("serviceOrderId")]
-    public Guid ServiceOrderId { get; set; }
+    public Guid ServiceOrderId { get; init; }
 }

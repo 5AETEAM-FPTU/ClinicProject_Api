@@ -18,4 +18,8 @@
     <ProjectReference Include="..\Clinic.Domain\Clinic.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\ServiceOrders\temp\" />
+  </ItemGroup>
+
 </Project>
