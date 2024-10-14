@@ -1,6 +1,7 @@
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -35,11 +36,14 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllGender;
 using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
+using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
+using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -54,9 +58,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
-using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -327,17 +328,17 @@ public interface IUnitOfWork
     public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository { get; }
 
     /// <summary>
-    /// CreateService feature
+    ///    CreateService feature
     /// </summary>
     public ICreateServiceRepository CreateServiceRepository { get; }
-    
+
     /// <summary>
-    /// UpdateMedicalReportPatientInformationRepository feature
+    ///    UpdateMedicalReportPatientInformationRepository feature
     /// </summary>
     public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository { get; }
 
     /// <summary>
-    /// UpdateMainMedicalReportInformationRepository feature
+    ///    UpdateMainMedicalReportInformationRepository feature
     /// </summary>
     public IUpdateMainInformationRepository UpdateMainMedicalReportInformationRepository { get; }
 
@@ -350,15 +351,18 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAllMedicineRepository GetAllMedicineRepository { get; }
 
-    
     /// <summary>
-    /// GetMedicineByIdRepository feature
+    ///    GetMedicineByIdRepository feature
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
 
     /// <summary>
-    /// Get all services feature
+    ///    Get all services feature
     /// </summary>
     public IGetAllServicesRepository GetAllServicesRepository { get; }
 
+    /// <summary>
+    ///    CreateQueueRoomRepository feature
+    /// </summary>
+    public ICreateQueueRoomRepository CreateQueueRoomRepository { get; }
 }

@@ -1,4 +1,4 @@
-﻿namespace Clinic.SignalR.Hub;
+﻿namespace Clinic.SignalR.Hub.Chat;
 
 using System.Collections.Concurrent;
 using Clinic.Application.Commons.ChatMessage.Messaging;
@@ -9,7 +9,6 @@ using Microsoft.AspNetCore.SignalR;
 /// <summary>
 ///     Represents a ChatHub implementation from SignalR.
 /// </summary>
-///
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class GroupChatHub : Hub
 {

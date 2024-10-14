@@ -41,11 +41,11 @@ internal sealed class PatientEntityConfiguration : IEntityTypeConfiguration<Pati
             .HasForeignKey(foreignKeyExpression: appointment => appointment.PatientId)
             .IsRequired();
 
-        // [Patients] - [QueueRoom] (1 - 1).
+        // [Patients] - [QueueRoom] (1 - n).
         builder
-            .HasOne(navigationExpression: patient => patient.QueueRooms)
+            .HasMany(navigationExpression: patient => patient.QueueRooms)
             .WithOne(navigationExpression: queueRoom => queueRoom.Patient)
-            .HasForeignKey<QueueRoom>(foreignKeyExpression: queueRoom => queueRoom.PatientId)
+            .HasForeignKey(foreignKeyExpression: queueRoom => queueRoom.PatientId)
             .IsRequired();
 
         // [Patients] - [ChatRoom] (1 - n).

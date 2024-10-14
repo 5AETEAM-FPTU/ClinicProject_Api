@@ -46,6 +46,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
+using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -104,6 +105,7 @@ using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
 using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
@@ -191,6 +193,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllMedicineRepository _getAllMedicineRepository;
     private IGetMedicineByIdRepository _getMedicineByIdRepository;
     private IGetAllServicesRepository _getAllServiceRepository;
+    private ICreateQueueRoomRepository _createQueueRoomRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -628,5 +631,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllServicesRepository GetAllServicesRepository
     {
         get { return _getAllServiceRepository ??= new GetAllServicesRepository(_context); }
+    }
+
+    public ICreateQueueRoomRepository CreateQueueRoomRepository
+    {
+        get { return _createQueueRoomRepository ??= new CreateQueueRoomRepository(_context); }
     }
 }

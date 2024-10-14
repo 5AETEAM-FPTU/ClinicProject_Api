@@ -1,4 +1,4 @@
-﻿namespace Clinic.SignalR.Hub;
+﻿namespace Clinic.SignalR.Hub.Chat;
 
 using System.Collections.Concurrent;
 using Clinic.Application.Commons.ChatMessage.Messaging;
@@ -10,7 +10,6 @@ using Microsoft.Extensions.Logging;
 /// <summary>
 ///     Represents a ChatHub implementation from SignalR.
 /// </summary>
-///
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
 public class ChatHub : Hub
 {
@@ -53,6 +52,7 @@ public class ChatHub : Hub
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
         var userId = Context.UserIdentifier;
+
         if (userId != null && _connections.TryGetValue(userId, out var connectionIds))
         {
             connectionIds.Remove(Context.ConnectionId);

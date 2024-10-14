@@ -1,4 +1,5 @@
 ﻿using Clinic.Application.Commons.ChatMessage.Messaging;
+using Clinic.Application.Commons.ChatMessage.Notifier;
 using Clinic.SignalR.Handler;
 using Clinic.SignalR.Provider;
 using Microsoft.AspNetCore.SignalR;
@@ -18,6 +19,7 @@ public static class DependencyInjection
     {
         services.AddSignalR();
         services.AddSingleton<IChatHandler, ChatHandler>();
+        services.AddSingleton<INotifierHandler, NotifierHandler>();
         services.AddSingleton<IUserIdProvider, UserIdProvider>();
     }
 }
