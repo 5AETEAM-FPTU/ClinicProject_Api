@@ -44,6 +44,7 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
@@ -109,6 +110,7 @@ using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
 using Clinic.MySQL.Repositories.ExaminationServices.GetAllServices;
 using Clinic.MySQL.Repositories.ExaminationServices.GetDetailService;
+using Clinic.MySQL.Repositories.ExaminationServices.HiddenService;
 using Clinic.MySQL.Repositories.ExaminationServices.RemoveService;
 using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
@@ -209,6 +211,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateServiceRepository _updateServiceRepository;
     private IGetDetailServiceRepository _getDetailServiceRepository;
     private IRemoveServiceRepository _removeServiceRepository;
+    private IHiddenServiceRepository _hiddenServiceRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -689,4 +692,14 @@ public class UnitOfWork : IUnitOfWork
         }
 
     }
+
+    public IHiddenServiceRepository HiddenServiceRepository
+    {
+        get
+        {
+            return _hiddenServiceRepository ??= new HiddenServiceRepository(_context);
+        }
+
+    }
+
 }

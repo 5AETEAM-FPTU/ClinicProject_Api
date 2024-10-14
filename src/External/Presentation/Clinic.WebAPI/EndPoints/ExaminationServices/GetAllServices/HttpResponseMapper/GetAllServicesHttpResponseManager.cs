@@ -5,6 +5,9 @@ using Clinic.Application.Features.ExaminationServices.GetAllServices;
 
 namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
 
+/// <summary>
+///     GetAllSerivces response manager
+/// </summary>
 public class GetAllServicesHttpResponseManager
 {
     private readonly Dictionary<

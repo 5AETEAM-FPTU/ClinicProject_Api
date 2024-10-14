@@ -1,7 +1,7 @@
 ﻿namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
 
 /// <summary>
-///     GetAllMedicine extension method
+///     GetAllSerivces extension method
 /// </summary>
 internal static class GetAllServicesHttpResponseMapper
 {
