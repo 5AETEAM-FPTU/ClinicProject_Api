@@ -39,21 +39,21 @@ public class GetMedicineByIdHandler
         CancellationToken cancellationToken
     )
     {
-        //// Found medical report by reportId
-        //var foundReport =
-        //    await _unitOfWork.GetMedicalReportByIdRepository.GetMedicalReportByIdQueryAsync(
-        //            request.ReportId,
-        //            cancellationToken
-        //        );
+        // Find medicine by medicineId
+        var foundMedicine =
+            await _unitOfWork.GetMedicineByIdRepository.FindMedicineByIdQueryAsync(
+                    request.MedicineId,
+                    cancellationToken
+                );
 
-        //// Responds if reportId is not found
-        //if (Equals(objA: foundReport, objB: default))
-        //{
-        //    return new GetMedicalReportByIdResponse()
-        //    {
-        //        StatusCode = GetMedicalReportByIdResponseStatusCode.REPORT_IS_NOT_FOUND
-        //    };
-        //}
+        // Responds if medicine is not found
+        if (Equals(objA: foundMedicine, objB: default))
+        {
+            return new GetMedicineByIdResponse()
+            {
+                StatusCode = GetMedicineByIdResponseStatusCode.MEDICINE_IS_NOT_FOUND
+            };
+        }
 
         // Response successfully.
         return new GetMedicineByIdResponse()
@@ -61,7 +61,25 @@ public class GetMedicineByIdHandler
             StatusCode = GetMedicineByIdResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-
+                Medicine = new GetMedicineByIdResponse.Body.MedicineDetail()
+                {
+                    MedicineId = foundMedicine.Id,
+                    Ingredient = foundMedicine.Ingredient,
+                    Manufacture = foundMedicine.Manufacture,
+                    MedicineName = foundMedicine.Name,
+                    Group = new GetMedicineByIdResponse.Body.MedicineDetail.MedicineGroup()
+                    {
+                        GroupId = foundMedicine.MedicineGroup.Id,
+                        Constant = foundMedicine.MedicineGroup.Constant,
+                        Name = foundMedicine.MedicineGroup.Name,
+                    },
+                    Type = new GetMedicineByIdResponse.Body.MedicineDetail.MedicineType()
+                    {
+                        TypeId = foundMedicine.MedicineType.Id,
+                        Constant = foundMedicine.MedicineType.Constant,
+                        Name = foundMedicine.MedicineType.Name,
+                    },
+                }
             }
         };
     }

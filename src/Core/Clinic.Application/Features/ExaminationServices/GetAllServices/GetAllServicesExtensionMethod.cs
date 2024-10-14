@@ -1,5 +1,4 @@
-﻿using Clinic.Application.Features.Admin.GetAllMedicine;
-
+﻿
 namespace Clinic.Application.Features.ExaminationServices.GetAllServices;
 
 /// <summary>

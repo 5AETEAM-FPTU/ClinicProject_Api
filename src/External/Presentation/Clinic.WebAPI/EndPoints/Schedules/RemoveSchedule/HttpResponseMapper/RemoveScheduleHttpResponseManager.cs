@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Clinic.Application.Features.ExaminationServices.RemoveService;
 using Clinic.Application.Features.Schedules.RemoveSchedule;
 using Microsoft.AspNetCore.Http;
 

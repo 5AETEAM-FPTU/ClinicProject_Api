@@ -6,6 +6,7 @@ using Clinic.Application.Features.Admin.GetMedicineById;
 using Clinic.WebAPI.EndPoints.Admin.GetMedicineById.HttpResponseMapper;
 using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Auths.Login;
+using Clinic.Application.Features.ExaminationServices.GetDetailService;
 
 namespace Clinic.WebAPI.EndPoints.Admin.GetMedicineById;
 

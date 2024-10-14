@@ -32,6 +32,7 @@ internal class GetMedicineByIdRepository : IGetMedicineByIdRepository
             .Where(medicine => medicine.Id == medicineId)
             .Select(medicine => new Medicine()
             {
+                Id = medicine.Id,
                 Name = medicine.Name,
                 Manufacture = medicine.Manufacture,
                 Ingredient = medicine.Ingredient,
@@ -48,6 +49,6 @@ internal class GetMedicineByIdRepository : IGetMedicineByIdRepository
                     Name = medicine.MedicineGroup.Name,
                 }
             })
-            .FirstOrDefaultAsync(); 
+            .FirstOrDefaultAsync(cancellationToken); 
     }
 }
