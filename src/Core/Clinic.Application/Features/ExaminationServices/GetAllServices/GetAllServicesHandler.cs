@@ -7,6 +7,7 @@ using System.Security.Claims;
 using Clinic.Application.Commons.Pagination;
 using System.Linq;
 using System;
+using Clinic.Application.Commons.Constance;
 
 namespace Clinic.Application.Features.ExaminationServices.GetAllServices;
 
@@ -52,7 +53,7 @@ public class GetAllServicesHandler : IFeatureHandler<GetAllServicesRequest, GetA
             };
         }
 
-        // Find all medicines query.
+        // Find all services query.
         var services = await _unitOfWork.GetAllServicesRepository.FindAllServicesQueryAsync(
             pageIndex: request.PageIndex,
             pageSize: request.PageSize,
@@ -60,11 +61,14 @@ public class GetAllServicesHandler : IFeatureHandler<GetAllServicesRequest, GetA
             cancellationToken: cancellationToken
         );
 
-        // Count all the medicines.
+        // Count all the services.
         var countService = await _unitOfWork.GetAllServicesRepository.CountAllServicesQueryAsync(
             key: request.CodeOrName,
             cancellationToken: cancellationToken
         );
+
+        // response status of service (hidden)
+  
 
         // Response successfully.
         return new GetAllServicesResponse()
@@ -83,7 +87,9 @@ public class GetAllServicesHandler : IFeatureHandler<GetAllServicesRequest, GetA
                         Code = service.Code,
                         Price = (int) service.Price,
                         Group = service.Group,
-                        Description = service.Descripiton
+                        Description = service.Descripiton,
+                        IsHidden = service.RemovedAt != CommonConstant.MIN_DATE_TIME
+                                    && service.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,

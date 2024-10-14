@@ -15,7 +15,7 @@ public class HiddenServiceEndpoint : Endpoint<HiddenServiceRequest, HiddenServic
 {
     public override void Configure()
     {
-        Patch("services/hidden/{serviceId}");
+        Patch("services/hidden");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
