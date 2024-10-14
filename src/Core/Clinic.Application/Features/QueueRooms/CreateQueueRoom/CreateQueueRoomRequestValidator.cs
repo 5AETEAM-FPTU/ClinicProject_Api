@@ -4,7 +4,7 @@ using FluentValidation;
 namespace Clinic.Application.Features.QueueRooms.CreateQueueRoom;
 
 /// <summary>
-///     CreateNewOnlinePayment Request.
+///     CreateQueueRoom Request.
 /// </summary>
 public sealed class CreateQueueRoomRequestValidator
     : FeatureRequestValidator<CreateQueueRoomRequest, CreateQueueRoomResponse>

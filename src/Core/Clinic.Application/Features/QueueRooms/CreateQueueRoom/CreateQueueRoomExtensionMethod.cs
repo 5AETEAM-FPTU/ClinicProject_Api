@@ -1,7 +1,7 @@
 ﻿namespace Clinic.Application.Features.QueueRooms.CreateQueueRoom;
 
 /// <summary>
-///     CreateQueueRoomExtensionMethod.
+///     CreateQueueRoom ExtensionMethod.
 /// </summary>
 public static class CreateQueueRoomExtensionMethod
 {
