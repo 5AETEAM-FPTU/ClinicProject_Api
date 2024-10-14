@@ -11,8 +11,7 @@ namespace Clinic.Application.Features.ExaminationServices.RemoveService;
 /// <summary>
 ///     RemoveService Handler
 /// </summary>
-public class RemoveServiceHandler
-    : IFeatureHandler<RemoveServiceRequest, RemoveServiceResponse>
+public class RemoveServiceHandler : IFeatureHandler<RemoveServiceRequest, RemoveServiceResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private IDefaultUserAvatarAsUrlHandler _defaultUserAvatarAsUrlHandler;
@@ -56,11 +55,10 @@ public class RemoveServiceHandler
         }
 
         // check service is existed
-        var isServiceExisted = await _unitOfWork.RemoveServiceRepository
-            .IsServiceExisted(
-                serviceId: request.ServiceId,
-                cancellationToken: cancellationToken
-            );
+        var isServiceExisted = await _unitOfWork.RemoveServiceRepository.IsServiceExisted(
+            serviceId: request.ServiceId,
+            cancellationToken: cancellationToken
+        );
 
         if (!isServiceExisted)
         {
@@ -88,5 +86,4 @@ public class RemoveServiceHandler
             StatusCode = RemoveServiceResponseStatusCode.OPERATION_SUCCESS,
         };
     }
-
 }

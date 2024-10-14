@@ -10,7 +10,13 @@ namespace Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemp
 /// </summary>
 public interface IRemoveChatContentTemporarilyRepository
 {
-    Task<bool> IsChatContentExistByIdQueryAsync(
+    Task<bool> IsChatContentOwnedByUserByIdQueryAsync(
+        Guid chatContentId,
+        Guid userId,
+        CancellationToken cancellationToken = default
+    );
+
+    Task<bool> IsChatContentTemporarilyRemovedByIdQueryAsync(
         Guid chatContentId,
         CancellationToken cancellationToken = default
     );

@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.MySQL.Data.Context;
@@ -42,7 +43,7 @@ internal class RemoveChatTemporarilyRepository : IRemoveChatContentTemporarilyRe
                 try
                 {
                     await _chatContents
-                        .Where(entity => entity.Id == chatContentId)
+                        .Where(predicate: entity => entity.Id == chatContentId)
                         .ExecuteUpdateAsync(setPropertyCalls: builder =>
                             builder
                                 .SetProperty(entity => entity.RemovedAt, removedAt)
@@ -61,14 +62,29 @@ internal class RemoveChatTemporarilyRepository : IRemoveChatContentTemporarilyRe
         return dbTransaction;
     }
 
-    public Task<bool> IsChatContentExistByIdQueryAsync(
+    public Task<bool> IsChatContentOwnedByUserByIdQueryAsync(
         Guid chatContentId,
+        Guid userId,
         CancellationToken cancellationToken = default
     )
     {
         return _chatContents.AnyAsync(
-            entity => entity.Id == chatContentId,
+            predicate: entity => entity.Id == chatContentId && entity.SenderId == userId,
             cancellationToken: cancellationToken
         );
+    }
+
+    public Task<bool> IsChatContentTemporarilyRemovedByIdQueryAsync(
+        Guid chatContentId,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return _chatContents
+            .Where(predicate: entity =>
+                entity.Id == chatContentId
+                && entity.RemovedAt != CommonConstant.MIN_DATE_TIME
+                && entity.RemovedBy != CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
+            .AnyAsync(cancellationToken: cancellationToken);
     }
 }
