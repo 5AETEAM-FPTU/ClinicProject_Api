@@ -7,13 +7,13 @@ namespace Clinic.Application.Commons.ChatMessage.Messaging;
 /// </summary>
 public class ChatMessage
 {
-    public string User { get; set; }
-    public string Message { get; set; }
-    public ICollection<Urls> FileUrls { get; set; }
+    public string SenderId { get; set; }
 
-    public sealed class Urls
-    {
-        public string Url { get; set; }
-        public string Type { get; set; }
-    }
+    public string ReceiverId { get; set; }
+
+    public string Message { get; set; }
+
+    public IEnumerable<string> ImageUrls { get; set; }
+
+    public IEnumerable<string> VideoUrls { get; set; }
 }

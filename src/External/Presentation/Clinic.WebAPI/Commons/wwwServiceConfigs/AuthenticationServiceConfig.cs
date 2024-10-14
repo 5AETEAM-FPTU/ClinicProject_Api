@@ -1,9 +1,12 @@
-﻿using System.Security.Cryptography;
+﻿using System;
+using System.Security.Cryptography;
 using System.Text;
+using System.Threading.Tasks;
 using Clinic.Configuration.Presentation.Authentication;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 
 namespace Clinic.WebAPI.Commons.wwwServiceConfigs;
@@ -50,7 +53,35 @@ internal static class AuthenticationServiceConfig
                 config.DefaultScheme = JwtBearerDefaults.AuthenticationScheme;
             })
             .AddJwtBearer(configureOptions: config =>
-                config.TokenValidationParameters = tokenValidationParameters
-            );
+            {
+                config.TokenValidationParameters = tokenValidationParameters;
+
+                config.Events = new JwtBearerEvents
+                {
+                    OnMessageReceived = context =>
+                    {
+                        var path = context.HttpContext.Request.Path;
+                        if (path.StartsWithSegments("/chat-hub"))
+                        {
+                            var token = context.Request.Query["token"];
+                            if (!string.IsNullOrEmpty(token))
+                            {
+                                context.Token = token;
+                            }
+                        }
+                        return Task.CompletedTask;
+                    },
+                    OnAuthenticationFailed = context =>
+                    {
+                        Console.WriteLine($"Authentication failed: {context.Exception.Message}");
+                        return Task.CompletedTask;
+                    },
+                    OnTokenValidated = context =>
+                    {
+                        Console.WriteLine("Token is valid");
+                        return Task.CompletedTask;
+                    }
+                };
+            });
     }
 }
