@@ -1,19 +1,20 @@
 ﻿using System.Collections.Generic;
 using System;
 using System.Text.Json.Serialization;
-using Clinic.Application.Features.ExaminationServices.GetAllServices;
+using Clinic.Application.Features.Admin.GetAllMedicineType;
 
-namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Admin.GetAllMedicineType.HttpResponseMapper;
 
 /// <summary>
-///     GetAllSerivces http response
+///     GetAllMedicineType http response
 /// </summary>
-public class GetAllServicesHttpResponse
+internal sealed class GetAllMedicineTypeHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
-    public string AppCode { get; init; } = GetAllServicesResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+    public string AppCode { get; init; } =
+        GetAllMedicineTypeResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(
@@ -21,7 +22,7 @@ public class GetAllServicesHttpResponse
             destinationTimeZone: TimeZoneInfo.FindSystemTimeZoneById(id: "SE Asia Standard Time")
         );
 
-    public object Body { get; init; } = new();
+    public GetAllMedicineTypeResponse.Body Body { get; init; } = new();
 
     public IEnumerable<string> ErrorMessages { get; init; } = [];
 }

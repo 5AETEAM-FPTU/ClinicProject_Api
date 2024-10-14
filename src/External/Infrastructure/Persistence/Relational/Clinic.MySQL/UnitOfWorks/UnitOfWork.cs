@@ -5,6 +5,7 @@ using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
@@ -44,7 +45,9 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
@@ -72,6 +75,7 @@ using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
+using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
@@ -110,7 +114,9 @@ using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
 using Clinic.MySQL.Repositories.ExaminationServices.GetAllServices;
+using Clinic.MySQL.Repositories.ExaminationServices.GetAvailableServices;
 using Clinic.MySQL.Repositories.ExaminationServices.GetDetailService;
+using Clinic.MySQL.Repositories.ExaminationServices.HiddenService;
 using Clinic.MySQL.Repositories.ExaminationServices.RemoveService;
 using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
@@ -212,6 +218,9 @@ public class UnitOfWork : IUnitOfWork
     private IGetDetailServiceRepository _getDetailServiceRepository;
     private IRemoveServiceRepository _removeServiceRepository;
     private IAssignChatRoomRepository _assignChatRoomRepository;
+    private IHiddenServiceRepository _hiddenServiceRepository;
+    private IGetAllMedicineTypeRepository _getAllMedicineTypeRepository;
+    private IGetAvailableServicesRepository _getAvailableServicesRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -684,5 +693,30 @@ public class UnitOfWork : IUnitOfWork
     public IAssignChatRoomRepository AssignChatRoomRepository
     {
         get { return _assignChatRoomRepository ??= new AssignChatRoomRepository(_context); }
+    }
+
+    public IHiddenServiceRepository HiddenServiceRepository
+    {
+        get
+        {
+            return _hiddenServiceRepository ??= new HiddenServiceRepository(_context);
+        }
+    }
+
+    public IGetAvailableServicesRepository GetAvailableServicesRepository
+    {
+        get
+        {
+            return _getAvailableServicesRepository ??= new GetAvailableServicesRepository(_context);
+        }
+
+    }
+
+    public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository
+    {
+        get 
+        { 
+            return _getAllMedicineTypeRepository ??= new GetAllMedicineTypeRepository(_context); 
+        }
     }
 }

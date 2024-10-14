@@ -64,6 +64,14 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -393,7 +401,7 @@ public interface IUnitOfWork
     public IGetDetailServiceRepository GetDetailServiceRepository { get; }
 
     /// <summary>
-    ///     Remove Service feature
+    ///     Remove Service (Remove permantly) feature
     /// </summary>
     public IRemoveServiceRepository RemoveServiceRepository { get; }
 
@@ -401,4 +409,19 @@ public interface IUnitOfWork
     ///     AssignChatRoomRepository feature
     /// </summary>
     public IAssignChatRoomRepository AssignChatRoomRepository { get; }
+
+    /// </summary>
+    ///     Hidden Service (Remove temporarity) feature
+    /// </summary>
+    public IHiddenServiceRepository HiddenServiceRepository { get; }
+
+    /// <summary>
+    ///     GetAllMedicineTypeRepository feature
+    /// </summary>
+    public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository { get; }
+  
+     /// <summary>
+    ///    Get Available Services feature
+    /// </summary>
+    public IGetAvailableServicesRepository GetAvailableServicesRepository { get; }
 }

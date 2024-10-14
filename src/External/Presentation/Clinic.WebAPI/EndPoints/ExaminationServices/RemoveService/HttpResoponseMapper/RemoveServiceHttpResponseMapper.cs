@@ -1,7 +1,7 @@
 ﻿namespace Clinic.WebAPI.EndPoints.ExaminationServices.RemoveService.HttpResoponseMapper;
 
 /// <summary>
-///     Create service response manager
+///     Remove service response manager
 /// </summary>
 internal static class RemoveServiceHttpResponseMapper
 {
