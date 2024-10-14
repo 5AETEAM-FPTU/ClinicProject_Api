@@ -58,14 +58,12 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
-using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -395,7 +393,12 @@ public interface IUnitOfWork
     public IGetDetailServiceRepository GetDetailServiceRepository { get; }
 
     /// <summary>
-    ///     Remove Service feature
+    ///     Remove Service (Remove permantly) feature
     /// </summary>
     public IRemoveServiceRepository RemoveServiceRepository { get; }
+
+    /// <summary>
+    ///     Hidden Service (Remove temporarity) feature
+    /// </summary>
+    public IHiddenServiceRepository HiddenServiceRepository { get; }
 }

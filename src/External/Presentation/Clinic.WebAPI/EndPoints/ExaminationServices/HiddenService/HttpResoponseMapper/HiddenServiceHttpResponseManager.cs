@@ -1,26 +1,26 @@
 ﻿using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
-using Clinic.Application.Features.ExaminationServices.RemoveService;
+using Clinic.Application.Features.ExaminationServices.HiddenService;
 
-namespace Clinic.WebAPI.EndPoints.ExaminationServices.RemoveService.HttpResoponseMapper;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.HiddenService.HttpResoponseMapper;
 
 /// <summary>
-///     Mapper for  RemoveService feature
+///     Mapper for  HiddenService feature
 /// </summary>
-public class RemoveServiceHttpResponseManager
+public class HiddenServiceHttpResponseManager
 {
     private readonly Dictionary<
-        RemoveServiceResponseStatusCode,
-        Func<RemoveServiceRequest, RemoveServiceResponse, RemoveServiceHttpResponse>
+        HiddenServiceResponseStatusCode,
+        Func<HiddenServiceRequest, HiddenServiceResponse, HiddenServiceHttpResponse>
     > _dictionary;
 
-    internal RemoveServiceHttpResponseManager()
+    internal HiddenServiceHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: RemoveServiceResponseStatusCode.OPERATION_SUCCESS,
+            key: HiddenServiceResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -30,7 +30,7 @@ public class RemoveServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
+            key: HiddenServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
             value: (_, response) =>
                 new()
                 {
@@ -40,7 +40,7 @@ public class RemoveServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveServiceResponseStatusCode.FORBIDEN,
+            key: HiddenServiceResponseStatusCode.FORBIDEN,
             value: (_, response) =>
                 new()
                 {
@@ -50,7 +50,7 @@ public class RemoveServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: RemoveServiceResponseStatusCode.SERVICE_NOT_FOUND,
+            key: HiddenServiceResponseStatusCode.SERVICE_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -61,10 +61,10 @@ public class RemoveServiceHttpResponseManager
     }
 
     internal Func<
-        RemoveServiceRequest,
-        RemoveServiceResponse,
-        RemoveServiceHttpResponse
-    > Resolve(RemoveServiceResponseStatusCode statusCode)
+        HiddenServiceRequest,
+        HiddenServiceResponse,
+        HiddenServiceHttpResponse
+    > Resolve(HiddenServiceResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

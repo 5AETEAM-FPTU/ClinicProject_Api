@@ -10,7 +10,7 @@ using Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMap
 namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices;
 
 /// <summary>
-///     GetAllMedicine endpoint.
+///     GetAllSerivces endpoint.
 /// </summary>
 internal sealed class GetAllServicesEndpoint
     : Endpoint<GetAllServicesRequest, GetAllServicesHttpResponse>
