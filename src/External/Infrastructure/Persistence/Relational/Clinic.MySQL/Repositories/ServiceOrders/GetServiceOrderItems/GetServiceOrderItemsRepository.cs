@@ -40,7 +40,9 @@ public class GetServiceOrderItemsRepository : IGetServiceOrderItemsRepository
                         {
                             Id = item.Service.Id,
                             Code = item.Service.Code,
-                            Name = item.Service.Name
+                            Name = item.Service.Name,
+                            Group = item.Service.Group,
+                            Descripiton = item.Service.Descripiton
                         }
                     })
                     .ToList()

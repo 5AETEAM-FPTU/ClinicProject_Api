@@ -74,7 +74,6 @@ using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
-using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
@@ -83,6 +82,8 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -485,6 +486,11 @@ public interface IUnitOfWork
     ///     UpdateMedicineGroupByIdRepository feature
     /// </summary>
     public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     AddOrderService feature
+    /// </summary>
+    public IAddOrderServiceRepository AddOrderServiceRepository { get; }
 
     /// <summary>
     ///     DeleteMedicineTypeByIdRepository feature

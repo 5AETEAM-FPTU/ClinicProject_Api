@@ -96,6 +96,8 @@ public class GetServiceOrderItemsHandler
                                 Id = serviceOrderItem.Service.Id,
                                 Code = serviceOrderItem.Service.Code,
                                 Name = serviceOrderItem.Service.Name,
+                                Group = serviceOrderItem.Service.Group,
+                                Descripiton = serviceOrderItem.Service.Descripiton
                             }
                         })
 
