@@ -7,4 +7,5 @@ public enum GetMedicineByIdResponseStatusCode
 {
     INPUT_VALIDATION_FAIL,
     OPERATION_SUCCESS,
+    MEDICINE_IS_NOT_FOUND
 }

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.ExaminationServices.CreateService;
+using Clinic.Application.Features.ExaminationServices.UpdateService;
 
 namespace Clinic.WebAPI.EndPoints.ExaminationServices.CreateService.HttpResoponseMapper;
 
@@ -40,7 +41,7 @@ public class CreateServiceHttpResponseManager
         );
 
         _dictionary.Add(
-            key: CreateServiceResponseStatusCode.FORBIDEN_ACCESS,
+            key: CreateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
             value: (_, response) =>
                 new()
                 {

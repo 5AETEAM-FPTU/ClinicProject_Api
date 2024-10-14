@@ -1,6 +1,4 @@
-﻿using System;
-using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Features.Admin.CreateMedicine;
+﻿using Clinic.Application.Commons.Abstractions;
 
 namespace Clinic.Application.Features.ExaminationServices.CreateService;
 

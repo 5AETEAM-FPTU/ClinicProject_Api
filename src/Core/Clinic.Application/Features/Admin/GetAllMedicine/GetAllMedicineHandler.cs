@@ -85,6 +85,7 @@ public class GetAllMedicineHandler : IFeatureHandler<GetAllMedicineRequest, GetA
                         MedicineName = medicine.Name,
                         Ingredient = medicine.Ingredient,
                         MedicineId = medicine.Id,
+                        Manufacture = medicine.Manufacture,
                         Group = new GetAllMedicineResponse.Body.Medicine.MedicineGroup()
                         {
                             GroupId = medicine.MedicineGroup.Id,

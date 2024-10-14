@@ -56,6 +56,12 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -353,4 +359,34 @@ public interface IUnitOfWork
     /// GetMedicineByIdRepository feature
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
+    
+    /// <summary>
+    /// UpdateMedicineRepository feature
+    /// </summary>
+    public IUpdateMedicineRepository UpdateMedicineRepository { get; }
+
+    /// <summary>
+    /// Get all services feature
+    /// </summary>
+    public IGetAllServicesRepository GetAllServicesRepository { get; }
+    
+    /// <summary>
+    /// DeleteMedicineByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository { get; }
+
+    /// <summary>
+    /// Update Service feature
+    /// </summary>
+    public IUpdateServiceRepository UpdateServiceRepository { get; }
+
+    /// <summary>
+    /// Get Detail Service feature
+    /// </summary>
+    public IGetDetailServiceRepository GetDetailServiceRepository { get; }
+
+    /// <summary>
+    ///     Remove Service feature
+    /// </summary>
+    public IRemoveServiceRepository RemoveServiceRepository { get; }
 }

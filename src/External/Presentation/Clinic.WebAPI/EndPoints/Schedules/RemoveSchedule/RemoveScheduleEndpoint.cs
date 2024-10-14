@@ -1,5 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Application.Features.ExaminationServices.RemoveService;
 using Clinic.Application.Features.Schedules.RemoveSchedule;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
 using Clinic.WebAPI.EndPoints.Schedules.RemoveSchedule.HttpResponseMapper;

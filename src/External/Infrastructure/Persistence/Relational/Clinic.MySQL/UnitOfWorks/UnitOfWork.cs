@@ -3,8 +3,10 @@ using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -40,8 +42,11 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
-using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -63,8 +68,10 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
@@ -99,6 +106,10 @@ using Clinic.MySQL.Repositories.Enums.GetAllPosition;
 using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
+using Clinic.MySQL.Repositories.ExaminationServices.GetAllServices;
+using Clinic.MySQL.Repositories.ExaminationServices.GetDetailService;
+using Clinic.MySQL.Repositories.ExaminationServices.RemoveService;
+using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
@@ -189,7 +200,13 @@ public class UnitOfWork : IUnitOfWork
     private IHandleRedirectURLRepository _handleRedirectURLRepository;
     private IGetAllMedicineRepository _getAllMedicineRepository;
     private IGetMedicineByIdRepository _getMedicineByIdRepository;
-
+    private IUpdateMedicineRepository _updateMedicineRepository;
+    private IGetAllServicesRepository _getAllServiceRepository;
+    private IDeleteMedicineByIdRepository _deleteMedicineByIdRepository;
+    private IUpdateServiceRepository _updateServiceRepository;
+    private IGetDetailServiceRepository _getDetailServiceRepository;
+    private IRemoveServiceRepository _removeServiceRepository;
+    
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
@@ -600,6 +617,11 @@ public class UnitOfWork : IUnitOfWork
         get { return _getMedicineByIdRepository ??= new GetMedicineByIdRepository(_context); }
     }
 
+    public IUpdateMedicineRepository UpdateMedicineRepository
+    {
+        get { return  _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
+    }
+    
     public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository
     {
         get
@@ -622,4 +644,44 @@ public class UnitOfWork : IUnitOfWork
     {
         get { return _createServiceRepository ??= new CreateServiceRepository(_context); }
     }
+
+    public IGetAllServicesRepository GetAllServicesRepository
+    {
+        get { return _getAllServiceRepository ??= new GetAllServicesRepository(_context); }
+    }
+
+
+    public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository
+    {
+        get { return _deleteMedicineByIdRepository ??= new DeleteMedicineByIdRepository(_context); }
+    }
+
+    public IUpdateServiceRepository UpdateServiceRepository
+    {
+        get
+        {
+            return _updateServiceRepository ??= new UpdateServiceRepository(_context);
+        }
+
+    }
+
+    public IGetDetailServiceRepository GetDetailServiceRepository
+    {
+        get
+        {
+            return _getDetailServiceRepository ??= new GetDetailServiceRepository(_context);
+        }
+
+    }
+
+    public IRemoveServiceRepository RemoveServiceRepository
+    {
+        get
+        {
+            return _removeServiceRepository ??= new RemoveServiceRepository(_context);
+        }
+
+    }
+
+
 }

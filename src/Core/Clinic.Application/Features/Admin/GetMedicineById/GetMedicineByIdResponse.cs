@@ -20,6 +20,7 @@ public class GetMedicineByIdResponse : IFeatureResponse
         {
             public Guid MedicineId { get; init; }
             public string MedicineName { get; init; }
+            public string Manufacture { get; init; }
             public string Ingredient { get; init; }
             public MedicineType Type { get; init; }
             public MedicineGroup Group { get; init; }
