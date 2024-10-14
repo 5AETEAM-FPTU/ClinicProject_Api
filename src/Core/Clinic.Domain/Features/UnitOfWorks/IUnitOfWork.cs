@@ -9,6 +9,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -508,4 +509,9 @@ public interface IUnitOfWork
     ///     GetMedicineTypeByIdRepository feature
     /// </summary>
     public IGetMedicineTypeByIdRepository GetMedicineTypeByIdRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineGroupByIdRepository feature
+    /// </summary>
+    public IGetMedicineGroupByIdRepository GetMedicineGroupByIdRepository { get; }
 }
