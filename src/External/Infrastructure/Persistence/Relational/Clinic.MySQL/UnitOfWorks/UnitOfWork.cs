@@ -3,8 +3,11 @@ using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
@@ -24,6 +27,7 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -71,8 +75,11 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
+using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
+using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
@@ -91,6 +98,7 @@ using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
+using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
@@ -213,8 +221,12 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateServiceRepository _updateServiceRepository;
     private IGetDetailServiceRepository _getDetailServiceRepository;
     private IRemoveServiceRepository _removeServiceRepository;
+    private IAssignChatRoomRepository _assignChatRoomRepository;
     private IHiddenServiceRepository _hiddenServiceRepository;
+    private IGetAllMedicineTypeRepository _getAllMedicineTypeRepository;
     private IGetAvailableServicesRepository _getAvailableServicesRepository;
+    private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
+    private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -628,9 +640,9 @@ public class UnitOfWork : IUnitOfWork
 
     public IUpdateMedicineRepository UpdateMedicineRepository
     {
-        get { return  _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
+        get { return _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
     }
-    
+
     public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository
     {
         get
@@ -671,29 +683,22 @@ public class UnitOfWork : IUnitOfWork
 
     public IUpdateServiceRepository UpdateServiceRepository
     {
-        get
-        {
-            return _updateServiceRepository ??= new UpdateServiceRepository(_context);
-        }
-
+        get { return _updateServiceRepository ??= new UpdateServiceRepository(_context); }
     }
 
     public IGetDetailServiceRepository GetDetailServiceRepository
     {
-        get
-        {
-            return _getDetailServiceRepository ??= new GetDetailServiceRepository(_context);
-        }
-
+        get { return _getDetailServiceRepository ??= new GetDetailServiceRepository(_context); }
     }
 
     public IRemoveServiceRepository RemoveServiceRepository
     {
-        get
-        {
-            return _removeServiceRepository ??= new RemoveServiceRepository(_context);
-        }
+        get { return _removeServiceRepository ??= new RemoveServiceRepository(_context); }
+    }
 
+    public IAssignChatRoomRepository AssignChatRoomRepository
+    {
+        get { return _assignChatRoomRepository ??= new AssignChatRoomRepository(_context); }
     }
 
     public IHiddenServiceRepository HiddenServiceRepository
@@ -712,4 +717,24 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository
+    {
+        get 
+        { 
+            return _getAllMedicineTypeRepository ??= new GetAllMedicineTypeRepository(_context); 
+        }
+    }
+
+    public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository
+    {
+        get { return _getAllMedicineGroupRepository ??= new GetAllMedicineGroupRepository(_context);}
+    }
+
+    public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository
+    {
+        get
+        {
+            return _createNewMedicineTypeRepository ??= new CreateNewMedicineTypeRepository(_context);
+        }
+    }
 }

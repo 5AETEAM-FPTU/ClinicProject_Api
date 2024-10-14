@@ -4,7 +4,7 @@ using Clinic.Application.Commons.Abstractions;
 namespace Clinic.Application.Features.QueueRooms.CreateQueueRoom;
 
 /// <summary>
-///     CreateNewOnlinePayment Response.
+///     CreateQueueRoom Response.
 /// </summary>
 public sealed class CreateQueueRoomResponse : IFeatureResponse
 {
