@@ -64,15 +64,11 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
-using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
-using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -431,4 +427,9 @@ public interface IUnitOfWork
     ///     GetAllMedicineGroupRepository feature
     /// </summary>
     public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository { get; }
+
+    /// <summary>
+    ///     CreateNewMedicineTypeRepository feature
+    /// </summary>
+    public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
 }
