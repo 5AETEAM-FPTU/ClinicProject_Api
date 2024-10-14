@@ -92,7 +92,8 @@ public class GetAllMedicalReportHandler
                                     StartTime = report.Appointment.Schedule.StartDate,
                                     EndTime = report.Appointment.Schedule.EndDate,
                                     Age = DateTime.Now.Year - report.PatientInformation.DOB.Year,
-                                    Diagnosis = report.Diagnosis
+                                    Diagnosis = report.Diagnosis,
+                                    ServiceOrderId = report.ServiceOrder.Id
                                 }
                             )
                             .ToList()

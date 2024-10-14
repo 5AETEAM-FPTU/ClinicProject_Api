@@ -11,6 +11,8 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -69,6 +71,7 @@ using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
@@ -88,6 +91,8 @@ using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
@@ -145,6 +150,7 @@ using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
 using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
 using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
+using Clinic.MySQL.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
@@ -237,11 +243,14 @@ public class UnitOfWork : IUnitOfWork
     private IGetAvailableServicesRepository _getAvailableServicesRepository;
     private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
     private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
+    private IGetServiceOrderItemsRepository _getServiceOrderItemsRepository;
     private ICreateChatContentRepository _createChatContentRepository;
     private IRemoveChatContentTemporarilyRepository _removeChatContentTemporarilyRepository;
     private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
+    private IUpdateMedicineTypeByIdRepository _updateMedicineTypeByIdRepository;
     private IGetAllQueueRoomsRepository _getAllQueueRoomsRepository;
     private IGetChatsByChatRoomIdRepository _getChatsByChatRoomIdRepository;
+    private IUpdateMedicineGroupByIdRepository _updateMedicineGroupByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -777,6 +786,15 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _updateMedicineTypeByIdRepository ??= new UpdateMedicineTypeByIdRepository(
+                _context
+            );
+        }
+    }
     public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository
     {
         get { return _getAllQueueRoomsRepository ??= new GetAllQueueRoomsRepository(_context); }
@@ -787,6 +805,24 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getChatsByChatRoomIdRepository ??= new GetChatsByChatRoomIdRepository(_context);
+        }
+    }
+
+    public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _updateMedicineGroupByIdRepository ??= new UpdateMedicineGroupByIdRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository
+    {
+        get
+        {
+            return _getServiceOrderItemsRepository ??= new GetServiceOrderItemsRepository(_context);
         }
     }
 }

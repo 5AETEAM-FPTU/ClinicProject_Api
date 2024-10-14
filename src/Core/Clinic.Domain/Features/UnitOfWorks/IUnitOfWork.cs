@@ -8,6 +8,8 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -74,6 +76,7 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -448,9 +451,19 @@ public interface IUnitOfWork
     public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
 
     /// <summary>
+    ///     GetServiceOrderItems feature
+    /// </summary>
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository { get; }
+
+    /// <summary>
     ///     CreateNewMedicineGroupRepository feature
     /// </summary>
     public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository { get; }
+
+    /// <summary>
+    ///     UpdateMedicineTypeByIdRepository feature
+    /// </summary>
+    public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository { get; }
 
     /// <summary>
     ///     GetAllQueueRoomsRepository feature
@@ -461,4 +474,9 @@ public interface IUnitOfWork
     ///     GetChatsByChatRoomIdRepository feature
     /// </summary>
     public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository { get; }
+  
+    /// <summary>
+    ///     UpdateMedicineGroupByIdRepository feature
+    /// </summary>
+    public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
 }
