@@ -710,7 +710,6 @@ public class UnitOfWork : IUnitOfWork
         {
             return _getAvailableServicesRepository ??= new GetAvailableServicesRepository(_context);
         }
-
     }
 
 }
