@@ -69,6 +69,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -432,4 +433,10 @@ public interface IUnitOfWork
     ///     CreateNewMedicineTypeRepository feature
     /// </summary>
     public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
+
+    /// <summary>
+    ///     GetServiceOrderItems feature
+    /// </summary>
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository { get; }
+
 }

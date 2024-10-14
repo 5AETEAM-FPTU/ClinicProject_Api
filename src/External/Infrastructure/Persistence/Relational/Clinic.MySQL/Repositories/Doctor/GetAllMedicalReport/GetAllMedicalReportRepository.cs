@@ -78,6 +78,10 @@ internal class GetAllMedicalReportRepository : IGetAllMedicalReportRepository
                         EndDate = report.Appointment.Schedule.EndDate,
                     }
                 },
+                ServiceOrder = new ServiceOrder()
+                {
+                    Id = report.ServiceOrder.Id
+                }
             })
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);

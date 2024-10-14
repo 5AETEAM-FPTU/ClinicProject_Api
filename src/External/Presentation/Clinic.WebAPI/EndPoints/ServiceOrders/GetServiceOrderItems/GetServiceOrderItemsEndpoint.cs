@@ -1,27 +1,26 @@
-﻿using System.Threading;
+﻿using System.Collections.Generic;
+using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
-using Clinic.Application.Features.Schedules.GetScheduleDatesByMonth;
+using Clinic.Application.Commons.Constance;
+using Clinic.Application.Features.Schedules.CreateSchedules;
 using Clinic.Application.Features.ServiceOrders.GetServiceOrderItems;
-using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Doctors.GetAppointmentsByDate.HttpResponseMapper;
-using Clinic.WebAPI.EndPoints.Schedules.GetScheduleDatesByMonth.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Schedules.CreateSchedules.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Schedules.GetSchedulesByDate;
+namespace Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems;
 
 /// <summary>
-///     GetSchedulesByDate endpoint
+///     GetServiceOrderItems endpoint
 /// </summary>
-public class GetScheduleDatesByMonthEndpoint
-    : Endpoint<GetScheduleDatesByMonthRequest, GetScheduleDatesByMonthHttpResponse>
+public class GetServiceOrderItemsEndpoint
+    : Endpoint<GetServiceOrderItemsRequest, GetServiceOrderItemsHttpResponse>
 {
     public override void Configure()
     {
-        Get("/schedules/month");
-        PreProcessor<ValidationPreProcessor<GetScheduleDatesByMonthRequest>>();
+        Get("service-order/detail");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -30,27 +29,27 @@ public class GetScheduleDatesByMonthEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for doctor overview to get date they have schedule.";
-            summary.Description = "This endpoint allows doctor to get schedule dates by month.";
-            summary.Response<GetScheduleDatesByMonthHttpResponse>(
+            summary.Summary = "Endpoint to get detail of service indication (order).";
+            summary.Description = "This endpoint allows user to get detail of service indication.";
+            summary.Response<GetServiceOrderItemsHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = GetScheduleDatesByMonthResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = CreateSchedulesResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
                 }
             );
         });
     }
 
-    public override async Task<GetScheduleDatesByMonthHttpResponse> ExecuteAsync(
-        GetScheduleDatesByMonthRequest req,
+    public override async Task<GetServiceOrderItemsHttpResponse> ExecuteAsync(
+        GetServiceOrderItemsRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = GetScheduleDatesByMonthHttpResponseMapper
+        var httpResponse = GetServiceOrderItemsHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

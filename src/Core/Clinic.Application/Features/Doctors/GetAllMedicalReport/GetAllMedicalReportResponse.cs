@@ -34,6 +34,8 @@ public class GetAllMedicalReportResponse : IFeatureResponse
                 public int Age { get; init; }
                 public string Diagnosis { get; init; }
 
+                public Guid ServiceOrderId { get; init; }
+
             }
         }
       
