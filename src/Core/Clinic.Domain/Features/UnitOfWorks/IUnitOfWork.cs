@@ -26,6 +26,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
@@ -455,4 +456,9 @@ public interface IUnitOfWork
     ///     GetAllQueueRoomsRepository feature
     /// </summary>
     public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }
+
+    /// <summary>
+    ///     GetChatsByChatRoomIdRepository feature
+    /// </summary>
+    public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository { get; }
 }
