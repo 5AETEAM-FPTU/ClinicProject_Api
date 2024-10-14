@@ -29,6 +29,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
@@ -62,12 +63,14 @@ using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
@@ -450,6 +453,11 @@ public interface IUnitOfWork
     public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
 
     /// <summary>
+    ///     GetServiceOrderItems feature
+    /// </summary>
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository { get; }
+
+    /// <summary>
     ///     CreateNewMedicineGroupRepository feature
     /// </summary>
     public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository { get; }
@@ -458,9 +466,16 @@ public interface IUnitOfWork
     ///     UpdateMedicineTypeByIdRepository feature
     /// </summary>
     public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository { get; }
+
+    /// <summary>
     ///     GetAllQueueRoomsRepository feature
     /// </summary>
     public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }
+
+    /// <summary>
+    ///     GetChatsByChatRoomIdRepository feature
+    /// </summary>
+    public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository { get; }
 
     /// <summary>
     ///     UpdateMedicineGroupByIdRepository feature
@@ -471,4 +486,7 @@ public interface IUnitOfWork
     ///     DeleteMedicineTypeByIdRepository feature
     /// </summary>
     public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository { get; }
+    ///     GetQueueRoomByUserIdRepository feature
+    /// </summary>
+    public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository { get; }
 }
