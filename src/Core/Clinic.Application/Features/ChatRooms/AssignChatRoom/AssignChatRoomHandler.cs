@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -56,15 +57,32 @@ internal sealed class AssignChatRoomHandler
         {
             Id = chatRoomId,
             DoctorId = Guid.Parse(input: doctorId),
-            CreatedAt = DateTime.Now,
+            CreatedAt = CommonConstant.DATE_NOW_UTC,
             CreatedBy = Guid.Parse(input: doctorId),
             LastMessage = command.InitialMessage,
             UpdatedAt = CommonConstant.DATE_NOW_UTC,
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
-            PatientId = command.PatientId
+            PatientId = command.PatientId,
+            ChatContents = new List<ChatContent>()
+            {
+                new()
+                {
+                    Id = Guid.NewGuid(),
+                    TextContent = command.InitialMessage,
+                    CreatedAt = CommonConstant.DATE_NOW_UTC,
+                    CreatedBy = CommonConstant.SYSTEM_GUID,
+                    UpdatedAt = CommonConstant.MIN_DATE_TIME,
+                    UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                    RemovedAt = CommonConstant.MIN_DATE_TIME,
+                    RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+                    IsRead = false,
+                    SenderId = command.PatientId,
+                }
+            }
         };
 
         var dbResult = await _unitOfWork.AssignChatRoomRepository.AddChatRoomCommandAsync(
+            queueRoomId: command.QueueRoomId,
             chatRoom: newChatRoom,
             cancellationToken: ct
         );

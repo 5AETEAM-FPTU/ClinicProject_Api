@@ -10,5 +10,7 @@ public class AssignChatRoomRequest : IFeatureRequest<AssignChatRoomResponse>
 {
     public Guid PatientId { get; set; }
 
+    public Guid QueueRoomId { get; set; }
+
     public string InitialMessage { get; set; }
 }
