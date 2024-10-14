@@ -1,27 +1,26 @@
 ﻿using System.Collections.Generic;
 using System;
 using Microsoft.AspNetCore.Http;
-using Clinic.Application.Features.ExaminationServices.GetAllServices;
 using Clinic.Application.Features.ExaminationServices.GetAvailableServices;
 
-namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAvailableServices.HttpResponseMapper;
 
 /// <summary>
-///     GetAllSerivces response manager
+///     GetAvailableSerivces response manager
 /// </summary>
-public class GetAllServicesHttpResponseManager
+public class GetAvailableServicesHttpResponseManager
 {
     private readonly Dictionary<
-        GetAllServicesResponseStatusCode,
-        Func<GetAllServicesRequest, GetAllServicesResponse, GetAllServicesHttpResponse>
+        GetAvailableServicesResponseStatusCode,
+        Func<GetAvailableServicesRequest, GetAvailableServicesResponse, GetAvailableServicesHttpResponse>
     > _dictionary;
 
-    internal GetAllServicesHttpResponseManager()
+    internal GetAvailableServicesHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: GetAllServicesResponseStatusCode.OPERATION_SUCCESS,
+            key: GetAvailableServicesResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -32,7 +31,7 @@ public class GetAllServicesHttpResponseManager
         );
 
         _dictionary.Add(
-            key: GetAllServicesResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
+            key: GetAvailableServicesResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
             value: (request, response) =>
                 new()
                 {
@@ -43,10 +42,10 @@ public class GetAllServicesHttpResponseManager
     }
 
     internal Func<
-        GetAllServicesRequest,
-        GetAllServicesResponse,
-        GetAllServicesHttpResponse
-    > Resolve(GetAllServicesResponseStatusCode statusCode)
+        GetAvailableServicesRequest,
+        GetAvailableServicesResponse,
+        GetAvailableServicesHttpResponse
+    > Resolve(GetAvailableServicesResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

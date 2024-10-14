@@ -65,6 +65,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -407,4 +408,7 @@ public interface IUnitOfWork
     ///     GetAllMedicineTypeRepository feature
     /// </summary>
     public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository { get; }
+    ///    Get Available Services feature
+    /// </summary>
+    public IGetAvailableServicesRepository GetAvailableServicesRepository { get; }
 }
