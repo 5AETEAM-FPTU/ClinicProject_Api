@@ -75,6 +75,7 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -449,6 +450,11 @@ public interface IUnitOfWork
     public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
 
     /// <summary>
+    ///     GetServiceOrderItems feature
+    /// </summary>
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository { get; }
+
+    /// <summary>
     ///     CreateNewMedicineGroupRepository feature
     /// </summary>
     public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository { get; }
@@ -457,6 +463,8 @@ public interface IUnitOfWork
     ///     UpdateMedicineTypeByIdRepository feature
     /// </summary>
     public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository { get; }
+
+    /// <summary>
     ///     GetAllQueueRoomsRepository feature
     /// </summary>
     public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }

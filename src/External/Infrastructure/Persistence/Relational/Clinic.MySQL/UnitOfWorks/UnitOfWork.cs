@@ -70,6 +70,7 @@ using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
@@ -147,6 +148,7 @@ using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
 using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
 using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
+using Clinic.MySQL.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
@@ -239,6 +241,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAvailableServicesRepository _getAvailableServicesRepository;
     private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
     private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
+    private IGetServiceOrderItemsRepository _getServiceOrderItemsRepository;
     private ICreateChatContentRepository _createChatContentRepository;
     private IRemoveChatContentTemporarilyRepository _removeChatContentTemporarilyRepository;
     private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
@@ -803,4 +806,13 @@ public class UnitOfWork : IUnitOfWork
             );
         }
     }
+
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository
+    {
+        get
+        {
+            return _getServiceOrderItemsRepository ??= new GetServiceOrderItemsRepository(_context);
+        }
+    }
+
 }
