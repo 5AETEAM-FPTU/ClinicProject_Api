@@ -78,7 +78,6 @@ internal static class AuthenticationServiceConfig
                     },
                     OnTokenValidated = context =>
                     {
-                        Console.WriteLine("Token is valid");
                         return Task.CompletedTask;
                     }
                 };

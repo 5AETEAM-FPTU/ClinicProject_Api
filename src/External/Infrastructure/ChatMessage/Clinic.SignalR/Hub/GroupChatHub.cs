@@ -11,13 +11,13 @@ using Microsoft.AspNetCore.SignalR;
 /// </summary>
 ///
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-public class ChatHub : Hub
+public class GroupChatHub : Hub
 {
     private static readonly ConcurrentDictionary<string, List<string>> _connections = new();
 
     private readonly IChatHandler _chatHandler;
 
-    public ChatHub(IChatHandler chatHandler)
+    public GroupChatHub(IChatHandler chatHandler)
     {
         _chatHandler = chatHandler;
     }
@@ -25,6 +25,7 @@ public class ChatHub : Hub
     public override async Task OnConnectedAsync()
     {
         var userId = Context.UserIdentifier;
+
         if (userId != null)
         {
             await Groups.AddToGroupAsync(Context.ConnectionId, userId);

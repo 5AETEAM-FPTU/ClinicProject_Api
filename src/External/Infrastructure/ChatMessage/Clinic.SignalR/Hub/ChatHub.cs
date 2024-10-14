@@ -5,30 +5,37 @@ using Clinic.Application.Commons.ChatMessage.Messaging;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
+using Microsoft.Extensions.Logging;
 
 /// <summary>
 ///     Represents a ChatHub implementation from SignalR.
 /// </summary>
 ///
 [Authorize(AuthenticationSchemes = JwtBearerDefaults.AuthenticationScheme)]
-public class GroupChatHub : Hub
+public class ChatHub : Hub
 {
     private static readonly ConcurrentDictionary<string, List<string>> _connections = new();
+    private readonly ILogger<ChatHub> _logger;
 
     private readonly IChatHandler _chatHandler;
 
-    public GroupChatHub(IChatHandler chatHandler)
+    public ChatHub(IChatHandler chatHandler, ILogger<ChatHub> logger)
     {
         _chatHandler = chatHandler;
+        _logger = logger;
     }
 
     public override async Task OnConnectedAsync()
     {
         var userId = Context.UserIdentifier;
-
         if (userId != null)
         {
-            await Groups.AddToGroupAsync(Context.ConnectionId, userId);
+            _logger.LogInformation(
+                "User connected: {UserId} with Connection ID: {ConnectionId}",
+                userId,
+                Context.ConnectionId
+            );
+
             _connections.AddOrUpdate(
                 userId,
                 _ => new List<string> { Context.ConnectionId },
@@ -49,6 +56,12 @@ public class GroupChatHub : Hub
         if (userId != null && _connections.TryGetValue(userId, out var connectionIds))
         {
             connectionIds.Remove(Context.ConnectionId);
+            _logger.LogInformation(
+                "User disconnected: {UserId} with Connection ID: {ConnectionId}",
+                userId,
+                Context.ConnectionId
+            );
+
             if (!connectionIds.Any())
             {
                 _connections.TryRemove(userId, out _);

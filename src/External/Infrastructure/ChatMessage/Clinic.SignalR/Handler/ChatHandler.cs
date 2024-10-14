@@ -24,7 +24,7 @@ public class ChatHandler : IChatHandler
             var connectIdSenders = ChatHub.GetConnectionIds(chatMessage.SenderId);
 
             await _hubContext
-                .Clients.Group(chatMessage.ReceiverId)
+                .Clients.Clients(connectIdSenders.Concat(connectIdReceivers))
                 .SendAsync(
                     "ReceiveMessage",
                     chatMessage.SenderId,
@@ -34,16 +34,6 @@ public class ChatHandler : IChatHandler
                     DateTime.Now
                 );
 
-            //await _hubContext
-            //    .Clients.Clients(connectIdSenders.Concat(connectIdReceivers))
-            //    .SendAsync(
-            //        "ReceiveMessage",
-            //        chatMessage.SenderId,
-            //        chatMessage.Message,
-            //        chatMessage.ImageUrls,
-            //        chatMessage.VideoUrls,
-            //        DateTime.Now
-            //    );
             return true;
         }
         catch (Exception ex)
@@ -53,3 +43,38 @@ public class ChatHandler : IChatHandler
         }
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//await _hubContext
+//    .Clients.Group(chatMessage.ReceiverId)
+//    .SendAsync(
+//        "ReceiveMessage",
+//        chatMessage.SenderId,
+//        chatMessage.Message,
+//        chatMessage.ImageUrls,
+//        chatMessage.VideoUrls,
+//        DateTime.Now
+//    );
