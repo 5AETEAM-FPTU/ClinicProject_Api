@@ -4,22 +4,20 @@ using System.Threading.Tasks;
 using System.Threading;
 using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Auths.Login;
-using Clinic.Application.Features.ExaminationServices.GetAllServices;
-using Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
 using Clinic.Application.Features.ExaminationServices.GetAvailableServices;
 using Clinic.WebAPI.EndPoints.ExaminationServices.GetAvailableServices.HttpResponseMapper;
 
-namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices;
+namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAvailableServices;
 
 /// <summary>
-///     GetAllSerivces endpoint.
+///     GetAvailableSerivces endpoint.
 /// </summary>
-internal sealed class GetAllServicesEndpoint
-    : Endpoint<GetAllServicesRequest, GetAllServicesHttpResponse>
+internal sealed class GetAvailableServicesEndpoint
+    : Endpoint<GetAvailableServicesRequest, GetAvailableServicesHttpResponse>
 {
     public override void Configure()
     {
-        Get(routePatterns: "services/all");
+        Get(routePatterns: "/services/available");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder: builder =>
@@ -28,11 +26,11 @@ internal sealed class GetAllServicesEndpoint
         });
         Summary(endpointSummary: summary =>
         {
-            summary.Summary = "Endpoint for Admin/Staff to get all services (pagination) feature";
-            summary.Description = "This endpoint is used for get all serivce with pagination. Key param can be code or name of service";
-                                   
+            summary.Summary = "Endpoint for Admin/Staff to get available services for ordering feature";
+            summary.Description = "This endpoint is used for get all serivce for ordering. Key param can be code or name of service";
 
-            summary.Response<GetAllServicesHttpResponse>(
+
+            summary.Response<GetAvailableServicesHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
@@ -43,15 +41,15 @@ internal sealed class GetAllServicesEndpoint
         });
     }
 
-    public override async Task<GetAllServicesHttpResponse> ExecuteAsync(
-        GetAllServicesRequest req,
+    public override async Task<GetAvailableServicesHttpResponse> ExecuteAsync(
+        GetAvailableServicesRequest req,
         CancellationToken ct
     )
     {
 
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = GetAllServicesHttpResponseMapper
+        var httpResponse = GetAvailableServicesHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
