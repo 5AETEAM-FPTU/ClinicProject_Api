@@ -5,7 +5,7 @@ namespace Clinic.Application.Commons.ChatMessage.Messaging;
 /// <summary>
 ///     Represent message handler interface.
 /// </summary>
-public interface IMessagingHandler
+public interface IChatHandler
 {
     /// <summary>
     ///     Send message chat.
