@@ -2,6 +2,7 @@ using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
@@ -21,6 +22,8 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
@@ -41,7 +44,9 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
@@ -64,14 +69,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
-using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
-using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
-using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -419,9 +416,19 @@ public interface IUnitOfWork
     ///     GetAllMedicineTypeRepository feature
     /// </summary>
     public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository { get; }
-  
-     /// <summary>
+
+    /// <summary>
     ///    Get Available Services feature
     /// </summary>
     public IGetAvailableServicesRepository GetAvailableServicesRepository { get; }
+
+    /// <summary>
+    ///    CreateChatContentRepository feature
+    /// </summary>
+    public ICreateChatContentRepository CreateChatContentRepository { get; }
+
+    /// <summary>
+    ///    RemoveChatContentTemporarilyRepository feature
+    /// </summary>
+    public IRemoveChatContentTemporarilyRepository RemoveChatContentTemporarilyRepository { get; }
 }
