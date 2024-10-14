@@ -58,6 +58,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformatio
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -449,4 +450,9 @@ public interface IUnitOfWork
     ///     CreateNewMedicineGroupRepository feature
     /// </summary>
     public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository { get; }
+
+    /// <summary>
+    ///     GetAllQueueRoomsRepository feature
+    /// </summary>
+    public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }
 }

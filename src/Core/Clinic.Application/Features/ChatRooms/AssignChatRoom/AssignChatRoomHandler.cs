@@ -82,6 +82,7 @@ internal sealed class AssignChatRoomHandler
         };
 
         var dbResult = await _unitOfWork.AssignChatRoomRepository.AddChatRoomCommandAsync(
+            queueRoomId: command.QueueRoomId,
             chatRoom: newChatRoom,
             cancellationToken: ct
         );

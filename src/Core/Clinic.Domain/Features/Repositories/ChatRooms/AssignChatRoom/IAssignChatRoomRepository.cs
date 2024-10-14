@@ -11,6 +11,7 @@ namespace Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 public interface IAssignChatRoomRepository
 {
     Task<bool> AddChatRoomCommandAsync(
+        Guid queueRoomId,
         ChatRoom chatRoom,
         CancellationToken cancellationToken = default
     );
