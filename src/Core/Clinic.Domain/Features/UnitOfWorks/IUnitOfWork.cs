@@ -8,6 +8,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
@@ -459,4 +460,9 @@ public interface IUnitOfWork
     ///     GetAllQueueRoomsRepository feature
     /// </summary>
     public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }
+
+    /// <summary>
+    ///     UpdateMedicineGroupByIdRepository feature
+    /// </summary>
+    public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
 }
