@@ -3,10 +3,13 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
@@ -483,6 +486,10 @@ public interface IUnitOfWork
     public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
 
     /// <summary>
+    ///     DeleteMedicineTypeByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository { get; }
+
     ///     GetQueueRoomByUserIdRepository feature
     /// </summary>
     public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository { get; }
@@ -491,4 +498,14 @@ public interface IUnitOfWork
     ///     GetQueueRoomByUserIdRepository feature
     /// </summary>
     public IRemoveQueueRoomRepository RemoveQueueRoomRepository { get; }
+
+    /// <summary>
+    ///     DeleteMedicineGroupByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineGroupByIdRepository DeleteMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineTypeByIdRepository feature
+    /// </summary>
+    public IGetMedicineTypeByIdRepository GetMedicineTypeByIdRepository { get; }
 }
