@@ -3,6 +3,7 @@ using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
@@ -75,6 +76,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.MySQL.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
@@ -227,6 +229,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAvailableServicesRepository _getAvailableServicesRepository;
     private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
     private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
+    private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -703,10 +706,7 @@ public class UnitOfWork : IUnitOfWork
 
     public IHiddenServiceRepository HiddenServiceRepository
     {
-        get
-        {
-            return _hiddenServiceRepository ??= new HiddenServiceRepository(_context);
-        }
+        get { return _hiddenServiceRepository ??= new HiddenServiceRepository(_context); }
     }
 
     public IGetAvailableServicesRepository GetAvailableServicesRepository
@@ -715,27 +715,38 @@ public class UnitOfWork : IUnitOfWork
         {
             return _getAvailableServicesRepository ??= new GetAvailableServicesRepository(_context);
         }
-
     }
 
     public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository
     {
-        get 
-        { 
-            return _getAllMedicineTypeRepository ??= new GetAllMedicineTypeRepository(_context); 
-        }
+        get { return _getAllMedicineTypeRepository ??= new GetAllMedicineTypeRepository(_context); }
     }
 
     public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository
     {
-        get { return _getAllMedicineGroupRepository ??= new GetAllMedicineGroupRepository(_context);}
+        get
+        {
+            return _getAllMedicineGroupRepository ??= new GetAllMedicineGroupRepository(_context);
+        }
     }
 
     public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository
     {
         get
         {
-            return _createNewMedicineTypeRepository ??= new CreateNewMedicineTypeRepository(_context);
+            return _createNewMedicineTypeRepository ??= new CreateNewMedicineTypeRepository(
+                _context
+            );
+        }
+    }
+
+    public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository
+    {
+        get
+        {
+            return _createNewMedicineGroupRepository ??= new CreateNewMedicineGroupRepository(
+                _context
+            );
         }
     }
 }
