@@ -3,6 +3,7 @@ using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
@@ -77,6 +78,7 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.MySQL.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
@@ -233,6 +235,7 @@ public class UnitOfWork : IUnitOfWork
     private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
     private ICreateChatContentRepository _createChatContentRepository;
     private IRemoveChatContentTemporarilyRepository _removeChatContentTemporarilyRepository;
+    private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -753,6 +756,16 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _createNewMedicineTypeRepository ??= new CreateNewMedicineTypeRepository(
+                _context
+            );
+        }
+    }
+
+    public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository
+    {
+        get
+        {
+            return _createNewMedicineGroupRepository ??= new CreateNewMedicineGroupRepository(
                 _context
             );
         }

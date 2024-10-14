@@ -1,5 +1,6 @@
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
@@ -443,4 +444,9 @@ public interface IUnitOfWork
     ///     CreateNewMedicineTypeRepository feature
     /// </summary>
     public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
+
+    /// <summary>
+    ///     CreateNewMedicineGroupRepository feature
+    /// </summary>
+    public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository { get; }
 }
