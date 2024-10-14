@@ -62,12 +62,14 @@ using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
@@ -76,7 +78,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -474,9 +475,14 @@ public interface IUnitOfWork
     ///     GetChatsByChatRoomIdRepository feature
     /// </summary>
     public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository { get; }
-  
+
     /// <summary>
     ///     UpdateMedicineGroupByIdRepository feature
     /// </summary>
     public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     GetQueueRoomByUserIdRepository feature
+    /// </summary>
+    public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository { get; }
 }
