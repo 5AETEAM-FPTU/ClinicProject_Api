@@ -3,8 +3,10 @@ using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
@@ -75,8 +77,10 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
+using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
@@ -225,6 +229,8 @@ public class UnitOfWork : IUnitOfWork
     private IHiddenServiceRepository _hiddenServiceRepository;
     private IGetAllMedicineTypeRepository _getAllMedicineTypeRepository;
     private IGetAvailableServicesRepository _getAvailableServicesRepository;
+    private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
+    private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
     private ICreateChatContentRepository _createChatContentRepository;
     private IRemoveChatContentTemporarilyRepository _removeChatContentTemporarilyRepository;
 
@@ -732,5 +738,23 @@ public class UnitOfWork : IUnitOfWork
     public ICreateChatContentRepository CreateChatContentRepository
     {
         get { return _createChatContentRepository ??= new CreateChatContentRepository(_context); }
+    }
+
+    public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository
+    {
+        get
+        {
+            return _getAllMedicineGroupRepository ??= new GetAllMedicineGroupRepository(_context);
+        }
+    }
+
+    public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository
+    {
+        get
+        {
+            return _createNewMedicineTypeRepository ??= new CreateNewMedicineTypeRepository(
+                _context
+            );
+        }
     }
 }

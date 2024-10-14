@@ -1,7 +1,10 @@
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
@@ -45,7 +48,9 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
@@ -431,4 +436,14 @@ public interface IUnitOfWork
     ///    RemoveChatContentTemporarilyRepository feature
     /// </summary>
     public IRemoveChatContentTemporarilyRepository RemoveChatContentTemporarilyRepository { get; }
+
+    /// <summary>
+    ///     GetAllMedicineGroupRepository feature
+    /// </summary>
+    public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository { get; }
+
+    /// <summary>
+    ///     CreateNewMedicineTypeRepository feature
+    /// </summary>
+    public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
 }
