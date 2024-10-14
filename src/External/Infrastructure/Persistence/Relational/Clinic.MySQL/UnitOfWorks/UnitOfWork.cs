@@ -12,6 +12,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -96,6 +97,7 @@ using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
+using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
@@ -263,6 +265,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetQueueRoomByUserIdRepository _getQueueRoomByUserIdRepository;
     private IDeleteMedicineGroupByIdRepository _deleteMedicineGroupByIdRepository;
     private IGetMedicineTypeByIdRepository _getMedicineTypeByIdRepository;
+    private IGetMedicineGroupByIdRepository _getMedicineGroupByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -871,6 +874,14 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getMedicineTypeByIdRepository ??= new GetMedicineTypeByIdRepository(_context);
+        }
+    }
+
+    public IGetMedicineGroupByIdRepository GetMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _getMedicineGroupByIdRepository ??= new GetMedicineGroupByIdRepository(_context);
         }
     }
 }
