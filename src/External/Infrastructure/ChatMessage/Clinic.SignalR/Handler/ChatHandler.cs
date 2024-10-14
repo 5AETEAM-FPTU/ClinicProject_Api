@@ -1,5 +1,5 @@
 ﻿using Clinic.Application.Commons.ChatMessage.Messaging;
-using Clinic.SignalR.Hub;
+using Clinic.SignalR.Hub.Chat;
 using Microsoft.AspNetCore.SignalR;
 
 namespace Clinic.SignalR.Handler;

@@ -14,7 +14,6 @@ using Clinic.MySQL.Data.DataSeeding;
 using Clinic.OTP;
 using Clinic.Redis;
 using Clinic.SignalR;
-using Clinic.SignalR.Hub;
 using Clinic.Stringee;
 using Clinic.TwilioSMS;
 using Clinic.VNPAY;
@@ -83,7 +82,6 @@ await using (var scope = app.Services.CreateAsyncScope())
 }
 
 // Configure the HTTP request pipeline
-
 app.UseMiddleware<GlobalExceptionHandler>()
     .UseCors()
     .UseAuthentication()
@@ -97,5 +95,9 @@ app.UseMiddleware<GlobalExceptionHandler>()
         options.Path = string.Empty;
         options.DefaultModelsExpandDepth = -1;
     });
-app.MapHub<ChatHub>("/chat-hub");
+
+// Configure the websocket hub.
+app.MapHub<Clinic.SignalR.Hub.Chat.ChatHub>("/chat-hub");
+app.MapHub<Clinic.SignalR.Hub.Notifier.NotifyHub>("/notify-hub");
+
 app.Run();

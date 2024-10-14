@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Clinic.Application.Commons.ChatMessage.Messaging;
+namespace Clinic.Application.Commons.Notifier.Messaging;
 
 /// <summary>
 ///     Represent the UserRequest model.
@@ -13,5 +13,5 @@ public class UserRequest
 
     public Guid UserId { get; set; }
 
-    public string TitleRequest { get; set; }
+    public string Message { get; set; }
 }
