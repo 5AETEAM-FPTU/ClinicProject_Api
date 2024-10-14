@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
@@ -88,6 +89,7 @@ using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
@@ -242,6 +244,7 @@ public class UnitOfWork : IUnitOfWork
     private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
     private IUpdateMedicineTypeByIdRepository _updateMedicineTypeByIdRepository;
     private IGetAllQueueRoomsRepository _getAllQueueRoomsRepository;
+    private IUpdateMedicineGroupByIdRepository _updateMedicineGroupByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -782,11 +785,22 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _updateMedicineTypeByIdRepository ??= new UpdateMedicineTypeByIdRepository(
-               _context
-           );
+                _context
+            );
         }
+    }
     public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository
     {
         get { return _getAllQueueRoomsRepository ??= new GetAllQueueRoomsRepository(_context); }
+    }
+
+    public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _updateMedicineGroupByIdRepository ??= new UpdateMedicineGroupByIdRepository(
+                _context
+            );
+        }
     }
 }
