@@ -1,7 +1,9 @@
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -19,6 +21,7 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -38,6 +41,9 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
@@ -58,14 +64,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
-using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
-using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
-using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
-using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -363,9 +361,9 @@ public interface IUnitOfWork
     ///    GetMedicineByIdRepository feature
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
-    
+
     /// <summary>
-    /// UpdateMedicineRepository feature
+    ///    UpdateMedicineRepository feature
     /// </summary>
     public IUpdateMedicineRepository UpdateMedicineRepository { get; }
 
@@ -373,14 +371,14 @@ public interface IUnitOfWork
     ///    Get all services feature
     /// </summary>
     public IGetAllServicesRepository GetAllServicesRepository { get; }
-    
+
     /// <summary>
-    /// DeleteMedicineByIdRepository feature
+    ///    DeleteMedicineByIdRepository feature
     /// </summary>
     public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository { get; }
 
     /// <summary>
-    /// Update Service feature
+    ///    Update Service feature
     /// </summary>
     public IUpdateServiceRepository UpdateServiceRepository { get; }
 
@@ -390,7 +388,7 @@ public interface IUnitOfWork
     public ICreateQueueRoomRepository CreateQueueRoomRepository { get; }
 
     /// <summary>
-    /// Get Detail Service feature
+    ///    Get Detail Service feature
     /// </summary>
     public IGetDetailServiceRepository GetDetailServiceRepository { get; }
 
@@ -398,4 +396,9 @@ public interface IUnitOfWork
     ///     Remove Service feature
     /// </summary>
     public IRemoveServiceRepository RemoveServiceRepository { get; }
+
+    /// <summary>
+    ///     AssignChatRoomRepository feature
+    /// </summary>
+    public IAssignChatRoomRepository AssignChatRoomRepository { get; }
 }

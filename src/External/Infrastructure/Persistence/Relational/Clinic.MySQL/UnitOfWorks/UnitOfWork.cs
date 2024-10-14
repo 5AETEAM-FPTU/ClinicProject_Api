@@ -24,6 +24,7 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -89,6 +90,7 @@ using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
+using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
@@ -209,6 +211,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateServiceRepository _updateServiceRepository;
     private IGetDetailServiceRepository _getDetailServiceRepository;
     private IRemoveServiceRepository _removeServiceRepository;
+    private IAssignChatRoomRepository _assignChatRoomRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -622,9 +625,9 @@ public class UnitOfWork : IUnitOfWork
 
     public IUpdateMedicineRepository UpdateMedicineRepository
     {
-        get { return  _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
+        get { return _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
     }
-    
+
     public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository
     {
         get
@@ -665,28 +668,21 @@ public class UnitOfWork : IUnitOfWork
 
     public IUpdateServiceRepository UpdateServiceRepository
     {
-        get
-        {
-            return _updateServiceRepository ??= new UpdateServiceRepository(_context);
-        }
-
+        get { return _updateServiceRepository ??= new UpdateServiceRepository(_context); }
     }
 
     public IGetDetailServiceRepository GetDetailServiceRepository
     {
-        get
-        {
-            return _getDetailServiceRepository ??= new GetDetailServiceRepository(_context);
-        }
-
+        get { return _getDetailServiceRepository ??= new GetDetailServiceRepository(_context); }
     }
 
     public IRemoveServiceRepository RemoveServiceRepository
     {
-        get
-        {
-            return _removeServiceRepository ??= new RemoveServiceRepository(_context);
-        }
+        get { return _removeServiceRepository ??= new RemoveServiceRepository(_context); }
+    }
 
+    public IAssignChatRoomRepository AssignChatRoomRepository
+    {
+        get { return _assignChatRoomRepository ??= new AssignChatRoomRepository(_context); }
     }
 }

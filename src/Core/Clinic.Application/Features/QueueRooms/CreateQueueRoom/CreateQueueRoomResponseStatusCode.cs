@@ -1,7 +1,7 @@
 ﻿namespace Clinic.Application.Features.QueueRooms.CreateQueueRoom;
 
 /// <summary>
-///     CreateNewOnlinePaymentResponse StatusCode.
+///     CreateQueueRoom Response StatusCode.
 /// </summary>
 public enum CreateQueueRoomResponseStatusCode
 {
