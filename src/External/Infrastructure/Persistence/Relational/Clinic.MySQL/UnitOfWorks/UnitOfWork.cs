@@ -6,6 +6,7 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
@@ -87,6 +88,7 @@ using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
@@ -253,6 +255,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllQueueRoomsRepository _getAllQueueRoomsRepository;
     private IGetChatsByChatRoomIdRepository _getChatsByChatRoomIdRepository;
     private IUpdateMedicineGroupByIdRepository _updateMedicineGroupByIdRepository;
+    private IDeleteMedicineTypeByIdRepository _deleteMedicineTypeByIdRepository;
     private IGetQueueRoomByUserIdRepository _getQueueRoomByUserIdRepository;
 
     public UnitOfWork(
@@ -820,6 +823,14 @@ public class UnitOfWork : IUnitOfWork
             );
         }
     }
+
+    public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _deleteMedicineTypeByIdRepository ??= new DeleteMedicineTypeByIdRepository(_context);
+         }
+     }
 
     public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository
     {

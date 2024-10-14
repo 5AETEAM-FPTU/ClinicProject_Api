@@ -3,6 +3,7 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
@@ -482,6 +483,9 @@ public interface IUnitOfWork
     public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
 
     /// <summary>
+    ///     DeleteMedicineTypeByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository { get; }
     ///     GetQueueRoomByUserIdRepository feature
     /// </summary>
     public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository { get; }
