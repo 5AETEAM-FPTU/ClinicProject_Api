@@ -6,10 +6,14 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
@@ -31,6 +35,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
@@ -64,6 +69,8 @@ using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
+using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -86,10 +93,14 @@ using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineGroupById;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
+using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
+using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineTypeById;
@@ -110,6 +121,7 @@ using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Repositories.ChatContents.CreateChatContent;
+using Clinic.MySQL.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
@@ -142,7 +154,9 @@ using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
 using Clinic.MySQL.Repositories.OnlinePayments.GetAllQueueRooms;
+using Clinic.MySQL.Repositories.OnlinePayments.GetQueueRoomByUserId;
 using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
+using Clinic.MySQL.Repositories.OnlinePayments.RemoveQueueRoom;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
@@ -249,8 +263,15 @@ public class UnitOfWork : IUnitOfWork
     private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
     private IUpdateMedicineTypeByIdRepository _updateMedicineTypeByIdRepository;
     private IGetAllQueueRoomsRepository _getAllQueueRoomsRepository;
+    private IGetChatsByChatRoomIdRepository _getChatsByChatRoomIdRepository;
     private IUpdateMedicineGroupByIdRepository _updateMedicineGroupByIdRepository;
     private IAddOrderServiceRepository _addOrderServiceRepository;
+    private IDeleteMedicineTypeByIdRepository _deleteMedicineTypeByIdRepository;
+    private IGetQueueRoomByUserIdRepository _getQueueRoomByUserIdRepository;
+    private IRemoveQueueRoomRepository _removeQueueRoomRepository;
+    private IDeleteMedicineGroupByIdRepository _deleteMedicineGroupByIdRepository;
+    private IGetMedicineTypeByIdRepository _getMedicineTypeByIdRepository;
+    private IGetMedicineGroupByIdRepository _getMedicineGroupByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -800,11 +821,29 @@ public class UnitOfWork : IUnitOfWork
         get { return _getAllQueueRoomsRepository ??= new GetAllQueueRoomsRepository(_context); }
     }
 
+    public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository
+    {
+        get
+        {
+            return _getChatsByChatRoomIdRepository ??= new GetChatsByChatRoomIdRepository(_context);
+        }
+    }
+
     public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository
     {
         get
         {
             return _updateMedicineGroupByIdRepository ??= new UpdateMedicineGroupByIdRepository(
+                _context
+            );
+        }
+    }
+
+    public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _deleteMedicineTypeByIdRepository ??= new DeleteMedicineTypeByIdRepository(
                 _context
             );
         }
@@ -826,4 +865,42 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository
+    {
+        get
+        {
+            return _getQueueRoomByUserIdRepository ??= new GetQueueRoomByUserIdRepository(_context);
+        }
+    }
+
+    public IRemoveQueueRoomRepository RemoveQueueRoomRepository
+    {
+        get { return _removeQueueRoomRepository ??= new RemoveQueueRoomRepository(_context); }
+    }
+    
+    public IDeleteMedicineGroupByIdRepository DeleteMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _deleteMedicineGroupByIdRepository ??= new DeleteMedicineGroupByIdRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetMedicineTypeByIdRepository GetMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _getMedicineTypeByIdRepository ??= new GetMedicineTypeByIdRepository(_context);
+        }
+    }
+
+    public IGetMedicineGroupByIdRepository GetMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _getMedicineGroupByIdRepository ??= new GetMedicineGroupByIdRepository(_context);
+        }
+    }
 }

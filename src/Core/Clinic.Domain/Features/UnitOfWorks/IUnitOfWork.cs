@@ -3,10 +3,14 @@ using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
@@ -28,6 +32,7 @@ using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
 using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
@@ -61,6 +66,8 @@ using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
+using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -75,8 +82,8 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -471,6 +478,11 @@ public interface IUnitOfWork
     public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }
 
     /// <summary>
+    ///     GetChatsByChatRoomIdRepository feature
+    /// </summary>
+    public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository { get; }
+
+    /// <summary>
     ///     UpdateMedicineGroupByIdRepository feature
     /// </summary>
     public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
@@ -479,4 +491,33 @@ public interface IUnitOfWork
     ///     AddOrderService feature
     /// </summary>
     public IAddOrderServiceRepository AddOrderServiceRepository { get; }
+
+    /// <summary>
+    ///     DeleteMedicineTypeByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository { get; }
+
+    ///     GetQueueRoomByUserIdRepository feature
+    /// </summary>
+    public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository { get; }
+
+    /// <summary>
+    ///     GetQueueRoomByUserIdRepository feature
+    /// </summary>
+    public IRemoveQueueRoomRepository RemoveQueueRoomRepository { get; }
+
+    /// <summary>
+    ///     DeleteMedicineGroupByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineGroupByIdRepository DeleteMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineTypeByIdRepository feature
+    /// </summary>
+    public IGetMedicineTypeByIdRepository GetMedicineTypeByIdRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineGroupByIdRepository feature
+    /// </summary>
+    public IGetMedicineGroupByIdRepository GetMedicineGroupByIdRepository { get; }
 }
