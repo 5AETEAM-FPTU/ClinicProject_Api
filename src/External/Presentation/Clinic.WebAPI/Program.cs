@@ -13,6 +13,8 @@ using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Data.DataSeeding;
 using Clinic.OTP;
 using Clinic.Redis;
+using Clinic.SignalR;
+using Clinic.SignalR.Hub;
 using Clinic.Stringee;
 using Clinic.TwilioSMS;
 using Clinic.VNPAY;
@@ -47,7 +49,7 @@ services.ConfigAppBackgroundJob();
 services.ConfigVNPay(configuration: config);
 services.ConfigureStringeeService(configuration: config);
 services.ConfigTwilioSmsNotification(configuration: config);
-
+services.ConfigSignalR();
 var app = builder.Build();
 
 // Data seeding.
@@ -80,7 +82,8 @@ await using (var scope = app.Services.CreateAsyncScope())
     }
 }
 
-// Configure the HTTP request pipeline.
+// Configure the HTTP request pipeline
+
 app.UseMiddleware<GlobalExceptionHandler>()
     .UseCors()
     .UseAuthentication()
@@ -94,5 +97,5 @@ app.UseMiddleware<GlobalExceptionHandler>()
         options.Path = string.Empty;
         options.DefaultModelsExpandDepth = -1;
     });
-
+app.MapHub<ChatHub>("/chat-hub");
 app.Run();
