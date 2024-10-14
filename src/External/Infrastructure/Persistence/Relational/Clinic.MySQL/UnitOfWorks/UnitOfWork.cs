@@ -69,6 +69,7 @@ using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
+using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -152,6 +153,7 @@ using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
 using Clinic.MySQL.Repositories.OnlinePayments.GetAllQueueRooms;
 using Clinic.MySQL.Repositories.OnlinePayments.GetQueueRoomByUserId;
 using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
+using Clinic.MySQL.Repositories.OnlinePayments.RemoveQueueRoom;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
@@ -261,6 +263,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateMedicineGroupByIdRepository _updateMedicineGroupByIdRepository;
     private IDeleteMedicineTypeByIdRepository _deleteMedicineTypeByIdRepository;
     private IGetQueueRoomByUserIdRepository _getQueueRoomByUserIdRepository;
+    private IRemoveQueueRoomRepository _removeQueueRoomRepository;
     private IDeleteMedicineGroupByIdRepository _deleteMedicineGroupByIdRepository;
     private IGetMedicineTypeByIdRepository _getMedicineTypeByIdRepository;
 
@@ -856,6 +859,11 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IRemoveQueueRoomRepository RemoveQueueRoomRepository
+    {
+        get { return _removeQueueRoomRepository ??= new RemoveQueueRoomRepository(_context); }
+    }
+    
     public IDeleteMedicineGroupByIdRepository DeleteMedicineGroupByIdRepository
     {
         get
