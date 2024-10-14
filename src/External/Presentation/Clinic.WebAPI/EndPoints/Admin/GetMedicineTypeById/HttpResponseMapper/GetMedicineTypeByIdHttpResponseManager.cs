@@ -1,25 +1,28 @@
 ﻿using System;
 using System.Collections.Generic;
 using Clinic.Application.Features.Admin.DeleteMedicineTypeById;
-using Clinic.Application.Features.Admin.GetMedicineById;
-using Clinic.Application.Features.ExaminationServices.GetDetailService;
+using Clinic.Application.Features.Admin.GetMedicineTypeById;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Admin.GetMedicineById.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Admin.GetMedicineTypeById.HttpResponseMapper;
 
-public class GetMedicineByIdHttpResponseManager
+public class GetMedicineTypeByIdHttpResponseManager
 {
     private readonly Dictionary<
-        GetMedicineByIdResponseStatusCode,
-        Func<GetMedicineByIdRequest, GetMedicineByIdResponse, GetMedicineByIdHttpResponse>
+        GetMedicineTypeByIdResponseStatusCode,
+        Func<
+            GetMedicineTypeByIdRequest,
+            GetMedicineTypeByIdResponse,
+            GetMedicineTypeByIdHttpResponse
+        >
     > _dictionary;
 
-    internal GetMedicineByIdHttpResponseManager()
+    internal GetMedicineTypeByIdHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: GetMedicineByIdResponseStatusCode.OPERATION_SUCCESS,
+            key: GetMedicineTypeByIdResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -29,7 +32,7 @@ public class GetMedicineByIdHttpResponseManager
                 }
         );
         _dictionary.Add(
-            key: GetMedicineByIdResponseStatusCode.MEDICINE_IS_NOT_FOUND,
+            key: GetMedicineTypeByIdResponseStatusCode.MEDICINE_TYPE_IS_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -40,10 +43,10 @@ public class GetMedicineByIdHttpResponseManager
     }
 
     internal Func<
-        GetMedicineByIdRequest,
-        GetMedicineByIdResponse,
-        GetMedicineByIdHttpResponse
-    > Resolve(GetMedicineByIdResponseStatusCode statusCode)
+        GetMedicineTypeByIdRequest,
+        GetMedicineTypeByIdResponse,
+        GetMedicineTypeByIdHttpResponse
+    > Resolve(GetMedicineTypeByIdResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }
