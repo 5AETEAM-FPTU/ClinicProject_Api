@@ -5,6 +5,7 @@ using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
@@ -73,6 +74,7 @@ using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
+using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
@@ -214,6 +216,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetDetailServiceRepository _getDetailServiceRepository;
     private IRemoveServiceRepository _removeServiceRepository;
     private IHiddenServiceRepository _hiddenServiceRepository;
+    private IGetAllMedicineTypeRepository _getAllMedicineTypeRepository;
     private IGetAvailableServicesRepository _getAvailableServicesRepository;
 
     public UnitOfWork(
@@ -713,4 +716,11 @@ public class UnitOfWork : IUnitOfWork
 
     }
 
+    public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository
+    {
+        get 
+        { 
+            return _getAllMedicineTypeRepository ??= new GetAllMedicineTypeRepository(_context); 
+        }
+    }
 }
