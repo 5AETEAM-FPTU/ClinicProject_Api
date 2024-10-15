@@ -1,7 +1,7 @@
 ﻿namespace Clinic.Application.Features.ChatRooms.AssignChatRoom;
 
 /// <summary>
-///     AssignChatRoomExtensionMethod.
+///     AssignChatRoom ExtensionMethod.
 /// </summary>
 public static class AssignChatRoomExtensionMethod
 {

@@ -4,7 +4,7 @@ using Clinic.Application.Commons.Abstractions;
 namespace Clinic.Application.Features.ChatRooms.AssignChatRoom;
 
 /// <summary>
-///     CreateNewOnlinePayment Response.
+///     AssignChatRoom Response.
 /// </summary>
 public sealed class AssignChatRoomResponse : IFeatureResponse
 {

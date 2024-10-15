@@ -15,6 +15,8 @@ public class ChatRoom : IBaseEntity, ICreatedEntity, IUpdatedEntity
     // Normal columns.
     public string LastMessage { get; set; }
 
+    public bool IsEnd { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public Guid CreatedBy { get; set; }

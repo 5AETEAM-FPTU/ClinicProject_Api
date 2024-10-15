@@ -26,6 +26,12 @@ internal sealed class ChatRoomEntityConfiguration : IEntityTypeConfiguration<Cha
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(256))
             .IsRequired();
 
+        // IsEnd property configuration.
+        builder
+            .Property(propertyExpression: entity => entity.IsEnd)
+            .HasDefaultValue(false)
+            .IsRequired();
+
         // CreatedAt property configuration.
         builder
             .Property(propertyExpression: entity => entity.CreatedAt)

@@ -9,6 +9,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 
+/// <summary>
+///     Implementation of IAssignChatRoomRepository.
+/// </summary>
 internal class AssignChatRoomRepository : IAssignChatRoomRepository
 {
     private readonly ClinicContext _context;
