@@ -43,6 +43,16 @@ public class GetQueueRoomByUserIdHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: GetQueueRoomByUserIdResponseStatusCode.QUEUEROOM_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status403Forbidden,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<

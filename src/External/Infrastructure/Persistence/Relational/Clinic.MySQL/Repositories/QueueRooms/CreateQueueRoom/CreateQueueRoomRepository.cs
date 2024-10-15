@@ -47,7 +47,7 @@ internal class CreateQueueRoomRepository : ICreateQueueRoomRepository
     {
         return _queueRooms
             .Where(predicate: queueRoom =>
-                queueRoom.PatientId == userId && queueRoom.IsSuported == true
+                queueRoom.PatientId == userId && queueRoom.IsSuported == false
             )
             .AnyAsync(cancellationToken: cancellationToken);
     }

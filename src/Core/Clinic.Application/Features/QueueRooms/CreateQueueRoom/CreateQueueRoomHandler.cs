@@ -62,7 +62,7 @@ internal sealed class CreateQueueRoomHandler
                 cancellationToken: ct
             );
 
-        if (!isSupportedUserRequest)
+        if (isSupportedUserRequest)
         {
             return new()
             {
