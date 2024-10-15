@@ -1,4 +1,6 @@
-﻿namespace Clinic.Application.Commons.SMS;
+﻿using System.Threading.Tasks;
+
+namespace Clinic.Application.Commons.SMS;
 
 /// <summary>
 ///     Interface for SMS Handler
@@ -11,5 +13,5 @@ public interface ISmsHandler
     /// <param name="to"></param>
     /// <param name="body"></param>
     /// <returns></returns>
-    bool SendNotification(string to, string body);
+    Task<bool> SendNotification(string to, string body);
 }

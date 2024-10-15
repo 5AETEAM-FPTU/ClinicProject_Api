@@ -30,6 +30,7 @@ public class CreateMedicalReportHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = response.StatusCode.ToAppCode(),
+                    Body = response.Body,
                 }
         );
         _dictionary.Add(

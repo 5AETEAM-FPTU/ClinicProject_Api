@@ -16,18 +16,26 @@ internal class TwilioSmsHandler : ISmsHandler
     /// <param name="to"></param>
     /// <param name="body"></param>
     /// <returns></returns>
-    public bool SendNotification(string to, string body)
+    public async Task<bool> SendNotification(string to, string body)
     {
         var accountSid = "ACfd522c74ee3e506d4114e0e1df570998";
         var authToken = "b5e44e54a341465ba60fb28833bb4074";
+        var isCreated = false;
+        try
+        {
+            TwilioClient.Init(accountSid, authToken);
+            var messageOptions = new CreateMessageOptions(new PhoneNumber("+84356611341"));
+            messageOptions.From = new PhoneNumber("+12088434177");
+            messageOptions.Body = body;
+            var message = await MessageResource.CreateAsync(messageOptions);
+            isCreated = true;
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.ToString());
+            isCreated = false;
+        }
 
-        TwilioClient.Init(accountSid, authToken);
-        var messageOptions = new CreateMessageOptions(new PhoneNumber("+84356611341"));
-        messageOptions.From = new PhoneNumber("+12088434177");
-        messageOptions.Body = "Hello world";
-        var message = MessageResource.Create(messageOptions);
-        Console.WriteLine(message.Body);
-
-        return true;
+        return isCreated;
     }
 }

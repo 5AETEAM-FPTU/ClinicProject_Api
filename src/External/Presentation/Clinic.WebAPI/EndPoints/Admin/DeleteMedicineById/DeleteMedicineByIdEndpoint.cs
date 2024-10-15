@@ -1,9 +1,9 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
 using Clinic.Application.Features.Admin.DeleteMedicineById;
 using Clinic.WebAPI.EndPoints.Admin.DeleteMedicineById.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineById;
@@ -11,11 +11,12 @@ namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineById;
 /// <summary>
 ///     DeleteMedicineById endpoint
 /// </summary>
-public class DeleteMedicineByIdEndpoint : Endpoint<DeleteMedicineByIdRequest, DeleteMedicineByIdHttpResponse>
+public class DeleteMedicineByIdEndpoint
+    : Endpoint<DeleteMedicineByIdRequest, DeleteMedicineByIdHttpResponse>
 {
     public override void Configure()
     {
-        Delete("admin/medicine/{medicineId}");
+        Delete("admin/medicine/remove/{medicineId}");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -25,8 +26,7 @@ public class DeleteMedicineByIdEndpoint : Endpoint<DeleteMedicineByIdRequest, De
         Summary(summary =>
         {
             summary.Summary = "Endpoint for admin";
-            summary.Description =
-                "This endpoint allows admin to remove specific medicine.";
+            summary.Description = "This endpoint allows admin to remove specific medicine.";
             summary.Response<DeleteMedicineByIdHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

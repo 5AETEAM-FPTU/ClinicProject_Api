@@ -17,4 +17,6 @@ public class GetAppointmentsByDateRequest : IFeatureRequest<GetAppointmentsByDat
 
     [BindFrom("endDate")]
     public DateTime? EndDate { get; set; }
+
+    public Guid? DoctorId { get; set; }
 }
