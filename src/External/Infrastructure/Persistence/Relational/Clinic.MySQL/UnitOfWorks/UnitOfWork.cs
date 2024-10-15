@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
@@ -99,6 +100,7 @@ using Clinic.MySQL.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
+using Clinic.MySQL.Repositories.Admin.GetAvailableMedicines;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
@@ -275,6 +277,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetMedicineTypeByIdRepository _getMedicineTypeByIdRepository;
     private IGetMedicineGroupByIdRepository _getMedicineGroupByIdRepository;
     private IRemoveMedicineTemporarilyRepository _removeMedicineTemporarilyRepository;
+    private IGetAvailableMedicinesRepository _getAvailableMedicineRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -909,6 +912,16 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _removeMedicineTemporarilyRepository ??= new RemoveMedicineTemporarilyRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetAvailableMedicinesRepository GetAvailableMedicinesRepository
+    {
+        get
+        {
+            return _getAvailableMedicineRepository ??= new GetAvailableMedicinesRepository(
                 _context
             );
         }
