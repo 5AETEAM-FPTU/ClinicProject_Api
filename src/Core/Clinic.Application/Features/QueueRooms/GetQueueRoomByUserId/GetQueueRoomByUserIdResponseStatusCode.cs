@@ -7,4 +7,5 @@ public enum GetQueueRoomByUserIdResponseStatusCode
 {
     OPERATION_SUCCESS,
     FORBIDEN_ACCESS,
+    QUEUEROOM_NOT_FOUND
 }
