@@ -6,11 +6,13 @@ using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
-using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
@@ -74,6 +76,8 @@ using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
+using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
@@ -82,8 +86,6 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
-using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -520,4 +522,14 @@ public interface IUnitOfWork
     ///     GetMedicineGroupByIdRepository feature
     /// </summary>
     public IGetMedicineGroupByIdRepository GetMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     RemoveMedicineTemporarilyRepository feature
+    /// </summary>
+    public IRemoveMedicineTemporarilyRepository RemoveMedicineTemporarilyRepository { get; }
+
+    /// <summary>
+    ///     GetAvailableMedicinesRepository feature
+    /// </summary>
+    public IGetAvailableMedicinesRepository GetAvailableMedicinesRepository { get; }
 }

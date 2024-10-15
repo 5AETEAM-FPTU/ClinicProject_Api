@@ -48,6 +48,14 @@ internal sealed class GetQueueRoomByUserIdHandler
                 cancellationToken: ct
             );
 
+        if (Equals(objA: queueRoom, objB: default))
+        {
+            return new()
+            {
+                StatusCode = GetQueueRoomByUserIdResponseStatusCode.QUEUEROOM_NOT_FOUND
+            };
+        }
+
         return new()
         {
             StatusCode = GetQueueRoomByUserIdResponseStatusCode.OPERATION_SUCCESS,
