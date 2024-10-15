@@ -76,7 +76,11 @@ internal class GetAllMedicalReportRepository : IGetAllMedicalReportRepository
                     {
                         StartDate = report.Appointment.Schedule.StartDate,
                         EndDate = report.Appointment.Schedule.EndDate,
-                    }
+                    },
+                    Patient = new Patient()
+                    {
+                        User = new User() { Avatar = report.Appointment.Patient.User.Avatar },
+                    },
                 },
                 ServiceOrder = new ServiceOrder()
                 {

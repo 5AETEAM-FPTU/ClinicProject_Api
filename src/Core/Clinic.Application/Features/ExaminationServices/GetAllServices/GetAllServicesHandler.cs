@@ -1,12 +1,12 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Pagination;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Security.Claims;
-using Clinic.Application.Commons.Pagination;
-using System.Linq;
-using System;
 using Clinic.Application.Commons.Constance;
 
 namespace Clinic.Application.Features.ExaminationServices.GetAllServices;
@@ -45,12 +45,9 @@ public class GetAllServicesHandler : IFeatureHandler<GetAllServicesRequest, GetA
     {
         // Check role user from role type jwt
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-        if (!role.Equals("admin") && !role.Equals("staff"))
+        if (!role.Equals("admin") && !role.Equals("staff") && !role.Equals("doctor"))
         {
-            return new()
-            {
-                StatusCode = GetAllServicesResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
-            };
+            return new() { StatusCode = GetAllServicesResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF };
         }
 
         // Find all services query.
@@ -79,13 +76,12 @@ public class GetAllServicesHandler : IFeatureHandler<GetAllServicesRequest, GetA
             {
                 Services = new PaginationResponse<GetAllServicesResponse.Body.Service>()
                 {
-                    Contents = services
-                    .Select(service => new GetAllServicesResponse.Body.Service()
+                    Contents = services.Select(service => new GetAllServicesResponse.Body.Service()
                     {
                         Id = service.Id,
                         Name = service.Name,
                         Code = service.Code,
-                        Price = (int) service.Price,
+                        Price = (int)service.Price,
                         Group = service.Group,
                         Description = service.Descripiton,
                         IsHidden = service.RemovedAt != CommonConstant.MIN_DATE_TIME
@@ -93,9 +89,9 @@ public class GetAllServicesHandler : IFeatureHandler<GetAllServicesRequest, GetA
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)countService / request.PageSize)
-                }
-            }
+                    TotalPages = (int)Math.Ceiling((double)countService / request.PageSize),
+                },
+            },
         };
     }
 }

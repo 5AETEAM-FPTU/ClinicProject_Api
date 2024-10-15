@@ -130,7 +130,10 @@ internal sealed class CreateMedicalReportHandler
         return new()
         {
             StatusCode = CreateMedicalReportResponseStatusCode.OPERATION_SUCCESS,
-            Body = new() { MedicalReportId = newMedicalReport.Id },
+            Body = new CreateMedicalReportResponse.BodyResponse()
+            {
+                MedicalReportId = newMedicalReport.Id,
+            },
         };
     }
 

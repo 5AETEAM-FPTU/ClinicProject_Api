@@ -83,7 +83,7 @@ public class GetAppointmentsByDateHandler
             await _unitOfWork.GetAppointmentsByDateRepository.GetAppointmentsByDateQueryAsync(
                 startDate: startDate,
                 endDate: endDate,
-                userId: userId,
+                userId: request.DoctorId ?? userId,
                 cancellationToken: cancellationToken
             );
 
@@ -100,6 +100,7 @@ public class GetAppointmentsByDateHandler
                         Description = appointment.Description,
                         Patient = new GetAppointmentsByDateResponse.Body.AppointmentDTO.PatientDTO()
                         {
+                            PatientId = appointment.Patient.UserId,
                             Avatar = appointment.Patient.User.Avatar,
                             FullName = appointment.Patient.User.FullName,
                             PhoneNumber = appointment.Patient.User.PhoneNumber,

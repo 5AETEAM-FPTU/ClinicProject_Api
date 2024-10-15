@@ -1,9 +1,9 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
 using Clinic.Application.Features.Admin.DeleteMedicineGroupById;
 using Clinic.WebAPI.EndPoints.Admin.DeleteMedicineGroupById.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineGroupById;
@@ -11,11 +11,12 @@ namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineGroupById;
 /// <summary>
 ///     DeleteMedicineGroupById endpoint
 /// </summary>
-public class DeleteMedicineGroupByIdEndpoint : Endpoint<DeleteMedicineGroupByIdRequest, DeleteMedicineGroupByIdHttpResponse>
+public class DeleteMedicineGroupByIdEndpoint
+    : Endpoint<DeleteMedicineGroupByIdRequest, DeleteMedicineGroupByIdHttpResponse>
 {
     public override void Configure()
     {
-        Delete("admin/medicineGroup/{medicineGroupId}");
+        Delete("admin/medicineGroup/remove/{medicineGroupId}");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -25,14 +26,14 @@ public class DeleteMedicineGroupByIdEndpoint : Endpoint<DeleteMedicineGroupByIdR
         Summary(summary =>
         {
             summary.Summary = "Endpoint for admin";
-            summary.Description =
-                "This endpoint allows admin to remove specific medicine group.";
+            summary.Description = "This endpoint allows admin to remove specific medicine group.";
             summary.Response<DeleteMedicineGroupByIdHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = DeleteMedicineGroupByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode =
+                        DeleteMedicineGroupByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });

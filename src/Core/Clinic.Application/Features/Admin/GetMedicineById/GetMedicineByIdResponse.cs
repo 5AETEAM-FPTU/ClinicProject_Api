@@ -1,5 +1,5 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using System;
+﻿using System;
+using Clinic.Application.Commons.Abstractions;
 
 namespace Clinic.Application.Features.Admin.GetMedicineById;
 
@@ -41,4 +41,3 @@ public class GetMedicineByIdResponse : IFeatureResponse
         }
     }
 }
-
