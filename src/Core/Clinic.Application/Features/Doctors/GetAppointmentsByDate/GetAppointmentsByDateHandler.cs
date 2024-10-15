@@ -100,6 +100,7 @@ public class GetAppointmentsByDateHandler
                         Description = appointment.Description,
                         Patient = new GetAppointmentsByDateResponse.Body.AppointmentDTO.PatientDTO()
                         {
+                            PatientId = appointment.Patient.UserId,
                             Avatar = appointment.Patient.User.Avatar,
                             FullName = appointment.Patient.User.FullName,
                             PhoneNumber = appointment.Patient.User.PhoneNumber,
