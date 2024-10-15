@@ -40,6 +40,7 @@ using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
 using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
+using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -127,6 +128,7 @@ using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
 using Clinic.MySQL.Repositories.ChatContents.CreateChatContent;
 using Clinic.MySQL.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
+using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
@@ -278,6 +280,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetMedicineGroupByIdRepository _getMedicineGroupByIdRepository;
     private IRemoveMedicineTemporarilyRepository _removeMedicineTemporarilyRepository;
     private IGetAvailableMedicinesRepository _getAvailableMedicineRepository;
+    private IGetChatRoomsByUserIdRepository _getChatRoomsByUserIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -924,6 +927,14 @@ public class UnitOfWork : IUnitOfWork
             return _getAvailableMedicineRepository ??= new GetAvailableMedicinesRepository(
                 _context
             );
+        }
+    }
+
+    public IGetChatRoomsByUserIdRepository GetChatRoomsByUserIdRepository
+    {
+        get
+        {
+            return _getChatRoomsByUserIdRepository ??= new GetChatRoomsByUserIdRepository(_context);
         }
     }
 }

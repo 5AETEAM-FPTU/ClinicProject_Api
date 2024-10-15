@@ -37,6 +37,7 @@ using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
 using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
+using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -532,4 +533,9 @@ public interface IUnitOfWork
     ///     GetAvailableMedicinesRepository feature
     /// </summary>
     public IGetAvailableMedicinesRepository GetAvailableMedicinesRepository { get; }
+
+    /// <summary>
+    ///     GetAvailableMedicinesRepository feature
+    /// </summary>
+    public IGetChatRoomsByUserIdRepository GetChatRoomsByUserIdRepository { get; }
 }

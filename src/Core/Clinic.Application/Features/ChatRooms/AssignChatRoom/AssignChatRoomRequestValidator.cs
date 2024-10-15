@@ -4,7 +4,7 @@ using FluentValidation;
 namespace Clinic.Application.Features.ChatRooms.AssignChatRoom;
 
 /// <summary>
-///     CreateNewOnlinePayment Request.
+///     AssignChatRoom Request.
 /// </summary>
 public sealed class AssignChatRoomRequestValidator
     : FeatureRequestValidator<AssignChatRoomRequest, AssignChatRoomResponse>
