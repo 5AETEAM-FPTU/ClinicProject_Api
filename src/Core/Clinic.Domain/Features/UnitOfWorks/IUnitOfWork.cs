@@ -66,6 +66,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
@@ -544,4 +545,9 @@ public interface IUnitOfWork
     ///     GetChatRoomsByDoctorIdRepository feature
     /// </summary>
     public IGetChatRoomsByDoctorIdRepository GetChatRoomsByDoctorIdRepository { get; }
+    
+    /// <summary>
+    ///     CreateRetreatmentNotificationRepository feature
+    /// </summary>
+    public ICreateRetreatmentNotificationRepository CreateRetreatmentNotificationRepository { get; }
 }

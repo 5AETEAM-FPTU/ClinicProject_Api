@@ -69,6 +69,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
@@ -159,6 +160,7 @@ using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.MySQL.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
 using Clinic.MySQL.Repositories.OnlinePayments.GetAllQueueRooms;
@@ -284,6 +286,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAvailableMedicinesRepository _getAvailableMedicineRepository;
     private IGetChatRoomsByUserIdRepository _getChatRoomsByUserIdRepository;
     private IGetChatRoomsByDoctorIdRepository _getChatRoomsByDoctorIdRepository;
+    private ICreateRetreatmentNotificationRepository _createRetreatmentNotificationRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -940,6 +943,7 @@ public class UnitOfWork : IUnitOfWork
             return _getChatRoomsByUserIdRepository ??= new GetChatRoomsByUserIdRepository(_context);
         }
     }
+
     public IGetChatRoomsByDoctorIdRepository GetChatRoomsByDoctorIdRepository
     {
         get
@@ -947,6 +951,15 @@ public class UnitOfWork : IUnitOfWork
             return _getChatRoomsByDoctorIdRepository ??= new GetChatRoomsByDoctorIdRepository(
                 _context
             );
+        }
+     }
+    
+    public ICreateRetreatmentNotificationRepository CreateRetreatmentNotificationRepository
+    {
+        get
+        {
+            return _createRetreatmentNotificationRepository ??=
+                new CreateRetreatmentNotificationRepository(_context);
         }
     }
 }

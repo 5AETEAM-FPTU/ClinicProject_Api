@@ -26,6 +26,7 @@ public class GetAppointmentsByDateResponse : IFeatureResponse
 
             public sealed class PatientDTO
             {
+                public Guid PatientId { get; set; }
                 public string Avatar { get; set; }
                 public string FullName { get; set; }
                 public string PhoneNumber { get; set; }

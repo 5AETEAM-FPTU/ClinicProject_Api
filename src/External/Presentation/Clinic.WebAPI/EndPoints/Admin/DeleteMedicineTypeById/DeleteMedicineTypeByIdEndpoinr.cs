@@ -1,9 +1,9 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
 using Clinic.Application.Features.Admin.DeleteMedicineTypeById;
 using Clinic.WebAPI.EndPoints.Admin.DeleteMedicineTypeById.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineTypeById;
@@ -11,11 +11,12 @@ namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineTypeById;
 /// <summary>
 ///     DeleteMedicineTypeById endpoint
 /// </summary>
-public class DeleteMedicineTypeByIdEndpoint : Endpoint<DeleteMedicineTypeByIdRequest, DeleteMedicineTypeByIdHttpResponse>
+public class DeleteMedicineTypeByIdEndpoint
+    : Endpoint<DeleteMedicineTypeByIdRequest, DeleteMedicineTypeByIdHttpResponse>
 {
     public override void Configure()
     {
-        Delete("admin/medicineType/{medicineTypeId}");
+        Delete("admin/medicineType/remove/{medicineTypeId}");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -25,14 +26,14 @@ public class DeleteMedicineTypeByIdEndpoint : Endpoint<DeleteMedicineTypeByIdReq
         Summary(summary =>
         {
             summary.Summary = "Endpoint for admin";
-            summary.Description =
-                "This endpoint allows admin to remove specific medicine type.";
+            summary.Description = "This endpoint allows admin to remove specific medicine type.";
             summary.Response<DeleteMedicineTypeByIdHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = DeleteMedicineTypeByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode =
+                        DeleteMedicineTypeByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });

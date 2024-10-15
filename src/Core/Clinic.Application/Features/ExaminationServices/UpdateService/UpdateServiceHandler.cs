@@ -1,11 +1,11 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using System.Security.Claims;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Clinic.Application.Features.ExaminationServices.UpdateService;
@@ -53,71 +53,57 @@ internal sealed class UpdateServiceHandler
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
         if (!role.Equals("admin") && !role.Equals("staff"))
         {
-            return new()
-            {
-                StatusCode = UpdateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF,
-            };
+            return new() { StatusCode = UpdateServiceResponseStatusCode.ROLE_IS_NOT_ADMIN_STAFF };
         }
 
         //Check service is existed
-        var isServiceExisted = await _unitOfWork.UpdateServiceRepository
-            .IsServiceExist(
-                request.ServiceId, 
-                cancellationToken: cancellationToken
-            );
+        var isServiceExisted = await _unitOfWork.UpdateServiceRepository.IsServiceExist(
+            request.ServiceId,
+            cancellationToken: cancellationToken
+        );
 
         if (!isServiceExisted)
         {
-            return new()
-            {
-                StatusCode = UpdateServiceResponseStatusCode.SERVICE_NOT_FOUND,
-            };
+            return new() { StatusCode = UpdateServiceResponseStatusCode.SERVICE_NOT_FOUND };
         }
 
         // check service code is existed
-        if (request.Code != null)
-        {
-            var isServiceCodeExisted = await _unitOfWork.UpdateServiceRepository.IsExistServiceCode(request.Code, cancellationToken: cancellationToken);
+        //if (request.Code != null)
+        //{
+        //    var isServiceCodeExisted = await _unitOfWork.UpdateServiceRepository.IsExistServiceCode(request.Code, cancellationToken: cancellationToken);
 
-            if (isServiceCodeExisted)
-            {
-                return new()
-                {
-                    StatusCode = UpdateServiceResponseStatusCode.SERVICE_CODE_ALREADY_EXISTED,
-                };
-            }
-        }
+        //    if (isServiceCodeExisted)
+        //    {
+        //        return new()
+        //        {
+        //            StatusCode = UpdateServiceResponseStatusCode.SERVICE_CODE_ALREADY_EXISTED,
+        //        };
+        //    }
+        //}
 
         // update service
-        var existedService =  await _unitOfWork.UpdateServiceRepository
-            .GetServiceByIdCommandAsync(
-                Id: request.ServiceId, 
-                cancellationToken: cancellationToken
-            );     
+        var existedService = await _unitOfWork.UpdateServiceRepository.GetServiceByIdCommandAsync(
+            Id: request.ServiceId,
+            cancellationToken: cancellationToken
+        );
 
         var isSucceed = await UpdateService(request, existedService, cancellationToken);
 
         // Check if operation failed
         if (!isSucceed)
         {
-            return new()
-            {
-                StatusCode = UpdateServiceResponseStatusCode.DATABASE_OPERATION_FAIL,
-            };
+            return new() { StatusCode = UpdateServiceResponseStatusCode.DATABASE_OPERATION_FAIL };
         }
 
         // Return successful
-        return new()
-        {
-            StatusCode = UpdateServiceResponseStatusCode.OPERATION_SUCCESS,
-        };
+        return new() { StatusCode = UpdateServiceResponseStatusCode.OPERATION_SUCCESS };
     }
 
     private async Task<bool> UpdateService(
-        UpdateServiceRequest request, 
-        Service existedService, 
+        UpdateServiceRequest request,
+        Service existedService,
         CancellationToken cancellationToken
-        )
+    )
     {
         // Get userId from sub type jwt
         var userId = Guid.Parse(
@@ -127,20 +113,20 @@ internal sealed class UpdateServiceHandler
         // update service
         existedService.Code = request.Code ?? existedService.Code;
         existedService.Name = request.Name ?? existedService.Name;
-        existedService.Descripiton = request.Description ??  existedService.Descripiton;
-    
+        existedService.Descripiton = request.Description ?? existedService.Descripiton;
+
         if (request.Price != null)
         {
             existedService.Price = (decimal)request.Price;
         }
-        
+
         existedService.Group = request.Group ?? existedService.Group;
         existedService.UpdatedAt = DateTime.UtcNow;
         existedService.UpdatedBy = userId;
 
-        return await _unitOfWork.UpdateServiceRepository
-            .UpdateServiceCommandAsync(Service: existedService, cancellationToken);
-      
+        return await _unitOfWork.UpdateServiceRepository.UpdateServiceCommandAsync(
+            Service: existedService,
+            cancellationToken
+        );
     }
-
 }

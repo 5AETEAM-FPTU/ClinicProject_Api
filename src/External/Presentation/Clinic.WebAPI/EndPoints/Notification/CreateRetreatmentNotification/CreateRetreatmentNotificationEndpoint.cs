@@ -1,22 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Admin.DeleteMedicineGroupById;
-using Clinic.WebAPI.EndPoints.Admin.DeleteMedicineGroupById.HttpResponseMapper;
+using Clinic.Application.Features.Notification.CreateRetreatmentNotification;
+using Clinic.WebAPI.EndPoints.Notification.CreateRetreatmentNotification.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Admin.DeleteMedicineGroupById;
+namespace Clinic.WebAPI.EndPoints.Notification.CreateRetreatmentNotification;
 
 /// <summary>
-///     DeleteMedicineGroupById endpoint
+///     CreateRetreatmentNotification endpoint
 /// </summary>
-public class DeleteMedicineGroupByIdEndpoint
-    : Endpoint<DeleteMedicineGroupByIdRequest, DeleteMedicineGroupByIdHttpResponse>
+public class CreateRetreatmentNotificationEndpoint
+    : Endpoint<CreateRetreatmentNotificationRequest, CreateRetreatmentNotificationHttpResponse>
 {
     public override void Configure()
     {
-        Delete("admin/medicineGroup/remove/{medicineGroupId}");
+        Post("notification/retreatment/create");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -25,28 +25,29 @@ public class DeleteMedicineGroupByIdEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for admin";
-            summary.Description = "This endpoint allows admin to remove specific medicine group.";
-            summary.Response<DeleteMedicineGroupByIdHttpResponse>(
+            summary.Summary = "Endpoint to create retreatment notification, send via SMS";
+            summary.Description =
+                "This endpoint allows doctor/staff for creating retreatment notification, send via SMS.";
+            summary.Response<CreateRetreatmentNotificationHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode =
-                        DeleteMedicineGroupByIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                        CreateRetreatmentNotificationResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<DeleteMedicineGroupByIdHttpResponse> ExecuteAsync(
-        DeleteMedicineGroupByIdRequest req,
+    public override async Task<CreateRetreatmentNotificationHttpResponse> ExecuteAsync(
+        CreateRetreatmentNotificationRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = DeleteMedicineGroupByIdHttpResponseMapper
+        var httpResponse = CreateRetreatmentNotificationHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
