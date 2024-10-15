@@ -6,11 +6,13 @@ using Microsoft.AspNetCore.Http;
 using Clinic.Application.Features.Auths.Login;
 using Clinic.Application.Features.ExaminationServices.GetAllServices;
 using Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
+using Clinic.Application.Features.ExaminationServices.GetAvailableServices;
+using Clinic.WebAPI.EndPoints.ExaminationServices.GetAvailableServices.HttpResponseMapper;
 
 namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices;
 
 /// <summary>
-///     GetAllMedicine endpoint.
+///     GetAllSerivces endpoint.
 /// </summary>
 internal sealed class GetAllServicesEndpoint
     : Endpoint<GetAllServicesRequest, GetAllServicesHttpResponse>

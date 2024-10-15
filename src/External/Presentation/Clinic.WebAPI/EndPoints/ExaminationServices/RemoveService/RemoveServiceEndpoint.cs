@@ -5,11 +5,13 @@ using System.Threading;
 using Microsoft.AspNetCore.Http;
 using Clinic.WebAPI.EndPoints.ExaminationServices.RemoveService.HttpResoponseMapper;
 using Clinic.Application.Features.ExaminationServices.RemoveService;
+using Clinic.Application.Features.ExaminationServices.HiddenService;
+using Clinic.WebAPI.EndPoints.ExaminationServices.HiddenService.HttpResoponseMapper;
 
 namespace Clinic.WebAPI.EndPoints.ExaminationServices.RemoveService;
 
 /// <summary>
-///     CreateMedicine endpoint
+///     RemoveService endpoint
 /// </summary>
 public class RemoveServiceEndpoint : Endpoint<RemoveServiceRequest, RemoveServiceHttpResponse>
 {
@@ -24,9 +26,9 @@ public class RemoveServiceEndpoint : Endpoint<RemoveServiceRequest, RemoveServic
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for admin/staff to remove service by id";
+            summary.Summary = "Endpoint for admin/staff to remove service permently by id";
             summary.Description =
-                "This endpoint allows admin/staff for remove service by id.";
+                "This endpoint allows admin/staff for remove service permently  by id.";
             summary.Response<RemoveServiceHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()

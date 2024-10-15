@@ -62,6 +62,8 @@ public class GetAllServicesRepository : IGetAllServicesRepository
                 Descripiton = service.Descripiton,
                 Price = service.Price,
                 Group = service.Group,
+                RemovedAt = service.RemovedAt,
+                RemovedBy = service.RemovedBy
             })
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)

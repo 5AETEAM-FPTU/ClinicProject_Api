@@ -6,7 +6,7 @@ using Clinic.Application.Features.ExaminationServices.RemoveService;
 namespace Clinic.WebAPI.EndPoints.ExaminationServices.RemoveService.HttpResoponseMapper;
 
 /// <summary>
-///     Mapper for  UpdateService feature
+///     Mapper for  RemoveService feature
 /// </summary>
 public class RemoveServiceHttpResponseManager
 {

@@ -82,6 +82,10 @@ internal class GetAllMedicalReportRepository : IGetAllMedicalReportRepository
                         User = new User() { Avatar = report.Appointment.Patient.User.Avatar },
                     },
                 },
+                ServiceOrder = new ServiceOrder()
+                {
+                    Id = report.ServiceOrder.Id
+                }
             })
             .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);

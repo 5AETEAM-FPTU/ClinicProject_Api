@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Clinic.Application.Features.Doctors.UpdatePrivateDoctorInfo;
 using Clinic.Application.Features.Schedules.GetScheduleDatesByMonth;
+using Clinic.Application.Features.ServiceOrders.GetServiceOrderItems;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
 using Clinic.WebAPI.EndPoints.Doctors.GetAppointmentsByDate.HttpResponseMapper;
 using Clinic.WebAPI.EndPoints.Schedules.GetScheduleDatesByMonth.HttpResponseMapper;

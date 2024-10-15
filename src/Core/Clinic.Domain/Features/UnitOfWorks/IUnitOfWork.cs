@@ -1,7 +1,19 @@
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -19,6 +31,10 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
+using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
+using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -37,11 +53,21 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllPosition;
 using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
+using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
+using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
@@ -56,12 +82,8 @@ using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
-using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
-using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
-using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
-using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
+using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 
 namespace Clinic.Domain.Features.UnitOfWorks;
 
@@ -332,17 +354,17 @@ public interface IUnitOfWork
     public IUpdateAppointmentStatusRepository UpdateAppointmentStatusRepository { get; }
 
     /// <summary>
-    /// CreateService feature
+    ///    CreateService feature
     /// </summary>
     public ICreateServiceRepository CreateServiceRepository { get; }
 
     /// <summary>
-    /// UpdateMedicalReportPatientInformationRepository feature
+    ///    UpdateMedicalReportPatientInformationRepository feature
     /// </summary>
     public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository { get; }
 
     /// <summary>
-    /// UpdateMainMedicalReportInformationRepository feature
+    ///    UpdateMainMedicalReportInformationRepository feature
     /// </summary>
     public IUpdateMainInformationRepository UpdateMainMedicalReportInformationRepository { get; }
 
@@ -356,37 +378,146 @@ public interface IUnitOfWork
     public IGetAllMedicineRepository GetAllMedicineRepository { get; }
 
     /// <summary>
-    /// GetMedicineByIdRepository feature
+    ///    GetMedicineByIdRepository feature
     /// </summary>
     public IGetMedicineByIdRepository GetMedicineByIdRepository { get; }
-    
+
     /// <summary>
-    /// UpdateMedicineRepository feature
+    ///    UpdateMedicineRepository feature
     /// </summary>
     public IUpdateMedicineRepository UpdateMedicineRepository { get; }
 
     /// <summary>
-    /// Get all services feature
+    ///    Get all services feature
     /// </summary>
     public IGetAllServicesRepository GetAllServicesRepository { get; }
-    
+
     /// <summary>
-    /// DeleteMedicineByIdRepository feature
+    ///    DeleteMedicineByIdRepository feature
     /// </summary>
     public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository { get; }
 
     /// <summary>
-    /// Update Service feature
+    ///    Update Service feature
     /// </summary>
     public IUpdateServiceRepository UpdateServiceRepository { get; }
 
     /// <summary>
-    /// Get Detail Service feature
+    ///    CreateQueueRoomRepository feature
+    /// </summary>
+    public ICreateQueueRoomRepository CreateQueueRoomRepository { get; }
+
+    /// <summary>
+    ///    Get Detail Service feature
     /// </summary>
     public IGetDetailServiceRepository GetDetailServiceRepository { get; }
 
     /// <summary>
-    ///     Remove Service feature
+    ///     Remove Service (Remove permantly) feature
     /// </summary>
     public IRemoveServiceRepository RemoveServiceRepository { get; }
+
+    /// <summary>
+    ///     AssignChatRoomRepository feature
+    /// </summary>
+    public IAssignChatRoomRepository AssignChatRoomRepository { get; }
+
+    /// </summary>
+    ///     Hidden Service (Remove temporarity) feature
+    /// </summary>
+    public IHiddenServiceRepository HiddenServiceRepository { get; }
+
+    /// <summary>
+    ///     GetAllMedicineTypeRepository feature
+    /// </summary>
+    public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository { get; }
+
+    /// <summary>
+    ///    Get Available Services feature
+    /// </summary>
+    public IGetAvailableServicesRepository GetAvailableServicesRepository { get; }
+
+    /// <summary>
+    ///    CreateChatContentRepository feature
+    /// </summary>
+    public ICreateChatContentRepository CreateChatContentRepository { get; }
+
+    /// <summary>
+    ///    RemoveChatContentTemporarilyRepository feature
+    /// </summary>
+    public IRemoveChatContentTemporarilyRepository RemoveChatContentTemporarilyRepository { get; }
+
+    /// <summary>
+    ///     GetAllMedicineGroupRepository feature
+    /// </summary>
+    public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository { get; }
+
+    /// <summary>
+    ///     CreateNewMedicineTypeRepository feature
+    /// </summary>
+    public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository { get; }
+
+    /// <summary>
+    ///     GetServiceOrderItems feature
+    /// </summary>
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository { get; }
+
+    /// <summary>
+    ///     CreateNewMedicineGroupRepository feature
+    /// </summary>
+    public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository { get; }
+
+    /// <summary>
+    ///     UpdateMedicineTypeByIdRepository feature
+    /// </summary>
+    public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository { get; }
+
+    /// <summary>
+    ///     GetAllQueueRoomsRepository feature
+    /// </summary>
+    public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository { get; }
+
+    /// <summary>
+    ///     GetChatsByChatRoomIdRepository feature
+    /// </summary>
+    public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository { get; }
+
+    /// <summary>
+    ///     UpdateMedicineGroupByIdRepository feature
+    /// </summary>
+    public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     AddOrderService feature
+    /// </summary>
+    public IAddOrderServiceRepository AddOrderServiceRepository { get; }
+
+    /// <summary>
+    ///     DeleteMedicineTypeByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository { get; }
+
+    ///     GetQueueRoomByUserIdRepository feature
+    /// </summary>
+    public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository { get; }
+
+    /// <summary>
+    ///     GetQueueRoomByUserIdRepository feature
+    /// </summary>
+    public IRemoveQueueRoomRepository RemoveQueueRoomRepository { get; }
+
+    /// <summary>
+    ///     DeleteMedicineGroupByIdRepository feature
+    /// </summary>
+    public IDeleteMedicineGroupByIdRepository DeleteMedicineGroupByIdRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineTypeByIdRepository feature
+    /// </summary>
+    public IGetMedicineTypeByIdRepository GetMedicineTypeByIdRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineGroupByIdRepository feature
+    /// </summary>
+    public IGetMedicineGroupByIdRepository GetMedicineGroupByIdRepository { get; }
 }
