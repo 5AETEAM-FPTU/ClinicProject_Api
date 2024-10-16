@@ -1,26 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
-using Clinic.Application.Features.MedicineOrders.UpdateOrderItems;
+using Clinic.Application.Features.MedicineOrders.RemoveOrderItems;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.MedicineOrders.RemoveOrderItems.HttpResponseMapper;
 
 /// <summary>
-///     Mapper for UpdateMedicineOrderItem feature
+///     Mapper for RemoveMedicineOrderItem feature
 /// </summary>
-public class UpdateMedicineOrderItemHttpResponseManager
+public class RemoveMedicineOrderItemHttpResponseManager
 {
     private readonly Dictionary<
-        UpdateMedicineOrderItemResponseStatusCode,
-        Func<UpdateMedicineOrderItemRequest, UpdateMedicineOrderItemResponse, UpdateMedicineOrderItemHttpResponse>
+        RemoveMedicineOrderItemResponseStatusCode,
+        Func<RemoveMedicineOrderItemRequest, RemoveMedicineOrderItemResponse, RemoveMedicineOrderItemHttpResponse>
     > _dictionary;
 
-    internal UpdateMedicineOrderItemHttpResponseManager()
+    internal RemoveMedicineOrderItemHttpResponseManager()
     {
         _dictionary = [];
 
         _dictionary.Add(
-            key: UpdateMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS,
+            key: RemoveMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS,
             value: (_, response) =>
                 new()
                 {
@@ -30,7 +30,7 @@ public class UpdateMedicineOrderItemHttpResponseManager
         );
 
         _dictionary.Add(
-            key: UpdateMedicineOrderItemResponseStatusCode.DATABASE_OPERATION_FAILED,
+            key: RemoveMedicineOrderItemResponseStatusCode.DATABASE_OPERATION_FAILED,
             value: (_, response) =>
                 new()
                 {
@@ -40,7 +40,7 @@ public class UpdateMedicineOrderItemHttpResponseManager
         );
 
         _dictionary.Add(
-            key: UpdateMedicineOrderItemResponseStatusCode.MEDICINE_ORDER_NOT_FOUND,
+            key: RemoveMedicineOrderItemResponseStatusCode.MEDICINE_ORDER_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -50,7 +50,7 @@ public class UpdateMedicineOrderItemHttpResponseManager
         );
 
         _dictionary.Add(
-            key: UpdateMedicineOrderItemResponseStatusCode.MEDICINE_ITEM_NOT_FOUND,
+            key: RemoveMedicineOrderItemResponseStatusCode.MEDICINE_ITEM_NOT_FOUND,
             value: (_, response) =>
                 new()
                 {
@@ -60,22 +60,22 @@ public class UpdateMedicineOrderItemHttpResponseManager
         );
 
         _dictionary.Add(
-            key: UpdateMedicineOrderItemResponseStatusCode.FORBIDDEN,
+            key: RemoveMedicineOrderItemResponseStatusCode.FORBIDDEN,
             value: (_, response) =>
                 new()
                 {
                     HttpCode = StatusCodes.Status403Forbidden,
-                    AppCode = response.StatusCode.ToAppCode()
+                    AppCode = response.StatusCode.ToAppCode(),
                 }
         );
 
     }
 
     internal Func<
-        UpdateMedicineOrderItemRequest,
-        UpdateMedicineOrderItemResponse,
-        UpdateMedicineOrderItemHttpResponse
-    > Resolve(UpdateMedicineOrderItemResponseStatusCode statusCode)
+        RemoveMedicineOrderItemRequest,
+        RemoveMedicineOrderItemResponse,
+        RemoveMedicineOrderItemHttpResponse
+    > Resolve(RemoveMedicineOrderItemResponseStatusCode statusCode)
     {
         return _dictionary[statusCode];
     }

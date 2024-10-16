@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Features.MedicineOrders.RemoveOrderItems;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
@@ -46,6 +47,18 @@ public class OrderMedicinesHandler
         CancellationToken cancellationToken
     )
     {
+
+        // Get role from sub type jwt
+        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
+
+        // Only staff - doctor can access
+        if (!role.Equals("staff") && !role.Equals("doctor"))
+        {
+            return new OrderMedicinesResponse()
+            {
+                StatusCode = OrderMedicinesResponseStatusCode.FORBIDDEN,
+            };
+        }
 
         // check medicinOrder is exist
         var isMedicineOrderExist = await _unitOfWork.OrderMedicinesRepostitory
