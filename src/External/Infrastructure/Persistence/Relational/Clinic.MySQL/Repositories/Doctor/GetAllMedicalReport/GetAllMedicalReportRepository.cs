@@ -85,6 +85,10 @@ internal class GetAllMedicalReportRepository : IGetAllMedicalReportRepository
                 ServiceOrder = new ServiceOrder()
                 {
                     Id = report.ServiceOrder.Id
+                },
+                MedicineOrder = new MedicineOrder()
+                {
+                    Id= report.MedicineOrder.Id
                 }
             })
             .Take(pageSize)

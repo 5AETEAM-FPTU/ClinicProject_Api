@@ -66,6 +66,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
@@ -550,4 +551,9 @@ public interface IUnitOfWork
     ///     CreateRetreatmentNotificationRepository feature
     /// </summary>
     public ICreateRetreatmentNotificationRepository CreateRetreatmentNotificationRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineOrderItems feature
+    /// </summary>
+    public IGetMedicineOrderItemsRepostitory GetMedicineOrderItemsRepostitory { get; }
 }
