@@ -89,6 +89,7 @@ using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -184,6 +185,7 @@ using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
 using Clinic.MySQL.Repositories.ServiceOrders.AddOrderService;
 using Clinic.MySQL.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
+using Clinic.MySQL.Repositories.Users.GetAllMedicalReports;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
@@ -299,6 +301,7 @@ public class UnitOfWork : IUnitOfWork
     private IOrderMedicinesRepostitory _orderMedicinesRepostitory;
     private IUpdateMedicineOrderItemRepository _updateMedicineOrderItemRepository;
     private IRemoveMedicineOrderItemRepository _removeMedicineOrderItemRepository;
+    private IGetAllUserMedicalReportsRepository _getAllUserMedicalReportsRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1008,6 +1011,15 @@ public class UnitOfWork : IUnitOfWork
         {
             return _removeMedicineOrderItemRepository ??=
                 new RemoveMedicineOrderItemRepository(_context);
+        }
+    }
+
+    public IGetAllUserMedicalReportsRepository GetAllUserMedicalReportsRepository
+    {
+        get
+        {
+            return _getAllUserMedicalReportsRepository ??=
+                new GetAllUserMedicalReportsRepository(_context);
         }
     }
 

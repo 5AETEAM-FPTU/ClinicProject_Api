@@ -86,6 +86,7 @@ using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -574,5 +575,10 @@ public interface IUnitOfWork
     ///      RemoveMedicineOrderItem feature
     /// </summary>
     public IRemoveMedicineOrderItemRepository RemoveMedicineOrderItemRepository { get; }
+
+    /// <summary>
+    ///      GetAllUserMedicalReports feature
+    /// </summary>
+    public IGetAllUserMedicalReportsRepository GetAllUserMedicalReportsRepository { get; }
 
 }
