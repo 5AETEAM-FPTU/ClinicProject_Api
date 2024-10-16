@@ -69,6 +69,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
@@ -160,6 +161,7 @@ using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.MySQL.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.MySQL.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
@@ -287,6 +289,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetChatRoomsByUserIdRepository _getChatRoomsByUserIdRepository;
     private IGetChatRoomsByDoctorIdRepository _getChatRoomsByDoctorIdRepository;
     private ICreateRetreatmentNotificationRepository _createRetreatmentNotificationRepository;
+    private IGetMedicineOrderItemsRepostitory _getMedicineOrderItemsRepostitory;
 
     public UnitOfWork(
         ClinicContext context,
@@ -962,4 +965,14 @@ public class UnitOfWork : IUnitOfWork
                 new CreateRetreatmentNotificationRepository(_context);
         }
     }
+
+    public IGetMedicineOrderItemsRepostitory GetMedicineOrderItemsRepostitory
+    {
+        get
+        {
+            return _getMedicineOrderItemsRepostitory ??=
+                new GetMedicineOrderItemsRepository(_context);
+        }
+    }
+
 }
