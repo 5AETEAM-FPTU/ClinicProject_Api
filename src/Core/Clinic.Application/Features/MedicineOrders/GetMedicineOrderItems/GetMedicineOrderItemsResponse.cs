@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Clinic.Application.Commons.Abstractions;
 
-namespace Clinic.Application.Features.MedicinnOrders.GetMedicineOrderItems;
+namespace Clinic.Application.Features.MedicineOrders.GetMedicineOrderItems;
 
 /// <summary>
 ///     GetMedicineOrderItems Response
@@ -26,8 +26,8 @@ public class GetMedicineOrderItemsResponse : IFeatureResponse
             {
                 public int Quantity { get; init; }
                 public string Description { get; init; }
-                public ServiceDetail Service { get; init; }
-                public sealed class ServiceDetail
+                public MedicineDetail Medicine { get; init; }
+                public sealed class MedicineDetail
                 {
                     public Guid Id { get; init; }
                     public string Name { get; init; }
@@ -36,8 +36,8 @@ public class GetMedicineOrderItemsResponse : IFeatureResponse
                     public sealed class MedicineTypeDetail
                     {
                         public Guid Id { get; init; }
-                        public string Name { get; init; }  
-                        public string Constant {  get; init; }
+                        public string Name { get; init; }
+                        public string Constant { get; init; }
                     }
                 }
             }

@@ -19,7 +19,7 @@ internal sealed class MedicineOrderItemsEntityConfiguration
         builder.HasKey(keyExpression: medicineOrderItem => new
         {
             medicineOrderItem.MedicineId,
-            medicineOrderItem.MedicalOrderId,
+            medicineOrderItem.MedicineOrderId,                   // fix 16/10/2024
         });
 
         // Description property configuration.

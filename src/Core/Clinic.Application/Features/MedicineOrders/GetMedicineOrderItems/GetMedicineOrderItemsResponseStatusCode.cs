@@ -1,4 +1,4 @@
-﻿namespace Clinic.Application.Features.MedicinnOrders.GetMedicineOrderItems;
+﻿namespace Clinic.Application.Features.MedicineOrders.GetMedicineOrderItems;
 
 /// <summary>
 ///     GetMedicineOrderItems ResponseStatusCode

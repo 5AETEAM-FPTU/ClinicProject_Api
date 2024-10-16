@@ -1,6 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.MedicinnOrders.GetMedicineOrderItems;
+using Clinic.Application.Features.MedicineOrders.GetMedicineOrderItems;
 using Clinic.WebAPI.EndPoints.MedicineOrders.GetMedicineOrderItems.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
