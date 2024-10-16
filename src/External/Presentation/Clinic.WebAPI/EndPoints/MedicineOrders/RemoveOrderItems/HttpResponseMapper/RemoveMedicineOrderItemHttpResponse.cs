@@ -1,20 +1,20 @@
-﻿using Clinic.Application.Features.MedicineOrders.UpdateOrderItems;
+﻿using Clinic.Application.Features.MedicineOrders.RemoveOrderItems;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.MedicineOrders.RemoveOrderItems.HttpResponseMapper;
 
 /// <summary>
-///     UpdateMedicineOrderItem http response
+///     RemoveMedicineOrderItem http response
 /// </summary>
-public sealed class UpdateMedicineOrderItemHttpResponse
+public sealed class RemoveMedicineOrderItemHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
     public string AppCode { get; init; } =
-        UpdateMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+        RemoveMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(

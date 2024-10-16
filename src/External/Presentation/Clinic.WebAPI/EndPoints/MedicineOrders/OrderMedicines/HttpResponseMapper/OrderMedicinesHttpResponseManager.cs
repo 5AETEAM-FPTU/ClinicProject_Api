@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Clinic.Application.Features.MedicineOrders.OrderMedicines;
+using Clinic.Application.Features.MedicineOrders.RemoveOrderItems;
 using Clinic.Application.Features.MedicineOrders.UpdateOrderItems;
 using Microsoft.AspNetCore.Http;
 
@@ -66,6 +67,16 @@ public class OrderMedicinesHttpResponseManager
                 new()
                 {
                     HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
+            key: OrderMedicinesResponseStatusCode.FORBIDDEN,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status403Forbidden,
                     AppCode = response.StatusCode.ToAppCode()
                 }
         );
