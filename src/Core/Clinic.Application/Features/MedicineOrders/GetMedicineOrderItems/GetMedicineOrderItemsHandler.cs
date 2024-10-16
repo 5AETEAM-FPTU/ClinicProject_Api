@@ -8,7 +8,7 @@ using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace Clinic.Application.Features.MedicinnOrders.GetMedicineOrderItems;
+namespace Clinic.Application.Features.MedicineOrders.GetMedicineOrderItems;
 
 /// <summary>
 ///     GetMedicineOrderItems Handler
@@ -91,12 +91,12 @@ public class GetMedicineOrderItemsHandler
                             Quantity = medicineOrderItem.Quantity,
                             Description = medicineOrderItem.Description,
 
-                            Service = new GetMedicineOrderItemsResponse.Body.MedicineOrderDetail.MedicineOrderItem.ServiceDetail()
+                            Medicine = new GetMedicineOrderItemsResponse.Body.MedicineOrderDetail.MedicineOrderItem.MedicineDetail()
                             {
                                 Id = medicineOrderItem.Medicine.Id,
                                 Name = medicineOrderItem.Medicine.Name,
-                                
-                                Type = new GetMedicineOrderItemsResponse.Body.MedicineOrderDetail.MedicineOrderItem.ServiceDetail.MedicineTypeDetail()
+
+                                Type = new GetMedicineOrderItemsResponse.Body.MedicineOrderDetail.MedicineOrderItem.MedicineDetail.MedicineTypeDetail()
                                 {
                                     Id = medicineOrderItem.Medicine.MedicineType.Id,
                                     Name = medicineOrderItem.Medicine.MedicineType.Name,

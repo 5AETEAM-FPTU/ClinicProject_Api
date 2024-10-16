@@ -1,20 +1,20 @@
-﻿using Clinic.Application.Features.MedicineOrders.GetMedicineOrderItems;
+﻿using Clinic.Application.Features.MedicineOrders.OrderMedicines;
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
-namespace Clinic.WebAPI.EndPoints.MedicineOrders.GetMedicineOrderItems.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.MedicineOrders.OrderMedicines.HttpResponseMapper;
 
 /// <summary>
 ///     GetMedicineOrderItems http response
 /// </summary>
-public sealed class GetMedicineOrderItemsHttpResponse
+public sealed class OrderMedicinesHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
 
     public string AppCode { get; init; } =
-        GetMedicineOrderItemsResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
+        OrderMedicinesResponseStatusCode.OPERATION_SUCCESS.ToAppCode();
 
     public DateTime ResponseTime { get; init; } =
         TimeZoneInfo.ConvertTimeFromUtc(

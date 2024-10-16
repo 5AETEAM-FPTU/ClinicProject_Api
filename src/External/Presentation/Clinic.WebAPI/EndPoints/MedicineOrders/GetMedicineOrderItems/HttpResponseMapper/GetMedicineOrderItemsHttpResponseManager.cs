@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Clinic.Application.Features.MedicinnOrders.GetMedicineOrderItems;
+using Clinic.Application.Features.MedicineOrders.GetMedicineOrderItems;
 using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.MedicineOrders.GetMedicineOrderItems.HttpResponseMapper;

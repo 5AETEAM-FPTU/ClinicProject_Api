@@ -2,7 +2,7 @@
 using Clinic.Application.Commons.Abstractions;
 using FastEndpoints;
 
-namespace Clinic.Application.Features.MedicinnOrders.GetMedicineOrderItems;
+namespace Clinic.Application.Features.MedicineOrders.GetMedicineOrderItems;
 
 /// <summary>
 ///     GetMedicineOrderItems Request
