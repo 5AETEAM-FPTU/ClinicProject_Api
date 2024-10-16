@@ -1,24 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.MedicineOrders.OrderMedicines;
 using Clinic.Application.Features.MedicineOrders.UpdateOrderItems;
-using Clinic.WebAPI.EndPoints.MedicineOrders.OrderMedicines.HttpResponseMapper;
 using Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.MedicineOrders.OrderMedicines;
+namespace Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems;
 
 /// <summary>
-///     GetMedicineOrderItems endpoint
+///     UpdateMedicineOrderItem endpoint
 /// </summary>
-public class OrderMedicinesEndpoint
-    : Endpoint<OrderMedicinesRequest, OrderMedicinesHttpResponse>
+public class UpdateMedicineOrderItemEndpoint
+    : Endpoint<UpdateMedicineOrderItemRequest, UpdateMedicineOrderItemHttpResponse>
 {
     public override void Configure()
     {
-        Post("medicine-order/item/add");
+        Patch("medicine-order/item/update");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -29,25 +27,25 @@ public class OrderMedicinesEndpoint
         {
             summary.Summary = "Endpoint to get detail of service indication (order).";
             summary.Description = "This endpoint allows user to get detail of service indication.";
-            summary.Response<OrderMedicinesHttpResponse>(
+            summary.Response<UpdateMedicineOrderItemHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = OrderMedicinesResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode = UpdateMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
                 }
             );
         });
     }
 
-    public override async Task<OrderMedicinesHttpResponse> ExecuteAsync(
-        OrderMedicinesRequest req,
+    public override async Task<UpdateMedicineOrderItemHttpResponse> ExecuteAsync(
+        UpdateMedicineOrderItemRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = OrderMedicinesHttpResponseMapper
+        var httpResponse = UpdateMedicineOrderItemHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

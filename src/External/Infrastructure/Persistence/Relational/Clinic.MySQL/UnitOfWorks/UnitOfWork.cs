@@ -71,6 +71,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.Domain.Features.Repositories.MedicineOrders.OrderMedicines;
+using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
@@ -164,6 +165,7 @@ using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.MySQL.Repositories.MedicineOrders.OrderMedicines;
+using Clinic.MySQL.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.MySQL.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
@@ -293,6 +295,7 @@ public class UnitOfWork : IUnitOfWork
     private ICreateRetreatmentNotificationRepository _createRetreatmentNotificationRepository;
     private IGetMedicineOrderItemsRepostitory _getMedicineOrderItemsRepostitory;
     private IOrderMedicinesRepostitory _orderMedicinesRepostitory;
+    private IUpdateMedicineOrderItemRepository _updateMedicineOrderItemRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -984,6 +987,15 @@ public class UnitOfWork : IUnitOfWork
         {
             return _orderMedicinesRepostitory ??=
                 new OrderMedicinesRepository(_context);
+        }
+    }
+
+    public IUpdateMedicineOrderItemRepository UpdateMedicineOrderItemRepository
+    {
+        get
+        {
+            return _updateMedicineOrderItemRepository ??=
+                new UpdateMedicineOrderItemRepository(_context);
         }
     }
 
