@@ -1,11 +1,11 @@
-﻿using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
-using Clinic.Domain.Commons.Entities;
+﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 
@@ -23,16 +23,19 @@ internal class GetAllMedicineTypeRepository : IGetAllMedicineTypeRepository
         _medicineTypes = _context.Set<MedicineType>();
     }
 
-    public async Task<IEnumerable<MedicineType>> FindAllMedicineTypeQueryAsync(CancellationToken cancellationToken)
+    public async Task<IEnumerable<MedicineType>> FindAllMedicineTypeQueryAsync(
+        CancellationToken cancellationToken
+    )
     {
         return await _medicineTypes
-           .AsNoTracking()
-           .Select(type => new MedicineType()
-           {
-               Id = type.Id,
-               Name = type.Name,
-               Constant = type.Constant,
-           })
-           .ToListAsync(cancellationToken: cancellationToken);
+            .AsNoTracking()
+            .Select(type => new MedicineType()
+            {
+                Id = type.Id,
+                Name = type.Name,
+                Constant = type.Constant,
+            })
+            .OrderBy(type => type.Name)
+            .ToListAsync(cancellationToken: cancellationToken);
     }
 }
