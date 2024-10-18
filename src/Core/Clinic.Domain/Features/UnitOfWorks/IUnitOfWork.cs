@@ -66,6 +66,10 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.OrderMedicines;
+using Clinic.Domain.Features.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
@@ -82,6 +86,7 @@ using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -550,4 +555,30 @@ public interface IUnitOfWork
     ///     CreateRetreatmentNotificationRepository feature
     /// </summary>
     public ICreateRetreatmentNotificationRepository CreateRetreatmentNotificationRepository { get; }
+
+    /// <summary>
+    ///     GetMedicineOrderItems feature
+    /// </summary>
+    public IGetMedicineOrderItemsRepostitory GetMedicineOrderItemsRepostitory { get; }
+
+    /// <summary>
+    ///     GetMedicineOrderItems feature
+    /// </summary>
+    public IOrderMedicinesRepostitory OrderMedicinesRepostitory { get; }
+
+    /// <summary>
+    ///     UpdateMedicineOrderItem feature
+    /// </summary>
+    public IUpdateMedicineOrderItemRepository UpdateMedicineOrderItemRepository { get; }
+
+    /// <summary>
+    ///      RemoveMedicineOrderItem feature
+    /// </summary>
+    public IRemoveMedicineOrderItemRepository RemoveMedicineOrderItemRepository { get; }
+
+    /// <summary>
+    ///      GetAllUserMedicalReports feature
+    /// </summary>
+    public IGetAllUserMedicalReportsRepository GetAllUserMedicalReportsRepository { get; }
+
 }
