@@ -23,7 +23,12 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
     public async Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken)
     {
         return await _patient
-            .Where(predicate: user => user.Patient != null)
+            .Where(predicate: user =>
+                user.Patient != null
+                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .CountAsync(cancellationToken: cancellationToken);
     }
 
@@ -35,7 +40,12 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
     {
         return await _patient
             .AsNoTracking()
-            .Where(predicate: user => user.Patient != null)
+            .Where(predicate: user =>
+                user.Patient != null
+                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .Select(selector: user => new User()
             {
                 Id = user.Id,
