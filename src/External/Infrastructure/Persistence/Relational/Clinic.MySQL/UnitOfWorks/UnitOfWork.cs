@@ -50,6 +50,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -147,6 +148,7 @@ using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
+using Clinic.MySQL.Repositories.Doctor.GetUserNotification;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
@@ -305,6 +307,7 @@ public class UnitOfWork : IUnitOfWork
     private IRemoveMedicineOrderItemRepository _removeMedicineOrderItemRepository;
     private IGetAllUserMedicalReportsRepository _getAllUserMedicalReportsRepository;
     private IUpdateNoteMedicineOrderRepository _updateNoteMedicineOrderRepository;
+    private IGetUserNotificationRepository _getUserNotificationRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -970,8 +973,8 @@ public class UnitOfWork : IUnitOfWork
                 _context
             );
         }
-     }
-    
+    }
+
     public ICreateRetreatmentNotificationRepository CreateRetreatmentNotificationRepository
     {
         get
@@ -985,26 +988,24 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _getMedicineOrderItemsRepostitory ??=
-                new GetMedicineOrderItemsRepository(_context);
+            return _getMedicineOrderItemsRepostitory ??= new GetMedicineOrderItemsRepository(
+                _context
+            );
         }
     }
 
     public IOrderMedicinesRepostitory OrderMedicinesRepostitory
     {
-        get
-        {
-            return _orderMedicinesRepostitory ??=
-                new OrderMedicinesRepository(_context);
-        }
+        get { return _orderMedicinesRepostitory ??= new OrderMedicinesRepository(_context); }
     }
 
     public IUpdateMedicineOrderItemRepository UpdateMedicineOrderItemRepository
     {
         get
         {
-            return _updateMedicineOrderItemRepository ??=
-                new UpdateMedicineOrderItemRepository(_context);
+            return _updateMedicineOrderItemRepository ??= new UpdateMedicineOrderItemRepository(
+                _context
+            );
         }
     }
 
@@ -1012,8 +1013,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _removeMedicineOrderItemRepository ??=
-                new RemoveMedicineOrderItemRepository(_context);
+            return _removeMedicineOrderItemRepository ??= new RemoveMedicineOrderItemRepository(
+                _context
+            );
         }
     }
 
@@ -1021,8 +1023,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _getAllUserMedicalReportsRepository ??=
-                new GetAllUserMedicalReportsRepository(_context);
+            return _getAllUserMedicalReportsRepository ??= new GetAllUserMedicalReportsRepository(
+                _context
+            );
         }
     }
 
@@ -1034,5 +1037,11 @@ public class UnitOfWork : IUnitOfWork
                 new UpdateNoteMedicineOrderRepository(_context);
         }
     }
-
+    public IGetUserNotificationRepository GetUserNotificationRepository
+    {
+        get
+        {
+            return _getUserNotificationRepository ??= new GetUserNotificationRepository(_context);
+        }
+    }
 }
