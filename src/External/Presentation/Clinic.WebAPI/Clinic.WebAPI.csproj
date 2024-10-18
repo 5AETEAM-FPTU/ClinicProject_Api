@@ -9,12 +9,16 @@
   <ItemGroup>
     <Compile Remove="EndPoints\Appointments\NewFolder\**" />
     <Compile Remove="EndPoints\Appointment\**" />
+    <Compile Remove="EndPoints\Doctors\UserDetailAndRecentMedicalReport\**" />
     <Content Remove="EndPoints\Appointments\NewFolder\**" />
     <Content Remove="EndPoints\Appointment\**" />
+    <Content Remove="EndPoints\Doctors\UserDetailAndRecentMedicalReport\**" />
     <EmbeddedResource Remove="EndPoints\Appointments\NewFolder\**" />
     <EmbeddedResource Remove="EndPoints\Appointment\**" />
+    <EmbeddedResource Remove="EndPoints\Doctors\UserDetailAndRecentMedicalReport\**" />
     <None Remove="EndPoints\Appointments\NewFolder\**" />
     <None Remove="EndPoints\Appointment\**" />
+    <None Remove="EndPoints\Doctors\UserDetailAndRecentMedicalReport\**" />
   </ItemGroup>
 
   <ItemGroup>
@@ -41,10 +45,6 @@
     <ProjectReference Include="..\..\Infrastructure\PaymentService\Clinic.VNPAY\Clinic.VNPAY.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Cache\Clinic.Redis\Clinic.Redis.csproj" />
     <ProjectReference Include="..\..\Infrastructure\Persistence\Relational\Clinic.MySQL\Clinic.MySQL.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="EndPoints\Doctors\UserDetailAndRecentMedicalReport\" />
   </ItemGroup>
 
 </Project>
