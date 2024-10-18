@@ -20,9 +20,11 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
         _patient = _context.Set<User>();
     }
 
-    public Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken)
+    public async Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken)
     {
-        return _patient.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+        return await _patient
+            .Where(predicate: user => user.Patient != null)
+            .CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<User>> FindUserByIdQueryAsync(
@@ -33,12 +35,7 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
     {
         return await _patient
             .AsNoTracking()
-            .Where(predicate: user =>
-                user.Patient != null
-                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
-                && user.RemovedBy
-                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-            )
+            .Where(predicate: user => user.Patient != null)
             .Select(selector: user => new User()
             {
                 Id = user.Id,
@@ -50,14 +47,14 @@ internal class GetAllUsersRepository : IGetAllUsersRepository
                 {
                     Id = user.Gender.Id,
                     Name = user.Gender.Name,
-                    Constant = user.Gender.Constant
+                    Constant = user.Gender.Constant,
                 },
                 Patient = new()
                 {
                     DOB = user.Patient.DOB,
                     Description = user.Patient.Description,
                     Address = user.Patient.Address,
-                }
+                },
             })
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)

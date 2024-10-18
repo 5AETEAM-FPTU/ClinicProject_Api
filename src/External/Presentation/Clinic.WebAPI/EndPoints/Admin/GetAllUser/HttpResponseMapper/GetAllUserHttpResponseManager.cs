@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using System;
-using Microsoft.AspNetCore.Http;
+﻿using System;
+using System.Collections.Generic;
 using Clinic.Application.Features.Admin.GetAllUser;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Admin.GetAllUser.HttpResponseMapper;
 
@@ -26,7 +26,7 @@ public class GetAllUserHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status200OK,
                     AppCode = response.StatusCode.ToAppCode(),
-                    Body = response.ResponseBody
+                    Body = response.ResponseBody,
                 }
         );
 
@@ -37,10 +37,9 @@ public class GetAllUserHttpResponseManager
                 {
                     HttpCode = StatusCodes.Status403Forbidden,
                     AppCode = response.StatusCode.ToAppCode(),
-                    Body = response.ResponseBody
+                    Body = response.ResponseBody,
                 }
         );
-
     }
 
     internal Func<GetAllUserRequest, GetAllUserResponse, GetAllUserHttpResponse> Resolve(
@@ -50,4 +49,3 @@ public class GetAllUserHttpResponseManager
         return _dictionary[statusCode];
     }
 }
-
