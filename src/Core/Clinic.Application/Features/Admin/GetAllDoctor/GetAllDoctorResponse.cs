@@ -59,6 +59,7 @@ public class GetAllDoctorResponse : IFeatureResponse
                 public string Name { get; init; }
                 public string Constant { get; init; }
             }
+            public bool IsRemoved { get; init; }
         }
     }
 }

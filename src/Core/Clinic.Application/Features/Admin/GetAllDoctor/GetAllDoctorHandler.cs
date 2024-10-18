@@ -48,7 +48,7 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
         {
             return new GetAllDoctorResponse()
             {
-                StatusCode = GetAllDoctorResponseStatusCode.ROLE_IS_NOT_ADMIN
+                StatusCode = GetAllDoctorResponseStatusCode.ROLE_IS_NOT_ADMIN,
             };
         }
 
@@ -89,26 +89,35 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
                         Address = user.Doctor.Address,
                         Description = user.Doctor.Description,
                         Achievement = user.Doctor.Achievement,
-                        Specialty = user.Doctor.DoctorSpecialties
-                            .Select(ds => new GetAllDoctorResponse.Body.User.SpecialtyDTO()
+                        Specialty = user.Doctor.DoctorSpecialties.Select(
+                            ds => new GetAllDoctorResponse.Body.User.SpecialtyDTO()
                             {
                                 Id = ds.Specialty.Id,
                                 Name = ds.Specialty.Name,
-                                Constant = ds.Specialty.Constant
+                                Constant = ds.Specialty.Constant,
                             }
                         ),
                         Position = new GetAllDoctorResponse.Body.User.PositionDTO()
                         {
                             Id = user.Doctor.Position.Id,
                             Name = user.Doctor.Position.Name,
-                            Constant = user.Doctor.Position.Constant
-                        }
+                            Constant = user.Doctor.Position.Constant,
+                        },
+                        IsRemoved =
+                            user.RemovedAt
+                                != Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                            && user.RemovedBy
+                                != Application
+                                    .Commons
+                                    .Constance
+                                    .CommonConstant
+                                    .DEFAULT_ENTITY_ID_AS_GUID,
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)countUser / request.PageSize)
-                }
-            }
+                    TotalPages = (int)Math.Ceiling((double)countUser / request.PageSize),
+                },
+            },
         };
     }
 }
