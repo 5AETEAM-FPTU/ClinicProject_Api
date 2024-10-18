@@ -4,6 +4,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.CallToken;
 using Clinic.Application.Commons.Token.AccessToken;
 using Clinic.Application.Commons.Token.RefreshToken;
 using Clinic.Domain.Features.UnitOfWorks;
@@ -22,18 +23,21 @@ internal sealed class RefreshAccessTokenHandler
     private readonly IHttpContextAccessor _httpContextAccessor;
     private readonly IRefreshTokenHandler _refreshTokenHandler;
     private readonly IAccessTokenHandler _accessTokenHandler;
+    private readonly ICallTokenHandler _callTokenHandler;
 
     public RefreshAccessTokenHandler(
         IUnitOfWork unitOfWork,
         IHttpContextAccessor httpContextAccessor,
         IRefreshTokenHandler refreshTokenHandler,
-        IAccessTokenHandler accessTokenHandler
+        IAccessTokenHandler accessTokenHandler,
+        ICallTokenHandler callTokenHandler
     )
     {
         _unitOfWork = unitOfWork;
         _httpContextAccessor = httpContextAccessor;
         _refreshTokenHandler = refreshTokenHandler;
         _accessTokenHandler = accessTokenHandler;
+        _callTokenHandler = callTokenHandler;
     }
 
     /// <summary>
@@ -98,6 +102,7 @@ internal sealed class RefreshAccessTokenHandler
 
         // Generate new access token.
         var newAccessTokenId = _accessTokenHandler.GenerateSigningToken(claims: userClaims);
+        var newCallAccessToken = _callTokenHandler.GenerateAccessToken(userId: userClaims[1].Value);
 
         // Generate new refresh token value.
         var newRefreshTokenValue = _refreshTokenHandler.Generate(length: 15);
@@ -127,7 +132,8 @@ internal sealed class RefreshAccessTokenHandler
             ResponseBody = new()
             {
                 AccessToken = newAccessTokenId,
-                RefreshToken = newRefreshTokenValue
+                RefreshToken = newRefreshTokenValue,
+                CallAccessToken = newCallAccessToken
             },
         };
     }

@@ -15,6 +15,8 @@ public sealed class RefreshAccessTokenResponse : IFeatureResponse
     {
         public string AccessToken { get; init; }
 
+        public string CallAccessToken { get; init; }
+
         public string RefreshToken { get; init; }
     }
 }

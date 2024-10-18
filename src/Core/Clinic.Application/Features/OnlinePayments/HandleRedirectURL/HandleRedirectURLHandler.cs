@@ -62,6 +62,20 @@ public class HandleRedirectURLHandler
         // Respond if online payment not found.
         if (Equals(objA: existPayment, objB: default))
         {
+            var isRemovedAppointment =
+                await _unitOfWork.HandleRedirectURLRepository.DeleteAppointmentCommandAsync(
+                    appointmentId: request.AppointmentId,
+                    cancellationToken: cancellationToken
+                );
+
+            if (isRemovedAppointment)
+            {
+                return new()
+                {
+                    StatusCode = HandleRedirectURLResponseStatusCode.DATABASE_OPERATION_FAIL
+                };
+            }
+
             return new HandleRedirectURLResponse()
             {
                 StatusCode = HandleRedirectURLResponseStatusCode.PAYMENT_IS_NOT_FOUND,
@@ -106,7 +120,7 @@ public class HandleRedirectURLHandler
             StatusCode = HandleRedirectURLResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new HandleRedirectURLResponse.Body()
             {
-                Amount = (int.Parse(request.Amount) / 1000m).ToString(),
+                Amount = (int.Parse(request.Amount) / 100m).ToString(),
                 AppointmentDate = appointment.ExaminationDate,
                 PaymentDate = request.PayDate,
                 DoctorName = appointment.Schedule.Doctor.User.FullName,
