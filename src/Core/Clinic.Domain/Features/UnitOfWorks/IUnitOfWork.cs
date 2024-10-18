@@ -50,6 +50,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserInforById;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -598,4 +599,9 @@ public interface IUnitOfWork
     ///      GetRecentMedicalReportByUserId feature
     /// </summary>
     public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository { get; }
+
+    /// <summary>
+    ///      GetUserInforById feature
+    /// </summary>
+    public IGetUserInforByIdRepository GetUserInforByIdRepository { get; }
 }
