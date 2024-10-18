@@ -73,6 +73,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformatio
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.Domain.Features.Repositories.MedicineOrders.OrderMedicines;
 using Clinic.Domain.Features.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateNoteMedicineOrder;
 using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -170,6 +171,7 @@ using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.MySQL.Repositories.MedicineOrders.OrderMedicines;
 using Clinic.MySQL.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.MySQL.Repositories.MedicineOrders.UpdateNoteMedicineOrder;
 using Clinic.MySQL.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.MySQL.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -304,6 +306,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateMedicineOrderItemRepository _updateMedicineOrderItemRepository;
     private IRemoveMedicineOrderItemRepository _removeMedicineOrderItemRepository;
     private IGetAllUserMedicalReportsRepository _getAllUserMedicalReportsRepository;
+    private IUpdateNoteMedicineOrderRepository _updateNoteMedicineOrderRepository;
     private IGetUserNotificationRepository _getUserNotificationRepository;
 
     public UnitOfWork(
@@ -1026,6 +1029,14 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public IUpdateNoteMedicineOrderRepository UpdateNoteMedicineOrderRepository
+    {
+        get
+        {
+            return _updateNoteMedicineOrderRepository ??=
+                new UpdateNoteMedicineOrderRepository(_context);
+        }
+    }
     public IGetUserNotificationRepository GetUserNotificationRepository
     {
         get

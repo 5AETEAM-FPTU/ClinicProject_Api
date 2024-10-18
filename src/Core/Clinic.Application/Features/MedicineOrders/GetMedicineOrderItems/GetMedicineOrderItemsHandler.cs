@@ -84,6 +84,7 @@ public class GetMedicineOrderItemsHandler
 
                     Id = request.MedicineOrderId,
                     TotalItem = medicineOrder.MedicineOrderItems.Count(),
+                    Note = medicineOrder.Note,
 
                     Items = medicineOrder.MedicineOrderItems
                         .Select(medicineOrderItem => new GetMedicineOrderItemsResponse.Body.MedicineOrderDetail.MedicineOrderItem()
