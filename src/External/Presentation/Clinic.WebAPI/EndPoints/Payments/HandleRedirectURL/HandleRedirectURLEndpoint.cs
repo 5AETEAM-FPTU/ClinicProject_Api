@@ -42,7 +42,7 @@ public class HandleRedirectURLEndpoint : Endpoint<HandleRedirectURLRequest>
         var httpResponseStatusCode = httpResponse.HttpCode;
 
         var redirectUrl =
-            $"http://localhost:3000/vi/user/treatment-calendar/booking/payment{httpResponseStatusCode}";
+            $"http://localhost:3000/vi/user/treatment-calendar/booking/payment?code={httpResponseStatusCode}";
 
         if (httpResponseStatusCode == 200)
         {

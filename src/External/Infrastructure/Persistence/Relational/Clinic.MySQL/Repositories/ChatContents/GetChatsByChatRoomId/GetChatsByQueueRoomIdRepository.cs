@@ -36,7 +36,7 @@ internal class GetChatsByChatRoomIdRepository : IGetChatsByChatRoomIdRepository
         return await _chatContents
             .AsNoTracking()
             .Where(predicate: entity =>
-                entity.ChatRoomId == chatRoomId && entity.CreatedAt <= lastTimeOfBefore
+                entity.ChatRoomId == chatRoomId && entity.CreatedAt < lastTimeOfBefore
             )
             .OrderByDescending(entity => entity.CreatedAt)
             .Select(selector: entity => new ChatContent()
