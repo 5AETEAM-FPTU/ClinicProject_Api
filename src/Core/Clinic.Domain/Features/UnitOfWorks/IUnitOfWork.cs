@@ -47,6 +47,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -550,7 +551,7 @@ public interface IUnitOfWork
     ///     GetChatRoomsByDoctorIdRepository feature
     /// </summary>
     public IGetChatRoomsByDoctorIdRepository GetChatRoomsByDoctorIdRepository { get; }
-    
+
     /// <summary>
     ///     CreateRetreatmentNotificationRepository feature
     /// </summary>
@@ -581,4 +582,8 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAllUserMedicalReportsRepository GetAllUserMedicalReportsRepository { get; }
 
+    /// <summary>
+    ///      GetUserNotification feature
+    /// </summary>
+    public IGetUserNotificationRepository GetUserNotificationRepository { get; }
 }

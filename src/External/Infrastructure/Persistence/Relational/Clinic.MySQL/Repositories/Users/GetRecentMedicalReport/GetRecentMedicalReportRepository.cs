@@ -27,7 +27,7 @@ internal class GetRecentMedicalReportRepository : IGetRecentMedicalReportReposit
     )
     {
         return await _reports
-            .Where(report => report.PatientInformationId == userId)
+            .Where(report => report.Appointment.PatientId == userId)
             .Select(report => new MedicalReport()
             {
                 Id = report.Id,
