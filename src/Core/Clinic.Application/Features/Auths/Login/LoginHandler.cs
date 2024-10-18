@@ -5,6 +5,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.CallToken;
 using Clinic.Application.Commons.Token.AccessToken;
 using Clinic.Application.Commons.Token.RefreshToken;
 using Clinic.Domain.Commons.Entities;
@@ -24,13 +25,15 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
     private readonly SignInManager<User> _signInManager;
     private readonly IRefreshTokenHandler _refreshTokenHandler;
     private readonly IAccessTokenHandler _accessTokenHandler;
+    private readonly ICallTokenHandler _callTokenHandler;
 
     public LoginHandler(
         IUnitOfWork unitOfWork,
         UserManager<User> userManager,
         SignInManager<User> signInManager,
         IRefreshTokenHandler refreshTokenHandler,
-        IAccessTokenHandler accessTokenHandler
+        IAccessTokenHandler accessTokenHandler,
+        ICallTokenHandler callTokenHandler
     )
     {
         _unitOfWork = unitOfWork;
@@ -38,6 +41,7 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
         _signInManager = signInManager;
         _refreshTokenHandler = refreshTokenHandler;
         _accessTokenHandler = accessTokenHandler;
+        _callTokenHandler = callTokenHandler;
     }
 
     /// <summary>
@@ -148,6 +152,9 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
 
         // Generate access token.
         var newAccessToken = _accessTokenHandler.GenerateSigningToken(claims: userClaims);
+        var callAccessToken = _callTokenHandler.GenerateAccessToken(
+            userId: foundUser.Id.ToString()
+        );
 
         var user = await _unitOfWork.LoginRepository.GetUserByUserIdQueryAsync(
             userId: foundUser.Id,
@@ -161,6 +168,7 @@ public sealed class LoginHandler : IFeatureHandler<LoginRequest, LoginResponse>
             {
                 AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken.RefreshTokenValue,
+                CallAccessToken = callAccessToken,
                 User = new()
                 {
                     Email = foundUser.Email,

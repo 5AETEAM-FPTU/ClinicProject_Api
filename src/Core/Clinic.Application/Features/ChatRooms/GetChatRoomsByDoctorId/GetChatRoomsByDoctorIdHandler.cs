@@ -61,8 +61,8 @@ internal sealed class GetChatRoomsByDoctorIdHandler
                     {
                         UserId = chatRoom.Patient.User.Id,
                         ChatRoomId = chatRoom.Id,
-                        Avatar = chatRoom.Doctor?.User?.Avatar,
-                        FullName = chatRoom.Doctor?.User?.FullName,
+                        Avatar = chatRoom.Patient?.User?.Avatar,
+                        FullName = chatRoom.Patient?.User?.FullName,
                         IsEndConversation = chatRoom.IsEnd
                     })
                     .ToList()

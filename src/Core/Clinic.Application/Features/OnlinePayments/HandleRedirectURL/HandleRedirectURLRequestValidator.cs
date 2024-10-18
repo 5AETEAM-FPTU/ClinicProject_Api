@@ -15,10 +15,6 @@ public sealed class HandleRedirectURLRequestValidator
 
         RuleFor(x => x.BankCode).NotEmpty().WithMessage("Bank code is required.");
 
-        RuleFor(x => x.BankTransactionNo)
-            .NotEmpty()
-            .WithMessage("Bank transaction number is required.");
-
         RuleFor(x => x.CardType).NotEmpty().WithMessage("Card type is required.");
 
         RuleFor(x => x.OrderInfo).NotEmpty().WithMessage("Order information is required.");
