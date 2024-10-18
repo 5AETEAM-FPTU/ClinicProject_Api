@@ -88,15 +88,6 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
                         DOB = user.Patient.DOB,
                         Address = user.Patient.Address,
                         Description = user.Patient.Description,
-                        IsRemoved =
-                            user.RemovedAt
-                                != Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
-                            && user.RemovedBy
-                                != Application
-                                    .Commons
-                                    .Constance
-                                    .CommonConstant
-                                    .DEFAULT_ENTITY_ID_AS_GUID,
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
