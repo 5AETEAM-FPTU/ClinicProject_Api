@@ -14,7 +14,12 @@ internal static class CorsServiceConfig
             config.AddDefaultPolicy(configurePolicy: policy =>
             {
                 policy
-                    .WithOrigins("http://localhost:3000")
+                    .WithOrigins(
+                        "http://localhost:3000",
+                        "http://localhost:3001",
+                        "https://clinic-project-fe-liart.vercel.app/",
+                        "https://pclinic.ohayo.io.vn"
+                    )
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();

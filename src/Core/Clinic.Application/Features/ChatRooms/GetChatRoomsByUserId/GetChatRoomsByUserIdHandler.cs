@@ -60,6 +60,7 @@ internal sealed class GetChatRoomsByUserIdHandler
                     .Select(selector: chatRoom => new GetChatRoomsByUserIdResponse.Body.ChatRoom()
                     {
                         ChatRoomId = chatRoom.Id,
+                        DoctorId = chatRoom.Doctor.User.Id,
                         Avatar = chatRoom.Doctor?.User?.Avatar,
                         FullName = chatRoom.Doctor?.User?.FullName,
                         IsEndConversation = chatRoom.IsEnd

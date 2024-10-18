@@ -8,9 +8,11 @@ using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.GetAllUser;
 using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
@@ -50,6 +52,9 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
+using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserInforById;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -72,6 +77,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformatio
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.Domain.Features.Repositories.MedicineOrders.OrderMedicines;
 using Clinic.Domain.Features.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateNoteMedicineOrder;
 using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -88,9 +94,7 @@ using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
-using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
-using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
@@ -105,9 +109,11 @@ using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.DeleteMedicineTypeById;
+using Clinic.MySQL.Repositories.Admin.GetAllDoctor;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
+using Clinic.MySQL.Repositories.Admin.GetAllUser;
 using Clinic.MySQL.Repositories.Admin.GetAvailableMedicines;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
@@ -146,6 +152,9 @@ using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
+using Clinic.MySQL.Repositories.Doctor.GetRecentMedicalReportByUserId;
+using Clinic.MySQL.Repositories.Doctor.GetUserInforById;
+using Clinic.MySQL.Repositories.Doctor.GetUserNotification;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
@@ -168,6 +177,7 @@ using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.MySQL.Repositories.MedicineOrders.OrderMedicines;
 using Clinic.MySQL.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.MySQL.Repositories.MedicineOrders.UpdateNoteMedicineOrder;
 using Clinic.MySQL.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.MySQL.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -184,9 +194,7 @@ using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
 using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
 using Clinic.MySQL.Repositories.ServiceOrders.AddOrderService;
 using Clinic.MySQL.Repositories.ServiceOrders.GetServiceOrderItems;
-using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetAllMedicalReports;
-using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
@@ -302,6 +310,10 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateMedicineOrderItemRepository _updateMedicineOrderItemRepository;
     private IRemoveMedicineOrderItemRepository _removeMedicineOrderItemRepository;
     private IGetAllUserMedicalReportsRepository _getAllUserMedicalReportsRepository;
+    private IUpdateNoteMedicineOrderRepository _updateNoteMedicineOrderRepository;
+    private IGetUserNotificationRepository _getUserNotificationRepository;
+    private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
+    private IGetUserInforByIdRepository _getUserInforByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -967,8 +979,8 @@ public class UnitOfWork : IUnitOfWork
                 _context
             );
         }
-     }
-    
+    }
+
     public ICreateRetreatmentNotificationRepository CreateRetreatmentNotificationRepository
     {
         get
@@ -982,26 +994,24 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _getMedicineOrderItemsRepostitory ??=
-                new GetMedicineOrderItemsRepository(_context);
+            return _getMedicineOrderItemsRepostitory ??= new GetMedicineOrderItemsRepository(
+                _context
+            );
         }
     }
 
     public IOrderMedicinesRepostitory OrderMedicinesRepostitory
     {
-        get
-        {
-            return _orderMedicinesRepostitory ??=
-                new OrderMedicinesRepository(_context);
-        }
+        get { return _orderMedicinesRepostitory ??= new OrderMedicinesRepository(_context); }
     }
 
     public IUpdateMedicineOrderItemRepository UpdateMedicineOrderItemRepository
     {
         get
         {
-            return _updateMedicineOrderItemRepository ??=
-                new UpdateMedicineOrderItemRepository(_context);
+            return _updateMedicineOrderItemRepository ??= new UpdateMedicineOrderItemRepository(
+                _context
+            );
         }
     }
 
@@ -1009,8 +1019,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _removeMedicineOrderItemRepository ??=
-                new RemoveMedicineOrderItemRepository(_context);
+            return _removeMedicineOrderItemRepository ??= new RemoveMedicineOrderItemRepository(
+                _context
+            );
         }
     }
 
@@ -1018,9 +1029,40 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _getAllUserMedicalReportsRepository ??=
-                new GetAllUserMedicalReportsRepository(_context);
+            return _getAllUserMedicalReportsRepository ??= new GetAllUserMedicalReportsRepository(
+                _context
+            );
         }
     }
 
+    public IUpdateNoteMedicineOrderRepository UpdateNoteMedicineOrderRepository
+    {
+        get
+        {
+            return _updateNoteMedicineOrderRepository ??= new UpdateNoteMedicineOrderRepository(
+                _context
+            );
+        }
+    }
+    public IGetUserNotificationRepository GetUserNotificationRepository
+    {
+        get
+        {
+            return _getUserNotificationRepository ??= new GetUserNotificationRepository(_context);
+        }
+    }
+
+    public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository
+    {
+        get
+        {
+            return _getRecentMedicalReportByUserIdRepository ??=
+                new GetRecentMedicalReportByUserIdRepository(_context);
+        }
+    }
+
+    public IGetUserInforByIdRepository GetUserInforByIdRepository
+    {
+        get { return _getUserInforByIdRepository ??= new GetUserInforByIdRepository(_context); }
+    }
 }

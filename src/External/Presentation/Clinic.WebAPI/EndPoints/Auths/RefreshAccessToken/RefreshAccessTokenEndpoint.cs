@@ -21,7 +21,6 @@ internal sealed class RefreshAccessTokenEndpoint
         Post(routePatterns: "auth/refresh-access-token");
         DontThrowIfValidationFails();
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
-        PreProcessor<AuthorizationPreProcessor<RefreshAccessTokenRequest>>();
         PreProcessor<ValidationPreProcessor<RefreshAccessTokenRequest>>();
         Description(builder: builder =>
         {

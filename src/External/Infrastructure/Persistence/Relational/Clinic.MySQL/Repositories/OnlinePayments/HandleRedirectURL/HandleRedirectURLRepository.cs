@@ -26,6 +26,29 @@ internal class HandleRedirectURLRepository : IHandleRedirectURLRepository
         _onlinePayment = context.Set<OnlinePayment>();
     }
 
+    public async Task<bool> DeleteAppointmentCommandAsync(
+        Guid appointmentId,
+        CancellationToken cancellationToken = default
+    )
+    {
+        try
+        {
+            var payment = await _onlinePayment
+                .Where(predicate: entity => entity.AppointmentId == appointmentId)
+                .FirstOrDefaultAsync(cancellationToken: cancellationToken);
+
+            _onlinePayment.Remove(payment);
+            _appointments.Remove(new Appointment { Id = appointmentId });
+            await _context.SaveChangesAsync(cancellationToken: cancellationToken);
+            return true;
+        }
+        catch (Exception ex)
+        {
+            await Console.Out.WriteLineAsync(ex.Message);
+            return false;
+        }
+    }
+
     public Task<Appointment> FindAppointmentByIdQueryAsync(
         Guid appointmentId,
         CancellationToken cancellationToken = default

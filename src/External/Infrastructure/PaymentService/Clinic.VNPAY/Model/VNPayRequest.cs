@@ -44,7 +44,7 @@ internal class VNPayRequest
         : this()
     {
         IpAddr = ipAddr;
-        Amount = amount * 1000; // Amount in VND
+        Amount = amount * 100; // Amount in VND
         OrderInfo = orderInfo;
         CreateDate = createdDate.ToString("yyyyMMddHHmmss");
         TxnRef = txnRef;

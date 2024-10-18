@@ -25,4 +25,9 @@ public interface IHandleRedirectURLRepository
         OnlinePayment onlinePayment,
         CancellationToken cancellationToken = default
     );
+
+    Task<bool> DeleteAppointmentCommandAsync(
+        Guid appointmentId,
+        CancellationToken cancellationToken = default
+    );
 }
