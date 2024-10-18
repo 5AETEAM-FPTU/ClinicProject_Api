@@ -53,6 +53,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserInforById;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -152,6 +153,7 @@ using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
 using Clinic.MySQL.Repositories.Doctor.GetRecentMedicalReportByUserId;
+using Clinic.MySQL.Repositories.Doctor.GetUserInforById;
 using Clinic.MySQL.Repositories.Doctor.GetUserNotification;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
@@ -311,6 +313,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateNoteMedicineOrderRepository _updateNoteMedicineOrderRepository;
     private IGetUserNotificationRepository _getUserNotificationRepository;
     private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
+    private IGetUserInforByIdRepository _getUserInforByIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1036,8 +1039,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _updateNoteMedicineOrderRepository ??=
-                new UpdateNoteMedicineOrderRepository(_context);
+            return _updateNoteMedicineOrderRepository ??= new UpdateNoteMedicineOrderRepository(
+                _context
+            );
         }
     }
     public IGetUserNotificationRepository GetUserNotificationRepository
@@ -1048,10 +1052,17 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository {
+    public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository
+    {
         get
         {
-            return _getRecentMedicalReportByUserIdRepository ??= new GetRecentMedicalReportByUserIdRepository(_context);
+            return _getRecentMedicalReportByUserIdRepository ??=
+                new GetRecentMedicalReportByUserIdRepository(_context);
         }
+    }
+
+    public IGetUserInforByIdRepository GetUserInforByIdRepository
+    {
+        get { return _getUserInforByIdRepository ??= new GetUserInforByIdRepository(_context); }
     }
 }
