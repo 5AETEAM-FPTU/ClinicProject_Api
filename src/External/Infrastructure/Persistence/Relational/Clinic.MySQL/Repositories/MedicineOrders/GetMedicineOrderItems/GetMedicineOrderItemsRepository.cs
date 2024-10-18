@@ -29,6 +29,7 @@ public class GetMedicineOrderItemsRepository : IGetMedicineOrderItemsRepostitory
                 new MedicineOrder
                 {
                     Id = entity.Id,
+                    Note = entity.Note,
                     MedicineOrderItems = entity.MedicineOrderItems.Select(item => new MedicineOrderItem
                     {
                         MedicineId = item.MedicineId,

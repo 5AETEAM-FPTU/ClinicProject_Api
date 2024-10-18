@@ -69,6 +69,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformatio
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.Domain.Features.Repositories.MedicineOrders.OrderMedicines;
 using Clinic.Domain.Features.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateNoteMedicineOrder;
 using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -580,5 +581,10 @@ public interface IUnitOfWork
     ///      GetAllUserMedicalReports feature
     /// </summary>
     public IGetAllUserMedicalReportsRepository GetAllUserMedicalReportsRepository { get; }
+
+    /// <summary>
+    ///      UpdateNoteMedicineOrder feature
+    /// </summary>
+    public IUpdateNoteMedicineOrderRepository UpdateNoteMedicineOrderRepository { get; }
 
 }

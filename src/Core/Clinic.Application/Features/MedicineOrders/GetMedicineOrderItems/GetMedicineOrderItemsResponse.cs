@@ -20,6 +20,7 @@ public class GetMedicineOrderItemsResponse : IFeatureResponse
         {
             public Guid Id { get; init; }
             public int TotalItem { get; init; }
+            public string Note { get; init; }
             public IEnumerable<MedicineOrderItem> Items { get; init; }
 
             public sealed class MedicineOrderItem
