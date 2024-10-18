@@ -50,6 +50,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
+using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
@@ -147,6 +148,7 @@ using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
+using Clinic.MySQL.Repositories.Doctor.GetRecentMedicalReportByUserId;
 using Clinic.MySQL.Repositories.Doctor.GetUserNotification;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
@@ -305,6 +307,7 @@ public class UnitOfWork : IUnitOfWork
     private IRemoveMedicineOrderItemRepository _removeMedicineOrderItemRepository;
     private IGetAllUserMedicalReportsRepository _getAllUserMedicalReportsRepository;
     private IGetUserNotificationRepository _getUserNotificationRepository;
+    private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1031,6 +1034,13 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getUserNotificationRepository ??= new GetUserNotificationRepository(_context);
+        }
+    }
+
+    public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository {
+        get
+        {
+            return _getRecentMedicalReportByUserIdRepository ??= new GetRecentMedicalReportByUserIdRepository(_context);
         }
     }
 }
