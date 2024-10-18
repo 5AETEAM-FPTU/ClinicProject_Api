@@ -43,6 +43,7 @@ public class HandleRedirectURLEndpoint : Endpoint<HandleRedirectURLRequest>
 
         var redirectUrl = $"http://localhost:3000/vi/user/treatment-calendar/booking/payment?code={httpResponseStatusCode}";
 
+
         if (httpResponseStatusCode == 200)
         {
             var properties = httpResponse.Body.GetType().GetProperties();

@@ -84,6 +84,7 @@ internal class GetAllMedicineRepository : IGetAllMedicineRepository
         return await results
             .Select(medicine => new Medicine()
             {
+                Id = medicine.Id,
                 Name = medicine.Name,
                 Manufacture = medicine.Manufacture,
                 Ingredient = medicine.Ingredient,

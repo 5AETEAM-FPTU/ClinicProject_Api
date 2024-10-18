@@ -26,7 +26,7 @@ public class Patient : IBaseEntity
     // Navigation collections.
     public IEnumerable<Appointment> Appointments { get; set; }
 
-    public QueueRoom QueueRooms { get; set; }
+    public IEnumerable<QueueRoom> QueueRooms { get; set; }
 
     public IEnumerable<ChatRoom> ChatRooms { get; set; }
 

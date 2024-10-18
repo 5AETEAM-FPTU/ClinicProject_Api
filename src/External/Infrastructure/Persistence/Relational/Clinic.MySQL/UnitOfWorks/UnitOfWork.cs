@@ -3,8 +3,22 @@ using Clinic.Application.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Appointments.UpdateAppointmentStatus;
 using Clinic.Domain.Features.Repositories.Admin.CreateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineGroup;
+using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
+using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
@@ -22,6 +36,12 @@ using Clinic.Domain.Features.Repositories.Auths.RefreshAccessToken;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
 using Clinic.Domain.Features.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.Domain.Features.Repositories.Auths.UpdatePasswordUser;
+using Clinic.Domain.Features.Repositories.ChatContents.CreateChatContent;
+using Clinic.Domain.Features.Repositories.ChatContents.GetChatsByChatRoomId;
+using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporarily;
+using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
+using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
+using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
@@ -41,17 +61,29 @@ using Clinic.Domain.Features.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.Domain.Features.Repositories.Enums.GetAllSpecialty;
 using Clinic.Domain.Features.Repositories.ExaminationServices.CreateService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.GetAllServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetAvailableServices;
+using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
+using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
+using Clinic.Domain.Features.Repositories.QueueRooms.CreateQueueRoom;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
+using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
+using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
+using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
+using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
@@ -63,8 +95,22 @@ using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
 using Clinic.Domain.Features.UnitOfWorks;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Repositories.Admin.CreateMedicine;
+using Clinic.MySQL.Repositories.Admin.CreateNewMedicineGroup;
+using Clinic.MySQL.Repositories.Admin.CreateNewMedicineType;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineGroupById;
+using Clinic.MySQL.Repositories.Admin.DeleteMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicine;
+using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
+using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
+using Clinic.MySQL.Repositories.Admin.GetAvailableMedicines;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
+using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
+using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
+using Clinic.MySQL.Repositories.Admin.RemoveMedicineTemporarily;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
+using Clinic.MySQL.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
@@ -81,6 +127,12 @@ using Clinic.MySQL.Repositories.Auths.RefreshAccessToken;
 using Clinic.MySQL.Repositories.Auths.RegisterAsUser;
 using Clinic.MySQL.Repositories.Auths.ResendUserRegistrationConfirmedEmail;
 using Clinic.MySQL.Repositories.Auths.UpdatePasswordUser;
+using Clinic.MySQL.Repositories.ChatContents.CreateChatContent;
+using Clinic.MySQL.Repositories.ChatContents.GetChatsByChatRoomId;
+using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
+using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByDoctorId;
+using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
+using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
@@ -100,17 +152,29 @@ using Clinic.MySQL.Repositories.Enums.GetAllRetreatmentType;
 using Clinic.MySQL.Repositories.Enums.GetAllSpecialty;
 using Clinic.MySQL.Repositories.ExaminationServices.CreateService;
 using Clinic.MySQL.Repositories.ExaminationServices.GetAllServices;
+using Clinic.MySQL.Repositories.ExaminationServices.GetAvailableServices;
+using Clinic.MySQL.Repositories.ExaminationServices.GetDetailService;
+using Clinic.MySQL.Repositories.ExaminationServices.HiddenService;
+using Clinic.MySQL.Repositories.ExaminationServices.RemoveService;
+using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.MySQL.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
+using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
+using Clinic.MySQL.Repositories.OnlinePayments.GetAllQueueRooms;
+using Clinic.MySQL.Repositories.OnlinePayments.GetQueueRoomByUserId;
 using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
+using Clinic.MySQL.Repositories.OnlinePayments.RemoveQueueRoom;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
 using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
 using Clinic.MySQL.Repositories.Schedules.RemoveSchedule;
 using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
+using Clinic.MySQL.Repositories.ServiceOrders.AddOrderService;
+using Clinic.MySQL.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
@@ -190,7 +254,39 @@ public class UnitOfWork : IUnitOfWork
     private IHandleRedirectURLRepository _handleRedirectURLRepository;
     private IGetAllMedicineRepository _getAllMedicineRepository;
     private IGetMedicineByIdRepository _getMedicineByIdRepository;
+    private IUpdateMedicineRepository _updateMedicineRepository;
     private IGetAllServicesRepository _getAllServiceRepository;
+    private ICreateQueueRoomRepository _createQueueRoomRepository;
+    private IDeleteMedicineByIdRepository _deleteMedicineByIdRepository;
+    private IUpdateServiceRepository _updateServiceRepository;
+    private IGetDetailServiceRepository _getDetailServiceRepository;
+    private IRemoveServiceRepository _removeServiceRepository;
+    private IAssignChatRoomRepository _assignChatRoomRepository;
+    private IHiddenServiceRepository _hiddenServiceRepository;
+    private IGetAllMedicineTypeRepository _getAllMedicineTypeRepository;
+    private IGetAvailableServicesRepository _getAvailableServicesRepository;
+    private IGetAllMedicineGroupRepository _getAllMedicineGroupRepository;
+    private ICreateNewMedicineTypeRepository _createNewMedicineTypeRepository;
+    private IGetServiceOrderItemsRepository _getServiceOrderItemsRepository;
+    private ICreateChatContentRepository _createChatContentRepository;
+    private IRemoveChatContentTemporarilyRepository _removeChatContentTemporarilyRepository;
+    private ICreateNewMedicineGroupRepository _createNewMedicineGroupRepository;
+    private IUpdateMedicineTypeByIdRepository _updateMedicineTypeByIdRepository;
+    private IGetAllQueueRoomsRepository _getAllQueueRoomsRepository;
+    private IGetChatsByChatRoomIdRepository _getChatsByChatRoomIdRepository;
+    private IUpdateMedicineGroupByIdRepository _updateMedicineGroupByIdRepository;
+    private IAddOrderServiceRepository _addOrderServiceRepository;
+    private IDeleteMedicineTypeByIdRepository _deleteMedicineTypeByIdRepository;
+    private IGetQueueRoomByUserIdRepository _getQueueRoomByUserIdRepository;
+    private IRemoveQueueRoomRepository _removeQueueRoomRepository;
+    private IDeleteMedicineGroupByIdRepository _deleteMedicineGroupByIdRepository;
+    private IGetMedicineTypeByIdRepository _getMedicineTypeByIdRepository;
+    private IGetMedicineGroupByIdRepository _getMedicineGroupByIdRepository;
+    private IRemoveMedicineTemporarilyRepository _removeMedicineTemporarilyRepository;
+    private IGetAvailableMedicinesRepository _getAvailableMedicineRepository;
+    private IGetChatRoomsByUserIdRepository _getChatRoomsByUserIdRepository;
+    private IGetChatRoomsByDoctorIdRepository _getChatRoomsByDoctorIdRepository;
+    private ICreateRetreatmentNotificationRepository _createRetreatmentNotificationRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -602,6 +698,11 @@ public class UnitOfWork : IUnitOfWork
         get { return _getMedicineByIdRepository ??= new GetMedicineByIdRepository(_context); }
     }
 
+    public IUpdateMedicineRepository UpdateMedicineRepository
+    {
+        get { return _updateMedicineRepository ??= new UpdateMedicineRepository(_context); }
+    }
+
     public IUpdatePatientInformationRepository UpdateMedicalReportPatientInformationRepository
     {
         get
@@ -628,5 +729,237 @@ public class UnitOfWork : IUnitOfWork
     public IGetAllServicesRepository GetAllServicesRepository
     {
         get { return _getAllServiceRepository ??= new GetAllServicesRepository(_context); }
+    }
+
+    public ICreateQueueRoomRepository CreateQueueRoomRepository
+    {
+        get { return _createQueueRoomRepository ??= new CreateQueueRoomRepository(_context); }
+    }
+
+    public IDeleteMedicineByIdRepository DeleteMedicineByIdRepository
+    {
+        get { return _deleteMedicineByIdRepository ??= new DeleteMedicineByIdRepository(_context); }
+    }
+
+    public IUpdateServiceRepository UpdateServiceRepository
+    {
+        get { return _updateServiceRepository ??= new UpdateServiceRepository(_context); }
+    }
+
+    public IGetDetailServiceRepository GetDetailServiceRepository
+    {
+        get { return _getDetailServiceRepository ??= new GetDetailServiceRepository(_context); }
+    }
+
+    public IRemoveServiceRepository RemoveServiceRepository
+    {
+        get { return _removeServiceRepository ??= new RemoveServiceRepository(_context); }
+    }
+
+    public IAssignChatRoomRepository AssignChatRoomRepository
+    {
+        get { return _assignChatRoomRepository ??= new AssignChatRoomRepository(_context); }
+    }
+
+    public IHiddenServiceRepository HiddenServiceRepository
+    {
+        get { return _hiddenServiceRepository ??= new HiddenServiceRepository(_context); }
+    }
+
+    public IGetAvailableServicesRepository GetAvailableServicesRepository
+    {
+        get
+        {
+            return _getAvailableServicesRepository ??= new GetAvailableServicesRepository(_context);
+        }
+    }
+
+    public IGetAllMedicineTypeRepository GetAllMedicineTypeRepository
+    {
+        get { return _getAllMedicineTypeRepository ??= new GetAllMedicineTypeRepository(_context); }
+    }
+
+    public IRemoveChatContentTemporarilyRepository RemoveChatContentTemporarilyRepository
+    {
+        get
+        {
+            return _removeChatContentTemporarilyRepository ??= new RemoveChatTemporarilyRepository(
+                _context
+            );
+        }
+    }
+
+    public ICreateChatContentRepository CreateChatContentRepository
+    {
+        get { return _createChatContentRepository ??= new CreateChatContentRepository(_context); }
+    }
+
+    public IGetAllMedicineGroupRepository GetAllMedicineGroupRepository
+    {
+        get
+        {
+            return _getAllMedicineGroupRepository ??= new GetAllMedicineGroupRepository(_context);
+        }
+    }
+
+    public ICreateNewMedicineTypeRepository CreateNewMedicineTypeRepository
+    {
+        get
+        {
+            return _createNewMedicineTypeRepository ??= new CreateNewMedicineTypeRepository(
+                _context
+            );
+        }
+    }
+
+    public ICreateNewMedicineGroupRepository CreateNewMedicineGroupRepository
+    {
+        get
+        {
+            return _createNewMedicineGroupRepository ??= new CreateNewMedicineGroupRepository(
+                _context
+            );
+        }
+    }
+
+    public IUpdateMedicineTypeByIdRepository UpdateMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _updateMedicineTypeByIdRepository ??= new UpdateMedicineTypeByIdRepository(
+                _context
+            );
+        }
+    }
+    public IGetAllQueueRoomsRepository GetAllQueueRoomsRepository
+    {
+        get { return _getAllQueueRoomsRepository ??= new GetAllQueueRoomsRepository(_context); }
+    }
+
+    public IGetChatsByChatRoomIdRepository GetChatsByChatRoomIdRepository
+    {
+        get
+        {
+            return _getChatsByChatRoomIdRepository ??= new GetChatsByChatRoomIdRepository(_context);
+        }
+    }
+
+    public IUpdateMedicineGroupByIdRepository UpdateMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _updateMedicineGroupByIdRepository ??= new UpdateMedicineGroupByIdRepository(
+                _context
+            );
+        }
+    }
+
+    public IDeleteMedicineTypeByIdRepository DeleteMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _deleteMedicineTypeByIdRepository ??= new DeleteMedicineTypeByIdRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetServiceOrderItemsRepository GetServiceOrderItemsRepository
+    {
+        get
+        {
+            return _getServiceOrderItemsRepository ??= new GetServiceOrderItemsRepository(_context);
+        }
+    }
+
+    public IAddOrderServiceRepository AddOrderServiceRepository
+    {
+        get { return _addOrderServiceRepository ??= new AddOrderServiceRepository(_context); }
+    }
+
+    public IGetQueueRoomByUserIdRepository GetQueueRoomByUserIdRepository
+    {
+        get
+        {
+            return _getQueueRoomByUserIdRepository ??= new GetQueueRoomByUserIdRepository(_context);
+        }
+    }
+
+    public IRemoveQueueRoomRepository RemoveQueueRoomRepository
+    {
+        get { return _removeQueueRoomRepository ??= new RemoveQueueRoomRepository(_context); }
+    }
+
+    public IDeleteMedicineGroupByIdRepository DeleteMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _deleteMedicineGroupByIdRepository ??= new DeleteMedicineGroupByIdRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetMedicineTypeByIdRepository GetMedicineTypeByIdRepository
+    {
+        get
+        {
+            return _getMedicineTypeByIdRepository ??= new GetMedicineTypeByIdRepository(_context);
+        }
+    }
+
+    public IGetMedicineGroupByIdRepository GetMedicineGroupByIdRepository
+    {
+        get
+        {
+            return _getMedicineGroupByIdRepository ??= new GetMedicineGroupByIdRepository(_context);
+        }
+    }
+
+    public IRemoveMedicineTemporarilyRepository RemoveMedicineTemporarilyRepository
+    {
+        get
+        {
+            return _removeMedicineTemporarilyRepository ??= new RemoveMedicineTemporarilyRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetAvailableMedicinesRepository GetAvailableMedicinesRepository
+    {
+        get
+        {
+            return _getAvailableMedicineRepository ??= new GetAvailableMedicinesRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetChatRoomsByUserIdRepository GetChatRoomsByUserIdRepository
+    {
+        get
+        {
+            return _getChatRoomsByUserIdRepository ??= new GetChatRoomsByUserIdRepository(_context);
+        }
+    }
+
+    public IGetChatRoomsByDoctorIdRepository GetChatRoomsByDoctorIdRepository
+    {
+        get
+        {
+            return _getChatRoomsByDoctorIdRepository ??= new GetChatRoomsByDoctorIdRepository(
+                _context
+            );
+        }
+     }
+    
+    public ICreateRetreatmentNotificationRepository CreateRetreatmentNotificationRepository
+    {
+        get
+        {
+            return _createRetreatmentNotificationRepository ??=
+                new CreateRetreatmentNotificationRepository(_context);
+        }
     }
 }

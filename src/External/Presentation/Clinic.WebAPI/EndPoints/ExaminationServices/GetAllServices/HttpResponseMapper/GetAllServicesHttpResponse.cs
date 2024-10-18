@@ -5,6 +5,9 @@ using Clinic.Application.Features.ExaminationServices.GetAllServices;
 
 namespace Clinic.WebAPI.EndPoints.ExaminationServices.GetAllServices.HttpResponseMapper;
 
+/// <summary>
+///     GetAllSerivces http response
+/// </summary>
 public class GetAllServicesHttpResponse
 {
     [JsonIgnore]

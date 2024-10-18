@@ -1,5 +1,5 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using System;
+﻿using System;
+using Clinic.Application.Commons.Abstractions;
 
 namespace Clinic.Application.Features.Admin.GetMedicineById;
 
@@ -20,6 +20,7 @@ public class GetMedicineByIdResponse : IFeatureResponse
         {
             public Guid MedicineId { get; init; }
             public string MedicineName { get; init; }
+            public string Manufacture { get; init; }
             public string Ingredient { get; init; }
             public MedicineType Type { get; init; }
             public MedicineGroup Group { get; init; }
@@ -40,4 +41,3 @@ public class GetMedicineByIdResponse : IFeatureResponse
         }
     }
 }
-

@@ -1,12 +1,12 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Pagination;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Security.Claims;
-using Clinic.Application.Commons.Pagination;
-using System.Linq;
-using System;
 
 namespace Clinic.Application.Features.Admin.GetAllMedicine;
 
@@ -46,10 +46,7 @@ public class GetAllMedicineHandler : IFeatureHandler<GetAllMedicineRequest, GetA
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
         if (!role.Equals("admin"))
         {
-            return new()
-            {
-                StatusCode = GetAllMedicineResponseStatusCode.ROLE_IS_NOT_ADMIN,
-            };
+            return new() { StatusCode = GetAllMedicineResponseStatusCode.ROLE_IS_NOT_ADMIN };
         }
 
         // Find all medicines query.
@@ -79,30 +76,32 @@ public class GetAllMedicineHandler : IFeatureHandler<GetAllMedicineRequest, GetA
             {
                 Medicines = new PaginationResponse<GetAllMedicineResponse.Body.Medicine>()
                 {
-                    Contents = medicines
-                    .Select(medicine => new GetAllMedicineResponse.Body.Medicine()
-                    {
-                        MedicineName = medicine.Name,
-                        Ingredient = medicine.Ingredient,
-                        MedicineId = medicine.Id,
-                        Group = new GetAllMedicineResponse.Body.Medicine.MedicineGroup()
+                    Contents = medicines.Select(
+                        medicine => new GetAllMedicineResponse.Body.Medicine()
                         {
-                            GroupId = medicine.MedicineGroup.Id,
-                            Constant = medicine.MedicineGroup.Constant,
-                            Name = medicine.MedicineGroup.Name,
-                        },
-                        Type = new GetAllMedicineResponse.Body.Medicine.MedicineType()
-                        {
-                            TypeId = medicine.MedicineType.Id,
-                            Name = medicine.MedicineType.Name,
-                            Constant = medicine.MedicineType.Constant,
+                            MedicineName = medicine.Name,
+                            Ingredient = medicine.Ingredient,
+                            MedicineId = medicine.Id,
+                            Manufacture = medicine.Manufacture,
+                            Group = new GetAllMedicineResponse.Body.Medicine.MedicineGroup()
+                            {
+                                GroupId = medicine.MedicineGroup.Id,
+                                Constant = medicine.MedicineGroup.Constant,
+                                Name = medicine.MedicineGroup.Name,
+                            },
+                            Type = new GetAllMedicineResponse.Body.Medicine.MedicineType()
+                            {
+                                TypeId = medicine.MedicineType.Id,
+                                Name = medicine.MedicineType.Name,
+                                Constant = medicine.MedicineType.Constant,
+                            },
                         }
-                    }),
+                    ),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)countMedicine / request.PageSize)
-                }
-            }
+                    TotalPages = (int)Math.Ceiling((double)countMedicine / request.PageSize),
+                },
+            },
         };
     }
 }

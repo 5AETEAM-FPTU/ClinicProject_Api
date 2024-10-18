@@ -743,8 +743,7 @@ namespace Clinic.MySQL.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PatientId")
-                        .IsUnique();
+                    b.HasIndex("PatientId");
 
                     b.ToTable("QueueRooms", null, t =>
                         {
@@ -1530,8 +1529,8 @@ namespace Clinic.MySQL.Migrations
             modelBuilder.Entity("Clinic.Domain.Commons.Entities.QueueRoom", b =>
                 {
                     b.HasOne("Clinic.Domain.Commons.Entities.Patient", "Patient")
-                        .WithOne("QueueRooms")
-                        .HasForeignKey("Clinic.Domain.Commons.Entities.QueueRoom", "PatientId")
+                        .WithMany("QueueRooms")
+                        .HasForeignKey("PatientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
