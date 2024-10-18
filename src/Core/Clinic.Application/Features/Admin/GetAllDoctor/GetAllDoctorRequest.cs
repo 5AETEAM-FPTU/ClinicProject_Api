@@ -1,5 +1,4 @@
 ﻿using Clinic.Application.Commons.Abstractions;
-using FastEndpoints;
 
 namespace Clinic.Application.Features.Admin.GetAllDoctor;
 
@@ -8,6 +7,6 @@ namespace Clinic.Application.Features.Admin.GetAllDoctor;
 /// </summary>
 public class GetAllDoctorRequest : IFeatureRequest<GetAllDoctorResponse>
 {
-    public int PageIndex { get; init; } = 1;
-    public int PageSize { get; init; } = 10;
+    public int PageIndex { get; init; } 
+    public int PageSize { get; init; } 
 }
