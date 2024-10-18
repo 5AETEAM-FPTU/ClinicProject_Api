@@ -1,24 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Schedules.CreateSchedules;
-using Clinic.Application.Features.ServiceOrders.AddOrderService;
-using Clinic.Application.Features.ServiceOrders.GetServiceOrderItems;
-using Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems.HttpResponseMapper;
+using Clinic.Application.Features.MedicineOrders.RemoveOrderItems;
+using Clinic.WebAPI.EndPoints.MedicineOrders.RemoveOrderItems.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems;
+namespace Clinic.WebAPI.EndPoints.MedicineOrders.RemoveOrderItems;
 
 /// <summary>
-///     GetServiceOrderItems endpoint
+///     RemoveMedicineOrderItem endpoint
 /// </summary>
-public class GetServiceOrderItemsEndpoint
-    : Endpoint<GetServiceOrderItemsRequest, GetServiceOrderItemsHttpResponse>
+public class RemoveMedicineOrderItemEndpoint
+    : Endpoint<RemoveMedicineOrderItemRequest, RemoveMedicineOrderItemHttpResponse>
 {
     public override void Configure()
     {
-        Get("service-order/detail");
+        Delete("medicine-order/item/remove/{medicineOrderId}/{medicineId}");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -27,27 +25,27 @@ public class GetServiceOrderItemsEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to get detail of service indication (order).";
-            summary.Description = "This endpoint allows user to get detail of service indication.";
-            summary.Response<GetServiceOrderItemsHttpResponse>(
+            summary.Summary = "Endpoint for doctor/staff to remove medicine item of prescription.";
+            summary.Description = "This endpoint allows doctor/staff to remove medicine item of prescription.";
+            summary.Response<RemoveMedicineOrderItemHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = CreateSchedulesResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode = RemoveMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
                 }
             );
         });
     }
 
-    public override async Task<GetServiceOrderItemsHttpResponse> ExecuteAsync(
-        GetServiceOrderItemsRequest req,
+    public override async Task<RemoveMedicineOrderItemHttpResponse> ExecuteAsync(
+        RemoveMedicineOrderItemRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = GetServiceOrderItemsHttpResponseMapper
+        var httpResponse = RemoveMedicineOrderItemHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

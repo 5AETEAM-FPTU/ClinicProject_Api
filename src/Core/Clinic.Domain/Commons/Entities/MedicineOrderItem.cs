@@ -10,7 +10,7 @@ public class MedicineOrderItem : IBaseEntity
 {
     // Primary keys.
     // Foreign keys.
-    public Guid MedicalOrderId { get; set; }
+    public Guid MedicineOrderId { get; set; }
 
     public Guid MedicineId { get; set; }
 

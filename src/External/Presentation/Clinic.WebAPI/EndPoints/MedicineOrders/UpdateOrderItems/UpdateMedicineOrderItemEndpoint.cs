@@ -1,24 +1,22 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Schedules.CreateSchedules;
-using Clinic.Application.Features.ServiceOrders.AddOrderService;
-using Clinic.Application.Features.ServiceOrders.GetServiceOrderItems;
-using Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems.HttpResponseMapper;
+using Clinic.Application.Features.MedicineOrders.UpdateOrderItems;
+using Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.ServiceOrders.GetServiceOrderItems;
+namespace Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems;
 
 /// <summary>
-///     GetServiceOrderItems endpoint
+///     UpdateMedicineOrderItem endpoint
 /// </summary>
-public class GetServiceOrderItemsEndpoint
-    : Endpoint<GetServiceOrderItemsRequest, GetServiceOrderItemsHttpResponse>
+public class UpdateMedicineOrderItemEndpoint
+    : Endpoint<UpdateMedicineOrderItemRequest, UpdateMedicineOrderItemHttpResponse>
 {
     public override void Configure()
     {
-        Get("service-order/detail");
+        Patch("medicine-order/item/update");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -29,25 +27,25 @@ public class GetServiceOrderItemsEndpoint
         {
             summary.Summary = "Endpoint to get detail of service indication (order).";
             summary.Description = "This endpoint allows user to get detail of service indication.";
-            summary.Response<GetServiceOrderItemsHttpResponse>(
+            summary.Response<UpdateMedicineOrderItemHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = CreateSchedulesResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode = UpdateMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
                 }
             );
         });
     }
 
-    public override async Task<GetServiceOrderItemsHttpResponse> ExecuteAsync(
-        GetServiceOrderItemsRequest req,
+    public override async Task<UpdateMedicineOrderItemHttpResponse> ExecuteAsync(
+        UpdateMedicineOrderItemRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = GetServiceOrderItemsHttpResponseMapper
+        var httpResponse = UpdateMedicineOrderItemHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

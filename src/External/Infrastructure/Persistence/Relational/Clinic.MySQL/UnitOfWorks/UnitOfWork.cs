@@ -69,6 +69,10 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.OrderMedicines;
+using Clinic.Domain.Features.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.Domain.Features.Repositories.OnlinePayments.HandleRedirectURL;
@@ -85,6 +89,7 @@ using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
+using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -160,6 +165,10 @@ using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
+using Clinic.MySQL.Repositories.MedicineOrders.GetMedicineOrderItems;
+using Clinic.MySQL.Repositories.MedicineOrders.OrderMedicines;
+using Clinic.MySQL.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.MySQL.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.MySQL.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateNewOnlinePayment;
 using Clinic.MySQL.Repositories.OnlinePayments.CreateQueueRoom;
@@ -176,6 +185,7 @@ using Clinic.MySQL.Repositories.Schedules.UpdateSchedule;
 using Clinic.MySQL.Repositories.ServiceOrders.AddOrderService;
 using Clinic.MySQL.Repositories.ServiceOrders.GetServiceOrderItems;
 using Clinic.MySQL.Repositories.Users.GetAllDoctor;
+using Clinic.MySQL.Repositories.Users.GetAllMedicalReports;
 using Clinic.MySQL.Repositories.Users.GetAllUser;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
@@ -287,6 +297,11 @@ public class UnitOfWork : IUnitOfWork
     private IGetChatRoomsByUserIdRepository _getChatRoomsByUserIdRepository;
     private IGetChatRoomsByDoctorIdRepository _getChatRoomsByDoctorIdRepository;
     private ICreateRetreatmentNotificationRepository _createRetreatmentNotificationRepository;
+    private IGetMedicineOrderItemsRepostitory _getMedicineOrderItemsRepostitory;
+    private IOrderMedicinesRepostitory _orderMedicinesRepostitory;
+    private IUpdateMedicineOrderItemRepository _updateMedicineOrderItemRepository;
+    private IRemoveMedicineOrderItemRepository _removeMedicineOrderItemRepository;
+    private IGetAllUserMedicalReportsRepository _getAllUserMedicalReportsRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -962,4 +977,50 @@ public class UnitOfWork : IUnitOfWork
                 new CreateRetreatmentNotificationRepository(_context);
         }
     }
+
+    public IGetMedicineOrderItemsRepostitory GetMedicineOrderItemsRepostitory
+    {
+        get
+        {
+            return _getMedicineOrderItemsRepostitory ??=
+                new GetMedicineOrderItemsRepository(_context);
+        }
+    }
+
+    public IOrderMedicinesRepostitory OrderMedicinesRepostitory
+    {
+        get
+        {
+            return _orderMedicinesRepostitory ??=
+                new OrderMedicinesRepository(_context);
+        }
+    }
+
+    public IUpdateMedicineOrderItemRepository UpdateMedicineOrderItemRepository
+    {
+        get
+        {
+            return _updateMedicineOrderItemRepository ??=
+                new UpdateMedicineOrderItemRepository(_context);
+        }
+    }
+
+    public IRemoveMedicineOrderItemRepository RemoveMedicineOrderItemRepository
+    {
+        get
+        {
+            return _removeMedicineOrderItemRepository ??=
+                new RemoveMedicineOrderItemRepository(_context);
+        }
+    }
+
+    public IGetAllUserMedicalReportsRepository GetAllUserMedicalReportsRepository
+    {
+        get
+        {
+            return _getAllUserMedicalReportsRepository ??=
+                new GetAllUserMedicalReportsRepository(_context);
+        }
+    }
+
 }
