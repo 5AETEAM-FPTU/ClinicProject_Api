@@ -42,7 +42,6 @@ public class GetAllUserResponse : IFeatureResponse
             public string Address { get; init; }
 
             public string Description { get; init; }
-            public bool IsRemoved { get; init; }
         }
     }
 }

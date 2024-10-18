@@ -25,7 +25,12 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
     {
         return _users
             .AsNoTracking()
-            .Where(predicate: user => user.Doctor != null)
+            .Where(predicate: user =>
+                user.Doctor != null
+                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .CountAsync(cancellationToken: cancellationToken);
     }
 
@@ -37,7 +42,12 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
     {
         return await _users
             .AsNoTracking()
-            .Where(predicate: user => user.Doctor != null)
+            .Where(predicate: user =>
+                user.Doctor != null
+                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
             .Select(selector: user => new User()
             {
                 Id = user.Id,
