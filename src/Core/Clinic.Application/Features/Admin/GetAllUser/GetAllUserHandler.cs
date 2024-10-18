@@ -11,7 +11,7 @@ using Microsoft.AspNetCore.Http;
 namespace Clinic.Application.Features.Admin.GetAllUser;
 
 /// <summary>
-///     GetAllDoctor Handler
+///     GetAllUser Handler
 /// </summary>
 public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserResponse>
 {
@@ -48,7 +48,7 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
         {
             return new GetAllUserResponse()
             {
-                StatusCode = GetAllUserResponseStatusCode.ROLE_IS_NOT_ADMIN
+                StatusCode = GetAllUserResponseStatusCode.ROLE_IS_NOT_ADMIN,
             };
         }
 
@@ -88,12 +88,21 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
                         DOB = user.Patient.DOB,
                         Address = user.Patient.Address,
                         Description = user.Patient.Description,
+                        IsRemoved =
+                            user.RemovedAt
+                                != Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                            && user.RemovedBy
+                                != Application
+                                    .Commons
+                                    .Constance
+                                    .CommonConstant
+                                    .DEFAULT_ENTITY_ID_AS_GUID,
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)countUser / request.PageSize)
-                }
-            }
+                    TotalPages = (int)Math.Ceiling((double)countUser / request.PageSize),
+                },
+            },
         };
     }
 }

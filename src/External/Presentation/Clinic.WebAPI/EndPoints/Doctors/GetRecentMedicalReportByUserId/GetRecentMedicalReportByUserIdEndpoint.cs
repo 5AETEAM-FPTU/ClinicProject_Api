@@ -1,7 +1,6 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Features.Doctors.GetRecentMedicalReportByUserId;
-using Clinic.WebAPI.Commons.Behaviors.Validation;
 using Clinic.WebAPI.EndPoints.Doctors.GetRecentMedicalReportByUserId.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;

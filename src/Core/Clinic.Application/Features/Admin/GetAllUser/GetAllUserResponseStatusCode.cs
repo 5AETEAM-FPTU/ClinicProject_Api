@@ -1,7 +1,7 @@
 ﻿namespace Clinic.Application.Features.Admin.GetAllUser;
 
 /// <summary>
-///     GetAllDoctors Response Status Code
+///     GetAllUser Response Status Code
 /// </summary>
 public enum GetAllUserResponseStatusCode
 {
