@@ -1,12 +1,12 @@
-﻿using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
+﻿using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
-using Clinic.Domain.Commons.Entities;
 using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Admin.GetAllMedicine;
 
@@ -28,11 +28,10 @@ internal class GetAllMedicineRepository : IGetAllMedicineRepository
         string medicineName,
         Guid? medicineTypeId,
         Guid? medicineGroupId,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
-        var results = _medicines
-           .AsNoTracking()
-           .AsQueryable();
+        var results = _medicines.AsNoTracking().AsQueryable();
         if (medicineName != default)
         {
             results = results.Where(medicine => medicine.Name.Contains(medicineName));
@@ -47,12 +46,8 @@ internal class GetAllMedicineRepository : IGetAllMedicineRepository
         {
             results = results.Where(medicine => medicine.MedicineGroupId == medicineGroupId);
         }
-        return await results
-            .AsNoTracking()
-            .CountAsync(cancellationToken: cancellationToken);
+        return await results.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
-
-
 
     public async Task<IEnumerable<Medicine>> FindAllMedicinesQueryAsync(
         int pageIndex,
@@ -60,12 +55,10 @@ internal class GetAllMedicineRepository : IGetAllMedicineRepository
         string medicineName,
         Guid? medicineTypeId,
         Guid? medicineGroupId,
-        CancellationToken cancellationToken)
+        CancellationToken cancellationToken
+    )
     {
-
-        var results = _medicines
-          .AsNoTracking()
-          .AsQueryable();
+        var results = _medicines.AsNoTracking().AsQueryable();
         if (medicineName != default)
         {
             results = results.Where(medicine => medicine.Name.Contains(medicineName));
@@ -80,7 +73,7 @@ internal class GetAllMedicineRepository : IGetAllMedicineRepository
         {
             results = results.Where(medicine => medicine.MedicineGroupId == medicineGroupId);
         }
-
+        results = results.OrderBy(medicine => medicine.Name);
         return await results
             .Select(medicine => new Medicine()
             {
@@ -99,7 +92,7 @@ internal class GetAllMedicineRepository : IGetAllMedicineRepository
                     Id = medicine.MedicineGroup.Id,
                     Constant = medicine.MedicineGroup.Constant,
                     Name = medicine.MedicineGroup.Name,
-                }
+                },
             })
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
