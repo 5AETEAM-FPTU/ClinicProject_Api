@@ -5,9 +5,11 @@ using Clinic.Domain.Features.Repositories.Admin.CreateNewMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicine;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
+using Clinic.Domain.Features.Repositories.Admin.GetAllUser;
 using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
@@ -47,6 +49,8 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
+using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -69,6 +73,7 @@ using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformatio
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
 using Clinic.Domain.Features.Repositories.MedicineOrders.OrderMedicines;
 using Clinic.Domain.Features.Repositories.MedicineOrders.RemoveOrderItems;
+using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateNoteMedicineOrder;
 using Clinic.Domain.Features.Repositories.MedicineOrders.UpdateOrderItems;
 using Clinic.Domain.Features.Repositories.Notification.CreateRetreatmentNotification;
 using Clinic.Domain.Features.Repositories.OnlinePayments.CreateNewOnlinePayment;
@@ -85,9 +90,7 @@ using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
-using Clinic.Domain.Features.Repositories.Users.GetAllDoctor;
 using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
-using Clinic.Domain.Features.Repositories.Users.GetAllUser;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
@@ -550,7 +553,7 @@ public interface IUnitOfWork
     ///     GetChatRoomsByDoctorIdRepository feature
     /// </summary>
     public IGetChatRoomsByDoctorIdRepository GetChatRoomsByDoctorIdRepository { get; }
-    
+
     /// <summary>
     ///     CreateRetreatmentNotificationRepository feature
     /// </summary>
@@ -581,4 +584,18 @@ public interface IUnitOfWork
     /// </summary>
     public IGetAllUserMedicalReportsRepository GetAllUserMedicalReportsRepository { get; }
 
+    /// <summary>
+    ///      UpdateNoteMedicineOrder feature
+    /// </summary>
+    public IUpdateNoteMedicineOrderRepository UpdateNoteMedicineOrderRepository { get; }
+
+    /// <summary>
+    ///      GetUserNotification feature
+    /// </summary>
+    public IGetUserNotificationRepository GetUserNotificationRepository { get; }
+
+    /// <summary>
+    ///      GetRecentMedicalReportByUserId feature
+    /// </summary>
+    public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository { get; }
 }

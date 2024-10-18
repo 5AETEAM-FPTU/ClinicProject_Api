@@ -28,18 +28,27 @@ public class GetAppointmentsByDateRepository : IGetAppointmentsByDateRepository
         CancellationToken cancellationToken = default
     )
     {
-        return await _appointments
+        var result = _appointments
             .Include(appointment => appointment.Patient)
             .ThenInclude(patient => patient.User)
             .ThenInclude(user => user.Gender)
             .Include(appointment => appointment.Schedule)
             .Include(appointment => appointment.MedicalReport)
             .Include(appointment => appointment.AppointmentStatus)
-            .Where(appointment =>
-                appointment.Schedule.StartDate >= startDate
-                && appointment.Schedule.EndDate <= endDate
-                && appointment.Schedule.DoctorId == userId
-            )
+            .Where(appointment => appointment.DepositPayment == true)
+            .AsQueryable();
+            
+        if(endDate != null)
+        {
+            result = result.Where(entity => entity.Schedule.StartDate >= startDate
+                        && entity.Schedule.EndDate <= endDate
+                        );
+        } else
+        {
+            result = result.Where(entity => entity.Schedule.StartDate == startDate);
+        }
+            
+        return await result
             .OrderBy(appointment => appointment.Schedule.StartDate)
             .ToListAsync(cancellationToken);
     }

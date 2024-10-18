@@ -14,6 +14,7 @@ public class MedicineOrder : IBaseEntity
 
     // Normal properties.
     public int TotalItem { get; set; }
+    public string Note { get; set; }
 
     // Navigation properties.
     public MedicalReport MedicalReport { get; set; }

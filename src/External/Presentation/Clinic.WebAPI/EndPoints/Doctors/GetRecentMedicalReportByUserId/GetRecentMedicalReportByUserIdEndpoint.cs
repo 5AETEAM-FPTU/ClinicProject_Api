@@ -1,23 +1,23 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.MedicineOrders.UpdateOrderItems;
-using Clinic.WebAPI.EndPoints.MedicineOrders.UpdateNoteMedicineOrder.HttpResponseMapper;
-using Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems.HttpResponseMapper;
+using Clinic.Application.Features.Doctors.GetRecentMedicalReportByUserId;
+using Clinic.WebAPI.Commons.Behaviors.Validation;
+using Clinic.WebAPI.EndPoints.Doctors.GetRecentMedicalReportByUserId.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.MedicineOrders.UpdateOrderItems;
+namespace Clinic.WebAPI.EndPoints.Doctors.GetRecentMedicalReportByUserId;
 
 /// <summary>
-///     UpdateMedicineOrderItem endpoint
+///     GetRecentMedicalReportByUserId endpoint
 /// </summary>
-public class UpdateMedicineOrderItemEndpoint
-    : Endpoint<UpdateMedicineOrderItemRequest, UpdateMedicineOrderItemHttpResponse>
+public class GetRecentBookedAppointmentsEndpoint
+    : Endpoint<GetRecentMedicalReportByUserIdRequest, GetRecentMedicalReportByUserIdHttpResponse>
 {
     public override void Configure()
     {
-        Patch("medicine-order/item/update");
+        Get("/doctor/medicalreport/recent/{UserId}");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder =>
@@ -26,27 +26,28 @@ public class UpdateMedicineOrderItemEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to get detail of service indication (order).";
-            summary.Description = "This endpoint allows user to get detail of service indication.";
-            summary.Response<UpdateMedicineOrderItemHttpResponse>(
+            summary.Summary = "Endpoint for doctor/staff.";
+            summary.Description = "This endpoint allows doctor to get user recent medical reports.";
+            summary.Response<GetRecentMedicalReportByUserIdHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = UpdateMedicineOrderItemResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode =
+                        GetRecentMedicalReportByUserIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<UpdateMedicineOrderItemHttpResponse> ExecuteAsync(
-        UpdateMedicineOrderItemRequest req,
+    public override async Task<GetRecentMedicalReportByUserIdHttpResponse> ExecuteAsync(
+        GetRecentMedicalReportByUserIdRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = UpdateMedicineOrderItemHttpResponseMapper
+        var httpResponse = GetRecentMedicalReportByUserIdHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);

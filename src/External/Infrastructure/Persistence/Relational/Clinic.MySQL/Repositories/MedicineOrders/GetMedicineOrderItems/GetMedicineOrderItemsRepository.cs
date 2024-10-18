@@ -28,11 +28,12 @@ public class GetMedicineOrderItemsRepository : IGetMedicineOrderItemsRepostitory
         var serviceOrder = await _medicineOrders
             .AsNoTracking()
             .Where(entity => entity.Id == medicineOrderId)
-            .Select(entity => new MedicineOrder
-            {
-                Id = entity.Id,
-                MedicineOrderItems = entity
-                    .MedicineOrderItems.Select(item => new MedicineOrderItem
+            .Select(entity =>
+                new MedicineOrder
+                {
+                    Id = entity.Id,
+                    Note = entity.Note,
+                    MedicineOrderItems = entity.MedicineOrderItems.Select(item => new MedicineOrderItem
                     {
                         MedicineId = item.MedicineId,
                         Quantity = item.Quantity,
