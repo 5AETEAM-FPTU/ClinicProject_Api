@@ -11,12 +11,15 @@ public sealed class KeepAppAliveBackgroundJob : BackgroundService
     {
         while (!stoppingToken.IsCancellationRequested)
         {
-            // Do work
-            Console.WriteLine(value: "App is alive !!");
+            var originalColor = Console.ForegroundColor;
+
+            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.WriteLine("App is alive !!");
+            Console.ForegroundColor = originalColor;
 
             await Task.Delay(millisecondsDelay: 120000, cancellationToken: stoppingToken);
 
-            Console.Clear();
+            //Console.Clear();
         }
     }
 }

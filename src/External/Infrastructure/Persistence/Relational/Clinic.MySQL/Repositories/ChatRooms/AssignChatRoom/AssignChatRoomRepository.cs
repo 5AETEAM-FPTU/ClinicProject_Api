@@ -46,6 +46,7 @@ internal class AssignChatRoomRepository : IAssignChatRoomRepository
                 try
                 {
                     _chatRooms.Add(entity: chatRoom);
+
                     await _queueRooms
                         .Where(predicate: entity => entity.Id == queueRoomId)
                         .ExecuteUpdateAsync(setPropertyCalls: entity =>
@@ -54,6 +55,7 @@ internal class AssignChatRoomRepository : IAssignChatRoomRepository
 
                     await _context.SaveChangesAsync(cancellationToken: cancellationToken);
                     await transaction.CommitAsync(cancellationToken: cancellationToken);
+
                     dbTransactionResult = true;
                 }
                 catch (Exception ex)

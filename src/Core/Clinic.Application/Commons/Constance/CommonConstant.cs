@@ -13,7 +13,7 @@ public static class CommonConstant
 
     public static readonly DateTime MIN_DATE_TIME = DateTime.MinValue;
 
-    public static readonly DateTime DATE_NOW_UTC = DateTime.UtcNow;
+    public static readonly DateTime DATE_NOW_UTC = DateTime.Now;
 
     public static readonly Guid SYSTEM_GUID = Guid.Parse(
         input: "00000000-0000-0000-0000-000000000001"

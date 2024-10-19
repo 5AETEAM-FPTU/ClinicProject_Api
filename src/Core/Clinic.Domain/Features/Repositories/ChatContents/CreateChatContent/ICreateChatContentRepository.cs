@@ -14,4 +14,9 @@ public interface ICreateChatContentRepository
         ChatContent chatContent,
         CancellationToken cancellationToken = default
     );
+
+    Task<bool> IsChatRoomExperiedQueryAsync(
+        Guid chatRoomId,
+        CancellationToken cancellationToken = default
+    );
 }
