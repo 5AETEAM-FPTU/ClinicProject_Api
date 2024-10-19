@@ -62,20 +62,6 @@ public class HandleRedirectURLHandler
         // Respond if online payment not found.
         if (Equals(objA: existPayment, objB: default))
         {
-            var isRemovedAppointment =
-                await _unitOfWork.HandleRedirectURLRepository.DeleteAppointmentCommandAsync(
-                    appointmentId: request.AppointmentId,
-                    cancellationToken: cancellationToken
-                );
-
-            if (isRemovedAppointment)
-            {
-                return new()
-                {
-                    StatusCode = HandleRedirectURLResponseStatusCode.DATABASE_OPERATION_FAIL
-                };
-            }
-
             return new HandleRedirectURLResponse()
             {
                 StatusCode = HandleRedirectURLResponseStatusCode.PAYMENT_IS_NOT_FOUND,
@@ -89,6 +75,27 @@ public class HandleRedirectURLHandler
             {
                 StatusCode = HandleRedirectURLResponseStatusCode.PAYMENT_IS_ALREADY_PAID
             };
+        }
+
+        if (
+            Equals(objA: request.BankTransactionNo, objB: default)
+            || Equals(objA: request.TransactionNo, objB: default)
+        )
+        {
+            var isRemovedAppointment =
+                await _unitOfWork.HandleRedirectURLRepository.DeleteAppointmentCommandAsync(
+                    appointmentId: request.AppointmentId,
+                    cancellationToken: cancellationToken
+                );
+
+            if (!isRemovedAppointment)
+            {
+                return new()
+                {
+                    StatusCode = HandleRedirectURLResponseStatusCode.DATABASE_OPERATION_FAIL
+                };
+            }
+            return new() { StatusCode = HandleRedirectURLResponseStatusCode.RETURN_CANCEL_PAYMENT };
         }
 
         var newpayment = InitUpdatedPayment(existPayment: existPayment, request: request);
