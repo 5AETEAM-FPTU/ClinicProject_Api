@@ -3,6 +3,7 @@ using System.Text;
 using Clinic.Application.Commons.Payment;
 using Clinic.Application.Commons.Utils;
 using Clinic.Configuration.Infrastructure.Payment.VNPay;
+using Clinic.Configuration.Presentation.Authentication;
 using Clinic.VNPAY.Model;
 
 namespace Clinic.VNPAY.Handler;
@@ -13,10 +14,12 @@ namespace Clinic.VNPAY.Handler;
 internal class VNPayHandler : IPaymentHandler
 {
     private VNPayOption _options;
+    private BaseEndpointUrlOption _baseEndpointUrlOption;
 
-    public VNPayHandler(VNPayOption option)
+    public VNPayHandler(VNPayOption option, BaseEndpointUrlOption baseEndpointUrlOption)
     {
         _options = option;
+        _baseEndpointUrlOption = baseEndpointUrlOption;
     }
 
     public string CreatePaymentLink(PaymentModel paymentData)
@@ -30,6 +33,7 @@ internal class VNPayHandler : IPaymentHandler
             createdDate: paymentData.CreatedDate,
             txnRef: paymentData.TxnRef,
             appointmentId: paymentData.AppointmentId,
+            baseReturnUrl: _baseEndpointUrlOption.Api,
             hashKey: hashKey
         );
 

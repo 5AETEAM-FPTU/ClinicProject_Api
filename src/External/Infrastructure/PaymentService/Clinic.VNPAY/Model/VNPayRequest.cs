@@ -39,6 +39,7 @@ internal class VNPayRequest
         DateTime createdDate,
         string txnRef,
         string appointmentId,
+        string baseReturnUrl,
         string hashKey
     )
         : this()
@@ -49,7 +50,7 @@ internal class VNPayRequest
         CreateDate = createdDate.ToString("yyyyMMddHHmmss");
         TxnRef = txnRef;
         ReturnUrl =
-            $"https://localhost:7161/payment/return-url/success?appointmentId={appointmentId}&hashKey={hashKey}";
+            $"{baseReturnUrl}/payment/return-url/success?appointmentId={appointmentId}&hashKey={hashKey}";
     }
 
     public void MakeRequestData()
