@@ -17,7 +17,7 @@ public sealed class KeepAppAliveBackgroundJob : BackgroundService
             Console.WriteLine("App is alive !!");
             Console.ForegroundColor = originalColor;
 
-            await Task.Delay(millisecondsDelay: 120000, cancellationToken: stoppingToken);
+            await Task.Delay(millisecondsDelay: 1200000, cancellationToken: stoppingToken);
 
             //Console.Clear();
         }
