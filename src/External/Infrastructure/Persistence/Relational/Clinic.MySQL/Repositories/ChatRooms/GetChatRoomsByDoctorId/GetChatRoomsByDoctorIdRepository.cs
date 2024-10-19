@@ -37,6 +37,7 @@ internal class GetChatRoomsByDoctorIdRepository : IGetChatRoomsByDoctorIdReposit
                 Id = chatRoom.Id,
                 IsEnd = chatRoom.IsEnd,
                 LastMessage = chatRoom.LastMessage,
+                ExpiredTime = chatRoom.ExpiredTime,
                 Patient = new()
                 {
                     User = new()

@@ -17,6 +17,8 @@ public class ChatRoom : IBaseEntity, ICreatedEntity, IUpdatedEntity
 
     public bool IsEnd { get; set; }
 
+    public DateTime ExpiredTime { get; set; }
+
     public DateTime CreatedAt { get; set; }
 
     public Guid CreatedBy { get; set; }

@@ -32,6 +32,9 @@ internal sealed class ChatRoomEntityConfiguration : IEntityTypeConfiguration<Cha
             .HasDefaultValue(false)
             .IsRequired();
 
+        // ExpiredTime property configuration.
+        builder.Property(propertyExpression: entity => entity.ExpiredTime).IsRequired();
+
         // CreatedAt property configuration.
         builder
             .Property(propertyExpression: entity => entity.CreatedAt)

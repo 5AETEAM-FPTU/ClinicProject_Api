@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
@@ -15,6 +16,7 @@ internal class CreateChatContentRepository : ICreateChatContentRepository
 {
     private readonly ClinicContext _context;
     private DbSet<ChatContent> _chatContents;
+    private DbSet<ChatRoom> _chatRooms;
 
     public CreateChatContentRepository(ClinicContext context)
     {
@@ -38,5 +40,17 @@ internal class CreateChatContentRepository : ICreateChatContentRepository
             await Console.Out.WriteLineAsync(e.Message);
             return false;
         }
+    }
+
+    public Task<bool> IsChatRoomExperiedQueryAsync(
+        Guid chatRoomId,
+        CancellationToken cancellationToken = default
+    )
+    {
+        return _chatRooms
+            .Where(predicate: chatRoom =>
+                chatRoom.Id == chatRoomId && chatRoom.ExpiredTime < DateTime.Now
+            )
+            .AnyAsync(cancellationToken: cancellationToken);
     }
 }
