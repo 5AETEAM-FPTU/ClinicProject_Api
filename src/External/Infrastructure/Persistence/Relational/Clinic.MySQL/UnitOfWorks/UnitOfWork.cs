@@ -25,6 +25,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -144,6 +145,7 @@ using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
+using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
@@ -314,6 +316,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetUserNotificationRepository _getUserNotificationRepository;
     private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
     private IGetUserInforByIdRepository _getUserInforByIdRepository;
+    private ISwitchToCancelChatRoomRepository _switchToCancelChatRoomRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1064,5 +1067,15 @@ public class UnitOfWork : IUnitOfWork
     public IGetUserInforByIdRepository GetUserInforByIdRepository
     {
         get { return _getUserInforByIdRepository ??= new GetUserInforByIdRepository(_context); }
+    }
+
+    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository
+    {
+        get
+        {
+            return _switchToCancelChatRoomRepository ??= new SwitchToCancelChatRoomRepository(
+                _context
+            );
+        }
     }
 }
