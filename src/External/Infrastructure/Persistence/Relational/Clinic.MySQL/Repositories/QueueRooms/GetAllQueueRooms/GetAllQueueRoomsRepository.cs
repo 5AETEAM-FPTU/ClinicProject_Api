@@ -23,6 +23,13 @@ internal class GetAllQueueRoomsRepository : IGetAllQueueRoomsRepository
         _queueRooms = context.Set<QueueRoom>();
     }
 
+    public Task<int> CountQueueRoomsQueryAsync(CancellationToken cancellationToken = default)
+    {
+        return _queueRooms
+            .Where(predicate: entity => entity.IsSuported)
+            .CountAsync(cancellationToken: cancellationToken);
+    }
+
     public async Task<IEnumerable<QueueRoom>> FindAllQueueRoomsQueryAsync(
         int pageIndex,
         int pageSize,
@@ -31,7 +38,7 @@ internal class GetAllQueueRoomsRepository : IGetAllQueueRoomsRepository
     {
         return await _queueRooms
             .AsNoTracking()
-            .Where(predicate: entity => entity.IsSuported)
+            .Where(predicate: entity => entity.IsSuported == false)
             .OrderBy(keySelector: entity => entity.CreatedAt)
             .Select(selector: entity => new QueueRoom()
             {
@@ -42,13 +49,14 @@ internal class GetAllQueueRoomsRepository : IGetAllQueueRoomsRepository
                 {
                     User = new()
                     {
+                        Id = entity.Patient.User.Id,
                         FullName = entity.Patient.User.FullName,
                         Avatar = entity.Patient.User.Avatar,
                     }
                 }
             })
-            .Take(count: pageSize)
             .Skip(count: (pageIndex - 1) * pageSize)
+            .Take(count: pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 }

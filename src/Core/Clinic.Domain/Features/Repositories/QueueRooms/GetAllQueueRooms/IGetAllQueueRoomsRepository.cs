@@ -17,4 +17,6 @@ public interface IGetAllQueueRoomsRepository
         int pageSize,
         CancellationToken cancellationToken = default
     );
+
+    Task<int> CountQueueRoomsQueryAsync(CancellationToken cancellationToken = default);
 }
