@@ -22,6 +22,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -604,4 +605,9 @@ public interface IUnitOfWork
     ///      GetUserInforById feature
     /// </summary>
     public IGetUserInforByIdRepository GetUserInforByIdRepository { get; }
+
+    /// <summary>
+    ///      SwitchToCancelChatRoom feature
+    /// </summary>
+    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository { get; }
 }
