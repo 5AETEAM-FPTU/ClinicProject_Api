@@ -26,6 +26,9 @@ internal sealed class ChatRoomEntityConfiguration : IEntityTypeConfiguration<Cha
             .HasColumnType(typeName: CommonConstant.Database.DataType.VarcharGenerator.Get(256))
             .IsRequired();
 
+        // LatestTimeMessage property configuration.
+        builder.Property(propertyExpression: entity => entity.LatestTimeMessage).IsRequired();
+
         // IsEnd property configuration.
         builder
             .Property(propertyExpression: entity => entity.IsEnd)

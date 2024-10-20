@@ -60,6 +60,7 @@ internal sealed class AssignChatRoomHandler
             CreatedAt = CommonConstant.DATE_NOW_UTC,
             CreatedBy = Guid.Parse(input: doctorId),
             LastMessage = command.InitialMessage,
+            LatestTimeMessage = CommonConstant.DATE_NOW_UTC,
             ExpiredTime = DateTime.Now.AddDays(1),
             IsEnd = false,
             UpdatedAt = CommonConstant.DATE_NOW_UTC,

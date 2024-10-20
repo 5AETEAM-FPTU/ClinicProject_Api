@@ -34,6 +34,7 @@ public class ChatHandler : IChatHandler
         //    return false;
         //}
 
+        var createdTime = DateTime.Now;
         var chatContentId = Guid.NewGuid();
         var chatContent = new ChatContent()
         {
@@ -48,7 +49,7 @@ public class ChatHandler : IChatHandler
                     Type = "image",
                 })
                 .ToList(),
-            CreatedAt = DateTime.Now,
+            CreatedAt = createdTime,
             CreatedBy = Guid.Parse(input: chatMessage.SenderId),
             SenderId = Guid.Parse(input: chatMessage.SenderId),
             ChatRoomId = Guid.Parse(input: chatMessage.ChatRoomId),
@@ -56,6 +57,8 @@ public class ChatHandler : IChatHandler
 
         var dbResult = await _unitOfWork.CreateChatContentRepository.AddChatContentCommandAsync(
             chatContent,
+            createdTime,
+            Guid.Parse(input: chatMessage.ChatRoomId),
             cancellationToken: default
         );
 
@@ -90,8 +93,12 @@ public class ChatHandler : IChatHandler
                     chatMessage.ChatRoomId,
                     chatMessage.ImageUrls,
                     chatMessage.VideoUrls,
-                    DateTime.Now
+                    createdTime
                 );
+
+            await _hubContext
+                .Clients.Clients(connectIdSenders)
+                .SendAsync("ReceiveChatRoom", chatMessage.ChatRoomId, createdTime);
 
             return true;
         }
@@ -105,6 +112,11 @@ public class ChatHandler : IChatHandler
     public async Task SendTypingAsync(string senderId, string receiverId)
     {
         var connectIdReceivers = ChatHub.GetConnectionIds(receiverId);
+
+        if (Equals(connectIdReceivers, default))
+        {
+            return;
+        }
 
         await _hubContext.Clients.Clients(connectIdReceivers).SendAsync("ReceiveTyping", senderId);
     }
