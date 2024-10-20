@@ -12,6 +12,8 @@ public interface ICreateChatContentRepository
 {
     Task<bool> AddChatContentCommandAsync(
         ChatContent chatContent,
+        DateTime createdTime,
+        Guid chatRoomId,
         CancellationToken cancellationToken = default
     );
 

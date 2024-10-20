@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.Common;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,24 +23,49 @@ internal class CreateChatContentRepository : ICreateChatContentRepository
     {
         _context = context;
         _chatContents = _context.Set<ChatContent>();
+        _chatRooms = _context.Set<ChatRoom>();
     }
 
     public async Task<bool> AddChatContentCommandAsync(
         ChatContent chatContent,
+        DateTime createdTime,
+        Guid chatRoomId,
         CancellationToken cancellationToken = default
     )
     {
-        try
-        {
-            _chatContents.Add(entity: chatContent);
-            await _context.SaveChangesAsync(cancellationToken: cancellationToken);
-            return true;
-        }
-        catch (Exception e)
-        {
-            await Console.Out.WriteLineAsync(e.Message);
-            return false;
-        }
+        var dbResult = false;
+
+        await _context
+            .Database.CreateExecutionStrategy()
+            .ExecuteAsync(operation: async () =>
+            {
+                using var transaction = await _context.Database.BeginTransactionAsync(
+                    cancellationToken: cancellationToken
+                );
+
+                try
+                {
+                    _chatContents.Add(entity: chatContent);
+
+                    await _chatRooms
+                        .Where(predicate: chatRoom => chatRoom.Id == chatRoomId)
+                        .ExecuteUpdateAsync(setPropertyCalls: builder =>
+                            builder.SetProperty(chatRoom => chatRoom.LatestTimeMessage, createdTime)
+                        );
+
+                    await _context.SaveChangesAsync(cancellationToken: cancellationToken);
+
+                    await transaction.CommitAsync(cancellationToken: cancellationToken);
+
+                    dbResult = true;
+                }
+                catch (Exception e)
+                {
+                    await transaction.RollbackAsync(cancellationToken: cancellationToken);
+                    dbResult = false;
+                }
+            });
+        return dbResult;
     }
 
     public Task<bool> IsChatRoomExperiedQueryAsync(

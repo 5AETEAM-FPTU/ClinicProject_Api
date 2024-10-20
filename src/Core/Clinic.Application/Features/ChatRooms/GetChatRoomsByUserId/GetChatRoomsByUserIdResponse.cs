@@ -26,6 +26,7 @@ public sealed class GetChatRoomsByUserIdResponse : IFeatureResponse
             public string Title { get; init; }
             public string Avatar { get; init; }
             public bool IsEndConversation { get; init; }
+            public DateTime LatestMessageTime { get; init; }
         }
     }
 }
