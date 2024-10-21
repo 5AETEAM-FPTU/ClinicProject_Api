@@ -62,7 +62,7 @@ public class GetScheduleDatesByMonthHandler
         {
             return new GetScheduleDatesByMonthResponse()
             {
-                StatusCode = GetScheduleDatesByMonthResponseStatusCode.USER_IS_NOT_FOUND
+                StatusCode = GetScheduleDatesByMonthResponseStatusCode.USER_IS_NOT_FOUND,
             };
         }
 
@@ -81,8 +81,8 @@ public class GetScheduleDatesByMonthHandler
             StatusCode = GetScheduleDatesByMonthResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
-                WorkingDays = schedules.Select(s => s.StartDate.Date).Distinct().ToList()
-            }
+                WorkingDays = schedules.Select(s => s.StartDate.Date).Distinct().ToList(),
+            },
         };
     }
 }
