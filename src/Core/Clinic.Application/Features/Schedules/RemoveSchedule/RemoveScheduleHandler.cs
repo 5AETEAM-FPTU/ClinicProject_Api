@@ -55,17 +55,10 @@ public class RemoveScheduleHandler
         if (!(Equals(objA: role, objB: "doctor") || Equals(objA: role, objB: "staff")))
         {
             return new() { StatusCode = RemoveScheduleResponseStatusCode.FORBIDEN };
-        }
-
-        // Get userId from sub type jwt
-         var  doctorId = Guid.Parse(
-                _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
-            );
-        
+        }       
 
         // Check schedule is exist or not
         var isScheduleExist = await _unitOfWork.RemoveScheduleRepository.IsScheduleExist(
-            doctorId: doctorId,
             scheduleId: request.ScheduleId
             );
 
@@ -77,7 +70,6 @@ public class RemoveScheduleHandler
 
         // Check schedule had appointment 
         var isScheduleHadAppointment = await _unitOfWork.RemoveScheduleRepository.IsScheduleHadAppointment(
-            doctorId: doctorId,
             scheduleId: request.ScheduleId,
             cancellationToken: cancellationToken
         );
@@ -90,7 +82,6 @@ public class RemoveScheduleHandler
 
         // Database operation
         var dbResult = await _unitOfWork.RemoveScheduleRepository.RemoveScheduleByIdCommandAsync(
-            doctorId: doctorId,
             scheduleId: request.ScheduleId,
             cancellationToken: cancellationToken
         );
