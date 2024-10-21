@@ -20,11 +20,16 @@ public class UpdateScheduleByIdRepository : IUpdateScheduleByIdRepository
         _schedules = _context.Set<Schedule>();
     }
 
-    public async Task<bool> AreOverLappedSchedule(Guid doctorId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+    public async Task<bool> AreOverLappedSchedule(Guid doctorId, Guid scheduleId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     {
         var existSchedules = await _schedules
             .Where(predicate: schedule => schedule.DoctorId == doctorId)
             .ToListAsync(cancellationToken: cancellationToken);
+
+        var currentUpdate = await _schedules
+           .FirstOrDefaultAsync(schedule => schedule.Id == scheduleId, cancellationToken);
+
+        existSchedules.Remove(currentUpdate);
 
         foreach (var schedule in existSchedules)
         {   
