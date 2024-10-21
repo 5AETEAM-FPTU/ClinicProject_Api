@@ -44,7 +44,7 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
     {
         // Check role "Only admin can access"
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-        if (!role.Equals("admin"))
+        if (!role.Equals("admin") && !role.Equals("staff"))
         {
             return new GetAllDoctorResponse()
             {
@@ -89,6 +89,7 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
                         Address = user.Doctor.Address,
                         Description = user.Doctor.Description,
                         Achievement = user.Doctor.Achievement,
+                        IsOnDuty = user.Doctor.IsOnDuty,
                         Specialty = user.Doctor.DoctorSpecialties.Select(
                             ds => new GetAllDoctorResponse.Body.User.SpecialtyDTO()
                             {

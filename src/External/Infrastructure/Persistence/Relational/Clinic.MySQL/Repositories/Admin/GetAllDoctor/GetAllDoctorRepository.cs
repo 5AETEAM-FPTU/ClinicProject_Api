@@ -84,6 +84,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                         .ToList(),
                     Address = user.Doctor.Address,
                     Achievement = user.Doctor.Achievement,
+                    IsOnDuty = user.Doctor.IsOnDuty,
                 },
             })
             .Skip((pageIndex - 1) * pageSize)

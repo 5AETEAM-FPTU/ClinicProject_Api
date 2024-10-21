@@ -6,6 +6,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.CallToken;
 using Clinic.Application.Commons.Constance;
 using Clinic.Application.Commons.FIleObjectStorage;
 using Clinic.Application.Commons.Token.AccessToken;
@@ -32,6 +33,7 @@ internal sealed class LoginWithGoogleHandler
     private readonly IAccessTokenHandler _accessTokenHandler;
     private readonly IDefaultUserAvatarAsUrlHandler _defaultUserAvatarAsUrlHandler;
     private readonly IConfiguration _configuration;
+    private readonly ICallTokenHandler _callTokenHandler;
 
     public LoginWithGoogleHandler(
         IUnitOfWork unitOfWork,
@@ -40,7 +42,8 @@ internal sealed class LoginWithGoogleHandler
         IRefreshTokenHandler refreshTokenHandler,
         IAccessTokenHandler accessTokenHandler,
         IDefaultUserAvatarAsUrlHandler defaultUserAvatarAsUrlHandler,
-        IConfiguration configuration
+        IConfiguration configuration,
+        ICallTokenHandler callTokenHandler
     )
     {
         _unitOfWork = unitOfWork;
@@ -50,6 +53,7 @@ internal sealed class LoginWithGoogleHandler
         _accessTokenHandler = accessTokenHandler;
         _defaultUserAvatarAsUrlHandler = defaultUserAvatarAsUrlHandler;
         _configuration = configuration;
+        _callTokenHandler = callTokenHandler;
     }
 
     /// <summary>
@@ -75,7 +79,7 @@ internal sealed class LoginWithGoogleHandler
 
         if (Equals(objA: googleUser, objB: default))
         {
-            return new() { StatusCode = LoginWithGoogleResponseStatusCode.INVALID_GOOGLE_TOKEN, };
+            return new() { StatusCode = LoginWithGoogleResponseStatusCode.INVALID_GOOGLE_TOKEN };
         }
 
         // Find user by email
@@ -162,6 +166,10 @@ internal sealed class LoginWithGoogleHandler
         // Generate new access token.
         var newAccessToken = _accessTokenHandler.GenerateSigningToken(claims: userClaims);
 
+        var callAccessToken = _callTokenHandler.GenerateAccessToken(
+            userId: userFound.Id.ToString()
+        );
+
         // Response successfully.
         return new LoginWithGoogleResponse()
         {
@@ -170,6 +178,7 @@ internal sealed class LoginWithGoogleHandler
             {
                 AccessToken = newAccessToken,
                 RefreshToken = newRefreshToken.RefreshTokenValue,
+                CallAccessToken = callAccessToken,
                 User = new()
                 {
                     Email = userFound.Email,

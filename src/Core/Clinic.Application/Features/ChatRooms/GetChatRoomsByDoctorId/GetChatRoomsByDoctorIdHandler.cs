@@ -35,7 +35,7 @@ internal sealed class GetChatRoomsByDoctorIdHandler
     {
         var role = _httpContextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
 
-        if (!Equals(objA: role, objB: "doctor"))
+        if (!Equals(objA: role, objB: "doctor") && !Equals(objA: role, objB: "staff"))
         {
             return new()
             {
@@ -65,10 +65,10 @@ internal sealed class GetChatRoomsByDoctorIdHandler
                         Title = chatRoom.LastMessage,
                         FullName = chatRoom.Patient?.User?.FullName,
                         IsEndConversation = chatRoom.ExpiredTime < DateTime.Now,
-                        LatestMessageTime = chatRoom.LatestTimeMessage
+                        LatestMessageTime = chatRoom.LatestTimeMessage,
                     })
-                    .ToList()
-            }
+                    .ToList(),
+            },
         };
     }
 }
