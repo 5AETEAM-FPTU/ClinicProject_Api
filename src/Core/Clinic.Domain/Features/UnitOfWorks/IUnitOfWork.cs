@@ -98,6 +98,7 @@ using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
@@ -622,4 +623,9 @@ public interface IUnitOfWork
     ///      GetIdsDoctor feature
     /// </summary>
     public IGetIdsDoctorRepository GetIdsDoctorRepository { get; }
+
+    /// <summary>
+    ///      SendFeedBack feature
+    /// </summary>
+    public ISendFeedBackRepository SendFeedBackRepository { get; }
 }
