@@ -103,6 +103,7 @@ using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
@@ -208,6 +209,7 @@ using Clinic.MySQL.Repositories.Users.GetAllMedicalReports;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
+using Clinic.MySQL.Repositories.Users.SendFeedBack;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
@@ -327,6 +329,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetUsersHaveMedicalReportRepository _getUsersHaveMedicalReportRepository;
     private ISwitchToCancelChatRoomRepository _switchToCancelChatRoomRepository;
     private IGetIdsDoctorRepository _getIdsDoctorRepository;
+    private ISendFeedBackRepository _sendFeedBackRepository;
     private IGetDoctorMonthlyDateRepository _getDoctorMonthlyDateRepository;
     private IGetDoctorScheduleByDateRepository _getDoctorScheduleByDateRepository;
 
@@ -1106,6 +1109,11 @@ public class UnitOfWork : IUnitOfWork
         get { return _getIdsDoctorRepository ??= new GetIdsDoctorRepository(_context); }
     }
 
+    public ISendFeedBackRepository SendFeedBackRepository
+    {
+        get { return _sendFeedBackRepository ??= new SendFeedBackRepository(_context); }
+    }
+    
     public IGetDoctorMonthlyDateRepository GetDoctorMonthlyDateRepository
     {
         get
