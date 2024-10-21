@@ -22,6 +22,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -46,6 +47,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetIdsDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
@@ -610,4 +612,14 @@ public interface IUnitOfWork
     ///      GetUsersHaveMedicalReport feature
     /// </summary>
     public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository { get; }
+  
+    /// <summary>
+    ///      SwitchToCancelChatRoom feature
+    /// </summary>
+    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository { get; }
+
+    /// <summary>
+    ///      GetIdsDoctor feature
+    /// </summary>
+    public IGetIdsDoctorRepository GetIdsDoctorRepository { get; }
 }

@@ -25,6 +25,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -49,6 +50,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetIdsDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
@@ -145,11 +147,13 @@ using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
+using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
 using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
+using Clinic.MySQL.Repositories.Doctor.GetIdsDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
@@ -317,6 +321,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
     private IGetUserInforByIdRepository _getUserInforByIdRepository;
     private IGetUsersHaveMedicalReportRepository _getUsersHaveMedicalReportRepository;
+    private ISwitchToCancelChatRoomRepository _switchToCancelChatRoomRepository;
+    private IGetIdsDoctorRepository _getIdsDoctorRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1077,5 +1083,20 @@ public class UnitOfWork : IUnitOfWork
                 _context
             );
         }
+    }
+
+    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository
+    {
+        get
+        {
+            return _switchToCancelChatRoomRepository ??= new SwitchToCancelChatRoomRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetIdsDoctorRepository GetIdsDoctorRepository
+    {
+        get { return _getIdsDoctorRepository ??= new GetIdsDoctorRepository(_context); }
     }
 }

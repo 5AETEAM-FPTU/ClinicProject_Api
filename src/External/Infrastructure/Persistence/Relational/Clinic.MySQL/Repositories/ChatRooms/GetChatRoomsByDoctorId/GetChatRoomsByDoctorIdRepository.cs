@@ -32,11 +32,14 @@ internal class GetChatRoomsByDoctorIdRepository : IGetChatRoomsByDoctorIdReposit
         return await _chatRooms
             .AsNoTracking()
             .Where(predicate: chatRoom => chatRoom.DoctorId == doctorId)
+            .OrderByDescending(keySelector: chatRoom => chatRoom.LatestTimeMessage)
             .Select(selector: chatRoom => new ChatRoom()
             {
                 Id = chatRoom.Id,
                 IsEnd = chatRoom.IsEnd,
                 LastMessage = chatRoom.LastMessage,
+                ExpiredTime = chatRoom.ExpiredTime,
+                LatestTimeMessage = chatRoom.LatestTimeMessage,
                 Patient = new()
                 {
                     User = new()
