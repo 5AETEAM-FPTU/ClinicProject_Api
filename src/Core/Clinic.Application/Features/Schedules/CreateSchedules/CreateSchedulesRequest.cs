@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Clinic.Application.Commons.Abstractions;
+using FastEndpoints;
 
 namespace Clinic.Application.Features.Schedules.CreateSchedules;
 
@@ -10,6 +11,7 @@ namespace Clinic.Application.Features.Schedules.CreateSchedules;
 
 public class CreateSchedulesRequest : IFeatureRequest<CreateSchedulesResponse>
 {
+    public Guid? DoctorId { get; set; }
     public IEnumerable<TimeSlot> TimeSlots { get; set; }
 
     public sealed class TimeSlot

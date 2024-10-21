@@ -11,8 +11,8 @@ namespace Clinic.Application.Features.Schedules.UpdateSchedule;
 
 public class UpdateScheduleRequest : IFeatureRequest<UpdateScheduleResponse>
 {
-    [BindFrom("scheduleId")]
     public Guid ScheduleId { get; set; }
+    public Guid? DoctorId { get; set; }
     public DateTime StartDate { get; set; }
     public DateTime EndDate { get; set; }   
 }
