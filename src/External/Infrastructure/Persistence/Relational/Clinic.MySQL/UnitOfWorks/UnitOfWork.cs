@@ -89,6 +89,8 @@ using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
 using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorMonthlyDate;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorScheduleByDate;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
@@ -191,6 +193,8 @@ using Clinic.MySQL.Repositories.OnlinePayments.GetQueueRoomByUserId;
 using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.MySQL.Repositories.OnlinePayments.RemoveQueueRoom;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
+using Clinic.MySQL.Repositories.Schedules.GetDoctorMonthlyDate;
+using Clinic.MySQL.Repositories.Schedules.GetDoctorScheduleByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
 using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
@@ -320,6 +324,8 @@ public class UnitOfWork : IUnitOfWork
     private IGetUserInforByIdRepository _getUserInforByIdRepository;
     private ISwitchToCancelChatRoomRepository _switchToCancelChatRoomRepository;
     private IGetIdsDoctorRepository _getIdsDoctorRepository;
+    private IGetDoctorMonthlyDateRepository _getDoctorMonthlyDateRepository;
+    private IGetDoctorScheduleByDateRepository _getDoctorScheduleByDateRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1085,5 +1091,23 @@ public class UnitOfWork : IUnitOfWork
     public IGetIdsDoctorRepository GetIdsDoctorRepository
     {
         get { return _getIdsDoctorRepository ??= new GetIdsDoctorRepository(_context); }
+    }
+
+    public IGetDoctorMonthlyDateRepository GetDoctorMonthlyDateRepository
+    {
+        get
+        {
+            return _getDoctorMonthlyDateRepository ??= new GetDoctorMonthlyDateRepository(_context);
+        }
+    }
+
+    public IGetDoctorScheduleByDateRepository GetDoctorScheduleByDateRepository
+    {
+        get
+        {
+            return _getDoctorScheduleByDateRepository ??= new GetDoctorScheduleByDateRepository(
+                _context
+            );
+        }
     }
 }
