@@ -38,6 +38,7 @@ public class GetMedicalReportByIdRepository : IGetMedicalReportByIdRepository
                 Weight = report.Weight,
                 Height = report.Height,
                 GeneralCondition = report.GeneralCondition,
+                AppointmentId = report.AppointmentId,
                 Appointment = new Appointment()
                 {
                     Schedule = new Schedule() { StartDate = report.Appointment.Schedule.StartDate },
