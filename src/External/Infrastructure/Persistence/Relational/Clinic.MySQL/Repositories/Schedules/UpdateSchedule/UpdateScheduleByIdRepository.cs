@@ -3,9 +3,7 @@ using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -39,16 +37,15 @@ public class UpdateScheduleByIdRepository : IUpdateScheduleByIdRepository
         return false;
     }
 
-    public Task<bool> IsScheduleExist(Guid doctorId, Guid scheduleId)
+    public Task<bool> IsScheduleExist(Guid scheduleId)
     {
         return _schedules
-            .AnyAsync(schedule => schedule.DoctorId == doctorId && schedule.Id == scheduleId);
+            .AnyAsync(schedule => schedule.Id == scheduleId);
     }
 
-    public async Task<bool> UpdateScheduleByIdCommandAsync(Guid doctorId, Guid scheduleId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
+    public async Task<bool> UpdateScheduleByIdCommandAsync(Guid scheduleId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     {
         var schedule = await _schedules
-            .Where(schedule => schedule.DoctorId == doctorId)
             .FirstOrDefaultAsync(schedule => schedule.Id == scheduleId, cancellationToken);
 
         if (schedule == null)

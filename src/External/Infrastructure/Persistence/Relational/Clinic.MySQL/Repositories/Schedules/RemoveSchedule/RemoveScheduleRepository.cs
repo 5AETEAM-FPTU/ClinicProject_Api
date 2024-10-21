@@ -19,22 +19,22 @@ public class RemoveScheduleRepository : IRemoveScheduleRepository
         _schedules = context.Set<Schedule>();
     }
 
-    public Task<bool> IsScheduleExist(Guid doctorId, Guid scheduleId)
+    public Task<bool> IsScheduleExist(Guid scheduleId)
     {
         return _schedules
-            .AnyAsync(schedule => schedule.DoctorId == doctorId && schedule.Id == scheduleId);
+            .AnyAsync(schedule => schedule.Id == scheduleId);
     }
 
-    public Task<bool> IsScheduleHadAppointment(Guid doctorId, Guid scheduleId, CancellationToken cancellationToken)
+    public Task<bool> IsScheduleHadAppointment(Guid scheduleId, CancellationToken cancellationToken)
     {
         return _schedules
-            .AnyAsync(schedule => schedule.DoctorId == doctorId && schedule.Id == scheduleId && schedule.Appointment != null);
+            .AnyAsync(schedule =>schedule.Id == scheduleId && schedule.Appointment != null);
     }
 
-    public async Task<bool> RemoveScheduleByIdCommandAsync(Guid doctorId, Guid scheduleId, CancellationToken cancellationToken)
+    public async Task<bool> RemoveScheduleByIdCommandAsync(Guid scheduleId, CancellationToken cancellationToken)
     {
         var schedule = await _schedules
-            .FirstOrDefaultAsync(s => s.DoctorId == doctorId && s.Id == scheduleId, cancellationToken);
+            .FirstOrDefaultAsync(s => s.Id == scheduleId, cancellationToken);
 
         if (schedule == null)
         {
