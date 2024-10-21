@@ -6,9 +6,9 @@ using Clinic.Application.Features.Admin.GetAllUser;
 namespace Clinic.WebAPI.EndPoints.Admin.GetAllUser.HttpResponseMapper;
 
 /// <summary>
-///     GetAllDoctors http response
+///     GetAllUser http response
 /// </summary>
-internal sealed class GetAllUserHttpResponse
+public sealed class GetAllUserHttpResponse
 {
     [JsonIgnore]
     public int HttpCode { get; set; }
@@ -22,7 +22,7 @@ internal sealed class GetAllUserHttpResponse
             destinationTimeZone: TimeZoneInfo.FindSystemTimeZoneById(id: "SE Asia Standard Time")
         );
 
-    public GetAllUserResponse.Body Body { get; init; } = new();
+    public object Body { get; set; } = new();
 
     public IEnumerable<string> ErrorMessages { get; init; } = [];
 }

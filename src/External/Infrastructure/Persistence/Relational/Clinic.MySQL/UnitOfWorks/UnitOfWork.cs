@@ -25,6 +25,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -49,11 +50,14 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetIdsDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserInforById;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
+using Clinic.Domain.Features.Repositories.Doctors.GetUsersHaveMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -86,6 +90,8 @@ using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
 using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorMonthlyDate;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorScheduleByDate;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
@@ -97,6 +103,7 @@ using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
@@ -143,16 +150,20 @@ using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
+using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
 using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
+using Clinic.MySQL.Repositories.Doctor.GetIdsDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetMedicalReportById;
 using Clinic.MySQL.Repositories.Doctor.GetProfileDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
 using Clinic.MySQL.Repositories.Doctor.GetRecentMedicalReportByUserId;
+using Clinic.MySQL.Repositories.Doctor.GetUserInforById;
 using Clinic.MySQL.Repositories.Doctor.GetUserNotification;
+using Clinic.MySQL.Repositories.Doctor.GetUsersHaveMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
@@ -185,6 +196,8 @@ using Clinic.MySQL.Repositories.OnlinePayments.GetQueueRoomByUserId;
 using Clinic.MySQL.Repositories.OnlinePayments.HandleRedirectURL;
 using Clinic.MySQL.Repositories.OnlinePayments.RemoveQueueRoom;
 using Clinic.MySQL.Repositories.Schedules.CreateSchedules;
+using Clinic.MySQL.Repositories.Schedules.GetDoctorMonthlyDate;
+using Clinic.MySQL.Repositories.Schedules.GetDoctorScheduleByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.MySQL.Repositories.Schedules.GetSchedulesDateByMonth;
 using Clinic.MySQL.Repositories.Schedules.RemoveAllSchedules;
@@ -196,6 +209,7 @@ using Clinic.MySQL.Repositories.Users.GetAllMedicalReports;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
+using Clinic.MySQL.Repositories.Users.SendFeedBack;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
@@ -311,6 +325,13 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateNoteMedicineOrderRepository _updateNoteMedicineOrderRepository;
     private IGetUserNotificationRepository _getUserNotificationRepository;
     private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
+    private IGetUserInforByIdRepository _getUserInforByIdRepository;
+    private IGetUsersHaveMedicalReportRepository _getUsersHaveMedicalReportRepository;
+    private ISwitchToCancelChatRoomRepository _switchToCancelChatRoomRepository;
+    private IGetIdsDoctorRepository _getIdsDoctorRepository;
+    private ISendFeedBackRepository _sendFeedBackRepository;
+    private IGetDoctorMonthlyDateRepository _getDoctorMonthlyDateRepository;
+    private IGetDoctorScheduleByDateRepository _getDoctorScheduleByDateRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1036,8 +1057,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _updateNoteMedicineOrderRepository ??=
-                new UpdateNoteMedicineOrderRepository(_context);
+            return _updateNoteMedicineOrderRepository ??= new UpdateNoteMedicineOrderRepository(
+                _context
+            );
         }
     }
     public IGetUserNotificationRepository GetUserNotificationRepository
@@ -1048,10 +1070,65 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository {
+    public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository
+    {
         get
         {
-            return _getRecentMedicalReportByUserIdRepository ??= new GetRecentMedicalReportByUserIdRepository(_context);
+            return _getRecentMedicalReportByUserIdRepository ??=
+                new GetRecentMedicalReportByUserIdRepository(_context);
+        }
+    }
+
+    public IGetUserInforByIdRepository GetUserInforByIdRepository
+    {
+        get { return _getUserInforByIdRepository ??= new GetUserInforByIdRepository(_context); }
+    }
+
+    public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository
+    {
+        get
+        {
+            return _getUsersHaveMedicalReportRepository ??= new GetUsersHaveMedicalReportRepository(
+                _context
+            );
+        }
+    }
+
+    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository
+    {
+        get
+        {
+            return _switchToCancelChatRoomRepository ??= new SwitchToCancelChatRoomRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetIdsDoctorRepository GetIdsDoctorRepository
+    {
+        get { return _getIdsDoctorRepository ??= new GetIdsDoctorRepository(_context); }
+    }
+
+    public ISendFeedBackRepository SendFeedBackRepository
+    {
+        get { return _sendFeedBackRepository ??= new SendFeedBackRepository(_context); }
+    }
+    
+    public IGetDoctorMonthlyDateRepository GetDoctorMonthlyDateRepository
+    {
+        get
+        {
+            return _getDoctorMonthlyDateRepository ??= new GetDoctorMonthlyDateRepository(_context);
+        }
+    }
+
+    public IGetDoctorScheduleByDateRepository GetDoctorScheduleByDateRepository
+    {
+        get
+        {
+            return _getDoctorScheduleByDateRepository ??= new GetDoctorScheduleByDateRepository(
+                _context
+            );
         }
     }
 }

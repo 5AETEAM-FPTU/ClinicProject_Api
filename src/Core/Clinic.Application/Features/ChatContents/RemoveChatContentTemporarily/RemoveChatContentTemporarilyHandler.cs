@@ -3,6 +3,7 @@ using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.ChatMessage.Messaging;
 using Clinic.Application.Commons.Constance;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
@@ -17,14 +18,17 @@ internal sealed class RemoveChatContentTemporarilyHandler
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _httpContextAccessor;
+    private readonly IChatHandler _chatHandler;
 
     public RemoveChatContentTemporarilyHandler(
         IUnitOfWork unitOfWork,
-        IHttpContextAccessor httpContextAccessor
+        IHttpContextAccessor httpContextAccessor,
+        IChatHandler chatHandler
     )
     {
         _unitOfWork = unitOfWork;
         _httpContextAccessor = httpContextAccessor;
+        _chatHandler = chatHandler;
     }
 
     public async Task<RemoveChatContentTemporarilyResponse> ExecuteAsync(

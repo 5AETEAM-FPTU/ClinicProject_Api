@@ -44,11 +44,11 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
     {
         // Check role "Only admin can access"
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-        if (!role.Equals("admin"))
+        if (!role.Equals("admin") && !role.Equals("staff"))
         {
             return new GetAllDoctorResponse()
             {
-                StatusCode = GetAllDoctorResponseStatusCode.ROLE_IS_NOT_ADMIN
+                StatusCode = GetAllDoctorResponseStatusCode.ROLE_IS_NOT_ADMIN,
             };
         }
 
@@ -89,26 +89,27 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
                         Address = user.Doctor.Address,
                         Description = user.Doctor.Description,
                         Achievement = user.Doctor.Achievement,
-                        Specialty = user.Doctor.DoctorSpecialties
-                            .Select(ds => new GetAllDoctorResponse.Body.User.SpecialtyDTO()
+                        IsOnDuty = user.Doctor.IsOnDuty,
+                        Specialty = user.Doctor.DoctorSpecialties.Select(
+                            ds => new GetAllDoctorResponse.Body.User.SpecialtyDTO()
                             {
                                 Id = ds.Specialty.Id,
                                 Name = ds.Specialty.Name,
-                                Constant = ds.Specialty.Constant
+                                Constant = ds.Specialty.Constant,
                             }
                         ),
                         Position = new GetAllDoctorResponse.Body.User.PositionDTO()
                         {
                             Id = user.Doctor.Position.Id,
                             Name = user.Doctor.Position.Name,
-                            Constant = user.Doctor.Position.Constant
-                        }
+                            Constant = user.Doctor.Position.Constant,
+                        },
                     }),
                     PageIndex = request.PageIndex,
                     PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)countUser / request.PageSize)
-                }
-            }
+                    TotalPages = (int)Math.Ceiling((double)countUser / request.PageSize),
+                },
+            },
         };
     }
 }

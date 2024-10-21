@@ -1,7 +1,8 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using Clinic.Application.Commons.Pagination;
-using System;
+﻿using System;
 using System.Collections.Generic;
+using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Pagination;
+
 namespace Clinic.Application.Features.Admin.GetAllDoctor;
 
 /// <summary>
@@ -29,6 +30,7 @@ public class GetAllDoctorResponse : IFeatureResponse
             public string FullName { get; init; }
 
             public GenderDTO Gender { get; init; }
+
             public sealed class GenderDTO
             {
                 public Guid Id { get; init; }
@@ -43,16 +45,19 @@ public class GetAllDoctorResponse : IFeatureResponse
             public string Description { get; init; }
 
             public string Achievement { get; init; }
+            public bool IsOnDuty { get; init; }
 
             public IEnumerable<SpecialtyDTO> Specialty { get; init; }
+
             public sealed class SpecialtyDTO
             {
                 public Guid Id { get; init; }
                 public string Name { get; init; }
                 public string Constant { get; init; }
-
             }
+
             public PositionDTO Position { get; init; }
+
             public sealed class PositionDTO
             {
                 public Guid Id { get; init; }
@@ -62,4 +67,3 @@ public class GetAllDoctorResponse : IFeatureResponse
         }
     }
 }
-

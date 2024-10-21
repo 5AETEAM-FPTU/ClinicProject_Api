@@ -7,6 +7,10 @@ namespace Clinic.Application.Commons.ChatMessage.Messaging;
 /// </summary>
 public class ChatMessage
 {
+    public string ChatRoomId { get; set; }
+
+    public string ChatContentId { get; set; }
+
     public string SenderId { get; set; }
 
     public string ReceiverId { get; set; }

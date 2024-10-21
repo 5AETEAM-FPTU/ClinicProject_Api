@@ -35,7 +35,7 @@ internal sealed class GetChatRoomsByDoctorIdHandler
     {
         var role = _httpContextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
 
-        if (!Equals(objA: role, objB: "doctor"))
+        if (!Equals(objA: role, objB: "doctor") && !Equals(objA: role, objB: "staff"))
         {
             return new()
             {
@@ -59,13 +59,16 @@ internal sealed class GetChatRoomsByDoctorIdHandler
                 ChatRooms = chatRooms
                     .Select(selector: chatRoom => new GetChatRoomsByDoctorIdResponse.Body.ChatRoom()
                     {
+                        UserId = chatRoom.Patient.User.Id,
                         ChatRoomId = chatRoom.Id,
-                        Avatar = chatRoom.Doctor?.User?.Avatar,
-                        FullName = "Bác sĩ phòng khám: " + chatRoom.Doctor?.User?.FullName,
-                        IsEndConversation = chatRoom.IsEnd
+                        Avatar = chatRoom.Patient?.User?.Avatar,
+                        Title = chatRoom.LastMessage,
+                        FullName = chatRoom.Patient?.User?.FullName,
+                        IsEndConversation = chatRoom.ExpiredTime < DateTime.Now,
+                        LatestMessageTime = chatRoom.LatestTimeMessage,
                     })
-                    .ToList()
-            }
+                    .ToList(),
+            },
         };
     }
 }

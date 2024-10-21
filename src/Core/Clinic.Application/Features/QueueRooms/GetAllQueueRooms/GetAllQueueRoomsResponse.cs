@@ -19,6 +19,7 @@ public sealed class GetAllQueueRoomsResponse : IFeatureResponse
 
         public sealed class PatientQueue
         {
+            public Guid PatientId { get; init; }
             public Guid QueueRoomId { get; init; }
             public string PatientName { get; init; }
             public string PatientAvatar { get; init; }

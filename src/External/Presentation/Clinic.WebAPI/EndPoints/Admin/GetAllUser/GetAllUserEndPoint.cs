@@ -1,29 +1,27 @@
-﻿using FastEndpoints;
-using Microsoft.AspNetCore.Authentication.JwtBearer;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using System.Threading;
-using Microsoft.AspNetCore.Http;
-using Clinic.Application.Features.Auths.Login;
-using Clinic.WebAPI.EndPoints.Admin.GetAllUser.Common;
-using Clinic.WebAPI.EndPoints.Admin.GetAllUser.HttpResponseMapper;
 using Clinic.Application.Features.Admin.GetAllUser;
+using Clinic.WebAPI.EndPoints.Admin.GetAllUser.HttpResponseMapper;
+using FastEndpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.AspNetCore.Http;
 
 namespace Clinic.WebAPI.EndPoints.Admin.GetAllUser;
 
 /// <summary>
-///     Login endpoint.
+///     GetAllUser endpoint.
 /// </summary>
-internal sealed class GetAllUserEndPoint
+public class GetAllUserEndpoint
     : Endpoint<GetAllUserRequest, GetAllUserHttpResponse>
 {
     public override void Configure()
     {
-        Get(routePatterns: "admin/users/all");
+        Get("admin/users/all");
         AuthSchemes(authSchemeNames: JwtBearerDefaults.AuthenticationScheme);
         DontThrowIfValidationFails();
         Description(builder: builder =>
         {
-            builder.ClearDefaultProduces(statusCodes: StatusCodes.Status400BadRequest);
+            builder.ClearDefaultProduces(StatusCodes.Status400BadRequest);
         });
         Summary(endpointSummary: summary =>
         {
@@ -34,7 +32,7 @@ internal sealed class GetAllUserEndPoint
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = LoginResponseStatusCode.OPERATION_SUCCESS.ToAppCode()
+                    AppCode = GetAllUserResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
@@ -45,8 +43,6 @@ internal sealed class GetAllUserEndPoint
         CancellationToken ct
     )
     {
-        // Get app feature response.
-        //var stateBag = ProcessorState<GetAllUserStateBag>();
 
         var appResponse = await req.ExecuteAsync(ct: ct);
 

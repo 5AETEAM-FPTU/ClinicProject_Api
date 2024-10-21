@@ -59,6 +59,16 @@ public class HandleRedirectURLHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: HandleRedirectURLResponseStatusCode.RETURN_CANCEL_PAYMENT,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status202Accepted,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<

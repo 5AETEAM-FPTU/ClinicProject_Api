@@ -7,7 +7,7 @@ namespace Clinic.Application.Features.Admin.GetAllUser;
 /// </summary>
 public class GetAllUserRequest : IFeatureRequest<GetAllUserResponse>
 {
-    public int PageIndex { get; init; } = 1;
+    public int PageIndex { get; init; } 
 
-    public int PageSize { get; init; } = 10;
+    public int PageSize { get; init; } 
 }

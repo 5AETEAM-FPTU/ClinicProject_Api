@@ -76,6 +76,25 @@ public class ChatHub : Hub
         return await _chatHandler.SendMessageAsync(chatMessage);
     }
 
+    public async Task SendTypingAsync(string senderId, string receiverId)
+    {
+        await _chatHandler.SendTypingAsync(senderId, receiverId);
+    }
+
+    public async Task SendStopTypingAsync(string senderId, string receiverId)
+    {
+        await _chatHandler.SendStopTypingAsync(senderId, receiverId);
+    }
+
+    public async Task SendRemovedMessageAsync(
+        string senderId,
+        string receiverId,
+        string chatContentId
+    )
+    {
+        await _chatHandler.SendRemovedMessageAsync(senderId, receiverId, chatContentId);
+    }
+
     public static List<string>? GetConnectionIds(string userId)
     {
         _connections.TryGetValue(userId, out var connectionIds);
@@ -87,3 +106,24 @@ public class ChatHub : Hub
         return _connections.ContainsKey(userId);
     }
 }
+//var userId = Context.UserIdentifier;
+
+//        if (Equals(objA: _connections, objB: default) || _connections.Count == 0)
+//            return;
+
+//        if (userId != null && _connections.TryGetValue(userId, out var connectionIds))
+//        {
+//            connectionIds.Remove(Context.ConnectionId);
+//            _logger.LogInformation(
+//                "User disconnected: {UserId} with Connection ID: {ConnectionId}",
+//                userId,
+//                Context.ConnectionId
+//            );
+
+//            if (!connectionIds.Any())
+//            {
+//                _connections.TryRemove(userId, out _);
+//            }
+//        }
+
+//        await base.OnDisconnectedAsync(exception);

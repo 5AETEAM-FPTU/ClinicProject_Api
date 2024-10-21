@@ -22,6 +22,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -46,11 +47,14 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
+using Clinic.Domain.Features.Repositories.Doctors.GetIdsDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 using Clinic.Domain.Features.Repositories.Doctors.GetProfileDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
+using Clinic.Domain.Features.Repositories.Doctors.GetUserInforById;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
+using Clinic.Domain.Features.Repositories.Doctors.GetUsersHaveMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -83,6 +87,8 @@ using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
 using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorMonthlyDate;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorScheduleByDate;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
@@ -94,6 +100,7 @@ using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
@@ -598,4 +605,41 @@ public interface IUnitOfWork
     ///      GetRecentMedicalReportByUserId feature
     /// </summary>
     public IGetRecentMedicalReportByUserIdRepository GetRecentMedicalReportByUserIdRepository { get; }
+
+    /// <summary>
+    ///      GetUserInforById feature
+    /// </summary>
+    public IGetUserInforByIdRepository GetUserInforByIdRepository { get; }
+
+    /// <summary>
+    ///      GetUsersHaveMedicalReport feature
+    /// </summary>
+    public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository { get; }
+  
+    /// <summary>
+    ///      SwitchToCancelChatRoom feature
+    /// </summary>
+    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository { get; }
+
+    /// <summary>
+    ///      GetIdsDoctor feature
+    /// </summary>
+    public IGetIdsDoctorRepository GetIdsDoctorRepository { get; }
+
+    /// <summary>
+    ///      SendFeedBack feature
+    /// </summary>
+    public ISendFeedBackRepository SendFeedBackRepository { get; }
+  
+    /// <summary>
+    ///     GetDoctorMonthlyDate feature
+    /// </summary>
+
+    public IGetDoctorMonthlyDateRepository GetDoctorMonthlyDateRepository { get; }
+
+    /// <summary>
+    ///     GetDoctorScheduleByDate feature
+    /// </summary>
+    ///
+    public IGetDoctorScheduleByDateRepository GetDoctorScheduleByDateRepository { get; }
 }

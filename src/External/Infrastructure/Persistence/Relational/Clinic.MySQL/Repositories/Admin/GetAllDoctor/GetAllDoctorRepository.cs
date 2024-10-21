@@ -23,7 +23,15 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
 
     public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
     {
-        return _users.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+        return _users
+            .AsNoTracking()
+            .Where(predicate: user =>
+                user.Doctor != null
+                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
@@ -34,11 +42,11 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
     {
         return await _users
             .AsNoTracking()
-            .Where(predicate: user => user.Doctor != null)
-            .Where(predicate: doctor =>
-                    doctor != null
-                && doctor.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
-                && doctor.RemovedBy == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+            .Where(predicate: user =>
+                user.Doctor != null
+                && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
+                && user.RemovedBy
+                    == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
             )
             .Select(selector: user => new User()
             {
@@ -51,7 +59,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                 {
                     Id = user.Gender.Id,
                     Name = user.Gender.Name,
-                    Constant = user.Gender.Constant
+                    Constant = user.Gender.Constant,
                 },
                 Doctor = new()
                 {
@@ -61,7 +69,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                     {
                         Id = user.Doctor.Position.Id,
                         Name = user.Doctor.Position.Name,
-                        Constant = user.Doctor.Position.Constant
+                        Constant = user.Doctor.Position.Constant,
                     },
                     DoctorSpecialties = user
                         .Doctor.DoctorSpecialties.Select(doctorSpecialty => new DoctorSpecialty()
@@ -70,13 +78,14 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                             {
                                 Id = doctorSpecialty.Specialty.Id,
                                 Name = doctorSpecialty.Specialty.Name,
-                                Constant = doctorSpecialty.Specialty.Constant
-                            }
+                                Constant = doctorSpecialty.Specialty.Constant,
+                            },
                         })
                         .ToList(),
                     Address = user.Doctor.Address,
-                    Achievement = user.Doctor.Achievement
-                }
+                    Achievement = user.Doctor.Achievement,
+                    IsOnDuty = user.Doctor.IsOnDuty,
+                },
             })
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)

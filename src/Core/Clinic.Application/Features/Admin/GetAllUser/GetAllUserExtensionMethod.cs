@@ -1,7 +1,7 @@
 ﻿namespace Clinic.Application.Features.Admin.GetAllUser;
 
 /// <summary>
-///     Extension Method for GetAllDoctors features.
+///     Extension Method for GetAllUser features.
 /// </summary>
 public static class GetAllUserExtensionMethod
 {

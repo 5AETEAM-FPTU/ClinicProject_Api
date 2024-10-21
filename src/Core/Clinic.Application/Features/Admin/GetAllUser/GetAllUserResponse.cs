@@ -1,10 +1,11 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.Pagination;
-using System;
+
 namespace Clinic.Application.Features.Admin.GetAllUser;
 
 /// <summary>
-///     GetAllDoctors Response
+///     GetAllUser Response
 /// </summary>
 public class GetAllUserResponse : IFeatureResponse
 {
@@ -28,6 +29,7 @@ public class GetAllUserResponse : IFeatureResponse
             public string FullName { get; init; }
 
             public GenderDTO Gender { get; init; }
+
             public sealed class GenderDTO
             {
                 public Guid Id { get; init; }
@@ -40,8 +42,6 @@ public class GetAllUserResponse : IFeatureResponse
             public string Address { get; init; }
 
             public string Description { get; init; }
-
         }
     }
 }
-

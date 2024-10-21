@@ -1,18 +1,19 @@
-﻿using Clinic.Application.Commons.Abstractions;
+﻿using System;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Application.Commons.Abstractions;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using System.Threading.Tasks;
-using System.Threading;
-using System.Security.Claims;
-using System.Linq;
-using System;
 
 namespace Clinic.Application.Features.ExaminationServices.GetAvailableServices;
 
 /// <summary>
 ///     GetAvailableServices Handler
 /// </summary>
-public class GetAvailableServicesHandler : IFeatureHandler<GetAvailableServicesRequest, GetAvailableServicesResponse>
+public class GetAvailableServicesHandler
+    : IFeatureHandler<GetAvailableServicesRequest, GetAvailableServicesResponse>
 {
     private readonly IUnitOfWork _unitOfWork;
     private readonly IHttpContextAccessor _contextAccessor;
@@ -43,7 +44,7 @@ public class GetAvailableServicesHandler : IFeatureHandler<GetAvailableServicesR
     {
         // Check role user from role type jwt
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-        if (!role.Equals("admin") && !role.Equals("staff"))
+        if (!role.Equals("admin") && !role.Equals("staff") && !role.Equals("doctor"))
         {
             return new()
             {
@@ -52,10 +53,11 @@ public class GetAvailableServicesHandler : IFeatureHandler<GetAvailableServicesR
         }
 
         // Find all available services query.
-        var foundServices = await _unitOfWork.GetAvailableServicesRepository.GetAvailableServicesQueryAsync(
-            key: request.CodeOrName,
-            cancellationToken: cancellationToken
-        );
+        var foundServices =
+            await _unitOfWork.GetAvailableServicesRepository.GetAvailableServicesQueryAsync(
+                key: request.CodeOrName,
+                cancellationToken: cancellationToken
+            );
 
         // Response successfully.
         return new GetAvailableServicesResponse()
@@ -64,16 +66,18 @@ public class GetAvailableServicesHandler : IFeatureHandler<GetAvailableServicesR
 
             ResponseBody = new()
             {
-                Services = foundServices.Select(service => new GetAvailableServicesResponse.Body.Service () 
-                { 
-                    Id = service.Id, 
-                    Name = service.Name, 
-                    Code = service.Code,
-                    Description = service.Descripiton, 
-                    Price = (int)service.Price, 
-                    Group = service.Group 
-                })
-            }
+                Services = foundServices.Select(
+                    service => new GetAvailableServicesResponse.Body.Service()
+                    {
+                        Id = service.Id,
+                        Name = service.Name,
+                        Code = service.Code,
+                        Description = service.Descripiton,
+                        Price = (int)service.Price,
+                        Group = service.Group,
+                    }
+                ),
+            },
         };
     }
 }
