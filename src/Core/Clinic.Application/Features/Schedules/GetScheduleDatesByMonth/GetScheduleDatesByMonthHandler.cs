@@ -71,7 +71,7 @@ public class GetScheduleDatesByMonthHandler
             await _unitOfWork.GetScheduleDatesByMonthRepository.GetScheduleDatesByMonthQueryAsync(
                 year: request.Year,
                 month: request.Month,
-                userId: request.DoctorId != Guid.Empty ? (Guid)request.DoctorId : userId,
+                userId: request.DoctorId != null ? (Guid)request.DoctorId : userId,
                 cancellationToken: cancellationToken
             );
 
