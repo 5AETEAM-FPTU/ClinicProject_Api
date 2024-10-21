@@ -100,6 +100,7 @@ using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.GetUserMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
@@ -615,7 +616,7 @@ public interface IUnitOfWork
     ///      GetUsersHaveMedicalReport feature
     /// </summary>
     public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository { get; }
-  
+
     /// <summary>
     ///      SwitchToCancelChatRoom feature
     /// </summary>
@@ -630,7 +631,7 @@ public interface IUnitOfWork
     ///      SendFeedBack feature
     /// </summary>
     public ISendFeedBackRepository SendFeedBackRepository { get; }
-  
+
     /// <summary>
     ///     GetDoctorMonthlyDate feature
     /// </summary>
@@ -642,4 +643,10 @@ public interface IUnitOfWork
     /// </summary>
     ///
     public IGetDoctorScheduleByDateRepository GetDoctorScheduleByDateRepository { get; }
+
+    /// <summary>
+    ///     GetUserMedicalReport feature
+    /// </summary>
+    ///
+    public IGetUserMedicalReportRepository GetUserMedicalReportRepository { get; }
 }

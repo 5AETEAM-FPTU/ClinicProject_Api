@@ -103,6 +103,7 @@ using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
+using Clinic.Domain.Features.Repositories.Users.GetUserMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
@@ -209,6 +210,7 @@ using Clinic.MySQL.Repositories.Users.GetAllMedicalReports;
 using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
+using Clinic.MySQL.Repositories.Users.GetUserMedicalReport;
 using Clinic.MySQL.Repositories.Users.SendFeedBack;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
@@ -332,6 +334,7 @@ public class UnitOfWork : IUnitOfWork
     private ISendFeedBackRepository _sendFeedBackRepository;
     private IGetDoctorMonthlyDateRepository _getDoctorMonthlyDateRepository;
     private IGetDoctorScheduleByDateRepository _getDoctorScheduleByDateRepository;
+    private IGetUserMedicalReportRepository _getUserMedicalReportRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1113,7 +1116,7 @@ public class UnitOfWork : IUnitOfWork
     {
         get { return _sendFeedBackRepository ??= new SendFeedBackRepository(_context); }
     }
-    
+
     public IGetDoctorMonthlyDateRepository GetDoctorMonthlyDateRepository
     {
         get
@@ -1129,6 +1132,14 @@ public class UnitOfWork : IUnitOfWork
             return _getDoctorScheduleByDateRepository ??= new GetDoctorScheduleByDateRepository(
                 _context
             );
+        }
+    }
+
+    public IGetUserMedicalReportRepository GetUserMedicalReportRepository
+    {
+        get
+        {
+            return _getUserMedicalReportRepository ??= new GetUserMedicalReportRepository(_context);
         }
     }
 }

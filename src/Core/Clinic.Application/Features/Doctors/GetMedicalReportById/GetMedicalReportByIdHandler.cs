@@ -62,6 +62,7 @@ public class GetMedicalReportByIdHandler
             StatusCode = GetMedicalReportByIdResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new()
             {
+                AppointmentId = foundReport.AppointmentId,
                 PatientInfor = new GetMedicalReportByIdResponse.Body.PatientInformation()
                 {
                     PatientId = foundReport.PatientInformation.Id,
