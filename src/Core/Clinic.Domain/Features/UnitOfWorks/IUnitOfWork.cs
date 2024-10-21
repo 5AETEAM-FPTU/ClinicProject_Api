@@ -44,6 +44,7 @@ using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
+using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
@@ -649,4 +650,10 @@ public interface IUnitOfWork
     /// </summary>
     ///
     public IGetUserMedicalReportRepository GetUserMedicalReportRepository { get; }
+
+    /// <summary>
+    ///     GetAllDoctorForStaff feature
+    /// </summary>
+    ///
+    public IGetAllDoctorForStaffRepository GetAllDoctorForStaffRepository { get; }
 }
