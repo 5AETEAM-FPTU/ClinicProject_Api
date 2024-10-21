@@ -55,6 +55,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserInforById;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
+using Clinic.Domain.Features.Repositories.Doctors.GetUsersHaveMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -155,6 +156,7 @@ using Clinic.MySQL.Repositories.Doctor.GetRecentBookedAppointments;
 using Clinic.MySQL.Repositories.Doctor.GetRecentMedicalReportByUserId;
 using Clinic.MySQL.Repositories.Doctor.GetUserInforById;
 using Clinic.MySQL.Repositories.Doctor.GetUserNotification;
+using Clinic.MySQL.Repositories.Doctor.GetUsersHaveMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorAchievementRepository;
 using Clinic.MySQL.Repositories.Doctor.UpdateDoctorDescription;
 using Clinic.MySQL.Repositories.Doctor.UpdateDutyStatusRepository;
@@ -314,6 +316,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetUserNotificationRepository _getUserNotificationRepository;
     private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
     private IGetUserInforByIdRepository _getUserInforByIdRepository;
+    private IGetUsersHaveMedicalReportRepository _getUsersHaveMedicalReportRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1064,5 +1067,15 @@ public class UnitOfWork : IUnitOfWork
     public IGetUserInforByIdRepository GetUserInforByIdRepository
     {
         get { return _getUserInforByIdRepository ??= new GetUserInforByIdRepository(_context); }
+    }
+
+    public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository
+    {
+        get
+        {
+            return _getUsersHaveMedicalReportRepository ??= new GetUsersHaveMedicalReportRepository(
+                _context
+            );
+        }
     }
 }
