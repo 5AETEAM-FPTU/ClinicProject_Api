@@ -68,6 +68,17 @@ public class UpdateScheduleHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: UpdateScheduleResponseStatusCode.SCHEDULE_HAD_APPOINTMENT,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status400BadRequest,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
+
     }
 
     internal Func<
