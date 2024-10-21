@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -41,6 +42,11 @@ internal sealed class GetAllQueueRoomsHandler
             cancellationToken: ct
         );
 
+        var countQueueRooms =
+            await _unitOfWork.GetAllQueueRoomsRepository.CountQueueRoomsQueryAsync(
+                cancellationToken: ct
+            );
+
         return new()
         {
             StatusCode = GetAllQueueRoomsResponseStatusCode.OPERATION_SUCCESS,
@@ -51,6 +57,7 @@ internal sealed class GetAllQueueRoomsHandler
                     Contents = queueRooms
                         .Select(queueRoom => new GetAllQueueRoomsResponse.Body.PatientQueue()
                         {
+                            PatientId = queueRoom.Patient.User.Id,
                             PatientName = queueRoom.Patient.User.FullName,
                             QueueRoomId = queueRoom.Id,
                             Message = queueRoom.Title + ": " + queueRoom.Message,
@@ -58,7 +65,8 @@ internal sealed class GetAllQueueRoomsHandler
                         })
                         .ToList(),
                     PageIndex = command.PageIndex,
-                    PageSize = command.PageSize
+                    PageSize = command.PageSize,
+                    TotalPages = (int)Math.Ceiling((double)countQueueRooms / command.PageSize),
                 }
             }
         };
