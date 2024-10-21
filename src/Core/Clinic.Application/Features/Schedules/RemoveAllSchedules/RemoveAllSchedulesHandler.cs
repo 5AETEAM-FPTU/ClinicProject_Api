@@ -63,9 +63,13 @@ public class RemoveScheduleHandler
         }
 
         // Get userId from sub type jwt
-        var doctorId = Guid.Parse(
+        var doctorId = Guid.Empty;
+        if (request.DoctorId == null)
+        {
+            doctorId = Guid.Parse(
                 _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
             );
+        } else doctorId = (Guid)request.DoctorId;
 
         // Database operation
         var dbResult = await _unitOfWork.RemoveAllSchedulesRepository.RemoveAllSchedulesByDateCommandAsync(

@@ -17,7 +17,7 @@ public class RemoveScheduleEndpoint
 {
     public override void Configure()
     {
-        Delete("schedules/remove/all/{date}");
+        Delete("schedules/remove/all");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<ValidationPreProcessor<RemoveAllSchedulesRequest>>();
         DontThrowIfValidationFails();

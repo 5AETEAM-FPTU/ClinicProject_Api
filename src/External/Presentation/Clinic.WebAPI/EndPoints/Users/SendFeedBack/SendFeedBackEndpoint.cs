@@ -1,26 +1,24 @@
-﻿using System;
-using System.Threading;
+﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.ExaminationServices.RemoveService;
-using Clinic.Application.Features.Schedules.RemoveSchedule;
+using Clinic.Application.Features.Users.SendFeedBack;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Schedules.RemoveSchedule.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Users.SendFeedBack.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Schedules.RemoveSchedule;
+namespace Clinic.WebAPI.EndPoints.Users.SendFeedBack;
 
 /// <summary>
-///     UpdateSchedule endpoint
+///     SendFeedBack endpoint
 /// </summary>
-public class RemoveScheduleEndpoint : Endpoint<RemoveScheduleRequest, RemoveScheduleHttpResponse>
+public class SendFeedBackEndpoint : Endpoint<SendFeedBackRequest, SendFeedBackHttpResponse>
 {
     public override void Configure()
     {
-        Delete("schedules/remove");
+        Post("user/feedback/create");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
-        PreProcessor<ValidationPreProcessor<RemoveScheduleRequest>>();
+        PreProcessor<ValidationPreProcessor<SendFeedBackRequest>>();
         DontThrowIfValidationFails();
         Description(builder =>
         {
@@ -28,31 +26,27 @@ public class RemoveScheduleEndpoint : Endpoint<RemoveScheduleRequest, RemoveSche
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for doctor";
-            summary.Description =
-                "This endpoint allows doctor for remove specific schedule.";
-            summary.Response<RemoveScheduleHttpResponse>(
+            summary.Summary = "Endpoint to create medicine";
+            summary.Description = "This endpoint allows user for sending feedback to doctor.";
+            summary.Response<SendFeedBackHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = RemoveScheduleResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = SendFeedBackResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<RemoveScheduleHttpResponse> ExecuteAsync(
-        RemoveScheduleRequest req,
+    public override async Task<SendFeedBackHttpResponse> ExecuteAsync(
+        SendFeedBackRequest req,
         CancellationToken ct
     )
     {
-        //Guid id = Query<Guid>("doctorId");
-        //Console.WriteLine(id);
-
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = RemoveScheduleHttpResponseMapper
+        var httpResponse = SendFeedBackHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
