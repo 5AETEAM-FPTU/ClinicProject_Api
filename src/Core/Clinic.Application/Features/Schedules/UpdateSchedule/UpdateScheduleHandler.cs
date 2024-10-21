@@ -69,7 +69,6 @@ public class UpdateScheduleHandler
 
         // Check schedule is exist or not
         var isScheduleExist = await _unitOfWork.UpdateScheduleByIdRepository.IsScheduleExist(
-            doctorId: doctorId,
             scheduleId: request.ScheduleId
             );
 
@@ -95,7 +94,6 @@ public class UpdateScheduleHandler
 
         // Database operation
         var dbResult = await _unitOfWork.UpdateScheduleByIdRepository.UpdateScheduleByIdCommandAsync(
-            doctorId: doctorId,
             scheduleId: request.ScheduleId,
             startDate: request.StartDate,
             endDate: request.EndDate,

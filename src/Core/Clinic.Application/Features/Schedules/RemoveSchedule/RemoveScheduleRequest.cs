@@ -16,7 +16,4 @@ public class RemoveScheduleRequest : IFeatureRequest<RemoveScheduleResponse>
 {
     [QueryParam, BindFrom("scheduleId")]
     public Guid ScheduleId { get; set; }
-
-    [QueryParam, BindFrom("DoctorId")]
-    public Guid? DoctorId { get; set; }
 }
