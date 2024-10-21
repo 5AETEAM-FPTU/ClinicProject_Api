@@ -23,16 +23,16 @@ public class ChatHandler : IChatHandler
 
     public async Task<bool> SendMessageAsync(ChatMessage chatMessage)
     {
-        var isChatRoomExperid =
-            await _unitOfWork.CreateChatContentRepository.IsChatRoomExperiedQueryAsync(
-                chatRoomId: Guid.Parse(input: chatMessage.ChatRoomId),
-                cancellationToken: default
-            );
+        //var isChatRoomExperid =
+        //    await _unitOfWork.CreateChatContentRepository.IsChatRoomExperiedQueryAsync(
+        //        chatRoomId: Guid.Parse(input: chatMessage.ChatRoomId),
+        //        cancellationToken: default
+        //    );
 
-        if (isChatRoomExperid)
-        {
-            return false;
-        }
+        //if (isChatRoomExperid)
+        //{
+        //    return false;
+        //}
 
         var createdTime = DateTime.Now;
         var chatContentId = Guid.NewGuid();
@@ -46,13 +46,13 @@ public class ChatHandler : IChatHandler
                     Id = Guid.NewGuid(),
                     FilePath = asset,
                     FileName = asset,
-                    Type = "image"
+                    Type = "image",
                 })
                 .ToList(),
             CreatedAt = createdTime,
             CreatedBy = Guid.Parse(input: chatMessage.SenderId),
             SenderId = Guid.Parse(input: chatMessage.SenderId),
-            ChatRoomId = Guid.Parse(input: chatMessage.ChatRoomId)
+            ChatRoomId = Guid.Parse(input: chatMessage.ChatRoomId),
         };
 
         var dbResult = await _unitOfWork.CreateChatContentRepository.AddChatContentCommandAsync(
