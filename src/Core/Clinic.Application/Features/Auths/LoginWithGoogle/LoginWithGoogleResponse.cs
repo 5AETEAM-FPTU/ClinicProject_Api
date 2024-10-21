@@ -16,6 +16,7 @@ public sealed class LoginWithGoogleResponse : IFeatureResponse
         public string AccessToken { get; init; }
 
         public string RefreshToken { get; init; }
+        public string CallAccessToken { get; init; }
 
         public UserCredential User { get; init; }
 
