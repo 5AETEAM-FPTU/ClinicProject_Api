@@ -65,11 +65,14 @@ public class CreateSchedulesHandler
         }
 
         // Init schedules from time slot
+        var doctorId = Guid.Empty;
+        if (request.DoctorId == null) {
+            doctorId = Guid.Parse(_contextAccessor.HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub));
+        } else doctorId = (Guid)request.DoctorId;
+
         var newSchedules = InitSchedules(
             request: request,
-            doctorId: Guid.Parse(
-                _contextAccessor.HttpContext.User.FindFirstValue(JwtRegisteredClaimNames.Sub)
-            )
+            doctorId: doctorId
         );
 
         // Check overlapping in database
