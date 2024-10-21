@@ -1,6 +1,5 @@
-﻿using Clinic.Application.Commons.Abstractions;
-using System;
-
+﻿using System;
+using Clinic.Application.Commons.Abstractions;
 
 namespace Clinic.Application.Features.Doctors.GetMedicalReportById;
 
@@ -12,8 +11,11 @@ public class GetMedicalReportByIdResponse : IFeatureResponse
     public GetMedicalReportByIdResponseStatusCode StatusCode { get; init; }
 
     public Body ResponseBody { get; init; }
+
     public sealed class Body
     {
+        public Guid AppointmentId { get; init; }
+
         public PatientInformation PatientInfor { get; init; }
 
         public sealed class PatientInformation
@@ -25,9 +27,10 @@ public class GetMedicalReportByIdResponse : IFeatureResponse
             public string Address { get; init; }
             public string Gender { get; init; }
             public string PhoneNumber { get; init; }
-
         }
+
         public ReportDetail MedicalReport { get; init; }
+
         public sealed class ReportDetail
         {
             public Guid ReportId { get; init; }
@@ -40,20 +43,22 @@ public class GetMedicalReportByIdResponse : IFeatureResponse
             public string Temperature { get; init; }
             public string BloodPressure { get; init; }
             public string Diagnosis { get; init; }
-
         }
+
         public ServiceOrder Service { get; init; }
+
         public sealed class ServiceOrder
         {
             public Guid ServiceOrderId { get; init; }
             public int Quantity { get; init; }
             public double TotalPrice { get; init; }
-
         }
+
         public MedicineOreder Medicine { get; init; }
-        public sealed class MedicineOreder 
-        { 
+
+        public sealed class MedicineOreder
+        {
             public Guid MedicineOrderId { get; init; }
         }
     }
-}    
+}
