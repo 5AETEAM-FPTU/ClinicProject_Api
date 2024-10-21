@@ -87,6 +87,8 @@ using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
 using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorMonthlyDate;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorScheduleByDate;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
@@ -622,4 +624,16 @@ public interface IUnitOfWork
     ///      GetIdsDoctor feature
     /// </summary>
     public IGetIdsDoctorRepository GetIdsDoctorRepository { get; }
+
+    /// <summary>
+    ///     GetDoctorMonthlyDate feature
+    /// </summary>
+
+    public IGetDoctorMonthlyDateRepository GetDoctorMonthlyDateRepository { get; }
+
+    /// <summary>
+    ///     GetDoctorScheduleByDate feature
+    /// </summary>
+    ///
+    public IGetDoctorScheduleByDateRepository GetDoctorScheduleByDateRepository { get; }
 }
