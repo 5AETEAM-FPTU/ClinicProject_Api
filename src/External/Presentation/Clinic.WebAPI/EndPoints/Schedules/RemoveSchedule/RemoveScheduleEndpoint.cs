@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Features.ExaminationServices.RemoveService;
 using Clinic.Application.Features.Schedules.RemoveSchedule;
@@ -17,7 +18,7 @@ public class RemoveScheduleEndpoint : Endpoint<RemoveScheduleRequest, RemoveSche
 {
     public override void Configure()
     {
-        Delete("schedules/remove/{scheduleId}");
+        Delete("schedules/remove");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<ValidationPreProcessor<RemoveScheduleRequest>>();
         DontThrowIfValidationFails();
@@ -46,6 +47,9 @@ public class RemoveScheduleEndpoint : Endpoint<RemoveScheduleRequest, RemoveSche
         CancellationToken ct
     )
     {
+        //Guid id = Query<Guid>("doctorId");
+        //Console.WriteLine(id);
+
         var appResponse = await req.ExecuteAsync(ct: ct);
 
         var httpResponse = RemoveScheduleHttpResponseMapper

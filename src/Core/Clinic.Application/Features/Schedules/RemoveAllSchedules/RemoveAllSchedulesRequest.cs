@@ -11,6 +11,9 @@ namespace Clinic.Application.Features.Schedules.RemoveAllSchedules;
 
 public class RemoveAllSchedulesRequest : IFeatureRequest<RemoveAllSchedulesResponse>
 {
-    [BindFrom("date")]
-    public DateTime Date { get; set; } 
+    [QueryParam ,BindFrom("date")]
+    public DateTime Date { get; set; }
+
+    [QueryParam, BindFrom("DoctorId")]
+    public Guid? DoctorId { get; set; }
 }

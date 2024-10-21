@@ -27,7 +27,7 @@ public class GetAllUserMedicalReportsRepository : IGetAllUserMedicalReportsRepos
         if (keyword != default)
         {
             results = results.Where(entity =>
-                entity.Appointment.Schedule.Doctor.UserId == userId
+                entity.Appointment.PatientId == userId
                 && entity.Appointment.Schedule.Doctor.User.FullName.Contains(keyword)
             );
         }
@@ -40,7 +40,7 @@ public class GetAllUserMedicalReportsRepository : IGetAllUserMedicalReportsRepos
         return await _medicalReports
             .AsNoTracking()
             .Where(entity =>
-                entity.Appointment.Schedule.Doctor.UserId == userId
+                entity.Appointment.PatientId == userId
                 && entity.Appointment.Schedule.Doctor.User.FullName.Contains(keyword)
             )
             .Select(entity => new MedicalReport()

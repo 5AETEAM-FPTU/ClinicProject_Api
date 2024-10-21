@@ -1,16 +1,11 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.FIleObjectStorage;
-using Clinic.Application.Features.Schedules.CreateSchedules;
-using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.IdentityModel.JsonWebTokens;
 
 namespace Clinic.Application.Features.Schedules.UpdateSchedule;
@@ -63,9 +58,14 @@ public class UpdateScheduleHandler
         }
 
         // Get userId from sub type jwt
-        var doctorId = Guid.Parse(
+        var doctorId = Guid.Empty;
+        if(request.DoctorId == null)
+        {
+            doctorId = Guid.Parse(
                 _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
-            );
+            ); 
+        } else doctorId = (Guid)request.DoctorId;
+
 
         // Check schedule is exist or not
         var isScheduleExist = await _unitOfWork.UpdateScheduleByIdRepository.IsScheduleExist(

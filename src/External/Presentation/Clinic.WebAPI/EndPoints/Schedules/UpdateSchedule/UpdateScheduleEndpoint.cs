@@ -16,7 +16,7 @@ public class UpdateScheduleEndpoint : Endpoint<UpdateScheduleRequest, UpdateSche
 {
     public override void Configure()
     {
-        Patch("schedules/update/{scheduleId}");
+        Patch("schedules/update");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
         PreProcessor<ValidationPreProcessor<UpdateScheduleRequest>>();
         DontThrowIfValidationFails();

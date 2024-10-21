@@ -30,9 +30,8 @@ public class UpdateScheduleByIdRepository : IUpdateScheduleByIdRepository
 
         foreach (var schedule in existSchedules)
         {   
-            if ((startDate > schedule.StartDate && startDate < schedule.EndDate)
-                || (endDate > schedule.StartDate && endDate < schedule.EndDate)
-                )
+            if (schedule.StartDate < endDate
+                    && startDate < schedule.EndDate)
             {
                 return true;
             }    
