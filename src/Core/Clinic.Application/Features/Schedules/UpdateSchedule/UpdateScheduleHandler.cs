@@ -81,6 +81,7 @@ public class UpdateScheduleHandler
         // Check overlapping in database
         var isOverlapping = await _unitOfWork.UpdateScheduleByIdRepository.AreOverLappedSchedule(
             doctorId: doctorId,
+            scheduleId: request.ScheduleId,
             startDate : request.StartDate,
             endDate : request.EndDate,
             cancellationToken: cancellationToken
