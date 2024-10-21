@@ -54,6 +54,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetRecentBookedAppointments;
 using Clinic.Domain.Features.Repositories.Doctors.GetRecentMedicalReportByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserInforById;
 using Clinic.Domain.Features.Repositories.Doctors.GetUserNotification;
+using Clinic.Domain.Features.Repositories.Doctors.GetUsersHaveMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorAchievement;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDoctorDescription;
 using Clinic.Domain.Features.Repositories.Doctors.UpdateDutyStatus;
@@ -86,6 +87,8 @@ using Clinic.Domain.Features.Repositories.QueueRooms.GetAllQueueRooms;
 using Clinic.Domain.Features.Repositories.QueueRooms.GetQueueRoomByUserId;
 using Clinic.Domain.Features.Repositories.QueueRooms.RemoveQueueRoom;
 using Clinic.Domain.Features.Repositories.Schedules.CreateSchedules;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorMonthlyDate;
+using Clinic.Domain.Features.Repositories.Schedules.GetDoctorScheduleByDate;
 using Clinic.Domain.Features.Repositories.Schedules.GetScheduleDatesByMonth;
 using Clinic.Domain.Features.Repositories.Schedules.GetSchedulesByDate;
 using Clinic.Domain.Features.Repositories.Schedules.RemoveAllSchedules;
@@ -608,6 +611,11 @@ public interface IUnitOfWork
     public IGetUserInforByIdRepository GetUserInforByIdRepository { get; }
 
     /// <summary>
+    ///      GetUsersHaveMedicalReport feature
+    /// </summary>
+    public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository { get; }
+  
+    /// <summary>
     ///      SwitchToCancelChatRoom feature
     /// </summary>
     public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository { get; }
@@ -616,4 +624,16 @@ public interface IUnitOfWork
     ///      GetIdsDoctor feature
     /// </summary>
     public IGetIdsDoctorRepository GetIdsDoctorRepository { get; }
+
+    /// <summary>
+    ///     GetDoctorMonthlyDate feature
+    /// </summary>
+
+    public IGetDoctorMonthlyDateRepository GetDoctorMonthlyDateRepository { get; }
+
+    /// <summary>
+    ///     GetDoctorScheduleByDate feature
+    /// </summary>
+    ///
+    public IGetDoctorScheduleByDateRepository GetDoctorScheduleByDateRepository { get; }
 }

@@ -37,7 +37,8 @@ public class GetScheduleDatesByMonthEndpoint
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode = GetScheduleDatesByMonthResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode =
+                        GetScheduleDatesByMonthResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
