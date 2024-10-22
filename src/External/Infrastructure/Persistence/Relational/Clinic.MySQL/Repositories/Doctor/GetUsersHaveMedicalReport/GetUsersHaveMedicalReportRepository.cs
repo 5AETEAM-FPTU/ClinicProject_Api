@@ -20,16 +20,21 @@ internal class GetUsersHaveMedicalReportRepository : IGetUsersHaveMedicalReportR
         _patient = _context.Set<Patient>();
     }
 
-    public async Task<int> CountAllUserQueryAsync(CancellationToken cancellationToken)
+    public async Task<int> CountAllUserQueryAsync(
+        string keyword,
+        CancellationToken cancellationToken
+    )
     {
         return await _patient
             .Where(patient =>
                 patient.Appointments.Any(appointment => appointment.MedicalReport != null)
+                && patient.User.FullName.Contains(keyword)
             )
             .CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<Patient>> FindUsersHaveMedicalReportsQueryAsync(
+        string keyword,
         int pageIndex,
         int pageSize,
         CancellationToken cancellationToken
@@ -39,6 +44,7 @@ internal class GetUsersHaveMedicalReportRepository : IGetUsersHaveMedicalReportR
             .AsNoTracking()
             .Where(patient =>
                 patient.Appointments.Any(appointment => appointment.MedicalReport != null)
+                && patient.User.FullName.Contains(keyword)
             )
             .Select(entity => new Patient()
             {

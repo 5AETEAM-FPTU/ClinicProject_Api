@@ -10,5 +10,7 @@ public class GetUsersHaveMedicalReportRequest : IFeatureRequest<GetUsersHaveMedi
     public int PageIndex { get; init; }
 
     public int PageSize { get; init; }
+
+    public string Keyword { get; init; }
 }
 
