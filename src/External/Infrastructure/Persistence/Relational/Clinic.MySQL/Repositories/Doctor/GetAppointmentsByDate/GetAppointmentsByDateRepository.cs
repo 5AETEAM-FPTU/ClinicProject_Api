@@ -35,19 +35,22 @@ public class GetAppointmentsByDateRepository : IGetAppointmentsByDateRepository
             .Include(appointment => appointment.Schedule)
             .Include(appointment => appointment.MedicalReport)
             .Include(appointment => appointment.AppointmentStatus)
-            .Where(appointment => appointment.DepositPayment == true)
+            .Where(appointment =>
+                appointment.DepositPayment == true && appointment.Schedule.DoctorId == userId
+            )
             .AsQueryable();
-            
-        if(endDate != null)
+
+        if (endDate != null)
         {
-            result = result.Where(entity => entity.Schedule.StartDate >= startDate
-                        && entity.Schedule.EndDate <= endDate
-                        );
-        } else
+            result = result.Where(entity =>
+                entity.Schedule.StartDate >= startDate && entity.Schedule.EndDate <= endDate
+            );
+        }
+        else
         {
             result = result.Where(entity => entity.Schedule.StartDate == startDate);
         }
-            
+
         return await result
             .OrderBy(appointment => appointment.Schedule.StartDate)
             .ToListAsync(cancellationToken);

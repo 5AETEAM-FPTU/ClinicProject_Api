@@ -7,5 +7,6 @@ public enum GetAppointmentUpcomingResponseStatusCode
 {
     APPOINTMENTS_IS_NOT_FOUND,
     OPERATION_SUCCESS,
-    ROLE_IS_NOT_USER
+    ROLE_IS_NOT_USER,
+    APPOINTMENT_DATE_NOT_FOUND
 }

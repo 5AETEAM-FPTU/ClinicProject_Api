@@ -25,13 +25,17 @@ internal class GetChatRoomsByDoctorIdRepository : IGetChatRoomsByDoctorIdReposit
     }
 
     public async Task<IEnumerable<ChatRoom>> FindAllChatRoomsByDoctorIdQueryAsync(
+        DateTime lastTime,
+        int PageSize,
         Guid doctorId,
         CancellationToken cancellationToken = default
     )
     {
         return await _chatRooms
             .AsNoTracking()
-            .Where(predicate: chatRoom => chatRoom.DoctorId == doctorId)
+            .Where(predicate: chatRoom =>
+                chatRoom.DoctorId == doctorId && chatRoom.LatestTimeMessage < lastTime
+            )
             .OrderByDescending(keySelector: chatRoom => chatRoom.LatestTimeMessage)
             .Select(selector: chatRoom => new ChatRoom()
             {
@@ -50,6 +54,7 @@ internal class GetChatRoomsByDoctorIdRepository : IGetChatRoomsByDoctorIdReposit
                     }
                 }
             })
+            .Take(count: PageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 }

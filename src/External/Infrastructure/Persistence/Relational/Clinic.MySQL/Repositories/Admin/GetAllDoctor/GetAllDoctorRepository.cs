@@ -47,6 +47,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                 && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
                 && user.RemovedBy
                     == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && user.UserRoles.Select(userRole => userRole.Role.Name == "doctor").Any()
             )
             .Select(selector: user => new User()
             {

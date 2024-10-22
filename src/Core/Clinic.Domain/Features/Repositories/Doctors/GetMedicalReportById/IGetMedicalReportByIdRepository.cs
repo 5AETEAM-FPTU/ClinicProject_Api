@@ -1,7 +1,7 @@
-﻿using Clinic.Domain.Commons.Entities;
-using System.Threading.Tasks;
+﻿using System;
 using System.Threading;
-using System;
+using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
 
 namespace Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 
@@ -10,5 +10,13 @@ namespace Clinic.Domain.Features.Repositories.Doctors.GetMedicalReportById;
 /// </summary>
 public interface IGetMedicalReportByIdRepository
 {
-    Task<MedicalReport> GetMedicalReportByIdQueryAsync(Guid reportId, CancellationToken cancellationToken);
+    Task<bool> IsFeedbackExistByAppointmentIdQueryAynsc(
+        Guid appointmentId,
+        CancellationToken cancellationToken
+    );
+
+    Task<MedicalReport> GetMedicalReportByIdQueryAsync(
+        Guid reportId,
+        CancellationToken cancellationToken
+    );
 }

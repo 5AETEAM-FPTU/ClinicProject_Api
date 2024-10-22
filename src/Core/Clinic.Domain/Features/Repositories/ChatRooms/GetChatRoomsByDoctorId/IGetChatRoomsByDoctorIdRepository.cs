@@ -12,6 +12,8 @@ namespace Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 public interface IGetChatRoomsByDoctorIdRepository
 {
     Task<IEnumerable<ChatRoom>> FindAllChatRoomsByDoctorIdQueryAsync(
+        DateTime lastTime,
+        int PageSize,
         Guid doctorId,
         CancellationToken cancellationToken = default
     );
