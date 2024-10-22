@@ -52,6 +52,13 @@ public class GetAppointmentsByDateHandler
             _contextAccessor.HttpContext.User.FindFirstValue(claimType: JwtRegisteredClaimNames.Sub)
         );
 
+        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
+
+        if (!(Equals(objA: role, objB: "staff") || Equals(objA: role, objB: "doctor")))
+        {
+            return new() { StatusCode = GetAppointmentsByDateResponseStatusCode.FORBIDEN_ACCESS };
+        }
+
         // Found user by userId
         var foundUser = await _unitOfWork.GetAppointmentsByDateRepository.GetUserByIdAsync(
             userId,

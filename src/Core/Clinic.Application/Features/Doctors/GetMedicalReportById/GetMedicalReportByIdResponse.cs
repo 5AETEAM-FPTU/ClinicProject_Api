@@ -16,6 +16,8 @@ public class GetMedicalReportByIdResponse : IFeatureResponse
     {
         public Guid AppointmentId { get; init; }
 
+        public bool IsFeedbackExist { get; init; }
+
         public PatientInformation PatientInfor { get; init; }
 
         public sealed class PatientInformation

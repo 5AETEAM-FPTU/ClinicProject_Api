@@ -11,7 +11,8 @@ namespace Clinic.WebAPI.EndPoints.ChatRooms.GetChatRoomsByUserId;
 /// <summary>
 ///     Endpoint for GetChatRoomsByUserId.
 /// </summary>
-public class GetChatRoomsByUserIdEndpoint : Endpoint<EmptyRequest, GetChatRoomsByUserIdHttpResponse>
+public class GetChatRoomsByUserIdEndpoint
+    : Endpoint<GetChatRoomsByUserIdRequest, GetChatRoomsByUserIdHttpResponse>
 {
     public override void Configure()
     {
@@ -38,17 +39,16 @@ public class GetChatRoomsByUserIdEndpoint : Endpoint<EmptyRequest, GetChatRoomsB
     }
 
     public override async Task<GetChatRoomsByUserIdHttpResponse> ExecuteAsync(
-        EmptyRequest req,
+        GetChatRoomsByUserIdRequest req,
         CancellationToken ct
     )
     {
-        var request = new GetChatRoomsByUserIdRequest();
-        var appResponse = await request.ExecuteAsync(ct: ct);
+        var appResponse = await req.ExecuteAsync(ct: ct);
 
         var httpResponse = GetChatRoomsByUserIdHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
-            .Invoke(arg1: request, arg2: appResponse);
+            .Invoke(arg1: req, arg2: appResponse);
 
         var httpResponseStatusCode = httpResponse.HttpCode;
         httpResponse.HttpCode = default;

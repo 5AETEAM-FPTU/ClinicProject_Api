@@ -40,6 +40,16 @@ public class GetAppointmentUpcomingHttpResponseManager
                     AppCode = response.StatusCode.ToAppCode(),
                 }
         );
+
+        _dictionary.Add(
+            key: GetAppointmentUpcomingResponseStatusCode.APPOINTMENT_DATE_NOT_FOUND,
+            value: (request, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode(),
+                }
+        );
     }
 
     internal Func<

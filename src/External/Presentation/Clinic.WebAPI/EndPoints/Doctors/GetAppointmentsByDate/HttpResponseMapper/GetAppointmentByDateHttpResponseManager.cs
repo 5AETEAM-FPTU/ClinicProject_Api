@@ -12,7 +12,11 @@ public class GetAppointmentByDateHttpResponseManager
 {
     private readonly Dictionary<
         GetAppointmentsByDateResponseStatusCode,
-        Func<GetAppointmentsByDateRequest, GetAppointmentsByDateResponse, GetAppointmentsByDateHttpResponse>
+        Func<
+            GetAppointmentsByDateRequest,
+            GetAppointmentsByDateResponse,
+            GetAppointmentsByDateHttpResponse
+        >
     > _dictionary;
 
     internal GetAppointmentByDateHttpResponseManager()
@@ -32,6 +36,16 @@ public class GetAppointmentByDateHttpResponseManager
 
         _dictionary.Add(
             key: GetAppointmentsByDateResponseStatusCode.USER_IS_NOT_FOUND,
+            value: (_, response) =>
+                new()
+                {
+                    HttpCode = StatusCodes.Status404NotFound,
+                    AppCode = response.StatusCode.ToAppCode()
+                }
+        );
+
+        _dictionary.Add(
+            key: GetAppointmentsByDateResponseStatusCode.FORBIDEN_ACCESS,
             value: (_, response) =>
                 new()
                 {
