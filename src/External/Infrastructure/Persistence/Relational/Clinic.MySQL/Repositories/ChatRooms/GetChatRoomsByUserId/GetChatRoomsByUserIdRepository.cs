@@ -25,13 +25,17 @@ internal class GetChatRoomsByUserIdRepository : IGetChatRoomsByUserIdRepository
     }
 
     public async Task<IEnumerable<ChatRoom>> FindAllChatRoomsByUserIdQueryAsync(
+        DateTime lastTime,
+        int PageSize,
         Guid userId,
         CancellationToken cancellationToken = default
     )
     {
         return await _chatRooms
             .AsNoTracking()
-            .Where(predicate: chatRoom => chatRoom.PatientId == userId)
+            .Where(predicate: chatRoom =>
+                chatRoom.PatientId == userId && chatRoom.LatestTimeMessage < lastTime
+            )
             .OrderByDescending(keySelector: chatRoom => chatRoom.LatestTimeMessage)
             .Select(selector: chatRoom => new ChatRoom()
             {

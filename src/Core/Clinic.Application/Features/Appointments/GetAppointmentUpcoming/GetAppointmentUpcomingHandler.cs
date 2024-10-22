@@ -67,6 +67,14 @@ public class GetAppointmentUpcomingHandler
                 cancellationToken: cancellationToken
             );
 
+        if (Equals(dateAppointmentUpcomming, default))
+        {
+            return new()
+            {
+                StatusCode = GetAppointmentUpcomingResponseStatusCode.APPOINTMENTS_IS_NOT_FOUND
+            };
+        }
+
         // Get total of appointmented pation.
         var totalAppointmentedPation =
             await _unitOfWork.GetAppointmentUpcomingRepository.GetTotalAppointmentedByUserIdQueryAsync(

@@ -13,11 +13,24 @@ public class GetMedicalReportByIdRepository : IGetMedicalReportByIdRepository
 {
     private readonly ClinicContext _context;
     private DbSet<MedicalReport> _reports;
+    private DbSet<Feedback> _feedbacks;
 
     public GetMedicalReportByIdRepository(ClinicContext context)
     {
         _context = context;
         _reports = _context.Set<MedicalReport>();
+        _feedbacks = _context.Set<Feedback>();
+    }
+
+    public Task<bool> IsFeedbackExistByAppointmentIdQueryAynsc(
+        Guid appointmentId,
+        CancellationToken cancellationToken
+    )
+    {
+        return _feedbacks.AnyAsync(
+            predicate: feedback => feedback.AppointmentId == appointmentId,
+            cancellationToken: cancellationToken
+        );
     }
 
     public async Task<MedicalReport> GetMedicalReportByIdQueryAsync(
@@ -39,6 +52,7 @@ public class GetMedicalReportByIdRepository : IGetMedicalReportByIdRepository
                 Height = report.Height,
                 GeneralCondition = report.GeneralCondition,
                 AppointmentId = report.AppointmentId,
+
                 Appointment = new Appointment()
                 {
                     Schedule = new Schedule() { StartDate = report.Appointment.Schedule.StartDate },

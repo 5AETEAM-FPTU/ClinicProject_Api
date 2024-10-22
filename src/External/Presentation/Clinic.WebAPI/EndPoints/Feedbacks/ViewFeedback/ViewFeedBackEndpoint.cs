@@ -1,23 +1,24 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.ChatRooms.GetChatRoomsByDoctorId;
-using Clinic.WebAPI.EndPoints.ChatRooms.GetChatRoomsByDoctorId.HttpResponseMapper;
+using Clinic.Application.Features.Feedbacks.ViewFeedback;
+using Clinic.WebAPI.Commons.Behaviors.Validation;
+using Clinic.WebAPI.EndPoints.Feedbacks.ViewFeedback.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.ChatRooms.GetChatRoomsByDoctorId;
+namespace Clinic.WebAPI.EndPoints.Feedbacks.ViewFeedback;
 
 /// <summary>
-///     Endpoint for GetChatRoomsByDoctorId.
+///     ViewFeedBack endpoint
 /// </summary>
-public class GetChatRoomsByDoctorIdEndpoint
-    : Endpoint<GetChatRoomsByDoctorIdRequest, GetChatRoomsByDoctorIdHttpResponse>
+public class ViewFeedBackEndpoint : Endpoint<ViewFeedBackRequest, ViewFeedBackHttpResponse>
 {
     public override void Configure()
     {
-        Get("chat-room/doctor");
+        Get("user/feedback/view");
         AuthSchemes(JwtBearerDefaults.AuthenticationScheme);
+        PreProcessor<ValidationPreProcessor<ViewFeedBackRequest>>();
         DontThrowIfValidationFails();
         Description(builder =>
         {
@@ -25,28 +26,27 @@ public class GetChatRoomsByDoctorIdEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint for get chat rooms by doctors.";
-            summary.Description = "This endpoint allow to get chat rooms by doctors.";
-            summary.Response<GetChatRoomsByDoctorIdHttpResponse>(
+            summary.Summary = "Endpoint to create medicine";
+            summary.Description = "This endpoint allows user for sending feedback to doctor.";
+            summary.Response<ViewFeedBackHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
                 {
                     HttpCode = StatusCodes.Status200OK,
-                    AppCode =
-                        GetChatRoomsByDoctorIdResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
+                    AppCode = ViewFeedBackResponseStatusCode.OPERATION_SUCCESS.ToAppCode(),
                 }
             );
         });
     }
 
-    public override async Task<GetChatRoomsByDoctorIdHttpResponse> ExecuteAsync(
-        GetChatRoomsByDoctorIdRequest req,
+    public override async Task<ViewFeedBackHttpResponse> ExecuteAsync(
+        ViewFeedBackRequest req,
         CancellationToken ct
     )
     {
         var appResponse = await req.ExecuteAsync(ct: ct);
 
-        var httpResponse = GetChatRoomsByDoctorIdHttpResponseMapper
+        var httpResponse = ViewFeedBackHttpResponseMapper
             .Get()
             .Resolve(statusCode: appResponse.StatusCode)
             .Invoke(arg1: req, arg2: appResponse);
@@ -55,6 +55,7 @@ public class GetChatRoomsByDoctorIdEndpoint
         httpResponse.HttpCode = default;
 
         await SendAsync(httpResponse, httpResponseStatusCode, ct);
+
         httpResponse.HttpCode = httpResponseStatusCode;
 
         return httpResponse;

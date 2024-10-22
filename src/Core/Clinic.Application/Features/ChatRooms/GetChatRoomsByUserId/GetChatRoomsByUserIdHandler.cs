@@ -47,6 +47,8 @@ internal sealed class GetChatRoomsByUserIdHandler
 
         var chatRooms =
             await _unitOfWork.GetChatRoomsByUserIdRepository.FindAllChatRoomsByUserIdQueryAsync(
+                lastTime: command.LastConversationTime,
+                PageSize: command.PageSize,
                 userId: Guid.Parse(input: userId),
                 cancellationToken: ct
             );

@@ -1,4 +1,4 @@
-﻿namespace Clinic.Application.Features.Users.SendFeedBack;
+﻿namespace Clinic.Application.Features.Feedbacks.SendFeedBack;
 
 public static class SendFeedBackExtensionMethod
 {

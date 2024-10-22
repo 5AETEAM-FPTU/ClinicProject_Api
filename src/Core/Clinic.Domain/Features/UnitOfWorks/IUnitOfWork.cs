@@ -72,6 +72,8 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
+using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
@@ -102,7 +104,6 @@ using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.GetUserMedicalReport;
-using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
@@ -656,4 +657,9 @@ public interface IUnitOfWork
     /// </summary>
     ///
     public IGetAllDoctorForStaffRepository GetAllDoctorForStaffRepository { get; }
+
+    /// <summary>
+    ///      ViewFeedback feature
+    /// </summary>
+    public IViewFeedbackRepository ViewFeedbackRepository { get; }
 }

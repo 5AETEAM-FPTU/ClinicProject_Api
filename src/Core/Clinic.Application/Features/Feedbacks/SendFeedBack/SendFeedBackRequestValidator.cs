@@ -2,7 +2,7 @@
 using Clinic.Application.Commons.Abstractions;
 using FluentValidation;
 
-namespace Clinic.Application.Features.Users.SendFeedBack;
+namespace Clinic.Application.Features.Feedbacks.SendFeedBack;
 
 public sealed class SendFeedBackRequestValidator
     : FeatureRequestValidator<SendFeedBackRequest, SendFeedBackResponse>

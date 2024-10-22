@@ -1,7 +1,7 @@
 ﻿using System;
 using Clinic.Application.Commons.Abstractions;
 
-namespace Clinic.Application.Features.Users.SendFeedBack;
+namespace Clinic.Application.Features.Feedbacks.SendFeedBack;
 
 public class SendFeedBackRequest : IFeatureRequest<SendFeedBackResponse>
 {
