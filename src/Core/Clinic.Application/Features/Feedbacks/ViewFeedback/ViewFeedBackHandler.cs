@@ -55,7 +55,7 @@ internal sealed class ViewFeedBackHandler
 
         // foundAppointment
         var foundAppointment = await _unitOfWork.ViewFeedbackRepository.GetAppointmentByIdQueryAsync(
-             request.AppointmentId,
+             request.ReportId,
              cancellationToken: ct
         );
 
@@ -66,7 +66,7 @@ internal sealed class ViewFeedBackHandler
 
         // Check if feedback already existed
         var isFeedbackExisted = await _unitOfWork.ViewFeedbackRepository.IsExistFeedback(
-            request.AppointmentId,
+            foundAppointment.Id,
             cancellationToken: ct
         );
 
@@ -77,7 +77,7 @@ internal sealed class ViewFeedBackHandler
 
         // Get doctor releated appointment
         var doctorResult = await _unitOfWork.ViewFeedbackRepository.GetDoctorByIdQueryAsync(
-            appointmentId: request.AppointmentId,
+            appointmentId: foundAppointment.Id,
             cancellationToken: ct
         );
 
@@ -89,7 +89,7 @@ internal sealed class ViewFeedBackHandler
 
         // Get feedback
         var feedbackResult = await _unitOfWork.ViewFeedbackRepository.GetFeedBackQueryAsync(
-            appointmentId: request.AppointmentId,
+            appointmentId: foundAppointment.Id,
             cancellationToken: ct
         );
 

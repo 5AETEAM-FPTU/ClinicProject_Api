@@ -24,13 +24,13 @@ public class ViewFeedbackRepository : IViewFeedbackRepository
         _user = _context.Set<User>();
     }
 
-    public async Task<Appointment> GetAppointmentByIdQueryAsync(Guid appointmentId, CancellationToken cancellationToken)
+    public async Task<Appointment> GetAppointmentByIdQueryAsync(Guid reportId, CancellationToken cancellationToken)
     {
         return await _appointments
             .AsNoTracking()
             .Include(entity => entity.Schedule)
             .ThenInclude(entity => entity.Doctor)
-            .Where(entity => entity.Id == appointmentId)
+            .Where(entity => entity.MedicalReport.Id == reportId)
             .FirstOrDefaultAsync(cancellationToken);
     }
 
