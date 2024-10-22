@@ -23,13 +23,8 @@ public class UpdateScheduleByIdRepository : IUpdateScheduleByIdRepository
     public async Task<bool> AreOverLappedSchedule(Guid doctorId, Guid scheduleId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)
     {
         var existSchedules = await _schedules
-            .Where(predicate: schedule => schedule.DoctorId == doctorId)
+            .Where(predicate: schedule => schedule.DoctorId == doctorId && schedule.Id != scheduleId)
             .ToListAsync(cancellationToken: cancellationToken);
-
-        var currentUpdate = await _schedules
-           .FirstOrDefaultAsync(schedule => schedule.Id == scheduleId, cancellationToken);
-
-        existSchedules.Remove(currentUpdate);
 
         foreach (var schedule in existSchedules)
         {   
@@ -46,6 +41,12 @@ public class UpdateScheduleByIdRepository : IUpdateScheduleByIdRepository
     {
         return _schedules
             .AnyAsync(schedule => schedule.Id == scheduleId);
+    }
+
+    public async Task<bool> IsScheduleHadAppoitment(Guid scheduleId, CancellationToken cancellationToken)
+    {
+        return await _schedules
+            .AnyAsync(schedule => schedule.Id == scheduleId && schedule.Appointment != null);
     }
 
     public async Task<bool> UpdateScheduleByIdCommandAsync(Guid scheduleId, DateTime startDate, DateTime endDate, CancellationToken cancellationToken)

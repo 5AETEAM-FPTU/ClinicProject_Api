@@ -78,6 +78,18 @@ public class UpdateScheduleHandler
             return new() { StatusCode = UpdateScheduleResponseStatusCode.NOT_FOUND_SCHEDULE };
         }
 
+        // Check schedule is had appointment
+        var isScheduleHadAppoitment = await _unitOfWork.UpdateScheduleByIdRepository.IsScheduleHadAppoitment(
+            scheduleId: request.ScheduleId,
+            cancellationToken: cancellationToken
+            );
+
+        // Respond if schedule not exsit
+        if (isScheduleHadAppoitment)
+        {
+            return new() { StatusCode = UpdateScheduleResponseStatusCode.SCHEDULE_HAD_APPOINTMENT };
+        }
+
         // Check overlapping in database
         var isOverlapping = await _unitOfWork.UpdateScheduleByIdRepository.AreOverLappedSchedule(
             doctorId: doctorId,

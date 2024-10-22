@@ -47,6 +47,7 @@ using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
+using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllMedicalReport;
 using Clinic.Domain.Features.Repositories.Doctors.GetAppointmentsByDate;
 using Clinic.Domain.Features.Repositories.Doctors.GetAvailableDoctor;
@@ -154,6 +155,7 @@ using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
 using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
+using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForStaff;
 using Clinic.MySQL.Repositories.Doctor.GetAllMedicalReport;
 using Clinic.MySQL.Repositories.Doctor.GetAppointmentsByDate;
 using Clinic.MySQL.Repositories.Doctor.GetAvailableDoctor;
@@ -335,6 +337,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetDoctorMonthlyDateRepository _getDoctorMonthlyDateRepository;
     private IGetDoctorScheduleByDateRepository _getDoctorScheduleByDateRepository;
     private IGetUserMedicalReportRepository _getUserMedicalReportRepository;
+    private IGetAllDoctorForStaffRepository _getAllDoctorForStaffRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1140,6 +1143,14 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getUserMedicalReportRepository ??= new GetUserMedicalReportRepository(_context);
+        }
+    }
+
+    public IGetAllDoctorForStaffRepository GetAllDoctorForStaffRepository
+    {
+        get
+        {
+            return _getAllDoctorForStaffRepository ??= new GetAllDoctorForStaffRepository(_context);
         }
     }
 }
