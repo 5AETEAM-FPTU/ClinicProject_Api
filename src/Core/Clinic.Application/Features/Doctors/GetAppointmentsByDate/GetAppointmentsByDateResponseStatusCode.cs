@@ -6,5 +6,6 @@
 public enum GetAppointmentsByDateResponseStatusCode
 {
     OPERATION_SUCCESS,
-    USER_IS_NOT_FOUND
+    USER_IS_NOT_FOUND,
+    FORBIDEN_ACCESS
 }

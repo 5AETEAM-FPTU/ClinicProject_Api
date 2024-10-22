@@ -56,6 +56,12 @@ public class GetMedicalReportByIdHandler
             };
         }
 
+        var isFeedbackExist =
+            await _unitOfWork.GetMedicalReportByIdRepository.IsFeedbackExistByAppointmentIdQueryAynsc(
+                appointmentId: foundReport.AppointmentId,
+                cancellationToken: cancellationToken
+            );
+
         // Response successfully.
         return new GetMedicalReportByIdResponse()
         {
@@ -63,6 +69,7 @@ public class GetMedicalReportByIdHandler
             ResponseBody = new()
             {
                 AppointmentId = foundReport.AppointmentId,
+                IsFeedbackExist = isFeedbackExist,
                 PatientInfor = new GetMedicalReportByIdResponse.Body.PatientInformation()
                 {
                     PatientId = foundReport.PatientInformation.Id,
