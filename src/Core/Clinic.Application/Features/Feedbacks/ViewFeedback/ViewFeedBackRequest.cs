@@ -7,5 +7,5 @@ namespace Clinic.Application.Features.Feedbacks.ViewFeedback;
 public class ViewFeedBackRequest : IFeatureRequest<ViewFeedBackResponse>
 {
     //[BindFrom("appointmentId")]
-    public Guid AppointmentId { get; set; }
+    public Guid ReportId { get; set; }
 }
