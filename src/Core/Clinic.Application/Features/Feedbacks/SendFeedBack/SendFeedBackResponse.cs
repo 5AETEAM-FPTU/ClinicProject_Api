@@ -1,6 +1,6 @@
 ﻿using Clinic.Application.Commons.Abstractions;
 
-namespace Clinic.Application.Features.Users.SendFeedBack;
+namespace Clinic.Application.Features.Feedbacks.SendFeedBack;
 
 /// <summary>
 ///     SendFeedBackResponse
