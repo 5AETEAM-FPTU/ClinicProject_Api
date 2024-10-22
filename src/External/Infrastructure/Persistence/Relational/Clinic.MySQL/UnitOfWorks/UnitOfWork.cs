@@ -75,6 +75,8 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
+using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
@@ -105,7 +107,6 @@ using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
 using Clinic.Domain.Features.Repositories.Users.GetRecentMedicalReport;
 using Clinic.Domain.Features.Repositories.Users.GetUserMedicalReport;
-using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserAvatar;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserDescription;
 using Clinic.Domain.Features.Repositories.Users.UpdateUserPrivateInfo;
@@ -183,6 +184,8 @@ using Clinic.MySQL.Repositories.ExaminationServices.GetDetailService;
 using Clinic.MySQL.Repositories.ExaminationServices.HiddenService;
 using Clinic.MySQL.Repositories.ExaminationServices.RemoveService;
 using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
+using Clinic.MySQL.Repositories.Feedbacks.SendFeedBack;
+using Clinic.MySQL.Repositories.Feedbacks.ViewFeedback;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
@@ -213,7 +216,6 @@ using Clinic.MySQL.Repositories.Users.GetConsultationOverview;
 using Clinic.MySQL.Repositories.Users.GetProfileUser;
 using Clinic.MySQL.Repositories.Users.GetRecentMedicalReport;
 using Clinic.MySQL.Repositories.Users.GetUserMedicalReport;
-using Clinic.MySQL.Repositories.Users.SendFeedBack;
 using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
@@ -338,6 +340,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetDoctorScheduleByDateRepository _getDoctorScheduleByDateRepository;
     private IGetUserMedicalReportRepository _getUserMedicalReportRepository;
     private IGetAllDoctorForStaffRepository _getAllDoctorForStaffRepository;
+    private IViewFeedbackRepository _viewFeedbackRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1153,4 +1156,13 @@ public class UnitOfWork : IUnitOfWork
             return _getAllDoctorForStaffRepository ??= new GetAllDoctorForStaffRepository(_context);
         }
     }
+
+    public IViewFeedbackRepository ViewFeedbackRepository
+    {
+        get
+        {
+            return _viewFeedbackRepository ??= new ViewFeedbackRepository(_context);
+        }
+    }
+
 }

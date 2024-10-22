@@ -2,11 +2,11 @@
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.SendFeedBack;
+using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.Users.SendFeedBack;
+namespace Clinic.MySQL.Repositories.Feedbacks.SendFeedBack;
 
 internal class SendFeedBackRepository : ISendFeedBackRepository
 {

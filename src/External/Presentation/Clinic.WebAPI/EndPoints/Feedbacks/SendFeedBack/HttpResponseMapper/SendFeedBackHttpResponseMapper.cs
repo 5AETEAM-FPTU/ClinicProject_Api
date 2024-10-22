@@ -1,4 +1,4 @@
-﻿namespace Clinic.WebAPI.EndPoints.Users.SendFeedBack.HttpResponseMapper;
+﻿namespace Clinic.WebAPI.EndPoints.Feedbacks.SendFeedBack.HttpResponseMapper;
 
 /// <summary>
 ///     SendFeedBack extension method
