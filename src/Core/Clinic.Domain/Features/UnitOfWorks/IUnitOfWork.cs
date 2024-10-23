@@ -14,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.RemovedDoctorTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -671,7 +672,12 @@ public interface IUnitOfWork
     public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository { get; }
 
     /// <summary>
-    ///       feature
+    ///      SwitchToEndChatRoom feature
     /// </summary>
     public ISwitchToEndChatRoomRepository SwitchToEndChatRoomRepository { get; }
+
+    /// <summary>
+    ///      RemovedDoctorTemporarily feature
+    /// </summary>
+    public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository { get; }
 }

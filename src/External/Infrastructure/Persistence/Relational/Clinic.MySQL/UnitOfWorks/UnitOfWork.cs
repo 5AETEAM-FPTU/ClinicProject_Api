@@ -17,6 +17,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.RemovedDoctorTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -129,6 +130,7 @@ using Clinic.MySQL.Repositories.Admin.GetAvailableMedicines;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
+using Clinic.MySQL.Repositories.Admin.RemovedDoctorTemporarily;
 using Clinic.MySQL.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
@@ -346,6 +348,7 @@ public class UnitOfWork : IUnitOfWork
     private IViewFeedbackRepository _viewFeedbackRepository;
     private IUpdateStatusServiceOrderItemRepository _updateStatusServiceOrderItemRepository;
     private ISwitchToEndChatRoomRepository _switchToEndChatRoomRepository;
+    private IRemovedDoctorTemporarilyRepository _removedDoctorTemporarilyRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1181,6 +1184,16 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _switchToEndChatRoomRepository ??= new SwitchToEndChatRoomRepository(_context);
+        }
+    }
+
+    public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository
+    {
+        get
+        {
+            return _removedDoctorTemporarilyRepository ??= new RemovedDoctorTemporarilyRepository(
+                _context
+            );
         }
     }
 }
