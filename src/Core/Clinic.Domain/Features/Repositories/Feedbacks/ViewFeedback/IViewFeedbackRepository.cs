@@ -12,5 +12,5 @@ public interface IViewFeedbackRepository
     Task<double> GetRatingQueryAsync(Guid doctorId, CancellationToken cancellationToken);
     Task<bool> IsExistFeedback(Guid appointmentId, CancellationToken cancellationToken);
     Task<User> GetDoctorByIdQueryAsync(Guid appointmentId, CancellationToken cancellationToken);
-    Task<Appointment> GetAppointmentByIdQueryAsync(Guid reportId, CancellationToken cancellationToken);
+    Task<Appointment> GetAppointmentByIdQueryAsync(Guid appointmentId, CancellationToken cancellationToken);
 }
