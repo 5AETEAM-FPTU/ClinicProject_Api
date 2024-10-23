@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using Clinic.Application.Features.Users.SendFeedBack;
+using Clinic.Application.Features.Feedbacks.SendFeedBack;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Users.SendFeedBack.HttpResponseMapper;
+namespace Clinic.WebAPI.EndPoints.Feedbacks.SendFeedBack.HttpResponseMapper;
 
 /// <summary>
 ///     Mapper for SendFeedBack feature

@@ -28,10 +28,10 @@ internal class GetAllDoctorForStaffRepository : IGetAllDoctorForStaffRepository
         CancellationToken cancellationToken
     )
     {
-        return await _userDetails
-            .AsNoTracking()
-            .Where(entity => entity.User.FullName.Contains(keyWord))
-            .CountAsync(cancellationToken: cancellationToken);
+            return await _userDetails
+                .AsNoTracking()
+                .Where(entity => entity.User.FullName.Contains(keyWord))
+                .CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorsQueryAsync(
@@ -55,9 +55,9 @@ internal class GetAllDoctorForStaffRepository : IGetAllDoctorForStaffRepository
                             Name = doctorSpecialty.Specialty.Name,
                             Id = doctorSpecialty.Specialty.Id,
                         },
-                    })
+                    }) 
                     .ToList(),
-                User = new User()
+                User = new Clinic.Domain.Commons.Entities.User()
                 {
                     FullName = doctor.User.FullName,
                     Avatar = doctor.User.Avatar,

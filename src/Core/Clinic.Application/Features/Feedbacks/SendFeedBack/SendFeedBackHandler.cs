@@ -8,7 +8,7 @@ using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
 using Microsoft.IdentityModel.JsonWebTokens;
 
-namespace Clinic.Application.Features.Users.SendFeedBack;
+namespace Clinic.Application.Features.Feedbacks.SendFeedBack;
 
 internal sealed class SendFeedBackHandler
     : IFeatureHandler<SendFeedBackRequest, SendFeedBackResponse>

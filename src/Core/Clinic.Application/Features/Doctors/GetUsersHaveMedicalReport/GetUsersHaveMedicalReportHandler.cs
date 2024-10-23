@@ -59,6 +59,7 @@ public class GetUsersHaveMedicalReportHandler
         // Get all users.
         var users =
             await _unitOfWork.GetUsersHaveMedicalReportRepository.FindUsersHaveMedicalReportsQueryAsync(
+                keyword: request.Keyword,
                 pageIndex: request.PageIndex,
                 pageSize: request.PageSize,
                 cancellationToken: cancellationToken
@@ -67,6 +68,7 @@ public class GetUsersHaveMedicalReportHandler
         // Count all the users.
         var countUser =
             await _unitOfWork.GetUsersHaveMedicalReportRepository.CountAllUserQueryAsync(
+                keyword: request.Keyword,
                 cancellationToken: cancellationToken
             );
 

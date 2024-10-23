@@ -1,13 +1,13 @@
 ﻿using System.Threading;
 using System.Threading.Tasks;
-using Clinic.Application.Features.Users.SendFeedBack;
+using Clinic.Application.Features.Feedbacks.SendFeedBack;
 using Clinic.WebAPI.Commons.Behaviors.Validation;
-using Clinic.WebAPI.EndPoints.Users.SendFeedBack.HttpResponseMapper;
+using Clinic.WebAPI.EndPoints.Feedbacks.SendFeedBack.HttpResponseMapper;
 using FastEndpoints;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
 
-namespace Clinic.WebAPI.EndPoints.Users.SendFeedBack;
+namespace Clinic.WebAPI.EndPoints.Feedbacks.SendFeedBack;
 
 /// <summary>
 ///     SendFeedBack endpoint
