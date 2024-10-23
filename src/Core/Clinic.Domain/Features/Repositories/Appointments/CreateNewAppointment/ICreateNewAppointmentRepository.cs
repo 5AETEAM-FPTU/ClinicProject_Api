@@ -8,12 +8,21 @@ using Clinic.Domain.Commons.Entities;
 
 namespace Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 
-public interface ICreateNewAppointmentRepository {
+public interface ICreateNewAppointmentRepository
+{
     Task<AppointmentStatus> GetPendingStatusAsync(CancellationToken cancellationToken = default);
 
-    Task<bool> IsExistSchedule(Guid schedueleId, CancellationToken cancellationToken = default);
+    Task<Schedule> FindScheduleQueryAsync(
+        Guid schedueleId,
+        CancellationToken cancellationToken = default
+    );
+    Task<bool> IsExistScheduleHadAppointment(
+        Guid schedueleId,
+        CancellationToken cancellationToken = default
+    );
 
-    Task<bool> IsExistScheduleHadAppointment(Guid schedueleId, CancellationToken cancellationToken = default);
-
-    Task<bool> CreateNewAppointment(Appointment appointment, CancellationToken cancellationToken = default);
+    Task<bool> CreateNewAppointment(
+        Appointment appointment,
+        CancellationToken cancellationToken = default
+    );
 }

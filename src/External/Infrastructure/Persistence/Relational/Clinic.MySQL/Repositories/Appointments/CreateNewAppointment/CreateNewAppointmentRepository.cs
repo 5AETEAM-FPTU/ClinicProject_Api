@@ -26,12 +26,18 @@ internal class CreateNewAppointmentRepository : ICreateNewAppointmentRepository
         _appointments = _context.Set<Appointment>();
     }
 
-    public async Task<bool> CreateNewAppointment(Appointment appointment, CancellationToken cancellationToken = default)
+    public async Task<bool> CreateNewAppointment(
+        Appointment appointment,
+        CancellationToken cancellationToken = default
+    )
     {
-        try {
+        try
+        {
             _appointments.Add(appointment);
             await _context.SaveChangesAsync(cancellationToken: cancellationToken);
-        } catch (Exception ex) {
+        }
+        catch (Exception ex)
+        {
             await Console.Out.WriteLineAsync(ex.ToString());
             return false;
         }
@@ -48,15 +54,15 @@ internal class CreateNewAppointmentRepository : ICreateNewAppointmentRepository
         );
     }
 
-    public Task<bool> IsExistSchedule(
+    public async Task<Schedule> FindScheduleQueryAsync(
         Guid schedueleId,
         CancellationToken cancellationToken = default
     )
     {
-        return _schedules.AnyAsync(
-            schedule => schedule.Id == schedueleId,
-            cancellationToken: cancellationToken
-        );
+        return await _schedules
+            .Where(predicate: entity => entity.Id == schedueleId)
+            .Select(selector: entity => new Schedule { StartDate = entity.StartDate })
+            .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 
     public Task<bool> IsExistScheduleHadAppointment(

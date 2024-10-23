@@ -63,9 +63,9 @@ internal class HandleRedirectURLRepository : IHandleRedirectURLRepository
                     Doctor = new()
                     {
                         User = new() { FullName = entity.Schedule.Doctor.User.FullName }
-                    }
+                    },
+                    StartDate = entity.Schedule.StartDate
                 },
-                ExaminationDate = entity.ExaminationDate,
             })
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
