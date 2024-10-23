@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
@@ -106,12 +108,12 @@ internal class AddDoctorRepository : IAddDoctorRepository
     }
 
     public Task<bool> IsSpecialtyFoundByIdQueryAsync(
-        Guid specialtyId,
+        IEnumerable<Guid> specialtyIds,
         CancellationToken cancellationToken
     )
     {
         return _specialties.AnyAsync(
-            predicate: entity => entity.Id == specialtyId,
+            predicate: entity => specialtyIds.Contains(entity.Id),
             cancellationToken: cancellationToken
         );
     }

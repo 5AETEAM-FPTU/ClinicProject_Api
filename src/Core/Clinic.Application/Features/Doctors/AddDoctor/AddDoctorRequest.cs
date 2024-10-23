@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Features.Doctors.AddDoctor;
 
@@ -14,8 +15,6 @@ public class AddDoctorRequest : IFeatureRequest<AddDoctorResponse>
 
     public string Email { get; init; }
 
-    public string DoctorStaffId { get; init; }
-
     public string PhoneNumber { get; init; }
 
     public Guid GenderId { get; init; }
@@ -24,7 +23,9 @@ public class AddDoctorRequest : IFeatureRequest<AddDoctorResponse>
 
     public string Address { get; init; }
 
-    public Guid SpecialtyId { get; init; }
+    public IEnumerable<Guid> SpecialtyIds { get; init; }
 
     public Guid PositionId { get; init; }
+
+    public string Role { get; init; }
 }
