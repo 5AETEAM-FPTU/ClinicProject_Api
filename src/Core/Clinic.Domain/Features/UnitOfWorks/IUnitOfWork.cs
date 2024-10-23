@@ -99,6 +99,7 @@ using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
+using Clinic.Domain.Features.Repositories.ServiceOrders.UpdateStatusItem;
 using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -662,4 +663,9 @@ public interface IUnitOfWork
     ///      ViewFeedback feature
     /// </summary>
     public IViewFeedbackRepository ViewFeedbackRepository { get; }
+
+    /// <summary>
+    ///      UpdateStatusServiceOrderItem feature
+    /// </summary>
+    public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository { get; }
 }

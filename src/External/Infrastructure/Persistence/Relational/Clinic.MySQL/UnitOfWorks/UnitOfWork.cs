@@ -102,6 +102,7 @@ using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
+using Clinic.Domain.Features.Repositories.ServiceOrders.UpdateStatusItem;
 using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -341,6 +342,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetUserMedicalReportRepository _getUserMedicalReportRepository;
     private IGetAllDoctorForStaffRepository _getAllDoctorForStaffRepository;
     private IViewFeedbackRepository _viewFeedbackRepository;
+    private IUpdateStatusServiceOrderItemRepository _updateStatusServiceOrderItemRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1162,6 +1164,14 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _viewFeedbackRepository ??= new ViewFeedbackRepository(_context);
+        }
+    }
+
+    public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository
+    {
+        get
+        {
+            return _updateStatusServiceOrderItemRepository ??= new UpdateStatusServiceOrderItemRepository(_context);
         }
     }
 
