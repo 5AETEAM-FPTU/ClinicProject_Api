@@ -57,6 +57,7 @@ public class GetUserMedicalReportResponse : IFeatureResponse
         public sealed class ReportDetail
         {
             public Guid ReportId { get; init; }
+            public Guid AppointmentId { get; init; }
             public DateTime Date { get; init; }
             public string MedicalHistory { get; init; }
             public string GeneralCondition { get; init; }

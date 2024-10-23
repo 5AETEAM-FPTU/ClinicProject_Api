@@ -112,6 +112,7 @@ public class GetUserMedicalReportHandler
                     HasFeedback = hasFeedback,
                     MedicineOrderId = foundReport.MedicineOrderId,
                     ServiceOrderId = foundReport.ServiceOrderId,
+                    AppointmentId = foundReport.AppointmentId
                 },
                 DoctorInfor = new GetUserMedicalReportResponse.Body.Doctor()
                 {

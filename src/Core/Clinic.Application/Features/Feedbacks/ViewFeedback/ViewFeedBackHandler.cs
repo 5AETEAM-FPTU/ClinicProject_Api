@@ -55,7 +55,7 @@ internal sealed class ViewFeedBackHandler
 
         // foundAppointment
         var foundAppointment = await _unitOfWork.ViewFeedbackRepository.GetAppointmentByIdQueryAsync(
-             request.ReportId,
+             request.AppointmentId,
              cancellationToken: ct
         );
 
@@ -110,7 +110,8 @@ internal sealed class ViewFeedBackHandler
                 Doctor = new ViewFeedBackResponse.Body.DoctorInfo()
                 {
                     Fullname = doctorResult.FullName,
-                    Rating = ratingResult,
+                    AvatarUrl = doctorResult.Avatar,
+                    Rating = Math.Round(ratingResult,1),
                     Specialties = doctorResult.Doctor.DoctorSpecialties.Select(item => new ViewFeedBackResponse.Body.DoctorInfo.Specialty()
                     {
                         Id = item.Specialty.Id,
