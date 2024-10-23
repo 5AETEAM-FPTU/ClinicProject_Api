@@ -25,7 +25,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
-using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -45,6 +45,7 @@ using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporar
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
+using Clinic.Domain.Features.Repositories.ChatRooms.SwitchToEndChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
@@ -154,7 +155,8 @@ using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
-using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelChatRoom;
+using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelAppointment;
+using Clinic.MySQL.Repositories.ChatRooms.SwitchToEndChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForStaff;
@@ -334,7 +336,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
     private IGetUserInforByIdRepository _getUserInforByIdRepository;
     private IGetUsersHaveMedicalReportRepository _getUsersHaveMedicalReportRepository;
-    private ISwitchToCancelChatRoomRepository _switchToCancelChatRoomRepository;
+    private ISwitchToCancelAppointmentRepository _switchToCancelAppointmentRepository;
     private IGetIdsDoctorRepository _getIdsDoctorRepository;
     private ISendFeedBackRepository _sendFeedBackRepository;
     private IGetDoctorMonthlyDateRepository _getDoctorMonthlyDateRepository;
@@ -343,6 +345,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorForStaffRepository _getAllDoctorForStaffRepository;
     private IViewFeedbackRepository _viewFeedbackRepository;
     private IUpdateStatusServiceOrderItemRepository _updateStatusServiceOrderItemRepository;
+    private ISwitchToEndChatRoomRepository _switchToEndChatRoomRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1105,11 +1108,11 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository
+    public ISwitchToCancelAppointmentRepository SwitchToCancelAppointmentRepository
     {
         get
         {
-            return _switchToCancelChatRoomRepository ??= new SwitchToCancelChatRoomRepository(
+            return _switchToCancelAppointmentRepository ??= new SwitchToCancelAppointmentRepository(
                 _context
             );
         }
@@ -1161,18 +1164,23 @@ public class UnitOfWork : IUnitOfWork
 
     public IViewFeedbackRepository ViewFeedbackRepository
     {
-        get
-        {
-            return _viewFeedbackRepository ??= new ViewFeedbackRepository(_context);
-        }
+        get { return _viewFeedbackRepository ??= new ViewFeedbackRepository(_context); }
     }
 
     public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository
     {
         get
         {
-            return _updateStatusServiceOrderItemRepository ??= new UpdateStatusServiceOrderItemRepository(_context);
+            return _updateStatusServiceOrderItemRepository ??=
+                new UpdateStatusServiceOrderItemRepository(_context);
         }
     }
 
+    public ISwitchToEndChatRoomRepository SwitchToEndChatRoomRepository
+    {
+        get
+        {
+            return _switchToEndChatRoomRepository ??= new SwitchToEndChatRoomRepository(_context);
+        }
+    }
 }
