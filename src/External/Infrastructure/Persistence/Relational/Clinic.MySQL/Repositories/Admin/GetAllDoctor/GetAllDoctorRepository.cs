@@ -13,6 +13,7 @@ using Microsoft.EntityFrameworkCore;
 using MySql.Data.MySqlClient;
 using Mysqlx.Crud;
 using static Microsoft.EntityFrameworkCore.DbLoggerCategory.Database;
+using static Microsoft.Extensions.Logging.EventSource.LoggingEventSource;
 
 namespace Clinic.MySQL.Repositories.Admin.GetAllDoctor;
 
@@ -27,7 +28,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
         _users = _context.Set<User>();
     }
 
-    public Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken)
+    public Task<int> CountAllDoctorsQueryAsync(string keyword, CancellationToken cancellationToken)
     {
         return _users
             .AsNoTracking()
@@ -36,7 +37,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                 && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
                 && user.RemovedBy
                     == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
-               
+                && (user.FullName.Contains(keyword))
             )
             .CountAsync(cancellationToken: cancellationToken);
     }
@@ -44,6 +45,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
     public async Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
         int pageIndex,
         int pageSize,
+        string keyword,
         CancellationToken cancellationToken
     )
     {
@@ -54,6 +56,7 @@ internal class GetAllDoctorRepository : IGetAllDoctorsRepository
                 && user.RemovedAt == Application.Commons.Constance.CommonConstant.MIN_DATE_TIME
                 && user.RemovedBy
                     == Application.Commons.Constance.CommonConstant.DEFAULT_ENTITY_ID_AS_GUID
+                && (user.FullName.Contains(keyword))
             )
             .Select(selector: user => new User()
             {

@@ -1,5 +1,4 @@
-﻿
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
@@ -14,8 +13,9 @@ public interface IGetAllDoctorsRepository
     Task<IEnumerable<User>> FindAllDoctorsQueryAsync(
         int pageIndex,
         int pageSize,
+        string keyword,
         CancellationToken cancellationToken
     );
 
-    Task<int> CountAllDoctorsQueryAsync(CancellationToken cancellationToken);
+    Task<int> CountAllDoctorsQueryAsync(string keyword, CancellationToken cancellationToken);
 }
