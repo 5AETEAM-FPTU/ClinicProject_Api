@@ -66,7 +66,7 @@ internal sealed class GetChatRoomsByUserIdHandler
                         Avatar = chatRoom.Doctor?.User?.Avatar,
                         Title = chatRoom.LastMessage,
                         FullName = chatRoom.Doctor?.User?.FullName,
-                        IsEndConversation = chatRoom.ExpiredTime < DateTime.Now,
+                        IsEndConversation = chatRoom.ExpiredTime < DateTime.Now || chatRoom.IsEnd,
                         LatestMessageTime = chatRoom.LatestTimeMessage
                     })
                     .ToList()
