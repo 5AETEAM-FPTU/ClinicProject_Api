@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
 using Clinic.MySQL.Data.Context;
+using Clinic.MySQL.Data.DataSeeding;
 using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Doctor.GetAllDoctorForStaff;
@@ -28,10 +29,13 @@ internal class GetAllDoctorForStaffRepository : IGetAllDoctorForStaffRepository
         CancellationToken cancellationToken
     )
     {
-            return await _userDetails
-                .AsNoTracking()
-                .Where(entity => entity.User.FullName.Contains(keyWord))
-                .CountAsync(cancellationToken: cancellationToken);
+        return await _userDetails
+            .AsNoTracking()
+            .Where(entity =>
+                entity.User.FullName.Contains(keyWord)
+                && entity.PositionId != EnumConstant.Position.HEALTHCARESTAFF_ID
+            )
+            .CountAsync(cancellationToken: cancellationToken);
     }
 
     public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorsQueryAsync(
@@ -42,7 +46,10 @@ internal class GetAllDoctorForStaffRepository : IGetAllDoctorForStaffRepository
     )
     {
         return await _userDetails
-            .Where(entity => entity.User.FullName.Contains(keyWord))
+            .Where(entity =>
+                entity.User.FullName.Contains(keyWord)
+                && entity.PositionId != EnumConstant.Position.HEALTHCARESTAFF_ID
+            )
             .Select(selector: doctor => new Domain.Commons.Entities.Doctor()
             {
                 UserId = doctor.UserId,
@@ -55,7 +62,7 @@ internal class GetAllDoctorForStaffRepository : IGetAllDoctorForStaffRepository
                             Name = doctorSpecialty.Specialty.Name,
                             Id = doctorSpecialty.Specialty.Id,
                         },
-                    }) 
+                    })
                     .ToList(),
                 User = new Clinic.Domain.Commons.Entities.User()
                 {
