@@ -22,7 +22,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
-using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -42,6 +42,7 @@ using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporar
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
+using Clinic.Domain.Features.Repositories.ChatRooms.SwitchToEndChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
@@ -621,9 +622,9 @@ public interface IUnitOfWork
     public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository { get; }
 
     /// <summary>
-    ///      SwitchToCancelChatRoom feature
+    ///      SwitchToCancelAppointment feature
     /// </summary>
-    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository { get; }
+    public ISwitchToCancelAppointmentRepository SwitchToCancelAppointmentRepository { get; }
 
     /// <summary>
     ///      GetIdsDoctor feature
@@ -668,4 +669,9 @@ public interface IUnitOfWork
     ///      UpdateStatusServiceOrderItem feature
     /// </summary>
     public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository { get; }
+
+    /// <summary>
+    ///       feature
+    /// </summary>
+    public ISwitchToEndChatRoomRepository SwitchToEndChatRoomRepository { get; }
 }
