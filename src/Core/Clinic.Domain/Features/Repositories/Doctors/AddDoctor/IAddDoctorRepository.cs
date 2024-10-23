@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
@@ -12,7 +13,7 @@ public interface IAddDoctorRepository
     Task<bool> IsPositionFoundByIdQueryAsync(Guid positionId, CancellationToken cancellationToken);
 
     Task<bool> IsSpecialtyFoundByIdQueryAsync(
-        Guid specialtyId,
+        IEnumerable<Guid> specialtyIds,
         CancellationToken cancellationToken
     );
 

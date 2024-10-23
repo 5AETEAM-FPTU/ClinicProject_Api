@@ -17,6 +17,6 @@ public static class DependencyInjection
     public static void ConfigAppBackgroundJob(this IServiceCollection services)
     {
         services.AddHostedService<KeepAppAliveBackgroundJob>();
-        //services.AddHostedService<CancelChatRoomBackgroundJob>();
+        services.AddHostedService<CancelAppointmentBackgroundJob>();
     }
 }

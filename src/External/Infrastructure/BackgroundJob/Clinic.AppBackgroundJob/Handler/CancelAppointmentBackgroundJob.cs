@@ -5,13 +5,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 
 /// <summary>
-///     Cancel ChatRoom BackgroundJ Job.
+///     Cancel Appointment BackgroundJ Job.
 /// </summary>
-public sealed class CancelChatRoomBackgroundJob : BackgroundService
+public sealed class CancelAppointmentBackgroundJob : BackgroundService
 {
     private readonly IServiceScopeFactory _serviceScopeFactory;
 
-    public CancelChatRoomBackgroundJob(IServiceScopeFactory serviceProviderFactory) =>
+    public CancelAppointmentBackgroundJob(IServiceScopeFactory serviceProviderFactory) =>
         _serviceScopeFactory = serviceProviderFactory;
 
     protected override async Task ExecuteAsync(CancellationToken stoppingToken)
@@ -28,7 +28,7 @@ public sealed class CancelChatRoomBackgroundJob : BackgroundService
             using var scope = _serviceScopeFactory.CreateScope();
             var repository = scope.ServiceProvider.GetRequiredService<IUnitOfWork>();
 
-            var dbResult = repository.SwitchToCancelChatRoomRepository.SwitchToCancelChatRoom(
+            var dbResult = repository.SwitchToCancelAppointmentRepository.SwitchToCancelAppointment(
                 cancellationToken: stoppingToken
             );
             var originalColor = Console.ForegroundColor;

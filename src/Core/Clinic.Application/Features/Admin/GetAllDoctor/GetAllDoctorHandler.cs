@@ -7,6 +7,7 @@ using Clinic.Application.Commons.Abstractions;
 using Clinic.Application.Commons.Pagination;
 using Clinic.Domain.Features.UnitOfWorks;
 using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace Clinic.Application.Features.Admin.GetAllDoctor;
 
@@ -56,11 +57,13 @@ public class GetAllDoctorHandler : IFeatureHandler<GetAllDoctorRequest, GetAllDo
         var users = await _unitOfWork.GetAllDoctorRepository.FindAllDoctorsQueryAsync(
             pageIndex: request.PageIndex,
             pageSize: request.PageSize,
+            keyword: request.Keyword,
             cancellationToken: cancellationToken
         );
 
         // Count all the users.
         var countUser = await _unitOfWork.GetAllDoctorRepository.CountAllDoctorsQueryAsync(
+            keyword: request.Keyword,
             cancellationToken: cancellationToken
         );
 
