@@ -25,8 +25,8 @@ public class UpdateStatusServiceOrderItemsEndpoint
         });
         Summary(summary =>
         {
-            summary.Summary = "Endpoint to get detail of service indication (order).";
-            summary.Description = "This endpoint allows user to get detail of service indication.";
+            summary.Summary = "Endpoint for doctor/staff to change status of service order item after updating result of service.";
+            summary.Description = "This endpoint allows doctor/staff to change status of service order item to 'isUpdate = true' after updating result of service";
             summary.Response<UpdateStatusServiceOrderItemsHttpResponse>(
                 description: "Represent successful operation response.",
                 example: new()
