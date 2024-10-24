@@ -24,6 +24,12 @@ internal class GetAbsentForStaffRepository : IGetAbsentForStaffRepository
         _appointments = _context.Set<Appointment>();
     }
 
+    public async Task<int> CountAllAbsentForStaffQueryAsync(CancellationToken cancellationToken)
+    {
+        var results = _appointments.AsNoTracking().AsQueryable();
+        return await results.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
+    }
+
     public async Task<IEnumerable<Appointment>> GetAbsentForStaffByUserIdQueryAsync(
         int pageIndex,
         int pageSize,
