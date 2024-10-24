@@ -80,6 +80,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.Domain.Features.Repositories.MedicalReports.GetMedicalReportsForStaff;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
@@ -698,4 +699,9 @@ public interface IUnitOfWork
     ///      GetAbsentForStaff feature
     /// </summary>
     public IGetAbsentForStaffRepository GetAbsentForStaffRepository { get; }
+
+    /// <summary>
+    ///      GetMedicalReportsForStaff feature
+    /// </summary>
+    public IGetMedicalReportsForStaffRepository GetMedicalReportsForStaffRepository { get; }
 }
