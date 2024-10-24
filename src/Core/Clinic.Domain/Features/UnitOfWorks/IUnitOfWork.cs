@@ -14,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.GetStaticInformation;
 using Clinic.Domain.Features.Repositories.Admin.RemovedDoctorTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
@@ -21,7 +22,10 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -78,6 +82,7 @@ using Clinic.Domain.Features.Repositories.Feedbacks.DoctorGetAllFeedbacks;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.Domain.Features.Repositories.MedicalReports.GetMedicalReportsForStaff;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
@@ -668,6 +673,11 @@ public interface IUnitOfWork
     public IViewFeedbackRepository ViewFeedbackRepository { get; }
 
     /// <summary>
+    ///      GetStaticInformation feature
+    /// </summary>
+    public IGetStaticInformationRepository GetStaticInformationRepository { get; }
+
+    /// <summary>
     ///      UpdateStatusServiceOrderItem feature
     /// </summary>
     public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository { get; }
@@ -687,4 +697,23 @@ public interface IUnitOfWork
     /// </summary>
     public IDoctorGetAllFeedbacksRepository DoctorGetAllFeedbacksRepository { get; }
 
+    /// <summary>
+    ///      GetRecentAbsent feature
+    /// </summary>
+    public IGetRecentAbsentRepository GetRecentAbsentRepository { get; }
+
+    /// <summary>
+    ///      GetRecentPending feature
+    /// </summary>
+    public IGetRecentPendingRepository GetRecentPendingRepository { get; }
+
+    /// <summary>
+    ///      GetAbsentForStaff feature
+    /// </summary>
+    public IGetAbsentForStaffRepository GetAbsentForStaffRepository { get; }
+
+    /// <summary>
+    ///      GetMedicalReportsForStaff feature
+    /// </summary>
+    public IGetMedicalReportsForStaffRepository GetMedicalReportsForStaffRepository { get; }
 }

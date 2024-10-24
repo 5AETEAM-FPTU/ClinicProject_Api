@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -7,6 +8,7 @@ using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Data.DataSeeding;
 using Microsoft.EntityFrameworkCore;
+using static Clinic.MySQL.Data.DataSeeding.EnumConstant;
 
 namespace Clinic.MySQL.Repositories.Doctor.GetAllDoctorForStaff;
 
@@ -29,13 +31,24 @@ internal class GetAllDoctorForStaffRepository : IGetAllDoctorForStaffRepository
         CancellationToken cancellationToken
     )
     {
-        return await _userDetails
-            .AsNoTracking()
-            .Where(entity =>
-                entity.User.FullName.Contains(keyWord)
-                && entity.PositionId != EnumConstant.Position.HEALTHCARESTAFF_ID
-            )
-            .CountAsync(cancellationToken: cancellationToken);
+        //return await _userDetails
+        //    .AsNoTracking()
+        //    .Where(entity =>
+        //        entity.User.FullName.Contains(keyWord)
+        //        && entity.PositionId != EnumConstant.Position.HEALTHCARESTAFF_ID
+        //    )
+        //    .CountAsync(cancellationToken: cancellationToken);
+
+        return await (
+            from u in _context.Users
+            join ur in _context.UserRoles on u.Id equals ur.UserId
+            join r in _context.Roles on ur.RoleId equals r.Id
+            where
+                u.RemovedAt == default(DateTime)
+                && r.Name == "doctor"
+                && u.FullName.Contains(keyWord)
+            select u
+        ).CountAsync(cancellationToken);
     }
 
     public async Task<IEnumerable<Domain.Commons.Entities.Doctor>> FindAllDoctorsQueryAsync(
