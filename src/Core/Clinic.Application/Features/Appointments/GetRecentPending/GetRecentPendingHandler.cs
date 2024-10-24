@@ -75,6 +75,7 @@ public class GetRecentPendingHandler
                         AvatarUrl = appointment.Patient.User.Avatar,
                         StartDate = appointment.Schedule.StartDate,
                         EndDate = appointment.Schedule.EndDate,
+                        CreatedDate = appointment.CreatedAt,
                     }
                 ),
             },

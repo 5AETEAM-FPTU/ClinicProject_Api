@@ -24,6 +24,7 @@ public class GetRecentPendingResponse : IFeatureResponse
             public string AvatarUrl { get; init; }
             public DateTime StartDate { get; init; }
             public DateTime EndDate { get; init; }
+            public DateTime CreatedDate { get; init; }
         }
     }
 }

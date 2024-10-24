@@ -24,6 +24,7 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
@@ -139,6 +140,7 @@ using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
+using Clinic.MySQL.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.MySQL.Repositories.Appointments.GetRecentAbsent;
 using Clinic.MySQL.Repositories.Appointments.GetRecentPending;
@@ -355,6 +357,7 @@ public class UnitOfWork : IUnitOfWork
     private IRemovedDoctorTemporarilyRepository _removedDoctorTemporarilyRepository;
     private IGetRecentAbsentRepository _getRecentAbsentRepository;
     private IGetRecentPendingRepository _getRecentPendingRepository;
+    private IGetAbsentForStaffRepository _getAbsentForStaffRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1210,5 +1213,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetRecentPendingRepository GetRecentPendingRepository
     {
         get { return _getRecentPendingRepository ??= new GetRecentPendingRepository(_context); }
+    }
+
+    public IGetAbsentForStaffRepository GetAbsentForStaffRepository
+    {
+        get { return _getAbsentForStaffRepository ??= new GetAbsentForStaffRepository(_context); }
     }
 }

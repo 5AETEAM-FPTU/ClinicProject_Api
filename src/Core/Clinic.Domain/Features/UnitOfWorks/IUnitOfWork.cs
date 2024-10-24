@@ -21,6 +21,7 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
@@ -692,4 +693,9 @@ public interface IUnitOfWork
     ///      GetRecentPending feature
     /// </summary>
     public IGetRecentPendingRepository GetRecentPendingRepository { get; }
+
+    /// <summary>
+    ///      GetAbsentForStaff feature
+    /// </summary>
+    public IGetAbsentForStaffRepository GetAbsentForStaffRepository { get; }
 }
