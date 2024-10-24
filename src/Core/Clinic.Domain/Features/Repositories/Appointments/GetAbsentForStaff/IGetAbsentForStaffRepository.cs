@@ -16,4 +16,5 @@ public interface IGetAbsentForStaffRepository
         int pageSize,
         CancellationToken cancellationToken
     );
+    Task<int> CountAllAbsentForStaffQueryAsync(CancellationToken cancellationToken);
 }
