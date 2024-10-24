@@ -42,9 +42,8 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
         CancellationToken cancellationToken
     )
     {
-        // Check role "Only admin can access"
         var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
-        if (!role.Equals("admin"))
+        if (!role.Equals("admin") && !role.Equals("staff"))
         {
             return new GetAllUserResponse()
             {
@@ -56,11 +55,13 @@ public class GetAllUserHandler : IFeatureHandler<GetAllUserRequest, GetAllUserRe
         var users = await _unitOfWork.GetAllUsersRepository.FindUserByIdQueryAsync(
             pageIndex: request.PageIndex,
             pageSize: request.PageSize,
+            keyword: request.Keyword,
             cancellationToken: cancellationToken
         );
 
         // Count all the users.
         var countUser = await _unitOfWork.GetAllUsersRepository.CountAllUserQueryAsync(
+            keyword: request.Keyword,
             cancellationToken: cancellationToken
         );
 
