@@ -32,6 +32,7 @@ public class UpdateStatusServiceOrderItemRepository : IUpdateStatusServiceOrderI
         {
             existingItem.IsUpdated = true;
             _serviceOrderItems.Update(existingItem);
+            await _context.SaveChangesAsync(cancellationToken);
         }
         catch (Exception)
         {
