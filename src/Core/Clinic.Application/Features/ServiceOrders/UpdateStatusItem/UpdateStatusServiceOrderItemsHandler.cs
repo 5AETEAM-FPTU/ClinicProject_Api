@@ -46,9 +46,7 @@ public class UpdateStatusServiceOrderItemsHandler
     )
     {
         // Get userId from sub type jwt
-        var role = Guid.Parse(
-            _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role")
-        );
+        var role = _contextAccessor.HttpContext.User.FindFirstValue(claimType: "role");
 
         // Only staff - doctor can access
         if (!role.Equals("staff") && !role.Equals("doctor"))

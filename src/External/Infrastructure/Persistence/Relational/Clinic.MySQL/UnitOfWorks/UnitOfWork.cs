@@ -81,6 +81,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.Feedbacks.DoctorGetAllFeedbacks;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
@@ -198,6 +199,7 @@ using Clinic.MySQL.Repositories.ExaminationServices.GetDetailService;
 using Clinic.MySQL.Repositories.ExaminationServices.HiddenService;
 using Clinic.MySQL.Repositories.ExaminationServices.RemoveService;
 using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
+using Clinic.MySQL.Repositories.Feedbacks.DoctorGetAllFeedbacks;
 using Clinic.MySQL.Repositories.Feedbacks.SendFeedBack;
 using Clinic.MySQL.Repositories.Feedbacks.ViewFeedback;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
@@ -360,6 +362,7 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateStatusServiceOrderItemRepository _updateStatusServiceOrderItemRepository;
     private ISwitchToEndChatRoomRepository _switchToEndChatRoomRepository;
     private IRemovedDoctorTemporarilyRepository _removedDoctorTemporarilyRepository;
+    private IDoctorGetAllFeedbacksRepository _doctorGetAllFeedbacksRepository;
     private IGetRecentAbsentRepository _getRecentAbsentRepository;
     private IGetRecentPendingRepository _getRecentPendingRepository;
     private IGetAbsentForStaffRepository _getAbsentForStaffRepository;
@@ -1219,6 +1222,15 @@ public class UnitOfWork : IUnitOfWork
             );
         }
     }
+
+    public IDoctorGetAllFeedbacksRepository DoctorGetAllFeedbacksRepository
+    {
+        get
+        {
+            return _doctorGetAllFeedbacksRepository ??= new DoctorGetAllFeedbacksRepository( _context);
+        }
+    }
+
     public IGetRecentAbsentRepository GetRecentAbsentRepository
     {
         get { return _getRecentAbsentRepository ??= new GetRecentAbsentRepository(_context); }

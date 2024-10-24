@@ -78,6 +78,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.Feedbacks.DoctorGetAllFeedbacks;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
@@ -690,6 +691,11 @@ public interface IUnitOfWork
     ///      RemovedDoctorTemporarily feature
     /// </summary>
     public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository { get; }
+
+    /// <summary>
+    ///      DoctorGetAllFeedbacks feature
+    /// </summary>
+    public IDoctorGetAllFeedbacksRepository DoctorGetAllFeedbacksRepository { get; }
 
     /// <summary>
     ///      GetRecentAbsent feature
