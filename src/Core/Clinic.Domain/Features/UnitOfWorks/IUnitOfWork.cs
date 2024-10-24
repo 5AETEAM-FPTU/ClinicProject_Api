@@ -23,6 +23,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -686,4 +687,9 @@ public interface IUnitOfWork
     ///      GetRecentAbsent feature
     /// </summary>
     public IGetRecentAbsentRepository GetRecentAbsentRepository { get; }
+
+    /// <summary>
+    ///      GetRecentPending feature
+    /// </summary>
+    public IGetRecentPendingRepository GetRecentPendingRepository { get; }
 }
