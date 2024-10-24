@@ -15,6 +15,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetStaticInformation;
+using Clinic.Domain.Features.Repositories.Admin.RemovedDoctorTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -23,7 +24,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
-using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -43,6 +44,7 @@ using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporar
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
+using Clinic.Domain.Features.Repositories.ChatRooms.SwitchToEndChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
@@ -100,6 +102,7 @@ using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
+using Clinic.Domain.Features.Repositories.ServiceOrders.UpdateStatusItem;
 using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -621,9 +624,9 @@ public interface IUnitOfWork
     public IGetUsersHaveMedicalReportRepository GetUsersHaveMedicalReportRepository { get; }
 
     /// <summary>
-    ///      SwitchToCancelChatRoom feature
+    ///      SwitchToCancelAppointment feature
     /// </summary>
-    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository { get; }
+    public ISwitchToCancelAppointmentRepository SwitchToCancelAppointmentRepository { get; }
 
     /// <summary>
     ///      GetIdsDoctor feature
@@ -668,4 +671,19 @@ public interface IUnitOfWork
     ///      GetStaticInformation feature
     /// </summary>
     public IGetStaticInformationRepository GetStaticInformationRepository { get; }
+
+    /// <summary>
+    ///      UpdateStatusServiceOrderItem feature
+    /// </summary>
+    public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository { get; }
+
+    /// <summary>
+    ///      SwitchToEndChatRoom feature
+    /// </summary>
+    public ISwitchToEndChatRoomRepository SwitchToEndChatRoomRepository { get; }
+
+    /// <summary>
+    ///      RemovedDoctorTemporarily feature
+    /// </summary>
+    public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository { get; }
 }

@@ -52,6 +52,7 @@ public class ViewFeedbackRepository : IViewFeedbackRepository
             .Select(entity => new User()
             {
                 FullName = entity.FullName,
+                Avatar = entity.Avatar,
                 Doctor = new()
                 {
                     DoctorSpecialties = entity.Doctor.DoctorSpecialties.Select(doctorSpecialty => new DoctorSpecialty()

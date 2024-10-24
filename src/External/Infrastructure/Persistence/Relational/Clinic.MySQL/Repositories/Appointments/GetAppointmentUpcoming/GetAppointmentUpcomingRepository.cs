@@ -30,9 +30,13 @@ internal class GetAppointmentUpcomingRepository : IGetAppointmentUpcomingReposit
     {
         return _appointments
             .AsNoTracking()
-            .Where(entity => entity.PatientId == userId && entity.ExaminationDate > DateTime.Now)
-            .OrderBy(entity => entity.ExaminationDate)
-            .Select(entity => entity.ExaminationDate)
+            .Where(entity =>
+                entity.PatientId == userId
+                && entity.Schedule != null
+                && entity.Schedule.StartDate > DateTime.Now
+            )
+            .OrderBy(entity => entity.Schedule.StartDate)
+            .Select(entity => entity.Schedule.StartDate)
             .FirstOrDefaultAsync(cancellationToken: cancellationToken);
     }
 

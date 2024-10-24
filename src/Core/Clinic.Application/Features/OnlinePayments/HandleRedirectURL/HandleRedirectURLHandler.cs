@@ -128,7 +128,7 @@ public class HandleRedirectURLHandler
             ResponseBody = new HandleRedirectURLResponse.Body()
             {
                 Amount = (int.Parse(request.Amount) / 100m).ToString(),
-                AppointmentDate = appointment.ExaminationDate,
+                AppointmentDate = appointment.Schedule.StartDate,
                 PaymentDate = request.PayDate,
                 DoctorName = appointment.Schedule.Doctor.User.FullName,
                 TransactionId = request.TransactionNo

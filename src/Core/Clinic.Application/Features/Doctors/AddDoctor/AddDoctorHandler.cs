@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading;
 using System.Threading.Tasks;
@@ -88,7 +90,7 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
 
         // Is specialtyId found
         var isSpecialtFound = await _unitOfWork.AddDoctorRepository.IsSpecialtyFoundByIdQueryAsync(
-            specialtyId: request.SpecialtyId,
+            specialtyIds: request.SpecialtyIds,
             cancellationToken: cancellationToken
         );
 
@@ -116,7 +118,7 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
         // Create doctor command.
         var dbResult = await _unitOfWork.AddDoctorRepository.CreateDoctorCommandAsync(
             doctor: doctor,
-            roleName: "doctor",
+            roleName: request.Role,
             userPassword: "Admin123@",
             cancellationToken: cancellationToken
         );
@@ -152,11 +154,22 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
             UpdatedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
             RemovedAt = CommonConstant.MIN_DATE_TIME,
             RemovedBy = CommonConstant.DEFAULT_ENTITY_ID_AS_GUID,
+            GenderId = request.GenderId,
             Doctor = new()
             {
                 DOB = request.DOB,
                 Description = "default",
-                Achievement = "default"
+                Achievement = "default",
+                Address = request.Address,
+                PositionId = request.PositionId,
+                DoctorSpecialties = request
+                    .SpecialtyIds.Select(sp => new DoctorSpecialty()
+                    {
+                        SpecialtyID = sp,
+                        DoctorId = Id,
+                    })
+                    .ToList(),
+                IsOnDuty = false
             }
         };
     }

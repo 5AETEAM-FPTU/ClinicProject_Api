@@ -18,6 +18,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Admin.GetStaticInformation;
+using Clinic.Domain.Features.Repositories.Admin.RemovedDoctorTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -26,7 +27,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
-using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Auths.ChangingPassword;
@@ -46,6 +47,7 @@ using Clinic.Domain.Features.Repositories.ChatContents.RemoveChatContentTemporar
 using Clinic.Domain.Features.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.Domain.Features.Repositories.ChatRooms.GetChatRoomsByUserId;
+using Clinic.Domain.Features.Repositories.ChatRooms.SwitchToEndChatRoom;
 using Clinic.Domain.Features.Repositories.Doctors.AddDoctor;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForBooking;
 using Clinic.Domain.Features.Repositories.Doctors.GetAllDoctorForStaff;
@@ -103,6 +105,7 @@ using Clinic.Domain.Features.Repositories.Schedules.RemoveSchedule;
 using Clinic.Domain.Features.Repositories.Schedules.UpdateSchedule;
 using Clinic.Domain.Features.Repositories.ServiceOrders.AddOrderService;
 using Clinic.Domain.Features.Repositories.ServiceOrders.GetServiceOrderItems;
+using Clinic.Domain.Features.Repositories.ServiceOrders.UpdateStatusItem;
 using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
 using Clinic.Domain.Features.Repositories.Users.GetConsultationOverview;
 using Clinic.Domain.Features.Repositories.Users.GetProfileUser;
@@ -129,6 +132,7 @@ using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
 using Clinic.MySQL.Repositories.Admin.GetStaticInformation;
+using Clinic.MySQL.Repositories.Admin.RemovedDoctorTemporarily;
 using Clinic.MySQL.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
@@ -155,7 +159,8 @@ using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
-using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelChatRoom;
+using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelAppointment;
+using Clinic.MySQL.Repositories.ChatRooms.SwitchToEndChatRoom;
 using Clinic.MySQL.Repositories.Doctor.AddDoctor;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForBooking;
 using Clinic.MySQL.Repositories.Doctor.GetAllDoctorForStaff;
@@ -335,7 +340,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetRecentMedicalReportByUserIdRepository _getRecentMedicalReportByUserIdRepository;
     private IGetUserInforByIdRepository _getUserInforByIdRepository;
     private IGetUsersHaveMedicalReportRepository _getUsersHaveMedicalReportRepository;
-    private ISwitchToCancelChatRoomRepository _switchToCancelChatRoomRepository;
+    private ISwitchToCancelAppointmentRepository _switchToCancelAppointmentRepository;
     private IGetIdsDoctorRepository _getIdsDoctorRepository;
     private ISendFeedBackRepository _sendFeedBackRepository;
     private IGetDoctorMonthlyDateRepository _getDoctorMonthlyDateRepository;
@@ -344,6 +349,9 @@ public class UnitOfWork : IUnitOfWork
     private IGetAllDoctorForStaffRepository _getAllDoctorForStaffRepository;
     private IViewFeedbackRepository _viewFeedbackRepository;
     private IGetStaticInformationRepository _getStaticInformationRepository;
+    private IUpdateStatusServiceOrderItemRepository _updateStatusServiceOrderItemRepository;
+    private ISwitchToEndChatRoomRepository _switchToEndChatRoomRepository;
+    private IRemovedDoctorTemporarilyRepository _removedDoctorTemporarilyRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1106,11 +1114,11 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
-    public ISwitchToCancelChatRoomRepository SwitchToCancelChatRoomRepository
+    public ISwitchToCancelAppointmentRepository SwitchToCancelAppointmentRepository
     {
         get
         {
-            return _switchToCancelChatRoomRepository ??= new SwitchToCancelChatRoomRepository(
+            return _switchToCancelAppointmentRepository ??= new SwitchToCancelAppointmentRepository(
                 _context
             );
         }
@@ -1162,9 +1170,15 @@ public class UnitOfWork : IUnitOfWork
 
     public IViewFeedbackRepository ViewFeedbackRepository
     {
+        get { return _viewFeedbackRepository ??= new ViewFeedbackRepository(_context); }
+    }
+
+    public IUpdateStatusServiceOrderItemRepository UpdateStatusServiceOrderItemRepository
+    {
         get
         {
-            return _viewFeedbackRepository ??= new ViewFeedbackRepository(_context);
+            return _updateStatusServiceOrderItemRepository ??=
+                new UpdateStatusServiceOrderItemRepository(_context);
         }
     }
 
@@ -1176,4 +1190,21 @@ public class UnitOfWork : IUnitOfWork
         }
     }
 
+    public ISwitchToEndChatRoomRepository SwitchToEndChatRoomRepository
+    {
+        get
+        {
+            return _switchToEndChatRoomRepository ??= new SwitchToEndChatRoomRepository(_context);
+        }
+    }
+
+    public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository
+    {
+        get
+        {
+            return _removedDoctorTemporarilyRepository ??= new RemovedDoctorTemporarilyRepository(
+                _context
+            );
+        }
+    }
 }

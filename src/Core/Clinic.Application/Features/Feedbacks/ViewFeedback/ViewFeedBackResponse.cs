@@ -27,6 +27,7 @@ public sealed class ViewFeedBackResponse : IFeatureResponse
         {
             public double Rating { get; set; }
             public string Fullname {  get; set; }
+            public string AvatarUrl { get; set; }
             public IEnumerable<Specialty> Specialties { get; set; }
 
             public sealed class Specialty

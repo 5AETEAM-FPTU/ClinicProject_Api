@@ -3,28 +3,28 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelChatRoom;
+using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Data.DataSeeding;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelChatRoom;
+namespace Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelAppointment;
 
 /// <summary>
-///     Implementation of ISwitchToCancelChatRoomRepository.
+///     Implementation of ISwitchToCancelAppointmentRepository.
 /// </summary>
-internal class SwitchToCancelChatRoomRepository : ISwitchToCancelChatRoomRepository
+internal class SwitchToCancelAppointmentRepository : ISwitchToCancelAppointmentRepository
 {
     private readonly ClinicContext _context;
     private DbSet<Appointment> _appointments;
 
-    public SwitchToCancelChatRoomRepository(ClinicContext context)
+    public SwitchToCancelAppointmentRepository(ClinicContext context)
     {
         _context = context;
         _appointments = _context.Set<Appointment>();
     }
 
-    public async Task<bool> SwitchToCancelChatRoom(CancellationToken cancellationToken = default)
+    public async Task<bool> SwitchToCancelAppointment(CancellationToken cancellationToken = default)
     {
         var dbTransactionResult = false;
 
