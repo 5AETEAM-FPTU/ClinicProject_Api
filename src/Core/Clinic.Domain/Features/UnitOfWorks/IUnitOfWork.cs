@@ -21,7 +21,10 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -77,6 +80,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.Domain.Features.Repositories.MedicalReports.GetMedicalReportsForStaff;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
@@ -680,4 +684,24 @@ public interface IUnitOfWork
     ///      RemovedDoctorTemporarily feature
     /// </summary>
     public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository { get; }
+
+    /// <summary>
+    ///      GetRecentAbsent feature
+    /// </summary>
+    public IGetRecentAbsentRepository GetRecentAbsentRepository { get; }
+
+    /// <summary>
+    ///      GetRecentPending feature
+    /// </summary>
+    public IGetRecentPendingRepository GetRecentPendingRepository { get; }
+
+    /// <summary>
+    ///      GetAbsentForStaff feature
+    /// </summary>
+    public IGetAbsentForStaffRepository GetAbsentForStaffRepository { get; }
+
+    /// <summary>
+    ///      GetMedicalReportsForStaff feature
+    /// </summary>
+    public IGetMedicalReportsForStaffRepository GetMedicalReportsForStaffRepository { get; }
 }

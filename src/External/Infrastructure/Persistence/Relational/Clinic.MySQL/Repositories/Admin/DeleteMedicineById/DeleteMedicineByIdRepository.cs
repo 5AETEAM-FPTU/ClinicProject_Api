@@ -6,7 +6,6 @@ using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Admin.DeleteMedicineById;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using static Clinic.Application.Features.Appointments.GetAbsentAppointment.GetAbsentAppointmentResponse.Body.AppointmentDetail;
 
 namespace Clinic.MySQL.Repositories.Admin.DeleteMedicineById;
 
