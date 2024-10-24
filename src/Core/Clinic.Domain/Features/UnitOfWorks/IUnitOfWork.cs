@@ -22,6 +22,7 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -680,4 +681,9 @@ public interface IUnitOfWork
     ///      RemovedDoctorTemporarily feature
     /// </summary>
     public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository { get; }
+
+    /// <summary>
+    ///      GetRecentAbsent feature
+    /// </summary>
+    public IGetRecentAbsentRepository GetRecentAbsentRepository { get; }
 }
