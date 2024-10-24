@@ -4,36 +4,35 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.MySQL.Data.Context;
-using Clinic.MySQL.Data.DataSeeding;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.Appointments.GetRecentPending;
+namespace Clinic.MySQL.Repositories.Appointments.GetAbsentForStaff;
 
 /// <summary>
-///     Implementation of <see cref="IGetRecentPendingRepository" />
+///     Implementation of <see cref="IGetAbsentForStaffRepository" />
 /// </summary>
-internal class GetRecentPendingRepository : IGetRecentPendingRepository
+internal class GetAbsentForStaffRepository : IGetAbsentForStaffRepository
 {
     private readonly ClinicContext _context;
     private DbSet<Appointment> _appointments;
 
-    public GetRecentPendingRepository(ClinicContext context)
+    public GetAbsentForStaffRepository(ClinicContext context)
     {
         _context = context;
         _appointments = _context.Set<Appointment>();
     }
 
-    public async Task<IEnumerable<Appointment>> FindRecentPendingQueryAsync(
+    public async Task<IEnumerable<Appointment>> GetAbsentForStaffByUserIdQueryAsync(
+        int pageIndex,
+        int pageSize,
         CancellationToken cancellationToken
     )
     {
         return await _appointments
             .AsNoTracking()
-            .Where(appointment =>
-                appointment.AppointmentStatus.Id.Equals(EnumConstant.AppointmentStatus.PENDING)
-            )
+            .Where(appointment => appointment.AppointmentStatus.Constant.Equals("No-Show"))
             .OrderByDescending(appointment => appointment.Schedule.StartDate)
             .Select(appointment => new Appointment()
             {
@@ -44,7 +43,6 @@ internal class GetRecentPendingRepository : IGetRecentPendingRepository
                     StartDate = appointment.Schedule.StartDate,
                     EndDate = appointment.Schedule.EndDate,
                 },
-                CreatedAt = appointment.CreatedAt,
                 Patient = new Patient()
                 {
                     UserId = appointment.Patient.UserId,
@@ -57,8 +55,16 @@ internal class GetRecentPendingRepository : IGetRecentPendingRepository
                     },
                     DOB = appointment.Patient.DOB,
                 },
+                AppointmentStatus = new AppointmentStatus()
+                {
+                    Id = appointment.AppointmentStatus.Id,
+                    Constant = appointment.AppointmentStatus.Constant,
+                    StatusName = appointment.AppointmentStatus.StatusName,
+                },
+                Description = appointment.Description,
             })
-            .Take(2)
+            .Skip((pageIndex - 1) * pageSize)
+            .Take(pageSize)
             .ToListAsync(cancellationToken: cancellationToken);
     }
 }
