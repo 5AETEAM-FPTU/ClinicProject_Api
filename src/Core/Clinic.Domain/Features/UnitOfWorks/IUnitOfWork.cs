@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetAllUser;
 using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
+using Clinic.Domain.Features.Repositories.Admin.GetDoctorStaffProfile;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
@@ -716,4 +717,6 @@ public interface IUnitOfWork
     ///      GetMedicalReportsForStaff feature
     /// </summary>
     public IGetMedicalReportsForStaffRepository GetMedicalReportsForStaffRepository { get; }
+
+    public IGetDoctorStaffProfileRepository GetDoctorStaffProfileRepository { get; }
 }

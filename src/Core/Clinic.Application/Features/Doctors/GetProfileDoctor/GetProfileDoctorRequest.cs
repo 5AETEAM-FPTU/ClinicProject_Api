@@ -6,4 +6,3 @@ namespace Clinic.Application.Features.Doctors.GetProfileDoctor;
 ///     GetProfileDoctor Request
 /// </summary>
 public class GetProfileDoctorRequest : IFeatureRequest<GetProfileDoctorResponse> { }
-

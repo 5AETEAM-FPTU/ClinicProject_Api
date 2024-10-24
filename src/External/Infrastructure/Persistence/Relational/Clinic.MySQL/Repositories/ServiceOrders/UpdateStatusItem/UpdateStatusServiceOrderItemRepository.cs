@@ -1,11 +1,10 @@
-﻿using Clinic.Domain.Commons.Entities;
+﻿using System;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.ServiceOrders.UpdateStatusItem;
 using Clinic.MySQL.Data.Context;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Threading;
-using System.Threading.Tasks;
-
 
 public class UpdateStatusServiceOrderItemRepository : IUpdateStatusServiceOrderItemRepository
 {
@@ -20,14 +19,20 @@ public class UpdateStatusServiceOrderItemRepository : IUpdateStatusServiceOrderI
 
     public async Task<bool> IsServiceItemExist(Guid serviceOrderId, Guid serviceId)
     {
-        return await _serviceOrderItems.AnyAsync(entity => entity.ServiceOrderId == serviceOrderId && entity.ServiceId == serviceId);
+        return await _serviceOrderItems.AnyAsync(entity =>
+            entity.ServiceOrderId == serviceOrderId && entity.ServiceId == serviceId
+        );
     }
 
-    public async Task<bool> UpdateStatusServiceOrderItemCommandAsync(Guid serviceOrderId, Guid serviceId, CancellationToken cancellationToken)
+    public async Task<bool> UpdateStatusServiceOrderItemCommandAsync(
+        Guid serviceOrderId,
+        Guid serviceId,
+        CancellationToken cancellationToken
+    )
     {
-        var existingItem = await _serviceOrderItems.FirstOrDefaultAsync(
-                entity => entity.ServiceOrderId == serviceOrderId && entity.ServiceId == serviceId
-            );
+        var existingItem = await _serviceOrderItems.FirstOrDefaultAsync(entity =>
+            entity.ServiceOrderId == serviceOrderId && entity.ServiceId == serviceId
+        );
         try
         {
             existingItem.IsUpdated = true;

@@ -1,12 +1,12 @@
-﻿using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
-using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Users.GetAllMedicalReports;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Users.GetAllMedicalReports;
 
@@ -21,7 +21,11 @@ public class GetAllUserMedicalReportsRepository : IGetAllUserMedicalReportsRepos
         _medicalReports = _context.Set<MedicalReport>();
     }
 
-    public async Task<int> CountAllServicesQueryAsync(string keyword, Guid userId, CancellationToken cancellationToken)
+    public async Task<int> CountAllServicesQueryAsync(
+        string keyword,
+        Guid userId,
+        CancellationToken cancellationToken
+    )
     {
         var results = _medicalReports.AsNoTracking().AsQueryable();
         if (keyword != default)
@@ -35,7 +39,13 @@ public class GetAllUserMedicalReportsRepository : IGetAllUserMedicalReportsRepos
         return await results.AsNoTracking().CountAsync(cancellationToken: cancellationToken);
     }
 
-    public async Task<IEnumerable<MedicalReport>> FindAllMedicalReportsByUserIdQueryAsync(int pageIndex, int pageSize, string keyword, Guid userId, CancellationToken cancellationToken)
+    public async Task<IEnumerable<MedicalReport>> FindAllMedicalReportsByUserIdQueryAsync(
+        int pageIndex,
+        int pageSize,
+        string keyword,
+        Guid userId,
+        CancellationToken cancellationToken
+    )
     {
         return await _medicalReports
             .AsNoTracking()
@@ -47,8 +57,9 @@ public class GetAllUserMedicalReportsRepository : IGetAllUserMedicalReportsRepos
             {
                 Id = entity.Id,
                 Diagnosis = entity.Diagnosis,
-                Appointment = new ()
+                Appointment = new()
                 {
+                    Description = entity.Appointment.Description,
                     ExaminationDate = entity.Appointment.ExaminationDate,
                     Schedule = new Schedule()
                     {
@@ -59,19 +70,14 @@ public class GetAllUserMedicalReportsRepository : IGetAllUserMedicalReportsRepos
                                 Id = entity.Appointment.Schedule.Doctor.User.Id,
                                 FullName = entity.Appointment.Schedule.Doctor.User.FullName,
                                 Avatar = entity.Appointment.Schedule.Doctor.User.Avatar,
-                            }
-                        }
-                    }
-                }
+                            },
+                        },
+                    },
+                },
             })
             .OrderByDescending(entity => entity.Appointment.ExaminationDate)
             .Skip((pageIndex - 1) * pageSize)
             .Take(pageSize)
             .ToListAsync(cancellationToken);
     }
-
-
-
-
-
 }

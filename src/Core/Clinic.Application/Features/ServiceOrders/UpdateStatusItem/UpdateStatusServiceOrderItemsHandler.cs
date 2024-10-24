@@ -58,10 +58,11 @@ public class UpdateStatusServiceOrderItemsHandler
         }
 
         // check serviceOrderItem is exist
-        var isServiceItemExist = await _unitOfWork.UpdateStatusServiceOrderItemRepository.IsServiceItemExist(
-            serviceOrderId: request.ServiceOrderId,
-            serviceId: request.ServiceId
-        );
+        var isServiceItemExist =
+            await _unitOfWork.UpdateStatusServiceOrderItemRepository.IsServiceItemExist(
+                serviceOrderId: request.ServiceOrderId,
+                serviceId: request.ServiceId
+            );
 
         if (!isServiceItemExist)
         {
@@ -71,17 +72,19 @@ public class UpdateStatusServiceOrderItemsHandler
             };
         }
 
-        var dbResult = await _unitOfWork.UpdateStatusServiceOrderItemRepository.UpdateStatusServiceOrderItemCommandAsync(
+        var dbResult =
+            await _unitOfWork.UpdateStatusServiceOrderItemRepository.UpdateStatusServiceOrderItemCommandAsync(
                 serviceOrderId: request.ServiceOrderId,
                 serviceId: request.ServiceId,
                 cancellationToken: cancellationToken
             );
 
-        if(!dbResult)
+        if (!dbResult)
         {
             return new UpdateStatusServiceOrderItemsResponse()
             {
-                StatusCode = UpdateStatusServiceOrderItemsResponseStatusCode.DATABASE_OPERATION_FAILED,
+                StatusCode =
+                    UpdateStatusServiceOrderItemsResponseStatusCode.DATABASE_OPERATION_FAILED,
             };
         }
 
@@ -89,8 +92,6 @@ public class UpdateStatusServiceOrderItemsHandler
         return new UpdateStatusServiceOrderItemsResponse()
         {
             StatusCode = UpdateStatusServiceOrderItemsResponseStatusCode.OPERATION_SUCCESS,
-            
         };
-
     }
 }
