@@ -17,6 +17,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.GetStaticInformation;
 using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -127,6 +128,7 @@ using Clinic.MySQL.Repositories.Admin.GetAvailableMedicines;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
+using Clinic.MySQL.Repositories.Admin.GetStaticInformation;
 using Clinic.MySQL.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicine;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
@@ -341,6 +343,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetUserMedicalReportRepository _getUserMedicalReportRepository;
     private IGetAllDoctorForStaffRepository _getAllDoctorForStaffRepository;
     private IViewFeedbackRepository _viewFeedbackRepository;
+    private IGetStaticInformationRepository _getStaticInformationRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1162,6 +1165,14 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _viewFeedbackRepository ??= new ViewFeedbackRepository(_context);
+        }
+    }
+
+    public IGetStaticInformationRepository GetStaticInformationRepository
+    {
+        get
+        {
+            return _getStaticInformationRepository ??= new GetStaticInformationRepository(_context);
         }
     }
 

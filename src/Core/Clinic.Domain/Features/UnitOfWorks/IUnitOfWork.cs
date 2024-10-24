@@ -14,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
+using Clinic.Domain.Features.Repositories.Admin.GetStaticInformation;
 using Clinic.Domain.Features.Repositories.Admin.RemoveMedicineTemporarily;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicine;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
@@ -662,4 +663,9 @@ public interface IUnitOfWork
     ///      ViewFeedback feature
     /// </summary>
     public IViewFeedbackRepository ViewFeedbackRepository { get; }
+
+    /// <summary>
+    ///      GetStaticInformation feature
+    /// </summary>
+    public IGetStaticInformationRepository GetStaticInformationRepository { get; }
 }
