@@ -26,6 +26,7 @@ using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -140,6 +141,7 @@ using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.MySQL.Repositories.Appointments.GetRecentAbsent;
+using Clinic.MySQL.Repositories.Appointments.GetRecentPending;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -352,6 +354,7 @@ public class UnitOfWork : IUnitOfWork
     private ISwitchToEndChatRoomRepository _switchToEndChatRoomRepository;
     private IRemovedDoctorTemporarilyRepository _removedDoctorTemporarilyRepository;
     private IGetRecentAbsentRepository _getRecentAbsentRepository;
+    private IGetRecentPendingRepository _getRecentPendingRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1202,5 +1205,10 @@ public class UnitOfWork : IUnitOfWork
     public IGetRecentAbsentRepository GetRecentAbsentRepository
     {
         get { return _getRecentAbsentRepository ??= new GetRecentAbsentRepository(_context); }
+    }
+
+    public IGetRecentPendingRepository GetRecentPendingRepository
+    {
+        get { return _getRecentPendingRepository ??= new GetRecentPendingRepository(_context); }
     }
 }
