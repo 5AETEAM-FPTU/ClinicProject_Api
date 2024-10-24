@@ -23,16 +23,16 @@ public class ChatHandler : IChatHandler
 
     public async Task<bool> SendMessageAsync(ChatMessage chatMessage)
     {
-        //var isChatRoomExperid =
-        //    await _unitOfWork.CreateChatContentRepository.IsChatRoomExperiedQueryAsync(
-        //        chatRoomId: Guid.Parse(input: chatMessage.ChatRoomId),
-        //        cancellationToken: default
-        //    );
+        var isChatRoomExperid =
+            await _unitOfWork.CreateChatContentRepository.IsChatRoomExperiedQueryAsync(
+                chatRoomId: Guid.Parse(input: chatMessage.ChatRoomId),
+                cancellationToken: default
+            );
 
-        //if (isChatRoomExperid)
-        //{
-        //    return false;
-        //}
+        if (isChatRoomExperid)
+        {
+            return false;
+        }
 
         var createdTime = DateTime.Now;
         var chatContentId = Guid.NewGuid();

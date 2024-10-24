@@ -25,7 +25,10 @@ using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.Domain.Features.Repositories.Appointments.CreateNewAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.GetAbsentAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
+using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
@@ -81,6 +84,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.Domain.Features.Repositories.MedicalReports.GetMedicalReportsForStaff;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.Domain.Features.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.Domain.Features.Repositories.MedicineOrders.GetMedicineOrderItems;
@@ -139,7 +143,10 @@ using Clinic.MySQL.Repositories.Admin.UpdateMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.UpdateMedicineTypeById;
 using Clinic.MySQL.Repositories.Appointments.CreateNewAppointment;
 using Clinic.MySQL.Repositories.Appointments.GetAbsentAppointment;
+using Clinic.MySQL.Repositories.Appointments.GetAbsentForStaff;
 using Clinic.MySQL.Repositories.Appointments.GetAppointmentUpcoming;
+using Clinic.MySQL.Repositories.Appointments.GetRecentAbsent;
+using Clinic.MySQL.Repositories.Appointments.GetRecentPending;
 using Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 using Clinic.MySQL.Repositories.Appointments.UpdateUserBookedAppointment;
 using Clinic.MySQL.Repositories.Auths.ChangingPassword;
@@ -194,6 +201,7 @@ using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
 using Clinic.MySQL.Repositories.Feedbacks.SendFeedBack;
 using Clinic.MySQL.Repositories.Feedbacks.ViewFeedback;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
+using Clinic.MySQL.Repositories.MedicalReports.GetMedicalReportsForStaff;
 using Clinic.MySQL.Repositories.MedicalReports.UpdateMainInformation;
 using Clinic.MySQL.Repositories.MedicalReports.UpdatePatientInformation;
 using Clinic.MySQL.Repositories.MedicineOrders.GetMedicineOrderItems;
@@ -352,6 +360,10 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateStatusServiceOrderItemRepository _updateStatusServiceOrderItemRepository;
     private ISwitchToEndChatRoomRepository _switchToEndChatRoomRepository;
     private IRemovedDoctorTemporarilyRepository _removedDoctorTemporarilyRepository;
+    private IGetRecentAbsentRepository _getRecentAbsentRepository;
+    private IGetRecentPendingRepository _getRecentPendingRepository;
+    private IGetAbsentForStaffRepository _getAbsentForStaffRepository;
+    private IGetMedicalReportsForStaffRepository _getMedicalReportsForStaffRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1203,6 +1215,30 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _removedDoctorTemporarilyRepository ??= new RemovedDoctorTemporarilyRepository(
+                _context
+            );
+        }
+    }
+    public IGetRecentAbsentRepository GetRecentAbsentRepository
+    {
+        get { return _getRecentAbsentRepository ??= new GetRecentAbsentRepository(_context); }
+    }
+
+    public IGetRecentPendingRepository GetRecentPendingRepository
+    {
+        get { return _getRecentPendingRepository ??= new GetRecentPendingRepository(_context); }
+    }
+
+    public IGetAbsentForStaffRepository GetAbsentForStaffRepository
+    {
+        get { return _getAbsentForStaffRepository ??= new GetAbsentForStaffRepository(_context); }
+    }
+
+    public IGetMedicalReportsForStaffRepository GetMedicalReportsForStaffRepository
+    {
+        get
+        {
+            return _getMedicalReportsForStaffRepository ??= new GetMedicalReportsForStaffRepository(
                 _context
             );
         }
