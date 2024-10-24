@@ -35,6 +35,7 @@ internal class GetAbsentAppointmentRepository : IGetAbsentAppointmentRepository
                 appointment.Schedule.DoctorId == doctorId
                 && appointment.AppointmentStatus.Constant.Equals("No-Show")
             )
+            .OrderByDescending(appointment => appointment.Schedule.StartDate)
             .Select(appointment => new Appointment()
             {
                 Id = appointment.Id,

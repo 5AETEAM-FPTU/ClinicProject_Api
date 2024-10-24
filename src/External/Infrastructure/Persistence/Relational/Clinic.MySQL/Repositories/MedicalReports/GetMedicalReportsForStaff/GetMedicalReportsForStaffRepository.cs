@@ -79,7 +79,7 @@ internal class GetMedicalReportsForStaffRepository : IGetMedicalReportsForStaffR
                     },
                 },
                 ServiceOrder = new ServiceOrder() { Id = report.ServiceOrder.Id },
-                MedicineOrder = new MedicineOrder() { Id = report.MedicineOrder.Id }
+                MedicineOrder = new MedicineOrder() { Id = report.MedicineOrder.Id },
             })
             .ToListAsync(cancellationToken: cancellationToken);
     }

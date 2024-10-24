@@ -14,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetAllUser;
 using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
+using Clinic.Domain.Features.Repositories.Admin.GetDoctorStaffProfile;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
@@ -131,6 +132,7 @@ using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetAllUser;
 using Clinic.MySQL.Repositories.Admin.GetAvailableMedicines;
+using Clinic.MySQL.Repositories.Admin.GetDoctorStaffProfile;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
@@ -361,6 +363,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetRecentPendingRepository _getRecentPendingRepository;
     private IGetAbsentForStaffRepository _getAbsentForStaffRepository;
     private IGetMedicalReportsForStaffRepository _getMedicalReportsForStaffRepository;
+    private IGetDoctorStaffProfileRepository _getDoctorStaffProfileRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1228,6 +1231,16 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getMedicalReportsForStaffRepository ??= new GetMedicalReportsForStaffRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetDoctorStaffProfileRepository GetDoctorStaffProfileRepository
+    {
+        get
+        {
+            return _getDoctorStaffProfileRepository ??= new GetDoctorStaffProfileRepository(
                 _context
             );
         }
