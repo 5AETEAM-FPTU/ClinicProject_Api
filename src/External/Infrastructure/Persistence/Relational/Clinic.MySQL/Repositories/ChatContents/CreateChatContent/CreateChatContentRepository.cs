@@ -74,9 +74,7 @@ internal class CreateChatContentRepository : ICreateChatContentRepository
     )
     {
         return _chatRooms
-            .Where(predicate: chatRoom =>
-                chatRoom.Id == chatRoomId && chatRoom.ExpiredTime < DateTime.Now
-            )
+            .Where(predicate: chatRoom => chatRoom.Id == chatRoomId && chatRoom.IsEnd)
             .AnyAsync(cancellationToken: cancellationToken);
     }
 }
