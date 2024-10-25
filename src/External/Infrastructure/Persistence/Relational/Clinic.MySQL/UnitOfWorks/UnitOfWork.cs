@@ -235,6 +235,8 @@ using Clinic.MySQL.Repositories.Users.UpdateUserAvatar;
 using Clinic.MySQL.Repositories.Users.UpdateUserDescription;
 using Clinic.MySQL.Repositories.Users.UpdateUserPrivateInfo;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Internal;
 
 namespace Clinic.MySQL.UnitOfWorks;
 
@@ -244,6 +246,7 @@ namespace Clinic.MySQL.UnitOfWorks;
 public class UnitOfWork : IUnitOfWork
 {
     private readonly ClinicContext _context;
+    private readonly IDbContextFactory<ClinicContext> _contextFactory;
     private readonly RoleManager<Role> _roleManager;
     private readonly UserManager<User> _userManager;
 
@@ -368,12 +371,14 @@ public class UnitOfWork : IUnitOfWork
     public UnitOfWork(
         ClinicContext context,
         RoleManager<Role> roleManager,
-        UserManager<User> userManager
+        UserManager<User> userManager,
+        IDbContextFactory<ClinicContext> contextFactory
     )
     {
         _context = context;
         _roleManager = roleManager;
         _userManager = userManager;
+        _contextFactory = contextFactory;
     }
 
     public ILoginRepository LoginRepository
@@ -1198,7 +1203,7 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _getStaticInformationRepository ??= new GetStaticInformationRepository(_context);
+            return _getStaticInformationRepository ??= new GetStaticInformationRepository(_context, _contextFactory);
         }
     }
 

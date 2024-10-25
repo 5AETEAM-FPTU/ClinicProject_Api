@@ -21,4 +21,5 @@ public interface IGetStaticInformationRepository
 
     Task<dynamic> getMonthLyAppointment(CancellationToken cancellationToken);
     Task<int> getNewUserInSystemByDate(DateTime startTime, DateTime endTime, CancellationToken cancellationToken);
+    Task<dynamic> getFastOverviewInformation(CancellationToken cancellationToken);
 }

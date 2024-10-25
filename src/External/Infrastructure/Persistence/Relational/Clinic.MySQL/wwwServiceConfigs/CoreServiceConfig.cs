@@ -21,5 +21,6 @@ internal static class CoreServiceConfig
     {
         services.AddScoped<IAuthorizationRepository, AuthorizationRepository>();
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+
     }
 }
