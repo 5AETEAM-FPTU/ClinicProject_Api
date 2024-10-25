@@ -23,8 +23,8 @@ public class GetAllUserMedicalReportsHandler
     private readonly UserManager<User> _userManager;
 
     public GetAllUserMedicalReportsHandler(
-        IUnitOfWork unitOfWork, 
-        IHttpContextAccessor contextAccessor, 
+        IUnitOfWork unitOfWork,
+        IHttpContextAccessor contextAccessor,
         UserManager<User> userManager
     )
     {
@@ -58,10 +58,11 @@ public class GetAllUserMedicalReportsHandler
 
         var foundUser = await _userManager.FindByIdAsync(userId.ToString());
 
-        if (foundUser == null) {
+        if (foundUser == null)
+        {
             return new GetAllUserMedicalReportsResponse()
             {
-                StatusCode = GetAllUserMedicalReportsResponseStatusCode.USER_NOT_FOUND
+                StatusCode = GetAllUserMedicalReportsResponseStatusCode.USER_NOT_FOUND,
             };
         }
 
@@ -76,13 +77,12 @@ public class GetAllUserMedicalReportsHandler
             );
 
         // Count all medical reports.
-        var countService = await _unitOfWork.GetAllUserMedicalReportsRepository.CountAllServicesQueryAsync(
-            keywork: request.Keyword,
-            userId: userId,
-            cancellationToken: cancellationToken
-        );
-
-
+        var countService =
+            await _unitOfWork.GetAllUserMedicalReportsRepository.CountAllServicesQueryAsync(
+                keywork: request.Keyword,
+                userId: userId,
+                cancellationToken: cancellationToken
+            );
 
         // Response successfully.
         return new GetAllUserMedicalReportsResponse()
@@ -90,25 +90,41 @@ public class GetAllUserMedicalReportsHandler
             StatusCode = GetAllUserMedicalReportsResponseStatusCode.OPERATION_SUCCESS,
             ResponseBody = new GetAllUserMedicalReportsResponse.Body()
             {
-                MedicalReports = new Commons.Pagination.PaginationResponse<GetAllUserMedicalReportsResponse.Body.MedicalReport>
-                {
-                    Contents = reports.Select(entity => new GetAllUserMedicalReportsResponse.Body.MedicalReport
+                MedicalReports =
+                    new Commons.Pagination.PaginationResponse<GetAllUserMedicalReportsResponse.Body.MedicalReport>
                     {
-                        Id = entity.Id,
-                        ExaminedDate = entity.Appointment.ExaminationDate,
-                        Diagnosis = entity.Diagnosis,
-                        DoctorInfo = new GetAllUserMedicalReportsResponse.Body.MedicalReport.Doctor
-                        {
-                            Id = entity.Appointment.Schedule.Doctor.User.Id,
-                            FullName = entity.Appointment.Schedule.Doctor.User.FullName,
-                            AvatarUrl = entity.Appointment.Schedule.Doctor.User.Avatar,
-                        }
-                    })
-                    .ToList(),
-                    PageIndex = request.PageIndex,
-                    PageSize = request.PageSize,
-                    TotalPages = (int)Math.Ceiling((double)countService / request.PageSize),
-                }
+                        Contents = reports
+                            .Select(
+                                entity => new GetAllUserMedicalReportsResponse.Body.MedicalReport
+                                {
+                                    Title = entity.Appointment.Description,
+                                    Id = entity.Id,
+                                    ExaminedDate = entity.Appointment.ExaminationDate,
+                                    Diagnosis = entity.Diagnosis,
+                                    DoctorInfo =
+                                        new GetAllUserMedicalReportsResponse.Body.MedicalReport.Doctor
+                                        {
+                                            Id = entity.Appointment.Schedule.Doctor.User.Id,
+                                            FullName = entity
+                                                .Appointment
+                                                .Schedule
+                                                .Doctor
+                                                .User
+                                                .FullName,
+                                            AvatarUrl = entity
+                                                .Appointment
+                                                .Schedule
+                                                .Doctor
+                                                .User
+                                                .Avatar,
+                                        },
+                                }
+                            )
+                            .ToList(),
+                        PageIndex = request.PageIndex,
+                        PageSize = request.PageSize,
+                        TotalPages = (int)Math.Ceiling((double)countService / request.PageSize),
+                    },
             },
         };
     }

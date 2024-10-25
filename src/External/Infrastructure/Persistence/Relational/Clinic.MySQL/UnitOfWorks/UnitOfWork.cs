@@ -14,6 +14,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetAllUser;
 using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
+using Clinic.Domain.Features.Repositories.Admin.GetDoctorStaffProfile;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
@@ -81,6 +82,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.Feedbacks.DoctorGetAllFeedbacks;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
@@ -132,6 +134,7 @@ using Clinic.MySQL.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.MySQL.Repositories.Admin.GetAllMedicineType;
 using Clinic.MySQL.Repositories.Admin.GetAllUser;
 using Clinic.MySQL.Repositories.Admin.GetAvailableMedicines;
+using Clinic.MySQL.Repositories.Admin.GetDoctorStaffProfile;
 using Clinic.MySQL.Repositories.Admin.GetMedicineById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineGroupById;
 using Clinic.MySQL.Repositories.Admin.GetMedicineTypeById;
@@ -198,6 +201,7 @@ using Clinic.MySQL.Repositories.ExaminationServices.GetDetailService;
 using Clinic.MySQL.Repositories.ExaminationServices.HiddenService;
 using Clinic.MySQL.Repositories.ExaminationServices.RemoveService;
 using Clinic.MySQL.Repositories.ExaminationServices.UpdateService;
+using Clinic.MySQL.Repositories.Feedbacks.DoctorGetAllFeedbacks;
 using Clinic.MySQL.Repositories.Feedbacks.SendFeedBack;
 using Clinic.MySQL.Repositories.Feedbacks.ViewFeedback;
 using Clinic.MySQL.Repositories.MedicalReports.CreateMedicalReport;
@@ -363,10 +367,12 @@ public class UnitOfWork : IUnitOfWork
     private IUpdateStatusServiceOrderItemRepository _updateStatusServiceOrderItemRepository;
     private ISwitchToEndChatRoomRepository _switchToEndChatRoomRepository;
     private IRemovedDoctorTemporarilyRepository _removedDoctorTemporarilyRepository;
+    private IDoctorGetAllFeedbacksRepository _doctorGetAllFeedbacksRepository;
     private IGetRecentAbsentRepository _getRecentAbsentRepository;
     private IGetRecentPendingRepository _getRecentPendingRepository;
     private IGetAbsentForStaffRepository _getAbsentForStaffRepository;
     private IGetMedicalReportsForStaffRepository _getMedicalReportsForStaffRepository;
+    private IGetDoctorStaffProfileRepository _getDoctorStaffProfileRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1224,6 +1230,15 @@ public class UnitOfWork : IUnitOfWork
             );
         }
     }
+
+    public IDoctorGetAllFeedbacksRepository DoctorGetAllFeedbacksRepository
+    {
+        get
+        {
+            return _doctorGetAllFeedbacksRepository ??= new DoctorGetAllFeedbacksRepository( _context);
+        }
+    }
+
     public IGetRecentAbsentRepository GetRecentAbsentRepository
     {
         get { return _getRecentAbsentRepository ??= new GetRecentAbsentRepository(_context); }
@@ -1244,6 +1259,16 @@ public class UnitOfWork : IUnitOfWork
         get
         {
             return _getMedicalReportsForStaffRepository ??= new GetMedicalReportsForStaffRepository(
+                _context
+            );
+        }
+    }
+
+    public IGetDoctorStaffProfileRepository GetDoctorStaffProfileRepository
+    {
+        get
+        {
+            return _getDoctorStaffProfileRepository ??= new GetDoctorStaffProfileRepository(
                 _context
             );
         }

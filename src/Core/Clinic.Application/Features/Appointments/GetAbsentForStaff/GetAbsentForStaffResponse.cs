@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Clinic.Application.Commons.Abstractions;
+using Clinic.Application.Commons.Pagination;
 
 namespace Clinic.Application.Features.Appointments.GetAbsentForStaff;
 
@@ -15,7 +16,7 @@ public class GetAbsentForStaffResponse : IFeatureResponse
 
     public sealed class Body
     {
-        public IEnumerable<AppointmentDetail> Appointment { get; init; }
+        public PaginationResponse<AppointmentDetail> Appointment { get; init; }
 
         public sealed class AppointmentDetail
         {

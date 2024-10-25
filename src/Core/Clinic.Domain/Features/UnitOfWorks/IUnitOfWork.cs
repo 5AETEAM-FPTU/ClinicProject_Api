@@ -11,6 +11,7 @@ using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineGroup;
 using Clinic.Domain.Features.Repositories.Admin.GetAllMedicineType;
 using Clinic.Domain.Features.Repositories.Admin.GetAllUser;
 using Clinic.Domain.Features.Repositories.Admin.GetAvailableMedicines;
+using Clinic.Domain.Features.Repositories.Admin.GetDoctorStaffProfile;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineGroupById;
 using Clinic.Domain.Features.Repositories.Admin.GetMedicineTypeById;
@@ -78,6 +79,7 @@ using Clinic.Domain.Features.Repositories.ExaminationServices.GetDetailService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.HiddenService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.RemoveService;
 using Clinic.Domain.Features.Repositories.ExaminationServices.UpdateService;
+using Clinic.Domain.Features.Repositories.Feedbacks.DoctorGetAllFeedbacks;
 using Clinic.Domain.Features.Repositories.Feedbacks.SendFeedBack;
 using Clinic.Domain.Features.Repositories.Feedbacks.ViewFeedback;
 using Clinic.Domain.Features.Repositories.MedicalReports.CreateMedicalReport;
@@ -692,6 +694,11 @@ public interface IUnitOfWork
     public IRemovedDoctorTemporarilyRepository RemovedDoctorTemporarilyRepository { get; }
 
     /// <summary>
+    ///      DoctorGetAllFeedbacks feature
+    /// </summary>
+    public IDoctorGetAllFeedbacksRepository DoctorGetAllFeedbacksRepository { get; }
+
+    /// <summary>
     ///      GetRecentAbsent feature
     /// </summary>
     public IGetRecentAbsentRepository GetRecentAbsentRepository { get; }
@@ -710,4 +717,6 @@ public interface IUnitOfWork
     ///      GetMedicalReportsForStaff feature
     /// </summary>
     public IGetMedicalReportsForStaffRepository GetMedicalReportsForStaffRepository { get; }
+
+    public IGetDoctorStaffProfileRepository GetDoctorStaffProfileRepository { get; }
 }
