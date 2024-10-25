@@ -18,13 +18,14 @@ public class AddOrderServiceRepository : IAddOrderServiceRepository
     private readonly DbSet<ServiceOrder> _serviceOrders;
     private readonly DbSet<ServiceOrderItem> _serviceOrderItems;
     private readonly DbSet<Service> _services;
-    
+    private readonly DbSet<MedicalReport> _medicalReports;
     public AddOrderServiceRepository(ClinicContext context)
     {
         _context = context;
         _serviceOrders = _context.Set<ServiceOrder>();
         _serviceOrderItems = _context.Set<ServiceOrderItem>();
         _services = _context.Set<Service>();
+        _medicalReports = _context.Set<MedicalReport>();
     }
 
     public async Task<bool> AddServiceIntoServiceOrderCommandAsync(
@@ -36,6 +37,7 @@ public class AddOrderServiceRepository : IAddOrderServiceRepository
         var serviceOrder = await _serviceOrders
             .Include(entity => entity.ServiceOrderItems)
             .FirstOrDefaultAsync(entity => entity.Id == serviceOrderId, cancellationToken);
+        
 
         if (serviceOrder == null)
         {
@@ -69,7 +71,7 @@ public class AddOrderServiceRepository : IAddOrderServiceRepository
             await _serviceOrderItems.AddRangeAsync(serviceOrderItemsToAdd, cancellationToken);
         }
 
-        // Update ServiceOrder
+        // Update entity
         _serviceOrders.Update(serviceOrder);
 
         return await _context.SaveChangesAsync(cancellationToken) > 0;
@@ -92,4 +94,35 @@ public class AddOrderServiceRepository : IAddOrderServiceRepository
         return await _serviceOrders.AnyAsync(entity => entity.Id == serviceOrderId);
     }
 
+    public async Task<bool> UpdateTotalPriceRelatedTableCommandAsync(Guid serviceOrderId, CancellationToken cancellationToken)
+    {
+        // Get ServiceOrder By Id.
+        var serviceOrder = await _serviceOrders
+            .Include(entity => entity.ServiceOrderItems)
+            .FirstOrDefaultAsync(entity => entity.Id == serviceOrderId, cancellationToken);
+
+        var existingMedicalReport = await _medicalReports.Where(entity => entity.ServiceOrderId == serviceOrderId).FirstOrDefaultAsync();
+
+        if (serviceOrder == null || existingMedicalReport == null)
+        {
+            return false;
+        }
+
+        // Get current ServiceOrderItem of ServiceOrder.
+        var existingServiceOrderItems = serviceOrder.ServiceOrderItems.ToList();
+
+        //update total price and quantity
+        var totalPrice = existingServiceOrderItems.Sum(entity => entity.PriceAtOrder);
+        serviceOrder.TotalPrice = totalPrice;
+        serviceOrder.Quantity = existingServiceOrderItems.Count();
+        existingMedicalReport.TotalPrice = totalPrice;
+
+        // update entity
+        _serviceOrders.Update(serviceOrder);
+        _medicalReports.Update(existingMedicalReport);
+
+        // save database
+        return await _context.SaveChangesAsync(cancellationToken) > 0;
+
+    }
 }

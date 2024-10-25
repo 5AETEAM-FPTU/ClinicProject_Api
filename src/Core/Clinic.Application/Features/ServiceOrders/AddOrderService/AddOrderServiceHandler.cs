@@ -89,7 +89,7 @@ public class AddOrderServiceHandler
             };
         }
 
-        // get service order items
+        // add service order items
         var serviceOrder = await _unitOfWork.AddOrderServiceRepository
             .AddServiceIntoServiceOrderCommandAsync(
                 serviceOrderId: request.ServiceOrderId,
@@ -99,6 +99,21 @@ public class AddOrderServiceHandler
 
         // Response if db operation failed
         if (!serviceOrder)
+        {
+            return new AddOrderServiceResponse()
+            {
+                StatusCode = AddOrderServiceResponseStatusCode.DATABASE_OPERATION_FAILED,
+            };
+        }
+
+        // update total price and quantity in OrderService and MedicalReport
+        var updateResult = await _unitOfWork.AddOrderServiceRepository
+            .UpdateTotalPriceRelatedTableCommandAsync
+            (
+                serviceOrderId: request.ServiceOrderId,
+                cancellationToken: cancellationToken
+            );
+        if (!updateResult)
         {
             return new AddOrderServiceResponse()
             {

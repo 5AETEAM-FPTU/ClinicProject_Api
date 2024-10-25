@@ -12,4 +12,5 @@ public interface IAddOrderServiceRepository
     Task<bool> AddServiceIntoServiceOrderCommandAsync(Guid serviceOrderId, IEnumerable<Guid> serviceIds, CancellationToken cancellationToken);
     Task<bool> AreServicesAvailable(IEnumerable<Guid> serviceIds, CancellationToken cancellationToken);
     Task<bool> IsServiceOrderExist(Guid serviceOrderId, CancellationToken CancellationToken);
+    Task<bool> UpdateTotalPriceRelatedTableCommandAsync(Guid serviceOrderId, CancellationToken cancellationToken);
 }
