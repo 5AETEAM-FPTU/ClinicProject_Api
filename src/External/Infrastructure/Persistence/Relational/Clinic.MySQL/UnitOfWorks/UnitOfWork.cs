@@ -31,6 +31,7 @@ using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.RemoveAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
@@ -168,6 +169,7 @@ using Clinic.MySQL.Repositories.ChatContents.GetChatsByChatRoomId;
 using Clinic.MySQL.Repositories.ChatRooms.AssignChatRoom;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByDoctorId;
 using Clinic.MySQL.Repositories.ChatRooms.GetChatRoomsByUserId;
+using Clinic.MySQL.Repositories.ChatRooms.RemoveAppointment;
 using Clinic.MySQL.Repositories.ChatRooms.RemoveChatContentTemporarily;
 using Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelAppointment;
 using Clinic.MySQL.Repositories.ChatRooms.SwitchToEndChatRoom;
@@ -373,6 +375,7 @@ public class UnitOfWork : IUnitOfWork
     private IGetAbsentForStaffRepository _getAbsentForStaffRepository;
     private IGetMedicalReportsForStaffRepository _getMedicalReportsForStaffRepository;
     private IGetDoctorStaffProfileRepository _getDoctorStaffProfileRepository;
+    private IRemoveAppointmentRepository _removeAppointmentRepository;
 
     public UnitOfWork(
         ClinicContext context,
@@ -1209,7 +1212,10 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _getStaticInformationRepository ??= new GetStaticInformationRepository(_context, _contextFactory);
+            return _getStaticInformationRepository ??= new GetStaticInformationRepository(
+                _context,
+                _contextFactory
+            );
         }
     }
 
@@ -1235,7 +1241,9 @@ public class UnitOfWork : IUnitOfWork
     {
         get
         {
-            return _doctorGetAllFeedbacksRepository ??= new DoctorGetAllFeedbacksRepository( _context);
+            return _doctorGetAllFeedbacksRepository ??= new DoctorGetAllFeedbacksRepository(
+                _context
+            );
         }
     }
 
@@ -1272,5 +1280,10 @@ public class UnitOfWork : IUnitOfWork
                 _context
             );
         }
+    }
+
+    public IRemoveAppointmentRepository RemoveAppointmentRepository
+    {
+        get { return _removeAppointmentRepository ??= new RemoveAppointmentRepository(_context); }
     }
 }
