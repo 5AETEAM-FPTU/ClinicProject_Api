@@ -18,5 +18,6 @@ public static class DependencyInjection
     {
         services.AddHostedService<KeepAppAliveBackgroundJob>();
         services.AddHostedService<CancelAppointmentBackgroundJob>();
+        services.AddHostedService<ScanAppointmentBackgroundJob>();
     }
 }

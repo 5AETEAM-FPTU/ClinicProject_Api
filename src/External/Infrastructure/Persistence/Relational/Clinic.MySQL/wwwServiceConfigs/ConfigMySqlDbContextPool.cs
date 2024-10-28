@@ -79,6 +79,6 @@ internal static class MySqlDbContextPoolServiceConfig
                     );
             },
             ServiceLifetime.Scoped
-            );
+        );
     }
 }

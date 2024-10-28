@@ -3,28 +3,28 @@ using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
-using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.RemoveAppointment;
 using Clinic.MySQL.Data.Context;
 using Clinic.MySQL.Data.DataSeeding;
 using Microsoft.EntityFrameworkCore;
 
-namespace Clinic.MySQL.Repositories.ChatRooms.SwitchToCancelAppointment;
+namespace Clinic.MySQL.Repositories.ChatRooms.RemoveAppointment;
 
 /// <summary>
-///     Implementation of ISwitchToCancelAppointmentRepository.
+///     Implementation of IRemoveAppointmentRepository.
 /// </summary>
-internal class SwitchToCancelAppointmentRepository : ISwitchToCancelAppointmentRepository
+internal class RemoveAppointmentRepository : IRemoveAppointmentRepository
 {
     private readonly ClinicContext _context;
     private DbSet<Appointment> _appointments;
 
-    public SwitchToCancelAppointmentRepository(ClinicContext context)
+    public RemoveAppointmentRepository(ClinicContext context)
     {
         _context = context;
         _appointments = _context.Set<Appointment>();
     }
 
-    public async Task<bool> SwitchToCancelAppointment(CancellationToken cancellationToken = default)
+    public async Task<bool> DeleteAppointment(CancellationToken cancellationToken = default)
     {
         var dbTransactionResult = false;
 
@@ -39,14 +39,11 @@ internal class SwitchToCancelAppointmentRepository : ISwitchToCancelAppointmentR
                 {
                     await _appointments
                         .Where(predicate: entity =>
-                            entity.DepositPayment == false && entity.ExaminationDate < DateTime.Now
+                            entity.StatusId == EnumConstant.AppointmentStatus.PENDING
+                            && entity.CreatedAt.AddMinutes(5) < DateTime.Now
                         )
-                        .ExecuteUpdateAsync(builder =>
-                            builder.SetProperty(
-                                entity => entity.StatusId,
-                                EnumConstant.AppointmentStatus.NO_SHOW
-                            )
-                        );
+                        .ExecuteDeleteAsync(cancellationToken: cancellationToken);
+
                     await transaction.CommitAsync(cancellationToken: cancellationToken);
                 }
                 catch

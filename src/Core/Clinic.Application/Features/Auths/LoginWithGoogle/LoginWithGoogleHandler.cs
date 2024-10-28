@@ -131,7 +131,12 @@ internal sealed class LoginWithGoogleHandler
         [
             new(type: JwtRegisteredClaimNames.Jti, value: Guid.NewGuid().ToString()),
             new(type: JwtRegisteredClaimNames.Sub, value: userFound.Id.ToString()),
-            new(type: "role", value: "user"),
+            new(
+                type: "role",
+                value: userFound != null
+                    ? _userManager.GetRolesAsync(userFound).Result.First()
+                    : "user"
+            ),
         ];
 
         // Create new refresh token.

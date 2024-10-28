@@ -28,6 +28,7 @@ using Clinic.Domain.Features.Repositories.Appointments.GetAppointmentUpcoming;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentAbsent;
 using Clinic.Domain.Features.Repositories.Appointments.GetRecentPending;
 using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.Domain.Features.Repositories.Appointments.RemoveAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.SwitchToCancelAppointment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateAppointmentDepositPayment;
 using Clinic.Domain.Features.Repositories.Appointments.UpdateUserBookedAppointment;
@@ -718,5 +719,13 @@ public interface IUnitOfWork
     /// </summary>
     public IGetMedicalReportsForStaffRepository GetMedicalReportsForStaffRepository { get; }
 
+    /// <summary>
+    ///      GetDoctorStaffProfile feature
+    /// </summary>
     public IGetDoctorStaffProfileRepository GetDoctorStaffProfileRepository { get; }
+
+    /// <summary>
+    ///      RemoveAppointment feature
+    /// </summary>
+    public IRemoveAppointmentRepository RemoveAppointmentRepository { get; }
 }

@@ -13,7 +13,7 @@ public sealed class KeepAppAliveBackgroundJob : BackgroundService
         {
             var originalColor = Console.ForegroundColor;
 
-            Console.ForegroundColor = ConsoleColor.DarkBlue;
+            Console.ForegroundColor = ConsoleColor.Cyan;
             Console.WriteLine("App is alive !!");
             Console.ForegroundColor = originalColor;
 
