@@ -53,7 +53,7 @@ public class HandleRedirectURLEndpoint : Endpoint<HandleRedirectURLRequest>
         string redirectUrl;
         if (httpResponseStatusCode == StatusCodes.Status202Accepted)
         {
-            redirectUrl = $"{_baseEndpointUrlOption.Client}/vi/user/treatment-calendar";
+            redirectUrl = $"{_baseEndpointUrlOption.Client}/vi/user/treatment-calendar/booking";
         }
         else
         {
