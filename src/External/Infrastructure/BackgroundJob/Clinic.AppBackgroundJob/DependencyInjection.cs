@@ -1,5 +1,6 @@
 ﻿using Clinic.AppBackgroundJob.Handler;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Hosting;
 
 namespace Clinic.AppBackgroundJob;
 
@@ -16,6 +17,11 @@ public static class DependencyInjection
     /// </param>
     public static void ConfigAppBackgroundJob(this IServiceCollection services)
     {
+        services.Configure<HostOptions>(hostOptions =>
+        {
+            hostOptions.BackgroundServiceExceptionBehavior =
+                BackgroundServiceExceptionBehavior.Ignore;
+        });
         services.AddHostedService<KeepAppAliveBackgroundJob>();
         services.AddHostedService<CancelAppointmentBackgroundJob>();
         services.AddHostedService<ScanAppointmentBackgroundJob>();
