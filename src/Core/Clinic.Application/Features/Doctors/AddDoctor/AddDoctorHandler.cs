@@ -119,7 +119,7 @@ public class AddDoctorHandler : IFeatureHandler<AddDoctorRequest, AddDoctorRespo
         var dbResult = await _unitOfWork.AddDoctorRepository.CreateDoctorCommandAsync(
             doctor: doctor,
             roleName: request.Role,
-            userPassword: "Admin123@",
+            userPassword: request.Email,
             cancellationToken: cancellationToken
         );
 
