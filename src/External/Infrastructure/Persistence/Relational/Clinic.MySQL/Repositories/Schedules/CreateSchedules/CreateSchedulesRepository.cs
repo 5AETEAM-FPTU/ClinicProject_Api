@@ -34,7 +34,9 @@ internal class CreateSchedulesRepository : ICreateSchedulesRepository
 
         var existSlotTimes = await _schedules
             .Where(predicate: schedule =>
-                schedule.StartDate < maxTime && schedule.EndDate > minTime
+                schedule.StartDate < maxTime
+                && schedule.EndDate > minTime
+                && schedule.DoctorId == createSchedules.FirstOrDefault().DoctorId
             )
             .ToListAsync(cancellationToken: cancellationToken);
 

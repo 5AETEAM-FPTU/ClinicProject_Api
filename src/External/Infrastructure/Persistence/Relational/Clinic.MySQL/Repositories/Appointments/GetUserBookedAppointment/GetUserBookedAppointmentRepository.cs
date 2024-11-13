@@ -1,12 +1,12 @@
-﻿using Clinic.MySQL.Data.Context;
-using Microsoft.EntityFrameworkCore;
-using System.Threading.Tasks;
-using System.Threading;
-using System;
-using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
-using Clinic.Domain.Commons.Entities;
-using System.Linq;
+﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
+using System.Threading.Tasks;
+using Clinic.Domain.Commons.Entities;
+using Clinic.Domain.Features.Repositories.Appointments.GetUserBookedAppointment;
+using Clinic.MySQL.Data.Context;
+using Microsoft.EntityFrameworkCore;
 
 namespace Clinic.MySQL.Repositories.Appointments.GetUserBookedAppointment;
 
@@ -29,10 +29,11 @@ internal class GetUserBookedAppointmentRepository : IGetUserBookedAppointmentRep
         return await _appointments
             .AsNoTracking()
             .Where(appointment => appointment.Patient.UserId == userId)
-            .Where( appointment => appointment.AppointmentStatus.Constant.Equals("Pending"))
+            .Where(appointment => appointment.AppointmentStatus.Constant.Equals("Pending"))
             .Where(appointment => appointment.Schedule.StartDate > DateTime.Now)
             .Where(appointment => appointment.DepositPayment)
-            .Select( appointment => new Appointment()
+            .Where(appointment => appointment.MedicalReport != null)
+            .Select(appointment => new Appointment()
             {
                 Id = appointment.Id,
                 Schedule = new Schedule()
@@ -40,25 +41,27 @@ internal class GetUserBookedAppointmentRepository : IGetUserBookedAppointmentRep
                     Id = appointment.Schedule.Id,
                     StartDate = appointment.Schedule.StartDate,
                     EndDate = appointment.Schedule.EndDate,
-                    Doctor = new Domain.Commons.Entities.Doctor() 
-                    { 
+                    Doctor = new Domain.Commons.Entities.Doctor()
+                    {
                         UserId = appointment.Schedule.Doctor.UserId,
-                        DoctorSpecialties = appointment.Schedule.Doctor.DoctorSpecialties.Select(specialty => new DoctorSpecialty()
-                        {
-                            Specialty = new Specialty()
+                        DoctorSpecialties = appointment.Schedule.Doctor.DoctorSpecialties.Select(
+                            specialty => new DoctorSpecialty()
                             {
-                                Name = specialty.Specialty.Name,
-                                Constant = specialty.Specialty.Constant,
-                                Id = specialty.Specialty.Id
+                                Specialty = new Specialty()
+                                {
+                                    Name = specialty.Specialty.Name,
+                                    Constant = specialty.Specialty.Constant,
+                                    Id = specialty.Specialty.Id,
+                                },
                             }
-                        }),
+                        ),
                         User = new User()
                         {
                             FullName = appointment.Schedule.Doctor.User.FullName,
-                            Avatar = appointment.Schedule.Doctor.User.Avatar
-                        }
-                    }
-                }
+                            Avatar = appointment.Schedule.Doctor.User.Avatar,
+                        },
+                    },
+                },
             })
             .ToListAsync(cancellationToken: cancellationToken);
     }
