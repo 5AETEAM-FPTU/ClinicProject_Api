@@ -108,8 +108,10 @@ public class GetAllDoctorForBookingHandler
                                 Rating = doctor
                                     .Schedules.Select(schedule => schedule?.Appointment)
                                     .Select(appointment => appointment?.Feedback)
-                                    .Select(feedback => feedback.Vote)
-                                    .Average(),
+                                    .Where(feedback => feedback.Vote != 0)
+                                    .Select(feeback => feeback.Vote)
+                                    .DefaultIfEmpty(0)
+                                    .Average(entity => entity),
                             }
                         ),
                         PageIndex = request.PageIndex,
