@@ -38,7 +38,7 @@ public class GetStaticInformationHandler : IFeatureHandler<GetStaticInformationR
             };
         }
 
-        var response = await _unitOfWork.GetStaticInformationRepository.getFastOverviewInformation(ct);
+        var response = await _unitOfWork.GetStaticInformationRepository.getFastOverviewInformation(command.year, ct);
         return new GetStaticInformationResponse()
         {
             StatusCode = GetStaticInformationResponseStatusCode.OPERATION_SUCCESS,

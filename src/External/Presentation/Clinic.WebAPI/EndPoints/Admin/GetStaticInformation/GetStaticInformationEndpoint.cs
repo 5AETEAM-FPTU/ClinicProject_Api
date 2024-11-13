@@ -8,7 +8,7 @@ using System.Threading;
 
 namespace Clinic.WebAPI.EndPoints.Admin.GetStaticInformation
 {
-    public sealed class GetStaticInformationEndpoint : Endpoint<EmptyRequest, GetStaticInformationHttpResponse>
+    public sealed class GetStaticInformationEndpoint : Endpoint<GetStaticInformationRequest, GetStaticInformationHttpResponse>
     {
         public override void Configure()
         {
@@ -35,17 +35,17 @@ namespace Clinic.WebAPI.EndPoints.Admin.GetStaticInformation
         }
 
         public override async Task<GetStaticInformationHttpResponse> ExecuteAsync(
-            EmptyRequest req,
+            GetStaticInformationRequest req,
             CancellationToken ct
         )
         {
-            var reqq = new GetStaticInformationRequest();
-            var appResponse = await reqq.ExecuteAsync(ct: ct);
+            //var reqq = new GetStaticInformationRequest();
+            var appResponse = await req.ExecuteAsync(ct: ct);
 
             var httpResponse = GetStaticInformationHttpResponseMapper
                 .Get()
                 .Resolve(statusCode: appResponse.StatusCode)
-                .Invoke(arg1: reqq, arg2: appResponse);
+                .Invoke(arg1: req, arg2: appResponse);
 
             var httpResponseStatusCode = httpResponse.HttpCode;
             httpResponse.HttpCode = default;

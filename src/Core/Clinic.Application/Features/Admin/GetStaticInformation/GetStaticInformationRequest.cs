@@ -1,4 +1,5 @@
 ﻿using Clinic.Application.Commons.Abstractions;
+using System;
 
 namespace Clinic.Application.Features.Admin.GetStaticInformation;
 
@@ -6,5 +7,5 @@ namespace Clinic.Application.Features.Admin.GetStaticInformation;
 ///     GetStaticInformation Request
 /// </summary>
 public class GetStaticInformationRequest : IFeatureRequest<GetStaticInformationResponse>{
-
+    public int year { get; init; }
 }

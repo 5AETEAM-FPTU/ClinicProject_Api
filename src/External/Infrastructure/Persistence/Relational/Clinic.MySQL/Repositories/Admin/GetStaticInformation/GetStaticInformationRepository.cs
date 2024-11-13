@@ -138,10 +138,10 @@ public class GetStaticInformationRepository : IGetStaticInformationRepository
         return result[0] + result[1];
     }
 
-    public async Task<dynamic> getMonthlyRevenue(CancellationToken cancellationToken)
+    public async Task<dynamic> getMonthlyRevenue(int year, CancellationToken cancellationToken)
     {
-        var startDate = DateTime.Now.AddMonths(-11);
-        var endDate = DateTime.Now;
+        var startDate = new DateTime(year, 1, 1);
+        var endDate = new DateTime(year, 12, 31); ;
 
         var task1 = Task.Run(async () =>
         {
@@ -206,10 +206,10 @@ public class GetStaticInformationRepository : IGetStaticInformationRepository
         return result;
     }
 
-    public async Task<dynamic> getMonthLyAppointment(CancellationToken cancellationToken)
+    public async Task<dynamic> getMonthLyAppointment(int year, CancellationToken cancellationToken)
     {
-        var startDate = DateTime.Now.AddMonths(-11);
-        var endDate = DateTime.Now;
+        var startDate = new DateTime(year, 1, 1);
+        var endDate = new DateTime(year, 12, 31);
         var task = Task.Run(async () =>
         {
             using (var context1 = _contextFactory.CreateDbContext())
@@ -235,12 +235,12 @@ public class GetStaticInformationRepository : IGetStaticInformationRepository
         return result;
     }
 
-    public async Task<dynamic> getFastOverviewInformation(CancellationToken ct)
+    public async Task<dynamic> getFastOverviewInformation(int year, CancellationToken ct)
     {
         var startOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, 1); // Ngày đầu tiên của tháng hiện tại
         var lastDayOfMonth = new DateTime(DateTime.Now.Year, DateTime.Now.Month, DateTime.DaysInMonth(DateTime.Now.Year, DateTime.Now.Month)).AddDays(1).AddTicks(-1);
-        var startOfYear = new DateTime(DateTime.Now.Year, 1, 1);
-        var endOfYear = new DateTime(DateTime.Now.Year + 1, 1, 1).AddTicks(-1);
+        var startOfYear = new DateTime(year, 1, 1);
+        var endOfYear = new DateTime(year + 1, 1, 1).AddTicks(-1);
 
         // Create tasks for asynchronous operations
         var revenueInCurrentMonthTask = getTotalRevenueByDate(startOfMonth, lastDayOfMonth, ct);
@@ -251,8 +251,8 @@ public class GetStaticInformationRepository : IGetStaticInformationRepository
         var totalPatientTask = getTotalUserByRole("user", ct);
         var averageFeedbackTask = GetAverageRatingFeedback(ct);
         var appointmentInCurrentMonthTask = countAppointmentByDate(startOfMonth, lastDayOfMonth, ct);
-        var monthlyRevenueTask = getMonthlyRevenue(ct);
-        var monthlyAppointmentTask = getMonthLyAppointment(ct);
+        var monthlyRevenueTask = getMonthlyRevenue(year, ct);
+        var monthlyAppointmentTask = getMonthLyAppointment(year, ct);
 
         // Await all tasks to complete in parallel
         await Task.WhenAll(

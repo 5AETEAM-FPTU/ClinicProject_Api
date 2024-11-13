@@ -17,9 +17,9 @@ public interface IGetStaticInformationRepository
 
     Task<double> getTotalRevenueByDate(DateTime startDate, DateTime endDate, CancellationToken cancellationToken);
 
-    Task<dynamic> getMonthlyRevenue(CancellationToken cancellationToken);
+    Task<dynamic> getMonthlyRevenue(int year, CancellationToken cancellationToken);
 
-    Task<dynamic> getMonthLyAppointment(CancellationToken cancellationToken);
+    Task<dynamic> getMonthLyAppointment(int year,CancellationToken cancellationToken);
     Task<int> getNewUserInSystemByDate(DateTime startTime, DateTime endTime, CancellationToken cancellationToken);
-    Task<dynamic> getFastOverviewInformation(CancellationToken cancellationToken);
+    Task<dynamic> getFastOverviewInformation(int year, CancellationToken cancellationToken);
 }
