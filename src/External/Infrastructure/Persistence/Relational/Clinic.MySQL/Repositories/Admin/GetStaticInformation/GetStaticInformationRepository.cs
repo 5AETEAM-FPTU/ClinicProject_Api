@@ -127,7 +127,7 @@ public class GetStaticInformationRepository : IGetStaticInformationRepository
             {
                 return await context1.Set<MedicalReport>()
                 .Where(entity => entity.CreatedAt >= startDate && entity.CreatedAt <= endDate)
-                .SumAsync(entity => entity.TotalPrice, cancellationToken);
+                .SumAsync(entity => entity.TotalPrice, cancellationToken)*100;
             };
         });
 
