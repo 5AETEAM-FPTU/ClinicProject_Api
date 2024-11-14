@@ -97,7 +97,7 @@ internal sealed class AuthorizationPreProcessor<TRequest> : IPreProcessor<TReque
         );
 
         // User is temporarily removed.
-        if (isUserTemporarilyRemoved)
+        if (!isUserTemporarilyRemoved)
         {
             await SendResponseAsync(statusCode: CommonAppCode.FORBIDDEN, context: context, ct: ct);
         }
