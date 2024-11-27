@@ -37,7 +37,7 @@ public sealed class CancelAppointmentBackgroundJob : BackgroundService
                 $"Daily task(Switch status appointment to no show) is running at: {DateTime.Now}"
             );
             Console.ForegroundColor = originalColor;
-
+            
             await Task.Delay(
                 millisecondsDelay: (int)TimeSpan.FromDays(1).TotalMilliseconds,
                 cancellationToken: stoppingToken
