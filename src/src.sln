@@ -45,7 +45,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{65F463C5-7E0
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "docs", "docs", "{59EE18A9-BFB2-4E17-B24C-33D5019A2834}"
 	ProjectSection(SolutionItems) = preProject
-		..\docs\feature_document.xlsx = ..\docs\feature_document.xlsx
+		..\docs\1. Software Requirement Specification.docx = ..\docs\1. Software Requirement Specification.docx
+		..\docs\2. Software Design Specification.docx = ..\docs\2. Software Design Specification.docx
+		..\docs\3. Test Report.xlsx = ..\docs\3. Test Report.xlsx
+		..\docs\4. Project Tracking.xlsx = ..\docs\4. Project Tracking.xlsx
+		..\docs\5. Final Release Document.docx = ..\docs\5. Final Release Document.docx
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IdentityService", "IdentityService", "{288E975F-B987-4A46-BB91-A06459D1B431}"
