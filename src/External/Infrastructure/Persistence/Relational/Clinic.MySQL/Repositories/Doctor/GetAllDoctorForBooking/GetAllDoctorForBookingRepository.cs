@@ -85,7 +85,7 @@ internal class GetAllDoctorForBookingRepository : IGetAllDoctorForBookingReposit
                 }
 
         return await results
-            .Where(doctor => doctor.Schedules != null && doctor.Schedules.Any(schedule => schedule.StartDate > DateTime.Now))
+            .Where(doctor => doctor.Schedules != null)
             .Select(selector: doctor => new Domain.Commons.Entities.Doctor()
             {
                 UserId = doctor.UserId,
