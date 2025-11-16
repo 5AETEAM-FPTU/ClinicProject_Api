@@ -49,4 +49,18 @@ internal class GetAppointmentUpcomingRepository : IGetAppointmentUpcomingReposit
             .Where(entity => entity.PatientId == userId && entity.ExaminationDate < DateTime.Now)
             .CountAsync(cancellationToken: cancellationToken);
     }
+
+    public IQueryable<Appointment> GetAppointmentsQueryable(Guid userId)
+    {
+        return _appointments
+            .AsNoTracking()
+            .Where(entity =>
+                entity.PatientId == userId
+                && entity.Schedule != null
+                && entity.Schedule.StartDate > DateTime.Now
+            )
+            .Include(entity => entity.Schedule)
+            .Include(entity => entity.Patient)
+            .Include(entity => entity.AppointmentStatus);
+    }
 }
