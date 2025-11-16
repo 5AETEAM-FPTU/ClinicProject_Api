@@ -23,9 +23,11 @@ using FastEndpoints;
 using FastEndpoints.Swagger;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.JsonWebTokens;
+using Microsoft.OData.ModelBuilder;
 
 // Default setting.
 Console.OutputEncoding = Encoding.UTF8;
@@ -35,6 +37,10 @@ var builder = WebApplication.CreateBuilder(args);
 
 var services = builder.Services;
 var config = builder.Configuration;
+
+// Configure OData Model
+var modelBuilder = new ODataConventionModelBuilder();
+modelBuilder.EntitySet<Appointment>("Appointments");
 
 services.ConfigWebApi(configuration: config);
 services.ConfigApplication();
@@ -49,6 +55,18 @@ services.ConfigVNPay(configuration: config);
 services.ConfigureStringeeService(configuration: config);
 services.ConfigTwilioSmsNotification(configuration: config);
 services.ConfigSignalR();
+
+// Add OData support
+services.AddControllers()
+    .AddOData(options => options
+        .Select()
+        .Filter()
+        .OrderBy()
+        .Expand()
+        .Count()
+        .SetMaxTop(100)
+        .AddRouteComponents("odata", modelBuilder.GetEdmModel()));
+
 var app = builder.Build();
 
 // Data seeding.
@@ -99,5 +117,8 @@ app.UseMiddleware<GlobalExceptionHandler>()
 // Configure the websocket hub.
 app.MapHub<Clinic.SignalR.Hub.Chat.ChatHub>("/chat-hub");
 app.MapHub<Clinic.SignalR.Hub.Notifier.NotifyHub>("/notify-hub");
+
+// Map controllers for OData
+app.MapControllers();
 
 app.Run();
