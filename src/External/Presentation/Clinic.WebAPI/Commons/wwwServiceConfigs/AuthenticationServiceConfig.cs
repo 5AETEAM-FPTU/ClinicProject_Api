@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Clinic.Configuration.Presentation.Authentication;
@@ -37,9 +36,7 @@ internal static class AuthenticationServiceConfig
                 ValidIssuer = option.Jwt.ValidIssuer,
                 ValidAudience = option.Jwt.ValidAudience,
                 IssuerSigningKey = new SymmetricSecurityKey(
-                    key: new HMACSHA256(
-                        key: Encoding.UTF8.GetBytes(s: option.Jwt.IssuerSigningKey)
-                    ).Key
+                    key: Encoding.UTF8.GetBytes(s: option.Jwt.IssuerSigningKey)
                 )
             };
 
