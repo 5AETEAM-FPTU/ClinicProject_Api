@@ -58,10 +58,14 @@ jobs:
       # Create appsettings.json from secret
       # ============================================
       - name: Deploy appsettings.json
+        env:
+          APPSETTINGS_CONTENT: ${{ secrets.APPSETTINGS_JSON }}
         run: |
-          ssh -i ~/.ssh/deploy_key -p ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no \
-            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }} \
-            "echo '${{ secrets.APPSETTINGS_JSON }}' > ${{ env.APP_DIR }}/appsettings.json"
+          printf '%s' "$APPSETTINGS_CONTENT" > /tmp/appsettings.json
+          scp -i ~/.ssh/deploy_key -P ${{ secrets.VPS_PORT }} -o StrictHostKeyChecking=no \
+            /tmp/appsettings.json \
+            ${{ secrets.VPS_USER }}@${{ secrets.VPS_HOST }}:${{ env.APP_DIR }}/appsettings.json
+          rm -f /tmp/appsettings.json
 
       # ============================================
       # Setup Nginx + SSL + Deploy
