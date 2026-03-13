@@ -28,9 +28,9 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD:-ClinicDb@2024}
       MYSQL_DATABASE: ${MYSQL_DATABASE:-ClinicDb}
     ports:
-      - "3306:3306"
+      - "3307:3306"
     volumes:
-      - mysql-data:/var/lib/mysql
+      - clinic-mysql-data:/var/lib/mysql
     healthcheck:
       test: ["CMD", "mysqladmin", "ping", "-h", "localhost"]
       interval: 10s
@@ -44,9 +44,9 @@ services:
     container_name: clinic-redis
     restart: unless-stopped
     ports:
-      - "6379:6379"
+      - "6380:6379"
     volumes:
-      - redis-data:/data
+      - clinic-redis-data:/data
     healthcheck:
       test: ["CMD", "redis-cli", "ping"]
       interval: 10s
@@ -56,8 +56,8 @@ services:
       - clinic-network
 
 volumes:
-  mysql-data:
-  redis-data:
+  clinic-mysql-data:
+  clinic-redis-data:
 
 networks:
   clinic-network:
