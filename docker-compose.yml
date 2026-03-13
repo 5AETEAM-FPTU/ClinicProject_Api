@@ -12,6 +12,7 @@ services:
       - "5000:5000"
     volumes:
       - ./appsettings.json:/app/appsettings.json:ro
+      - clinic-dataprotection-keys:/root/.aspnet/DataProtection-Keys
     depends_on:
       mysql:
         condition: service_healthy
@@ -58,6 +59,7 @@ services:
 volumes:
   clinic-mysql-data:
   clinic-redis-data:
+  clinic-dataprotection-keys:
 
 networks:
   clinic-network:
