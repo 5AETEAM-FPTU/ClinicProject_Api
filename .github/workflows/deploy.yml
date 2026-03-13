@@ -146,8 +146,8 @@ jobs:
             # Now apply full config with SSL
             sed "s/DOMAIN_PLACEHOLDER/$DOMAIN/g" "$APP_DIR/nginx.conf.template" > /etc/nginx/sites-available/clinic-api
           else
-            echo "    SSL certificate already exists, renewing if needed..."
-            certbot renew --quiet || true
+            echo "    SSL certificate already exists, renewing only $DOMAIN..."
+            certbot renew --cert-name "$DOMAIN" --quiet || echo "    Renewal skipped (cert still valid)"
           fi
 
           nginx -t && systemctl reload nginx
