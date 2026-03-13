@@ -1,4 +1,4 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Clinic.WebAPI.Commons.wwwServiceConfigs;
 
@@ -14,13 +14,7 @@ internal static class CorsServiceConfig
             config.AddDefaultPolicy(configurePolicy: policy =>
             {
                 policy
-                    .WithOrigins(
-                        "http://localhost:3000",
-                        "http://localhost:3001",
-                        "https://clinic-project-fe-liart.vercel.app/",
-                        "https://pclinic.ohayo.io.vn",
-                        "https://pclinic-admin.ohayo.io.vn"
-                    )
+                    .SetIsOriginAllowed(origin => true)
                     .AllowAnyHeader()
                     .AllowAnyMethod()
                     .AllowCredentials();
