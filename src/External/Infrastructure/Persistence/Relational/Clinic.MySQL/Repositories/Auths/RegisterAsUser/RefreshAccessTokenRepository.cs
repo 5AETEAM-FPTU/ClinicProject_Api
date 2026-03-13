@@ -1,4 +1,5 @@
-﻿using System.Threading;
+﻿using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Domain.Commons.Entities;
 using Clinic.Domain.Features.Repositories.Auths.RegisterAsUser;
@@ -67,8 +68,10 @@ public class RegisterAsUserRepository : IRegisterAsUserRepository
 
                     dbTransactionResult = true;
                 }
-                catch
+                catch (Exception ex)
                 {
+                    Console.WriteLine($"[RegisterAsUser] DB Error: {ex.Message}");
+                    Console.WriteLine($"[RegisterAsUser] Inner: {ex.InnerException?.Message}");
                     await transaction.RollbackAsync(cancellationToken: cancellationToken);
                 }
             });
