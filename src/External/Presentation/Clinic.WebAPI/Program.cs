@@ -25,6 +25,7 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.OData;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Hosting;
 using Microsoft.IdentityModel.JsonWebTokens;
 using Microsoft.OData.ModelBuilder;
@@ -82,6 +83,9 @@ await using (var scope = app.Services.CreateAsyncScope())
     {
         throw new HostAbortedException(message: "Cannot connect database.");
     }
+
+    // Auto apply pending migrations.
+    await context.Database.MigrateAsync();
 
     // Try seed data.
     var seedResult = await ClinicDataSeeding.SeedAsync(
