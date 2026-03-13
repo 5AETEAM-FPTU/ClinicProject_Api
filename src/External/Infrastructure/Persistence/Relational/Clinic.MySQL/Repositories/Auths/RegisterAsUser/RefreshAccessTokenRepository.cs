@@ -52,6 +52,10 @@ public class RegisterAsUserRepository : IRegisterAsUserRepository
 
                     if (!result.Succeeded)
                     {
+                        foreach (var error in result.Errors)
+                        {
+                            Console.WriteLine($"[RegisterAsUser] CreateAsync error: {error.Code} - {error.Description}");
+                        }
                         throw new DbUpdateConcurrencyException();
                     }
 
@@ -59,6 +63,10 @@ public class RegisterAsUserRepository : IRegisterAsUserRepository
 
                     if (!result.Succeeded)
                     {
+                        foreach (var error in result.Errors)
+                        {
+                            Console.WriteLine($"[RegisterAsUser] AddToRoleAsync error: {error.Code} - {error.Description}");
+                        }
                         throw new DbUpdateConcurrencyException();
                     }
 
