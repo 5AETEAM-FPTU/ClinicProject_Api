@@ -1,4 +1,5 @@
-﻿using System.Threading;
+using System;
+using System.Threading;
 using System.Threading.Tasks;
 using Clinic.Application.Commons.FIleObjectStorage;
 using Clinic.Domain.Commons.Entities;
@@ -10,26 +11,6 @@ namespace Clinic.MySQL.Data.DataSeeding;
 
 public static class ClinicDataSeeding
 {
-    /// <summary>
-    ///     Seed data.
-    /// </summary>
-    /// <param name="context">
-    ///     Database context for interacting with other table.
-    /// </param>
-    /// <param name="userManager">
-    ///     Specific manager for interacting with user table.
-    /// </param>
-    /// <param name="roleManager">
-    ///     Specific manager for interacting with role table.
-    /// </param>
-    /// <param name="cancellationToken">
-    ///     A token that is used for notifying system
-    ///     to cancel the current operation when user stop
-    ///     the request.
-    /// </param>
-    /// <returns>
-    ///     True if seeding is success. Otherwise, false.
-    /// </returns>
     public static async Task<bool> SeedAsync(
         ClinicContext context,
         UserManager<User> userManager,
@@ -38,134 +19,202 @@ public static class ClinicDataSeeding
         CancellationToken cancellationToken
     )
     {
-        var executedTransactionResult = false;
-        var roles = context.Set<Role>();
-        var genders = context.Set<Gender>();
-        var positions = context.Set<Position>();
-        var retreatmentTypes = context.Set<RetreatmentType>();
-        var specialties = context.Set<Specialty>();
-        var statusAppointment = context.Set<AppointmentStatus>();
-        // continue....
-
-        var isTableEmpty = await IsTableEmptyAsync(
-            roles: roles,
-            cancellationToken: cancellationToken
-        );
-
-        if (!isTableEmpty)
+        try
         {
+            // Seed lookup tables independently (each checks if already seeded)
+            await SeedGendersAsync(context, cancellationToken);
+            await SeedPositionsAsync(context, cancellationToken);
+            await SeedSpecialtiesAsync(context, cancellationToken);
+            await SeedRetreatmentTypesAsync(context, cancellationToken);
+            await SeedAppointmentStatusesAsync(context, cancellationToken);
+            await SeedRolesAsync(context, roleManager, cancellationToken);
+            await SeedUsersAsync(context, userManager, cancellationToken);
+
+            Console.WriteLine("[Seeding] All seed data applied successfully.");
             return true;
         }
-
-        // Init list of datas.
-        var newRoles = CommonSeeding.InitNewRoles();
-        var admin = CommonSeeding.InitAdmin();
-        var staff = CommonSeeding.InitStaff();
-        var doctor = CommonSeeding.InitDoctor();
-        var user = CommonSeeding.InitUser();
-
-        var newGenders = GenderSeeding.InitGenders();
-        var newSpecialties = SpecialtySeeding.InitSpecialties();
-        var newPositions = PositionSeeding.InitPositions();
-        var newRetreatTypes = RetreatmentTypeSeeding.InitRetreatmentTypes();
-        var newStatusAppointments = AppointmentStatusSeeding.InitAppointmentStatuses();
-
-        await context
-            .Database.CreateExecutionStrategy()
-            .ExecuteAsync(operation: async () =>
-            {
-                await using var dbTransaction = await context.Database.BeginTransactionAsync(
-                    cancellationToken: cancellationToken
-                );
-
-                try
-                {
-                    // Init roles.
-                    foreach (var newRole in newRoles)
-                    {
-                        await roleManager.CreateAsync(role: newRole);
-                    }
-
-                    // Init genders.
-                    await genders.AddRangeAsync(newGenders, cancellationToken);
-
-                    // Init specialties.
-                    await specialties.AddRangeAsync(newSpecialties, cancellationToken);
-
-                    // Init positions.
-                    await positions.AddRangeAsync(newPositions, cancellationToken);
-
-                    // Init retreatment types.
-                    await retreatmentTypes.AddRangeAsync(newRetreatTypes, cancellationToken);
-
-                    // Init appointment statuses.
-                    await statusAppointment.AddRangeAsync(newStatusAppointments, cancellationToken);
-
-                    // Init user.
-                    await userManager.CreateAsync(user: user, password: "Admin123@");
-                    await userManager.AddToRoleAsync(user: user, role: "user");
-                    var emailConfirmationToken3 =
-                        await userManager.GenerateEmailConfirmationTokenAsync(user: user);
-                    await userManager.ConfirmEmailAsync(user: user, token: emailConfirmationToken3);
-
-                    // Init admin.
-                    await userManager.CreateAsync(user: admin, password: "Admin123@");
-                    await userManager.AddToRoleAsync(user: admin, role: "admin");
-                    var emailConfirmationToken =
-                        await userManager.GenerateEmailConfirmationTokenAsync(user: admin);
-                    await userManager.ConfirmEmailAsync(user: admin, token: emailConfirmationToken);
-
-                    // Init staff.
-                    await userManager.CreateAsync(user: staff, password: "Admin123@");
-                    await userManager.AddToRoleAsync(user: staff, role: "staff");
-                    var emailConfirmationToken2 =
-                        await userManager.GenerateEmailConfirmationTokenAsync(user: staff);
-                    await userManager.ConfirmEmailAsync(
-                        user: staff,
-                        token: emailConfirmationToken2
-                    );
-
-                    // Init doctor.
-                    await userManager.CreateAsync(user: doctor, password: "Admin123@");
-                    await userManager.AddToRoleAsync(user: doctor, role: "doctor");
-                    var emailConfirmationToken4 =
-                        await userManager.GenerateEmailConfirmationTokenAsync(user: doctor);
-                    await userManager.ConfirmEmailAsync(
-                        user: doctor,
-                        token: emailConfirmationToken4
-                    );
-
-                    await context.SaveChangesAsync(cancellationToken: cancellationToken);
-
-                    await dbTransaction.CommitAsync(cancellationToken: cancellationToken);
-
-                    executedTransactionResult = true;
-                }
-                catch
-                {
-                    await dbTransaction.RollbackAsync(cancellationToken: cancellationToken);
-                }
-            });
-
-        return executedTransactionResult;
-    }
-
-    private static async Task<bool> IsTableEmptyAsync(
-        DbSet<Role> roles,
-        CancellationToken cancellationToken
-    )
-    {
-        // Is roles table empty.
-        var isTableNotEmpty = await roles.AnyAsync(cancellationToken: cancellationToken);
-
-        if (isTableNotEmpty)
+        catch (Exception ex)
         {
+            Console.WriteLine($"[Seeding] FATAL: {ex.Message}");
+            Console.WriteLine($"[Seeding] Inner: {ex.InnerException?.Message}");
             return false;
         }
+    }
 
-        // continue...
+    private static async Task SeedGendersAsync(
+        ClinicContext context,
+        CancellationToken ct
+    )
+    {
+        var genders = context.Set<Gender>();
+        if (await genders.AnyAsync(ct))
+        {
+            Console.WriteLine("[Seeding] Genders already seeded, skipping.");
+            return;
+        }
 
+        await genders.AddRangeAsync(GenderSeeding.InitGenders(), ct);
+        await context.SaveChangesAsync(ct);
+        Console.WriteLine("[Seeding] Genders seeded.");
+    }
 
-        return true;
+    private static async Task SeedPositionsAsync(
+        ClinicContext context,
+        CancellationToken ct
+    )
+    {
+        var positions = context.Set<Position>();
+        if (await positions.AnyAsync(ct))
+        {
+            Console.WriteLine("[Seeding] Positions already seeded, skipping.");
+            return;
+        }
+
+        await positions.AddRangeAsync(PositionSeeding.InitPositions(), ct);
+        await context.SaveChangesAsync(ct);
+        Console.WriteLine("[Seeding] Positions seeded.");
+    }
+
+    private static async Task SeedSpecialtiesAsync(
+        ClinicContext context,
+        CancellationToken ct
+    )
+    {
+        var specialties = context.Set<Specialty>();
+        if (await specialties.AnyAsync(ct))
+        {
+            Console.WriteLine("[Seeding] Specialties already seeded, skipping.");
+            return;
+        }
+
+        await specialties.AddRangeAsync(SpecialtySeeding.InitSpecialties(), ct);
+        await context.SaveChangesAsync(ct);
+        Console.WriteLine("[Seeding] Specialties seeded.");
+    }
+
+    private static async Task SeedRetreatmentTypesAsync(
+        ClinicContext context,
+        CancellationToken ct
+    )
+    {
+        var types = context.Set<RetreatmentType>();
+        if (await types.AnyAsync(ct))
+        {
+            Console.WriteLine("[Seeding] RetreatmentTypes already seeded, skipping.");
+            return;
+        }
+
+        await types.AddRangeAsync(RetreatmentTypeSeeding.InitRetreatmentTypes(), ct);
+        await context.SaveChangesAsync(ct);
+        Console.WriteLine("[Seeding] RetreatmentTypes seeded.");
+    }
+
+    private static async Task SeedAppointmentStatusesAsync(
+        ClinicContext context,
+        CancellationToken ct
+    )
+    {
+        var statuses = context.Set<AppointmentStatus>();
+        if (await statuses.AnyAsync(ct))
+        {
+            Console.WriteLine("[Seeding] AppointmentStatuses already seeded, skipping.");
+            return;
+        }
+
+        await statuses.AddRangeAsync(AppointmentStatusSeeding.InitAppointmentStatuses(), ct);
+        await context.SaveChangesAsync(ct);
+        Console.WriteLine("[Seeding] AppointmentStatuses seeded.");
+    }
+
+    private static async Task SeedRolesAsync(
+        ClinicContext context,
+        RoleManager<Role> roleManager,
+        CancellationToken ct
+    )
+    {
+        var roles = context.Set<Role>();
+        if (await roles.AnyAsync(ct))
+        {
+            Console.WriteLine("[Seeding] Roles already seeded, skipping.");
+            return;
+        }
+
+        foreach (var newRole in CommonSeeding.InitNewRoles())
+        {
+            var result = await roleManager.CreateAsync(role: newRole);
+            if (!result.Succeeded)
+            {
+                foreach (var error in result.Errors)
+                {
+                    Console.WriteLine($"[Seeding] Role error: {error.Code} - {error.Description}");
+                }
+            }
+        }
+        Console.WriteLine("[Seeding] Roles seeded.");
+    }
+
+    private static async Task SeedUsersAsync(
+        ClinicContext context,
+        UserManager<User> userManager,
+        CancellationToken ct
+    )
+    {
+        var users = context.Set<User>();
+        if (await users.AnyAsync(ct))
+        {
+            Console.WriteLine("[Seeding] Users already seeded, skipping.");
+            return;
+        }
+
+        // Seed user
+        var user = CommonSeeding.InitUser();
+        await CreateUserWithRoleAsync(userManager, user, "Admin123@", "user");
+
+        // Seed admin
+        var admin = CommonSeeding.InitAdmin();
+        await CreateUserWithRoleAsync(userManager, admin, "Admin123@", "admin");
+
+        // Seed staff
+        var staff = CommonSeeding.InitStaff();
+        await CreateUserWithRoleAsync(userManager, staff, "Admin123@", "staff");
+
+        // Seed doctor
+        var doctor = CommonSeeding.InitDoctor();
+        await CreateUserWithRoleAsync(userManager, doctor, "Admin123@", "doctor");
+
+        Console.WriteLine("[Seeding] Users seeded.");
+    }
+
+    private static async Task CreateUserWithRoleAsync(
+        UserManager<User> userManager,
+        User user,
+        string password,
+        string role
+    )
+    {
+        var createResult = await userManager.CreateAsync(user: user, password: password);
+        if (!createResult.Succeeded)
+        {
+            foreach (var error in createResult.Errors)
+            {
+                Console.WriteLine($"[Seeding] CreateUser '{user.UserName}' error: {error.Code} - {error.Description}");
+            }
+            return;
+        }
+
+        var roleResult = await userManager.AddToRoleAsync(user: user, role: role);
+        if (!roleResult.Succeeded)
+        {
+            foreach (var error in roleResult.Errors)
+            {
+                Console.WriteLine($"[Seeding] AddToRole '{user.UserName}' -> '{role}' error: {error.Code} - {error.Description}");
+            }
+            return;
+        }
+
+        var token = await userManager.GenerateEmailConfirmationTokenAsync(user: user);
+        await userManager.ConfirmEmailAsync(user: user, token: token);
+
+        Console.WriteLine($"[Seeding] User '{user.UserName}' created with role '{role}'.");
     }
 }
