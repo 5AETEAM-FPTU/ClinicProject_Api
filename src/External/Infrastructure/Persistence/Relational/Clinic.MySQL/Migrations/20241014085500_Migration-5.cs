@@ -10,12 +10,26 @@ namespace Clinic.MySQL.Migrations
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.Sql(@"
-                SET FOREIGN_KEY_CHECKS = 0;
-                DROP INDEX IX_QueueRooms_PatientId ON QueueRooms;
-                CREATE INDEX IX_QueueRooms_PatientId ON QueueRooms (PatientId);
-                SET FOREIGN_KEY_CHECKS = 1;
-            ");
+            migrationBuilder.DropForeignKey(
+                name: "FK_QueueRooms_Patients_PatientId",
+                table: "QueueRooms");
+
+            migrationBuilder.DropIndex(
+                name: "IX_QueueRooms_PatientId",
+                table: "QueueRooms");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_QueueRooms_PatientId",
+                table: "QueueRooms",
+                column: "PatientId");
+
+            migrationBuilder.AddForeignKey(
+                name: "FK_QueueRooms_Patients_PatientId",
+                table: "QueueRooms",
+                column: "PatientId",
+                principalTable: "Patients",
+                principalColumn: "UserId",
+                onDelete: ReferentialAction.Cascade);
         }
 
         /// <inheritdoc />
